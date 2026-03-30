@@ -4,50 +4,128 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Moosburg Data Hub</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <meta name="description" content="Interaktive Daten-Dashboards der Stadt Moosburg a.d. Isar" />
+
+  <!-- Preconnect for fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- React 18 from CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <!-- Babel standalone for in-browser JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { font-size: 16px; }
-    body { background: #FDFCFA; overflow-x: hidden; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; overflow-x: hidden; }
+    body { font-family: 'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif; background: #fff; color: #333; }
+    #root { min-height: 100vh; }
+    .loading-screen {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      min-height: 100vh; font-family: 'Noto Serif', Georgia, serif; color: #9B0000;
+    }
+    .loading-screen .spinner {
+      width: 36px; height: 36px; border: 3px solid #eae7e2; border-top-color: #9B0000;
+      border-radius: 50%; animation: spin 0.8s linear infinite; margin-bottom: 16px;
+    }
     @keyframes spin { to { transform: rotate(360deg); } }
-    .spinner { width: 32px; height: 32px; border: 3px solid #eae7e2; border-top-color: #9B0000; border-radius: 50%; animation: spin 0.8s linear infinite; margin: 40px auto; }
+    .loading-screen .error { color: #c00; font-family: sans-serif; font-size: 14px; margin-top: 12px; max-width: 400px; text-align: center; }
   </style>
 </head>
 <body>
-<div id="root"><div class="spinner"></div></div>
+  <div id="root">
+    <div class="loading-screen">
+      <div class="spinner"></div>
+      <div>Moosburg Data Hub</div>
+    </div>
+  </div>
 
-<script type="text/babel">
+  <script>
+    // Fetch JSON data, then compile and mount React app
+    (async function boot() {
+      const root = document.getElementById('root');
+      try {
+        // Determine base path (works for both root and subdir hosting)
+        const base = document.querySelector('base')?.href || './';
+
+        const [ckRes, wiRes] = await Promise.all([
+          fetch(base + 'data/christkindlmarkt_2025.json'),
+          fetch(base + 'data/website_innovationen_2025.json'),
+        ]);
+        if (!ckRes.ok || !wiRes.ok) throw new Error('Daten konnten nicht geladen werden.');
+
+        window.__DATA__ = {
+          ck: await ckRes.json(),
+          wi: await wiRes.json(),
+        };
+
+        // Now load the JSX app
+        const appScript = document.getElementById('app-jsx');
+        if (appScript) {
+          // Babel will auto-transform script[type="text/babel"] but we loaded data first
+          // We need to manually trigger Babel for our deferred script
+          const code = appScript.textContent;
+          const transformed = Babel.transform(code, { presets: ['react'] }).code;
+          const fn = new Function(transformed);
+          fn();
+
+          // Mount React
+          const reactRoot = ReactDOM.createRoot(root);
+          reactRoot.render(React.createElement(App));
+        }
+      } catch (err) {
+        root.innerHTML = '<div class="loading-screen"><div style="font-size:18px">Moosburg Data Hub</div><div class="error">Fehler beim Laden: ' + err.message + '<br><br>Bitte laden Sie die Seite neu.</div></div>';
+        console.error(err);
+      }
+    })();
+  </script>
+
+  <!-- App JSX (deferred, compiled after data loads) -->
+  <script id="app-jsx" type="text/plain">
 const { useState, useMemo, useCallback, useRef, useEffect } = React;
 
-/* ─── THEME ─── */
+/* MOOSBURG DATA HUB -- Unified Dashboard Framework */
+
+const FontLoader = () => {
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.href = "https://fonts.googleapis.com/css2?family=Noto+Serif:wght@500;700&family=Noto+Sans:wght@400;500;600;700&display=swap";
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+  }, []);
+  return null;
+};
+
 const T = {
   red: ["#5A070A","#9B0000","#E6001E"],
   gold: "#B39F7A",
   goldLight: "#D4C9A8",
   goldDark: "#8A7A5A",
-  likert6:   ["#993C1D","#F0997B","#FAECE7","#E1F5EE","#5DCAA5","#0F6E56"],
+  rainbow: ["#5A070A","#9B0000","#E6001E","#CD0078","#FFAA00","#FFEB00","#78BE1E","#008CE6","#621D80","#8C4100"],
+  likert6: ["#993C1D","#F0997B","#FAECE7","#E1F5EE","#5DCAA5","#0F6E56"],
   likert6cb: ["#854F0B","#EF9F27","#FAEEDA","#E6F1FB","#85B7EB","#185FA5"],
-  likert5:   ["#993C1D","#F0997B","#D5D5D5","#5DCAA5","#0F6E56"],
+  likert5: ["#993C1D","#F0997B","#D5D5D5","#5DCAA5","#0F6E56"],
   likert5cb: ["#854F0B","#EF9F27","#D5D5D5","#85B7EB","#185FA5"],
+  chartColors: ["#E6001E","#008CE6","#78BE1E","#CD0078","#FFAA00","#621D80","#8C4100","#5A070A","#5DCAA5","#9B0000"],
   serif: "'Noto Serif', Georgia, serif",
-  sans:  "'Noto Sans', -apple-system, sans-serif",
+  sans: "'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif",
   radius: 6,
 };
 
-/* ─── DATASET DEFINITIONS (data loaded async from /data/*.json) ─── */
-const DATASET_DEFS = {
+/* Font size scale helper: S(base) returns scaled size */
+const S = (base, lg) => lg === "large" ? Math.round(base * 1.2) : base;
+
+
+/* Data loaded via fetch - see DATA_REGISTRY below */
+
+const DATASETS = {
   christkindlmarkt_2025: {
-    meta: { id:"christkindlmarkt_2025", title:"Christkindlmarkt", year:2025, n:667,
-            desc:"Besucherbefragung zum Moosburger Christkindlmarkt.", src:"data/christkindlmarkt_2025.json" },
+    meta: { id:"christkindlmarkt_2025", title:"Christkindlmarkt", year:2025, n:667, desc:"Besucherbefragung zum Moosburger Christkindlmarkt." },
+    data: window.__DATA__.ck,
     filters: [
-      { key:"age",  idx:0, type:"histogram",       label:"Alter",
-        labels:["Unter 18","18-30","31-50","51-70","70+"], values:[0,1,2,3,4] },
-      { key:"moos", idx:1, type:"toggle",           label:"Wohnort",
-        labels:["Moosburg","Auswärtig"], values:[1,2] },
+      { key:"age", idx:0, type:"histogram", label:"Alter", labels:["Unter 18","18-30","31-50","51-70","70+"], values:[0,1,2,3,4] },
+      { key:"moos", idx:1, type:"toggle", label:"Wohnort", labels:["Moosburg","Auswärtig"], values:[1,2] },
     ],
     sections: [
       { id:"besuchsverhalten", title:"Besuchsverhalten", order:1,
@@ -66,19 +144,19 @@ const DATASET_DEFS = {
         ]},
       { id:"bewertung", title:"Bewertung Angebot & Faktoren", order:2,
         text:"**Sicherheitsgefühl** und **Deko/Atmosphäre** schneiden am besten ab. **Preise** für Essen und Getränke werden am kritischsten gesehen.",
-        info:"Divergierende Likert-Skala: Die Mittellinie trennt Werte 1–3 (eher negativ) von 4–6 (eher positiv). Breitere Segmente = mehr Befragte. Dunklere Farben = extremere Bewertungen.",
+        info:"Divergierende Likert-Skala: Die Mittellinie trennt Werte 1-3 (eher negativ) von 4-6 (eher positiv). Breitere Segmente = mehr Befragte. Dunklere Farben = extremere Bewertungen.",
         charts:[
           { id:"likert_ratings", type:"likert6",
             items:[
-              {idx:7, label:"Aussteller"},
-              {idx:8, label:"Essen (Qualität)"},
-              {idx:9, label:"Getränke (Qualität)"},
-              {idx:10,label:"Musik"},
-              {idx:11,label:"Deko / Atmosphäre"},
-              {idx:12,label:"Preise Essen"},
-              {idx:13,label:"Preise Getränke"},
-              {idx:14,label:"Barrierefreiheit"},
-              {idx:15,label:"Sicherheitsgefühl"},
+              {idx:7,label:"Aussteller",group:"Angebotsqualität"},
+              {idx:8,label:"Essen (Qualität)",group:"Angebotsqualität"},
+              {idx:9,label:"Getränke (Qualität)",group:"Angebotsqualität"},
+              {idx:10,label:"Musik",group:"Angebotsqualität"},
+              {idx:11,label:"Deko / Atmosphäre",group:"Angebotsqualität"},
+              {idx:12,label:"Preise Essen",group:"Preisempfinden"},
+              {idx:13,label:"Preise Getränke",group:"Preisempfinden"},
+              {idx:14,label:"Barrierefreiheit",group:"Infrastruktur"},
+              {idx:15,label:"Sicherheitsgefühl",group:"Infrastruktur"},
             ]}
         ]},
       { id:"hindernisse", title:"Was hält vom Besuch ab?", order:3,
@@ -97,20 +175,18 @@ const DATASET_DEFS = {
     ],
   },
   website_innovationen_2025: {
-    meta: { id:"website_innovationen_2025", title:"Website Innovationen", year:2025, n:98,
-            desc:"Bewertung digitaler Innovationskonzepte für die Website der Stadt Moosburg a.d. Isar.", src:"data/website_innovationen_2025.json" },
+    meta: { id:"website_innovationen_2025", title:"Website Innovationen", year:2025, n:98, desc:"Bewertung digitaler Innovationskonzepte für die Website der Stadt Moosburg a.d. Isar." },
+    data: window.__DATA__.wi,
     filters: [
-      { key:"age",     idx:0, type:"histogram_range", label:"Alter",
-        groups:[{label:"≤ 30",min:0,max:30},{label:"31-50",min:31,max:50},{label:"51-70",min:51,max:70},{label:"> 70",min:71,max:999}] },
-      { key:"digital", idx:4, type:"histogram",       label:"Sicherheit bei digitaler Nutzung",
-        labels:["Sehr unsicher","Unsicher","Weder noch","Sicher","Sehr sicher"], values:[1,2,3,4,5] },
+      { key:"age", idx:0, type:"histogram_range", label:"Alter", groups:[{label:"≤ 30",min:0,max:30},{label:"31-50",min:31,max:50},{label:"51-70",min:51,max:70},{label:"> 70",min:71,max:999}] },
+      { key:"digital", idx:4, type:"histogram", label:"Sicherheit bei digitaler Nutzung", labels:["Sehr unsicher","Unsicher","Weder noch","Sicher","Sehr sicher"], values:[1,2,3,4,5] },
     ],
     sections: [
       { id:"nutzung", title:"Nutzung & Demographie", order:1,
         text:"Die Stichprobe umfasst **98 persönliche Interviews**. Über die Hälfte der Befragten leben in Moosburg.",
         charts:[
-          { id:"wohnort_pie",    type:"pie", title:"Wohnort",    idx:2, labels:["Moosburg","Auswärtig"], values:[1,0], matchMode:"eq_vs_rest", colors:["#E6001E","#D4C9A8"] },
-          { id:"geschlecht_pie", type:"pie", title:"Geschlecht", idx:1, labels:["Weiblich","Männlich"],  values:[1,2], colors:["#CD0078","#008CE6"] },
+          { id:"wohnort_pie", type:"pie", title:"Wohnort", idx:2, labels:["Moosburg","Auswärtig"], values:[1,0], matchMode:"eq_vs_rest", colors:["#E6001E","#D4C9A8"] },
+          { id:"geschlecht_pie", type:"pie", title:"Geschlecht", idx:1, labels:["Weiblich","Männlich"], values:[1,2], colors:["#CD0078","#008CE6"] },
           { id:"freq_wi", type:"bar_h", title:"Nutzungshäufigkeit Website", color:"#9B0000",
             mode:"values", idx:3, items:[{label:"Täglich",val:5},{label:"Wöchentlich",val:4},{label:"Monatlich",val:3},{label:"Seltener",val:2},{label:"Nie",val:1}] },
         ]},
@@ -122,409 +198,518 @@ const DATASET_DEFS = {
             dimLabels:["Verständnis","Nützlichkeit","Nutzungsabsicht","Bedenken (inv.)","Sinnhaftigkeit"],
             invertedDims:[3],
             innovations:[
-              {key:"account",  name:"Benutzerkonto",      startIdx:5},
-              {key:"chatbot",  name:"Chatbot",             startIdx:10},
-              {key:"karte",    name:"Interaktive Karte",   startIdx:15},
-              {key:"suche",    name:"Suchfunktion",        startIdx:20},
-              {key:"community",name:"Community",           startIdx:25},
+              {key:"account",name:"Benutzerkonto",startIdx:5},
+              {key:"chatbot",name:"Chatbot",startIdx:10},
+              {key:"karte",name:"Interaktive Karte",startIdx:15},
+              {key:"suche",name:"Suchfunktion",startIdx:20},
+              {key:"community",name:"Community",startIdx:25},
             ]},
         ]},
       { id:"vergleich", title:"Innovationen im Vergleich", order:3,
         text:"Die **Suchfunktion** führt in fast allen Dimensionen. **Interaktive Karte** und **Benutzerkonto** folgen.",
-        info:"Spinnennetzdiagramm: Jede Achse zeigt den Mittelwert pro Dimension (1–5). Weiter außen = höhere Zustimmung.",
+        info:"Spinnennetzdiagramm: Jede Achse zeigt den Mittelwert pro Dimension (1-5). Weiter außen = höhere Zustimmung.",
         charts:[
           { id:"radar_compare", type:"radar",
             dimLabels:["Verständnis","Nützlichkeit","Nutzungsabsicht","Bedenken (inv.)","Sinnhaftigkeit"],
             innovations:[
-              {key:"account",  name:"Benutzerkonto",    startIdx:5,  color:"#E6001E"},
-              {key:"chatbot",  name:"Chatbot",           startIdx:10, color:"#008CE6"},
-              {key:"karte",    name:"Interaktive Karte", startIdx:15, color:"#78BE1E"},
-              {key:"suche",    name:"Suchfunktion",      startIdx:20, color:"#CD0078"},
-              {key:"community",name:"Community",         startIdx:25, color:"#FFAA00"},
+              {key:"account",name:"Benutzerkonto",startIdx:5,color:"#E6001E"},
+              {key:"chatbot",name:"Chatbot",startIdx:10,color:"#008CE6"},
+              {key:"karte",name:"Interaktive Karte",startIdx:15,color:"#78BE1E"},
+              {key:"suche",name:"Suchfunktion",startIdx:20,color:"#CD0078"},
+              {key:"community",name:"Community",startIdx:25,color:"#FFAA00"},
             ]},
         ]},
     ],
   },
 };
 
-/* ─── UTILS ─── */
+/* -- UTILS -- */
 const pct = (n, t) => t ? Math.round(n / t * 1000) / 10 : 0;
-const avg = (arr) => arr.length ? Math.round(arr.reduce((a,b)=>a+b,0)/arr.length*100)/100 : 0;
-function countBits(data,idx,bits){ return bits.map(([b,label])=>({ label, count:data.filter(r=>(r[idx]&b)>0).length })); }
-function countGrouped(data,idx,groups){ return groups.map(g=>({ label:g.label, count:data.filter(r=>g.vals.includes(r[idx])).length })); }
-function countValues(data,idx,items){ return items.map(it=>({ label:it.label, count:data.filter(r=>r[idx]===it.val).length })); }
-function likertCounts(data,idx,scaleMax){ const c=Array(scaleMax).fill(0); data.forEach(r=>{ const v=r[idx]; if(v>=1&&v<=scaleMax)c[v-1]++; }); return { counts:c, total:c.reduce((a,b)=>a+b,0) }; }
-function renderBold(text){ if(!text)return null; const parts=text.split(/\*\*(.*?)\*\*/g); return parts.map((p,i)=>i%2===1?<strong key={i}>{p}</strong>:p); }
+const avg = (arr) => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length * 100) / 100 : 0;
+function countBits(data, idx, bits) { return bits.map(([b, label]) => ({ label, count: data.filter(r => (r[idx] & b) > 0).length })); }
+function countGrouped(data, idx, groups) { return groups.map(g => ({ label: g.label, count: data.filter(r => g.vals.includes(r[idx])).length })); }
+function countValues(data, idx, items) { return items.map(it => ({ label: it.label, count: data.filter(r => r[idx] === it.val).length })); }
+function likertCounts(data, idx, scaleMax) { const c = Array(scaleMax).fill(0); data.forEach(r => { const v = r[idx]; if (v >= 1 && v <= scaleMax) c[v - 1]++; }); return { counts: c, total: c.reduce((a, b) => a + b, 0) }; }
+function renderBold(text) { if (!text) return null; const parts = text.split(/\*\*(.*?)\*\*/g); return parts.map((p, i) => i % 2 === 1 ? <strong key={i}>{p}</strong> : p); }
 
-/* ─── TOOLTIP ─── */
+/* -- GENERIC MODAL -- */
+function Modal({ open, onClose, children }) {
+  if (!open) return null;
+  return (<>
+    <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.25)", zIndex:200 }} />
+    <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", background:"#fff", borderRadius:T.radius+4, padding:"24px 28px", maxWidth:380, width:"90%", zIndex:210, boxShadow:"0 8px 32px rgba(0,0,0,0.15)", fontFamily:T.sans, fontSize:14, lineHeight:1.7, color:"#444" }}>
+      {children}
+    </div>
+  </>);
+}
+
+/* -- TOOLTIP -- */
 function Tip({ info, children }) {
   const [show, setShow] = useState(false);
-  const [pos, setPos] = useState({x:0,y:0});
+  const [pos, setPos] = useState({ x:0, y:0 });
+  const onEnter = (e) => { setPos({ x:e.clientX, y:e.clientY }); setShow(true); };
+  const onLeave = () => setShow(false);
+  const onMove = (e) => setPos({ x:e.clientX, y:e.clientY });
+  const onTouch = (e) => { if (!show) { e.preventDefault(); const t=e.touches[0]; setPos({ x:t.clientX, y:t.clientY }); setShow(true); setTimeout(()=>setShow(false),2200); } };
   return (
-    <div onMouseEnter={e=>{setPos({x:e.clientX,y:e.clientY});setShow(true);}} onMouseLeave={()=>setShow(false)} onMouseMove={e=>setPos({x:e.clientX,y:e.clientY})}
-      onTouchStart={e=>{const t=e.touches[0];setPos({x:t.clientX,y:t.clientY});setShow(true);setTimeout(()=>setShow(false),2200);}} style={{cursor:"default"}}>
+    <div onMouseEnter={onEnter} onMouseLeave={onLeave} onMouseMove={onMove} onTouchStart={onTouch} style={{ cursor:"default" }}>
       {children}
-      {show&&<div style={{position:"fixed",top:pos.y-48,left:Math.min(pos.x+10,window.innerWidth-220),background:"#fff",border:"1px solid #e0ddd8",borderRadius:T.radius,padding:"5px 10px",fontSize:12,zIndex:300,pointerEvents:"none",whiteSpace:"nowrap",boxShadow:"0 2px 10px rgba(0,0,0,0.1)",color:"#333",fontFamily:T.sans}}>{info}</div>}
+      {show && <div style={{ position:"fixed", top:pos.y-48, left:Math.min(pos.x+10, typeof window!=="undefined"?window.innerWidth-220:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"5px 10px", fontSize:12, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 10px rgba(0,0,0,0.1)", color:"#333", fontFamily:T.sans }}>{info}</div>}
     </div>
   );
 }
 
-/* ─── INFO BUTTON ─── */
+/* -- INFO BUTTON -- */
 function InfoBtn({ text }) {
   const [open, setOpen] = useState(false);
   return (
-    <span style={{position:"relative",display:"inline-block",marginLeft:8,verticalAlign:"middle"}}>
-      <button onClick={()=>setOpen(!open)} style={{width:22,height:22,borderRadius:"50%",border:"1px solid "+T.goldLight,background:"transparent",fontSize:12,cursor:"pointer",color:T.gold,lineHeight:"20px",padding:0,fontWeight:600,fontFamily:T.sans}}>?</button>
-      {open&&<>
-        <div onClick={()=>setOpen(false)} style={{position:"fixed",inset:0,zIndex:90}}/>
-        <div style={{position:"absolute",top:28,left:-140,width:280,padding:"12px 14px",background:"#fff",border:"1px solid "+T.goldLight,borderRadius:T.radius+2,fontSize:13,color:"#555",zIndex:100,lineHeight:1.6,boxShadow:"0 4px 16px rgba(0,0,0,0.1)",fontFamily:T.sans}}>
+    <span style={{ position:"relative", display:"inline-block", marginLeft:8, verticalAlign:"middle" }}>
+      <button onClick={()=>setOpen(!open)} style={{ width:22, height:22, borderRadius:"50%", border:"1px solid "+T.goldLight, background:"transparent", fontSize:12, cursor:"pointer", color:T.gold, lineHeight:"20px", padding:0, fontWeight:600, fontFamily:T.sans }} aria-label="Info">?</button>
+      {open && <>
+        <div onClick={()=>setOpen(false)} style={{ position:"fixed", inset:0, zIndex:90 }} />
+        <div style={{ position:"absolute", top:28, left:-140, width:280, padding:"12px 14px", background:"#fff", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:13, color:"#555", zIndex:100, lineHeight:1.6, boxShadow:"0 4px 16px rgba(0,0,0,0.1)", fontFamily:T.sans, textTransform:"none", letterSpacing:"normal", fontWeight:400 }}>
           {text}
-          <button onClick={()=>setOpen(false)} style={{display:"block",marginTop:8,fontSize:11,color:T.gold,background:"none",border:"none",cursor:"pointer",padding:0,fontFamily:T.sans}}>Schließen</button>
+          <button onClick={()=>setOpen(false)} style={{ display:"block", marginTop:8, fontSize:11, color:T.gold, background:"none", border:"none", cursor:"pointer", padding:0, fontFamily:T.sans }}>Schließen</button>
         </div>
       </>}
     </span>
   );
 }
 
-/* ─── MODAL ─── */
-function Modal({ open, onClose, children }) {
-  if(!open)return null;
-  return (<>
-    <div onClick={onClose} style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.25)",zIndex:200}}/>
-    <div style={{position:"fixed",top:"50%",left:"50%",transform:"translate(-50%,-50%)",background:"#fff",borderRadius:T.radius+4,padding:"24px 28px",maxWidth:380,width:"90%",zIndex:210,boxShadow:"0 8px 32px rgba(0,0,0,0.15)",fontFamily:T.sans,fontSize:14,lineHeight:1.7,color:"#444"}}>
-      {children}
-    </div>
-  </>);
-}
-
-/* ─── SECTION ─── */
-function Sec({ title, info, children }) {
+/* -- SECTION HEADING -- */
+function Sec({ title, info, children, lg }) {
   return (
-    <section style={{padding:"28px 0 20px",borderBottom:"1px solid #eae7e2"}}>
-      <h2 style={{fontFamily:T.serif,fontSize:18,fontWeight:700,textTransform:"uppercase",letterSpacing:1.5,color:T.goldDark,marginBottom:12,lineHeight:1.3}}>
-        {title}{info&&<InfoBtn text={info}/>}
+    <section style={{ padding:"28px 0 20px", borderBottom:"1px solid #eae7e2" }}>
+      <h2 style={{ fontFamily:T.serif, fontSize:S(18,typeof lg!=="undefined"?lg:null), fontWeight:700, textTransform:"uppercase", letterSpacing:1.5, color:T.goldDark, marginBottom:12, lineHeight:1.3 }}>
+        {title}
+        {info && <InfoBtn text={info} />}
       </h2>
       {children}
     </section>
   );
 }
 
-/* ─── HBAR ─── */
-function HBar({ items, color, total, title, note }) {
+/* -- HORIZONTAL BAR CHART -- */
+function HBar({ items, color, total, title, note, lg }) {
   const maxVal = Math.max(...items.map(d=>d.count), 1);
   return (
-    <div style={{marginBottom:16}}>
-      {title&&<div style={{fontSize:12,fontWeight:600,color:"#555",marginBottom:6,fontFamily:T.sans}}>{title}{note&&<span style={{fontWeight:400,color:"#999",marginLeft:6,fontSize:11}}>({note})</span>}</div>}
-      {items.map((d,i)=>(
-        <Tip key={i} info={d.count+" ("+pct(d.count,total)+"%)"}><div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
-          <div style={{width:130,fontSize:12,color:"#666",textAlign:"right",flexShrink:0,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap",fontFamily:T.sans}}>{d.label}</div>
-          <div style={{flex:1,height:24,background:"#f5f3f0",borderRadius:4,overflow:"hidden"}}>
-            <div style={{width:(d.count/maxVal*100)+"%",height:"100%",background:color,borderRadius:4,transition:"width 0.4s ease",minWidth:d.count>0?2:0}}/>
+    <div style={{ marginBottom:16 }}>
+      {title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{title}{note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({note})</span>}</div>}
+      {items.map((d, i) => (
+        <Tip key={i} info={d.count + " (" + pct(d.count, total) + "%)"}>
+          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:5 }}>
+            <div style={{ width:lg==="large"?150:130, fontSize:S(12,lg), color:"#666", textAlign:"right", flexShrink:0, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap", fontFamily:T.sans }}>{d.label}</div>
+            <div style={{ flex:1, height:24, background:"#f5f3f0", borderRadius:4, overflow:"hidden" }}>
+              <div style={{ width:(d.count/maxVal*100)+"%", height:"100%", background:color, borderRadius:4, transition:"width 0.4s ease", minWidth:d.count>0?2:0 }} />
+            </div>
+            <div style={{ width:38, fontSize:S(11,lg), color:"#999", textAlign:"right", fontFamily:T.sans }}>{d.count}</div>
           </div>
-          <div style={{width:38,fontSize:11,color:"#999",textAlign:"right",fontFamily:T.sans}}>{d.count}</div>
-        </div></Tip>
+        </Tip>
       ))}
     </div>
   );
 }
 
-/* ─── LIKERT 6-POINT ─── */
-function LikertRow6({ counts, total, label, cb }) {
+/* -- LIKERT 6-POINT (1% = 0.5vw, centered) -- */
+function LikertRow6({ counts, total, label, cb, lg }) {
   const colors = cb ? T.likert6cb : T.likert6;
-  const pcts = counts.map(c=>total>0?c/total*100:0);
-  const mean = total>0 ? counts.reduce((s,c,i)=>s+c*(i+1),0)/total : 0;
-  const [tip,setTip] = useState(null); const [tp,setTp] = useState({x:0,y:0});
-  const st=(e,v,n)=>{setTp({x:e.clientX,y:e.clientY});setTip("Wert "+v+": "+n+" ("+pct(n,total)+"%)");};
-  const ht=()=>setTip(null);
-  const ls=[0,1,2].map(i=>({w:pcts[i]*0.5,c:colors[i],v:i+1,n:counts[i]}));
-  const rs=[3,4,5].map(i=>({w:pcts[i]*0.5,c:colors[i],v:i+1,n:counts[i]}));
+  const pcts = counts.map(c => total > 0 ? c / total * 100 : 0);
+  const mean = total > 0 ? counts.reduce((s, c, i) => s + c * (i + 1), 0) / total : 0;
+  const [tipInfo, setTipInfo] = useState(null);
+  const [tipPos, setTipPos] = useState({ x:0, y:0 });
+  const showTip = (e, v, n) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); };
+  const hideTip = () => setTipInfo(null);
+  const touchTip = (e, v, n) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); setTimeout(hideTip, 2000); };
+
+  /* Each 1% of response = 0.5vw width. Left side: values 1,2,3. Right side: values 4,5,6 */
+  const leftSegs = [0,1,2].map(i => ({ w: pcts[i] * 0.5, c: colors[i], v: i+1, n: counts[i] }));
+  const rightSegs = [3,4,5].map(i => ({ w: pcts[i] * 0.5, c: colors[i], v: i+1, n: counts[i] }));
+
   return (
-    <div style={{marginBottom:10}}>
-      <div style={{display:"flex",alignItems:"baseline",gap:8,marginBottom:3}}>
-        <span style={{fontSize:12,color:"#333",fontWeight:500,minWidth:130,fontFamily:T.sans}}>{label}</span>
-        <span style={{fontSize:11,color:"#999",fontFamily:T.sans}}>Ø {mean.toFixed(2)}</span>
+    <div style={{ marginBottom:10 }}>
+      <div style={{ display:"flex", alignItems:"baseline", gap:8, marginBottom:3 }}>
+        <span style={{ fontSize:S(12,lg), color:"#333", fontWeight:500, minWidth:lg==="large"?150:130, fontFamily:T.sans }}>{label}</span>
+        <span style={{ fontSize:S(11,lg), color:"#999", fontFamily:T.sans }}>Ø {mean.toFixed(2)}</span>
       </div>
-      <div style={{position:"relative",height:24,display:"flex",justifyContent:"center"}}>
-        <div style={{display:"flex",justifyContent:"flex-end",width:"50%"}}>
-          {ls.map((s,i)=><div key={i} onMouseEnter={e=>st(e,s.v,s.n)} onMouseLeave={ht} style={{width:s.w+"vw",height:24,background:s.c,transition:"width 0.4s",borderRadius:i===0?"3px 0 0 3px":"0",flexShrink:0}}/>)}
+      <div style={{ position:"relative", height:24, display:"flex", justifyContent:"center" }}>
+        <div style={{ display:"flex", justifyContent:"flex-end", width:"50%" }}>
+          {leftSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:24, background:s.c, transition:"width 0.4s ease", borderRadius:i===0?"3px 0 0 3px":"0", cursor:"default", flexShrink:0 }} />)}
         </div>
-        <div style={{width:2,background:"#888",opacity:0.4,flexShrink:0,zIndex:2}}/>
-        <div style={{display:"flex",width:"50%"}}>
-          {rs.map((s,i)=><div key={i} onMouseEnter={e=>st(e,s.v,s.n)} onMouseLeave={ht} style={{width:s.w+"vw",height:24,background:s.c,transition:"width 0.4s",borderRadius:i===2?"0 3px 3px 0":"0",flexShrink:0}}/>)}
+        <div style={{ width:2, background:"#888", opacity:0.4, flexShrink:0, zIndex:2 }} />
+        <div style={{ display:"flex", width:"50%" }}>
+          {rightSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:24, background:s.c, transition:"width 0.4s ease", borderRadius:i===2?"0 3px 3px 0":"0", cursor:"default", flexShrink:0 }} />)}
         </div>
-        {tip&&<div style={{position:"fixed",top:tp.y-40,left:Math.min(tp.x+8,window.innerWidth-180),background:"#fff",border:"1px solid #e0ddd8",borderRadius:T.radius,padding:"4px 8px",fontSize:11,zIndex:300,pointerEvents:"none",whiteSpace:"nowrap",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",fontFamily:T.sans}}>{tip}</div>}
+        {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+8, typeof window!=="undefined"?window.innerWidth-180:280), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
       </div>
     </div>
   );
 }
 
-/* ─── LIKERT 5-POINT ─── */
-function LikertRow5({ counts, total, label, inverted, cb }) {
+/* -- LIKERT 5-POINT (centered on 3, 1%=0.5vw, with inversion) -- */
+function LikertRow5({ counts, total, label, inverted, cb, lg }) {
   const colors = cb ? T.likert5cb : T.likert5;
-  const pcts = counts.map(c=>total>0?c/total*100:0);
-  const half3 = pcts[2]/2;
-  const mean = total>0 ? counts.reduce((s,c,i)=>s+c*(i+1),0)/total : 0;
-  const [tip,setTip]=useState(null); const [tp,setTp]=useState({x:0,y:0});
-  const st=(e,v,n)=>{setTp({x:e.clientX,y:e.clientY});setTip("Wert "+v+": "+n+" ("+pct(n,total)+"%)");};
-  const ht=()=>setTip(null);
-  const ls=[
-    {w:pcts[0]*0.5,c:inverted?colors[4]:colors[0],v:1,n:counts[0]},
-    {w:pcts[1]*0.5,c:inverted?colors[3]:colors[1],v:2,n:counts[1]},
-    {w:half3*0.5,  c:colors[2],                   v:3,n:counts[2]},
+  const pcts = counts.map(c => total > 0 ? c / total * 100 : 0);
+  const half3 = pcts[2] / 2;
+  const mean = total > 0 ? counts.reduce((s, c, i) => s + c * (i + 1), 0) / total : 0;
+  const [tipInfo, setTipInfo] = useState(null);
+  const [tipPos, setTipPos] = useState({ x:0, y:0 });
+  const showTip = (e, v, n) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); };
+  const hideTip = () => setTipInfo(null);
+  const touchTip = (e, v, n) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); setTimeout(hideTip, 2000); };
+
+  const leftSegs = [
+    { w: pcts[0]*0.5, c: inverted?colors[4]:colors[0], v:1, n:counts[0] },
+    { w: pcts[1]*0.5, c: inverted?colors[3]:colors[1], v:2, n:counts[1] },
+    { w: half3*0.5, c: colors[2], v:3, n:counts[2] },
   ];
-  const rs=[
-    {w:half3*0.5,  c:colors[2],                   v:3,n:counts[2]},
-    {w:pcts[3]*0.5,c:inverted?colors[1]:colors[3],v:4,n:counts[3]},
-    {w:pcts[4]*0.5,c:inverted?colors[0]:colors[4],v:5,n:counts[4]},
+  const rightSegs = [
+    { w: half3*0.5, c: colors[2], v:3, n:counts[2] },
+    { w: pcts[3]*0.5, c: inverted?colors[1]:colors[3], v:4, n:counts[3] },
+    { w: pcts[4]*0.5, c: inverted?colors[0]:colors[4], v:5, n:counts[4] },
   ];
+
   return (
-    <div style={{marginBottom:8}}>
-      <div style={{display:"flex",alignItems:"baseline",gap:8,marginBottom:3}}>
-        <span style={{fontSize:12,color:"#333",fontWeight:500,minWidth:130,fontFamily:T.sans}}>{label}</span>
-        <span style={{fontSize:11,color:"#999",fontFamily:T.sans}}>Ø {mean.toFixed(2)}</span>
+    <div style={{ marginBottom:8 }}>
+      <div style={{ display:"flex", alignItems:"baseline", gap:8, marginBottom:3 }}>
+        <span style={{ fontSize:S(12,lg), color:"#333", fontWeight:500, minWidth:lg==="large"?150:130, fontFamily:T.sans }}>{label}</span>
+        <span style={{ fontSize:S(11,lg), color:"#999", fontFamily:T.sans }}>Ø {mean.toFixed(2)}</span>
       </div>
-      <div style={{position:"relative",height:22,display:"flex",justifyContent:"center"}}>
-        <div style={{display:"flex",justifyContent:"flex-end",width:"50%"}}>
-          {ls.map((s,i)=><div key={i} onMouseEnter={e=>st(e,s.v,s.n)} onMouseLeave={ht} style={{width:s.w+"vw",height:22,background:s.c,transition:"width 0.4s",borderRadius:i===0?"3px 0 0 3px":"0",flexShrink:0}}/>)}
+      <div style={{ position:"relative", height:22, display:"flex", justifyContent:"center" }}>
+        <div style={{ display:"flex", justifyContent:"flex-end", width:"50%" }}>
+          {leftSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:22, background:s.c, transition:"width 0.4s ease", borderRadius:i===0?"3px 0 0 3px":"0", cursor:"default", flexShrink:0 }} />)}
         </div>
-        <div style={{width:2,background:"#888",opacity:0.4,flexShrink:0,zIndex:2}}/>
-        <div style={{display:"flex",width:"50%"}}>
-          {rs.map((s,i)=><div key={i} onMouseEnter={e=>st(e,s.v,s.n)} onMouseLeave={ht} style={{width:s.w+"vw",height:22,background:s.c,transition:"width 0.4s",borderRadius:i===2?"0 3px 3px 0":"0",flexShrink:0}}/>)}
+        <div style={{ width:2, background:"#888", opacity:0.4, flexShrink:0, zIndex:2 }} />
+        <div style={{ display:"flex", width:"50%" }}>
+          {rightSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:22, background:s.c, transition:"width 0.4s ease", borderRadius:i===2?"0 3px 3px 0":"0", cursor:"default", flexShrink:0 }} />)}
         </div>
-        {tip&&<div style={{position:"fixed",top:tp.y-38,left:Math.min(tp.x+8,window.innerWidth-180),background:"#fff",border:"1px solid #e0ddd8",borderRadius:T.radius,padding:"4px 8px",fontSize:11,zIndex:300,pointerEvents:"none",whiteSpace:"nowrap",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",fontFamily:T.sans}}>{tip}</div>}
+        {tipInfo && <div style={{ position:"fixed", top:tipPos.y-38, left:Math.min(tipPos.x+8, typeof window!=="undefined"?window.innerWidth-180:280), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
       </div>
     </div>
   );
 }
 
-/* ─── PIE ─── */
-function PieSmall({ slices, title, total }) {
-  const r=55,cx=65,cy=65;
-  const [tip,setTip]=useState(null); const [tp,setTp]=useState({x:0,y:0});
-  const ht=()=>setTip(null);
-  let cum=-Math.PI/2;
-  const paths=slices.map((s,i)=>{
-    const angle=total>0?(s.count/total)*2*Math.PI:0;
-    const sx=cx+r*Math.cos(cum), sy=cy+r*Math.sin(cum);
-    cum+=angle;
-    const ex=cx+r*Math.cos(cum), ey=cy+r*Math.sin(cum);
-    const large=angle>Math.PI?1:0;
-    if(angle===0)return null;
-    const ti=s.label+": "+s.count+" ("+pct(s.count,total)+"%)";
-    const oe=(e)=>{setTp({x:e.clientX,y:e.clientY});setTip(ti);};
-    if(angle>=2*Math.PI-0.01)return <circle key={i} cx={cx} cy={cy} r={r} fill={s.color} onMouseEnter={oe} onMouseLeave={ht} style={{cursor:"default"}}/>;
-    return <path key={i} d={"M"+cx+","+cy+" L"+sx+","+sy+" A"+r+","+r+" 0 "+large+",1 "+ex+","+ey+" Z"} fill={s.color} onMouseEnter={oe} onMouseLeave={ht} style={{cursor:"default"}}/>;
+/* -- PIE CHART (with tooltips, can be side-by-side) -- */
+function PieSmall({ slices, title, total, lg }) {
+  const r=55, cx=65, cy=65;
+  const [tipInfo, setTipInfo] = useState(null);
+  const [tipPos, setTipPos] = useState({ x:0, y:0 });
+  const hideTip = () => setTipInfo(null);
+
+  let cumAngle = -Math.PI / 2;
+  const paths = slices.map((s, i) => {
+    const angle = total > 0 ? (s.count / total) * 2 * Math.PI : 0;
+    const startX = cx + r * Math.cos(cumAngle);
+    const startY = cy + r * Math.sin(cumAngle);
+    cumAngle += angle;
+    const endX = cx + r * Math.cos(cumAngle);
+    const endY = cy + r * Math.sin(cumAngle);
+    const large = angle > Math.PI ? 1 : 0;
+    if (angle === 0) return null;
+    const tipText = s.label + ": " + s.count + " (" + pct(s.count, total) + "%)";
+    const onEnter = (e) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo(tipText); };
+    const onTouch = (e) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo(tipText); setTimeout(hideTip,2000); };
+    if (angle >= 2 * Math.PI - 0.01) return <circle key={i} cx={cx} cy={cy} r={r} fill={s.color} onMouseEnter={onEnter} onMouseLeave={hideTip} onTouchStart={onTouch} style={{cursor:"default"}} />;
+    return <path key={i} d={"M"+cx+","+cy+" L"+startX+","+startY+" A"+r+","+r+" 0 "+large+",1 "+endX+","+endY+" Z"} fill={s.color} onMouseEnter={onEnter} onMouseLeave={hideTip} onTouchStart={onTouch} style={{cursor:"default"}} />;
   });
+
   return (
-    <div style={{textAlign:"center",display:"inline-block",verticalAlign:"top",minWidth:140,margin:"0 8px 16px"}}>
-      {title&&<div style={{fontSize:12,fontWeight:600,color:"#555",marginBottom:6,fontFamily:T.sans}}>{title}</div>}
+    <div style={{ textAlign:"center", display:"inline-block", verticalAlign:"top", minWidth:140, margin:"0 8px 16px" }}>
+      {title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{title}</div>}
       <svg viewBox="0 0 130 130" width="110" height="110">{paths}</svg>
-      <div style={{display:"flex",justifyContent:"center",gap:8,marginTop:6,flexWrap:"wrap"}}>
-        {slices.map((s,i)=><span key={i} style={{display:"flex",alignItems:"center",gap:3,fontSize:10,color:"#666",fontFamily:T.sans}}><span style={{width:8,height:8,borderRadius:2,background:s.color,flexShrink:0}}/>{s.label}</span>)}
+      <div style={{ display:"flex", justifyContent:"center", gap:8, marginTop:6, flexWrap:"wrap" }}>
+        {slices.map((s, i) => (
+          <span key={i} style={{ display:"flex", alignItems:"center", gap:3, fontSize:S(10,lg), color:"#666", fontFamily:T.sans }}>
+            <span style={{ width:8, height:8, borderRadius:2, background:s.color, flexShrink:0 }} />
+            {s.label}
+          </span>
+        ))}
       </div>
-      {tip&&<div style={{position:"fixed",top:tp.y-40,left:Math.min(tp.x+10,window.innerWidth-200),background:"#fff",border:"1px solid #e0ddd8",borderRadius:T.radius,padding:"4px 8px",fontSize:11,zIndex:300,pointerEvents:"none",whiteSpace:"nowrap",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",fontFamily:T.sans}}>{tip}</div>}
+      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
     </div>
   );
 }
 
-/* ─── RADAR ─── */
-function RadarChart({ series, dimLabels, scaleMax=5 }) {
-  const [visible,setVisible]=useState(()=>Object.fromEntries(series.map(s=>[s.name,true])));
-  const [tip,setTip]=useState(null); const [tp,setTp]=useState({x:0,y:0});
-  const ht=()=>setTip(null);
-  const cx=150,cy=150,maxR=110;
-  const n=dimLabels.length;
-  const as=(2*Math.PI)/n;
-  const gxy=(di,val)=>{const a=-Math.PI/2+di*as; const rad=(val/scaleMax)*maxR; return [cx+rad*Math.cos(a),cy+rad*Math.sin(a)];};
-  const grids=[1,2,3,4,5].map(lv=><polygon key={lv} points={dimLabels.map((_,i)=>gxy(i,lv).join(",")).join(" ")} fill="none" stroke="#eee" strokeWidth="1"/>);
-  const axes=dimLabels.map((_,i)=>{const [x,y]=gxy(i,scaleMax); return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="#ddd" strokeWidth="1"/>;});
-  const lbls=dimLabels.map((l,i)=>{const [x,y]=gxy(i,scaleMax+0.7); return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="#666" fontFamily="Noto Sans, sans-serif">{l}</text>;});
-  const vis=series.filter(s=>visible[s.name]);
-  const polys=vis.map((s,si)=><polygon key={si} points={s.values.map((v,i)=>gxy(i,v).join(",")).join(" ")} fill={s.color} fillOpacity="0.12" stroke={s.color} strokeWidth="2"/>);
-  const dots=vis.flatMap((s,si)=>s.values.map((v,i)=>{const [x,y]=gxy(i,v); const ti=s.name+" – "+dimLabels[i]+": "+v.toFixed(2); return <circle key={si+"-"+i} cx={x} cy={y} r="4" fill={s.color} style={{cursor:"default"}} onMouseEnter={e=>{setTp({x:e.clientX,y:e.clientY});setTip(ti);}} onMouseLeave={ht}/>;} ));
+/* -- RADAR CHART (with toggleable series + tooltips) -- */
+function RadarChart({ series, dimLabels, scaleMax=5, lg }) {
+  const [visible, setVisible] = useState(() => Object.fromEntries(series.map(s => [s.name, true])));
+  const [tipInfo, setTipInfo] = useState(null);
+  const [tipPos, setTipPos] = useState({ x:0, y:0 });
+  const hideTip = () => setTipInfo(null);
+
+  const cx=150, cy=150, maxR=110;
+  const n = dimLabels.length;
+  const angleStep = (2 * Math.PI) / n;
+  const getXY = (di, val) => {
+    const angle = -Math.PI / 2 + di * angleStep;
+    const rad = (val / scaleMax) * maxR;
+    return [cx + rad * Math.cos(angle), cy + rad * Math.sin(angle)];
+  };
+  const gridLevels = [1,2,3,4,5];
+  const grids = gridLevels.map(lv => {
+    const pts = dimLabels.map((_, i) => getXY(i, lv).join(",")).join(" ");
+    return <polygon key={lv} points={pts} fill="none" stroke="#eee" strokeWidth="1" />;
+  });
+  const axes = dimLabels.map((_, i) => { const [x,y]=getXY(i,scaleMax); return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="#ddd" strokeWidth="1" />; });
+  const labels = dimLabels.map((l, i) => { const [x,y]=getXY(i,scaleMax+0.7); return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="#666" fontFamily="Noto Sans, sans-serif">{l}</text>; });
+  const visibleSeries = series.filter(s => visible[s.name]);
+  const polygons = visibleSeries.map((s, si) => {
+    const pts = s.values.map((v, i) => getXY(i, v).join(",")).join(" ");
+    return <polygon key={si} points={pts} fill={s.color} fillOpacity="0.12" stroke={s.color} strokeWidth="2" />;
+  });
+  const dots = visibleSeries.flatMap((s, si) =>
+    s.values.map((v, i) => {
+      const [x,y] = getXY(i, v);
+      const tipText = s.name + " - " + dimLabels[i] + ": " + v.toFixed(2);
+      return <circle key={si+"-"+i} cx={x} cy={y} r="4" fill={s.color} style={{cursor:"default"}}
+        onMouseEnter={e=>{setTipPos({x:e.clientX,y:e.clientY});setTipInfo(tipText);}} onMouseLeave={hideTip}
+        onTouchStart={e=>{const t=e.touches[0];setTipPos({x:t.clientX,y:t.clientY});setTipInfo(tipText);setTimeout(hideTip,2000);}} />;
+    })
+  );
+  const toggle = (name) => setVisible(v => ({...v, [name]: !v[name]}));
+
   return (
-    <div style={{textAlign:"center",marginBottom:16}}>
-      <svg viewBox="0 0 300 300" width="280" height="280">{grids}{axes}{polys}{dots}{lbls}</svg>
-      <div style={{display:"flex",justifyContent:"center",gap:10,flexWrap:"wrap",marginTop:8}}>
-        {series.map((s,i)=><span key={i} onClick={()=>setVisible(v=>({...v,[s.name]:!v[s.name]}))} style={{display:"flex",alignItems:"center",gap:4,fontSize:11,color:visible[s.name]?"#444":"#bbb",cursor:"pointer",fontFamily:T.sans,textDecoration:visible[s.name]?"none":"line-through"}}>
-          <span style={{width:12,height:3,background:visible[s.name]?s.color:"#ccc",borderRadius:1}}/>{s.name}
-        </span>)}
+    <div style={{ textAlign:"center", marginBottom:16 }}>
+      <svg viewBox="0 0 300 300" width="280" height="280">{grids}{axes}{polygons}{dots}{labels}</svg>
+      <div style={{ display:"flex", justifyContent:"center", gap:10, flexWrap:"wrap", marginTop:8 }}>
+        {series.map((s, i) => (
+          <span key={i} onClick={()=>toggle(s.name)} style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:visible[s.name]?"#444":"#bbb", cursor:"pointer", fontFamily:T.sans, transition:"color 0.2s", textDecoration:visible[s.name]?"none":"line-through" }}>
+            <span style={{ width:12, height:3, background:visible[s.name]?s.color:"#ccc", borderRadius:1, transition:"background 0.2s" }} />
+            {s.name}
+          </span>
+        ))}
       </div>
-      {tip&&<div style={{position:"fixed",top:tp.y-40,left:Math.min(tp.x+10,window.innerWidth-200),background:"#fff",border:"1px solid #e0ddd8",borderRadius:T.radius,padding:"4px 8px",fontSize:11,zIndex:300,pointerEvents:"none",whiteSpace:"nowrap",boxShadow:"0 2px 8px rgba(0,0,0,0.1)",fontFamily:T.sans}}>{tip}</div>}
+      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
     </div>
   );
 }
 
-/* ─── DIVERGING 3 ─── */
-function Diverging3({ data, idx, options, total }) {
-  const counts=options.map(o=>({...o,count:data.filter(r=>r[idx]===o.value).length}));
-  const lc=counts[0],cc=counts[1],rc=counts[2];
-  const lp=total>0?lc.count/total*100:0, cp=total>0?cc.count/total*100:0, rp=total>0?rc.count/total*100:0;
+/* -- DIVERGING 3-OPTION BAR (1%=0.5vw) -- */
+function Diverging3({ data, idx, options, total, lg }) {
+  const counts = options.map(o => ({ ...o, count: data.filter(r => r[idx] === o.value).length }));
+  const leftC=counts[0], centerC=counts[1], rightC=counts[2];
+  const leftPct = total>0 ? leftC.count/total*100 : 0;
+  const centerPct = total>0 ? centerC.count/total*100 : 0;
+  const rightPct = total>0 ? rightC.count/total*100 : 0;
+
   return (
-    <div style={{marginBottom:16}}>
-      <div style={{display:"flex",justifyContent:"space-between",fontSize:11,color:"#888",marginBottom:4,fontFamily:T.sans}}>
-        <span>← {lc.label}</span><span>{cc.label}</span><span>{rc.label} →</span>
+    <div style={{ marginBottom:16 }}>
+      <div style={{ display:"flex", justifyContent:"space-between", fontSize:11, color:"#888", marginBottom:4, fontFamily:T.sans }}>
+        <span>← {leftC.label}</span><span>{centerC.label}</span><span>{rightC.label} →</span>
       </div>
-      <div style={{display:"flex",height:32,borderRadius:4,overflow:"hidden",justifyContent:"center"}}>
-        <Tip info={lc.label+": "+lc.count+" ("+pct(lc.count,total)+"%)"}><div style={{width:(lp*0.5)+"vw",height:32,background:lc.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:600,fontFamily:T.sans}}>{lp>10?Math.round(lp)+"%":""}</div></Tip>
-        <Tip info={cc.label+": "+cc.count+" ("+pct(cc.count,total)+"%)"}><div style={{width:(cp*0.5)+"vw",height:32,background:cc.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:600,fontFamily:T.sans}}>{cp>10?Math.round(cp)+"%":""}</div></Tip>
-        <Tip info={rc.label+": "+rc.count+" ("+pct(rc.count,total)+"%)"}><div style={{width:(rp*0.5)+"vw",height:32,background:rc.color,display:"flex",alignItems:"center",justifyContent:"center",color:"#fff",fontSize:12,fontWeight:600,fontFamily:T.sans}}>{rp>10?Math.round(rp)+"%":""}</div></Tip>
+      <div style={{ display:"flex", height:32, borderRadius:4, overflow:"hidden", justifyContent:"center" }}>
+        <Tip info={leftC.label+": "+leftC.count+" ("+pct(leftC.count,total)+"%)"}>
+          <div style={{ width:(leftPct*0.5)+"vw", height:32, background:leftC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{leftPct>10?Math.round(leftPct)+"%":""}</div>
+        </Tip>
+        <Tip info={centerC.label+": "+centerC.count+" ("+pct(centerC.count,total)+"%)"}>
+          <div style={{ width:(centerPct*0.5)+"vw", height:32, background:centerC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{centerPct>10?Math.round(centerPct)+"%":""}</div>
+        </Tip>
+        <Tip info={rightC.label+": "+rightC.count+" ("+pct(rightC.count,total)+"%)"}>
+          <div style={{ width:(rightPct*0.5)+"vw", height:32, background:rightC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{rightPct>10?Math.round(rightPct)+"%":""}</div>
+        </Tip>
       </div>
-      <div style={{display:"flex",justifyContent:"space-between",marginTop:4,fontFamily:T.sans}}>
-        {counts.map((c,i)=><span key={i} style={{fontSize:11,color:"#888"}}>{c.count} ({pct(c.count,total)}%)</span>)}
+      <div style={{ display:"flex", justifyContent:"space-between", marginTop:4, fontFamily:T.sans }}>
+        {counts.map((c, i) => <span key={i} style={{ fontSize:11, color:"#888" }}>{c.count} ({pct(c.count,total)}%)</span>)}
       </div>
     </div>
   );
 }
 
-/* ─── CHART RENDERER ─── */
-function ChartRenderer({ chart, data, total, cb }) {
-  if(chart.type==="bar_h"){
+/* -- CHART RENDERER -- */
+function ChartRenderer({ chart, data, total, cb, lg }) {
+  if (chart.type === "bar_h") {
     let items;
-    if(chart.mode==="bits")    items=countBits(data,chart.idx,chart.bits);
-    else if(chart.mode==="grouped") items=countGrouped(data,chart.idx,chart.groups);
-    else if(chart.mode==="values")  items=countValues(data,chart.idx,chart.items);
+    if (chart.mode==="bits") items=countBits(data,chart.idx,chart.bits);
+    else if (chart.mode==="grouped") items=countGrouped(data,chart.idx,chart.groups);
+    else if (chart.mode==="values") items=countValues(data,chart.idx,chart.items);
     else return null;
-    if(chart.sort==="desc") items.sort((a,b)=>b.count-a.count);
-    return <HBar items={items} color={chart.color} total={total} title={chart.title} note={chart.note}/>;
+    if (chart.sort==="desc") items.sort((a,b)=>b.count-a.count);
+    return <HBar items={items} color={chart.color} total={total} title={chart.title} note={chart.note} lg={lg} />;
   }
-  if(chart.type==="likert6"){
-    return (<div>
-      <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:"#999",marginBottom:6,padding:"0 0 0 138px",fontFamily:T.sans}}><span>← eher negativ</span><span>eher positiv →</span></div>
-      {chart.items.map((it,i)=>{const lk=likertCounts(data,it.idx,6); return <LikertRow6 key={i} counts={lk.counts} total={lk.total} label={it.label} cb={cb}/>;} )}
-      <div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:8,fontSize:10,color:"#999",fontFamily:T.sans}}>
-        {[1,2,3,4,5,6].map(v=><span key={v} style={{display:"flex",alignItems:"center",gap:3}}><span style={{width:10,height:10,borderRadius:2,background:(cb?T.likert6cb:T.likert6)[v-1]}}/>{v}</span>)}
-      </div>
-    </div>);
-  }
-  if(chart.type==="likert5_group"){
-    return (<div>
-      <div style={{display:"flex",justifyContent:"space-between",fontSize:10,color:"#999",marginBottom:6,padding:"0 0 0 138px",fontFamily:T.sans}}><span>← Ablehnung</span><span>Zustimmung →</span></div>
-      {chart.innovations.map((inn,ii)=>(
-        <div key={inn.key} style={{marginBottom:18}}>
-          <div style={{fontFamily:T.serif,fontSize:14,fontWeight:600,color:T.goldDark,marginBottom:6,textTransform:"uppercase",letterSpacing:1}}>{inn.name}</div>
-          {chart.dimLabels.map((dim,di)=>{const lk=likertCounts(data,inn.startIdx+di,5); const inv=(chart.invertedDims||[]).includes(di); return <LikertRow5 key={di} counts={lk.counts} total={lk.total} label={dim} inverted={inv} cb={cb}/>;} )}
+  if (chart.type === "likert6") {
+    return (
+      <div>
+        <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
+          <span>← eher negativ</span><span>eher positiv →</span>
         </div>
-      ))}
-      <div style={{display:"flex",gap:8,flexWrap:"wrap",marginTop:8,fontSize:10,color:"#999",fontFamily:T.sans}}>
-        {[1,2,3,4,5].map(v=><span key={v} style={{display:"flex",alignItems:"center",gap:3}}><span style={{width:10,height:10,borderRadius:2,background:(cb?T.likert5cb:T.likert5)[v-1]}}/>{v}</span>)}
+        {chart.items.map((it, i) => { const lk=likertCounts(data,it.idx,6); return <LikertRow6 key={i} counts={lk.counts} total={lk.total} label={it.label} cb={cb} lg={lg} />; })}
+        <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:8, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
+          {[1,2,3,4,5,6].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}><span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert6cb:T.likert6)[v-1] }} />{v}</span>)}
+        </div>
       </div>
-    </div>);
+    );
   }
-  if(chart.type==="pie"){
+  if (chart.type === "likert5_group") {
+    return (
+      <div>
+        <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
+          <span>← Ablehnung</span><span>Zustimmung →</span>
+        </div>
+        {chart.innovations.map((inn, ii) => (
+          <div key={inn.key} style={{ marginBottom:18 }}>
+            <div style={{ fontFamily:T.serif, fontSize:S(14,lg), fontWeight:600, color:T.goldDark, marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>{inn.name}</div>
+            {chart.dimLabels.map((dim, di) => { const lk=likertCounts(data,inn.startIdx+di,5); const inv=(chart.invertedDims||[]).includes(di); return <LikertRow5 key={di} counts={lk.counts} total={lk.total} label={dim} inverted={inv} cb={cb} lg={lg} />; })}
+          </div>
+        ))}
+        <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:8, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
+          {[1,2,3,4,5].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}><span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert5cb:T.likert5)[v-1] }} />{v}</span>)}
+        </div>
+      </div>
+    );
+  }
+  if (chart.type === "pie") {
     let slices;
-    if(chart.matchMode==="eq_vs_rest"){const eq=data.filter(r=>r[chart.idx]===chart.values[0]).length; slices=[{label:chart.labels[0],count:eq,color:chart.colors[0]},{label:chart.labels[1],count:total-eq,color:chart.colors[1]}];}
-    else slices=chart.values.map((v,i)=>({label:chart.labels[i],count:data.filter(r=>r[chart.idx]===v).length,color:chart.colors[i]}));
-    return <PieSmall slices={slices} title={chart.title} total={total}/>;
+    if (chart.matchMode==="eq_vs_rest") {
+      const eqCount = data.filter(r => r[chart.idx]===chart.values[0]).length;
+      slices = [{ label:chart.labels[0], count:eqCount, color:chart.colors[0] }, { label:chart.labels[1], count:total-eqCount, color:chart.colors[1] }];
+    } else {
+      slices = chart.values.map((v, i) => ({ label:chart.labels[i], count:data.filter(r=>r[chart.idx]===v).length, color:chart.colors[i] }));
+    }
+    return <PieSmall slices={slices} title={chart.title} total={total} lg={lg} />;
   }
-  if(chart.type==="radar"){
-    const ser=chart.innovations.map(inn=>({name:inn.name,color:inn.color,values:chart.dimLabels.map((_,di)=>{const vals=data.map(r=>r[inn.startIdx+di]).filter(v=>v>=1&&v<=5); return avg(vals);}) }));
-    return <RadarChart series={ser} dimLabels={chart.dimLabels}/>;
+  if (chart.type === "radar") {
+    const ser = chart.innovations.map(inn => ({
+      name: inn.name, color: inn.color,
+      values: chart.dimLabels.map((_, di) => { const vals=data.map(r=>r[inn.startIdx+di]).filter(v=>v>=1&&v<=5); return avg(vals); }),
+    }));
+    return <RadarChart series={ser} dimLabels={chart.dimLabels} lg={lg} />;
   }
-  if(chart.type==="diverging3") return <Diverging3 data={data} idx={chart.idx} options={chart.options} total={total}/>;
-  return <div style={{color:"#999",fontSize:12,fontFamily:T.sans}}>Unbekannter Chart-Typ</div>;
+  if (chart.type === "diverging3") return <Diverging3 data={data} idx={chart.idx} options={chart.options} total={total} lg={lg} />;
+  return <div style={{ color:"#999", fontSize:12, fontFamily:T.sans }}>Chart-Typ noch nicht implementiert</div>;
 }
 
-/* ─── FILTER HOOK ─── */
-function useFilterState(def, data) {
-  const initFilter = () => { const f={}; def.filters.forEach(fi=>f[fi.key]=null); return f; };
-  const [filter,setFilter] = useState(initFilter);
-  useEffect(()=>{setFilter(initFilter());}, [def]);
-  const isFiltered = Object.values(filter).some(v=>v!==null);
-  const filtered = useMemo(()=>data.filter(r=>{
-    for(const f of def.filters){
-      const fv=filter[f.key];
-      if(fv===null||fv===undefined)continue;
-      if(f.type==="histogram"){ if(r[f.idx]!==fv)return false; }
-      else if(f.type==="histogram_range"){ const g=f.groups[fv]; if(!g||r[f.idx]<g.min||r[f.idx]>g.max)return false; }
-      else if(f.type==="toggle"){ if(r[f.idx]!==fv)return false; }
+/* -- FILTER PANEL (sticky bottom, cross-reactive) -- */
+function useFilterPanel(ds, allData) {
+  const initFilter = {};
+  ds.filters.forEach(f => initFilter[f.key] = null);
+  const [filter, setFilter] = useState(initFilter);
+
+  useEffect(() => {
+    const f = {};
+    ds.filters.forEach(fl => f[fl.key] = null);
+    setFilter(f);
+  }, [ds]);
+
+  const isFiltered = Object.values(filter).some(v => v !== null);
+
+  /* Filtered dataset (all filters applied) */
+  const filtered = useMemo(() => allData.filter(r => {
+    for (const f of ds.filters) {
+      const fv = filter[f.key];
+      if (fv === null || fv === undefined) continue;
+      if (f.type==="histogram") { if (r[f.idx]!==fv) return false; }
+      else if (f.type==="histogram_range") { const g=f.groups[fv]; if (!g||r[f.idx]<g.min||r[f.idx]>g.max) return false; }
+      else if (f.type==="toggle") { if (r[f.idx]!==fv) return false; }
     }
     return true;
-  }),[data,filter,def]);
-  const crossCounts = useMemo(()=>{
-    const res={};
-    def.filters.forEach(fi=>{
-      res[fi.key]=data.filter(r=>{
-        for(const fj of def.filters){
-          if(fj.key===fi.key)continue;
-          const fv=filter[fj.key];
-          if(fv===null||fv===undefined)continue;
-          if(fj.type==="histogram"){ if(r[fj.idx]!==fv)return false; }
-          else if(fj.type==="histogram_range"){ const g=fj.groups[fv]; if(!g||r[fj.idx]<g.min||r[fj.idx]>g.max)return false; }
-          else if(fj.type==="toggle"){ if(r[fj.idx]!==fv)return false; }
+  }), [allData, filter, ds.filters]);
+
+  /* Cross-filtered counts: for each filter, apply all OTHER filters */
+  const crossCounts = useMemo(() => {
+    const result = {};
+    ds.filters.forEach(fi => {
+      const otherFiltered = allData.filter(r => {
+        for (const fj of ds.filters) {
+          if (fj.key === fi.key) continue;
+          const fv = filter[fj.key];
+          if (fv === null || fv === undefined) continue;
+          if (fj.type==="histogram") { if (r[fj.idx]!==fv) return false; }
+          else if (fj.type==="histogram_range") { const g=fj.groups[fv]; if (!g||r[fj.idx]<g.min||r[fj.idx]>g.max) return false; }
+          else if (fj.type==="toggle") { if (r[fj.idx]!==fv) return false; }
         }
         return true;
       });
+      result[fi.key] = otherFiltered;
     });
-    return res;
-  },[data,filter,def]);
-  const toggle=(key,val)=>setFilter(f=>({...f,[key]:f[key]===val?null:val}));
-  const reset=()=>setFilter(initFilter());
-  return {filtered,filter,isFiltered,crossCounts,toggle,reset};
+    return result;
+  }, [allData, filter, ds.filters]);
+
+  const toggle = (key, val) => setFilter(f => ({ ...f, [key]: f[key]===val ? null : val }));
+  const reset = () => { const f={}; ds.filters.forEach(fl => f[fl.key]=null); setFilter(f); };
+
+  return { filtered, filter, isFiltered, crossCounts, toggle, reset, setFilter };
 }
 
-/* ─── FILTER PANEL ─── */
-function FilterPanel({ def, data, fs: filterState }) {
-  const {filtered,filter,isFiltered,crossCounts,toggle,reset} = filterState;
-  const N=data.length, n=filtered.length;
+function FilterPanel({ ds, allData, filterState, fontSize }) {
+  const lg = fontSize;
+  const { filtered, filter, isFiltered, crossCounts, toggle, reset } = filterState;
+  const N = allData.length;
+  const n = filtered.length;
+
   return (
-    <div style={{position:"sticky",bottom:0,zIndex:40,background:"#fff",borderTop:"1px solid #eae7e2",padding:"10px 16px 8px",boxShadow:"0 -2px 10px rgba(0,0,0,0.06)"}}>
-      <div style={{maxWidth:600,margin:"0 auto"}}>
-        <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
-          <span style={{fontSize:12,fontWeight:600,color:"#555",fontFamily:T.sans}}>Filter {isFiltered&&<span style={{color:T.red[2]}}>· {n}/{N}</span>}</span>
-          {isFiltered&&<button onClick={reset} style={{fontSize:11,padding:"2px 10px",border:"1px solid "+T.goldLight,borderRadius:T.radius,background:"#faf8f5",cursor:"pointer",color:"#888",fontFamily:T.sans}}>✕ Reset</button>}
+    <div style={{ position:"sticky", bottom:0, zIndex:40, background:"#fff", borderTop:"1px solid #eae7e2", padding:"12px 16px 10px", boxShadow:"0 -2px 10px rgba(0,0,0,0.06)", width:"100%" }}>
+      <div style={{ maxWidth:640, margin:"0 auto" }}>
+        <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
+          <span style={{ fontSize:fontSize==="large"?14:12, fontWeight:600, color:"#555", fontFamily:T.sans }}>
+            Filter {isFiltered && <span style={{ color:T.red[2], fontWeight:500 }}>· {n}/{N}</span>}
+          </span>
+          {isFiltered && <button onClick={reset} style={{ fontSize:11, padding:"2px 10px", border:"1px solid "+T.goldLight, borderRadius:T.radius, background:"#faf8f5", cursor:"pointer", color:"#888", fontFamily:T.sans }}>✕ Reset</button>}
         </div>
-        {isFiltered&&<div style={{fontSize:11,color:T.red[2],marginBottom:6,padding:"4px 8px",background:"#fef5f5",borderRadius:4,border:"1px solid #fde0e0",fontFamily:T.sans}}>Aktiver Filter — Grafiken zeigen nur die Auswahl ({n} von {N})</div>}
-        <div style={{display:"flex",gap:16,flexWrap:"wrap",alignItems:"flex-end",justifyContent:"center"}}>
-          {def.filters.map(f=>{
-            const cd=crossCounts[f.key]||data;
-            if(f.type==="histogram"){
-              const counts=f.values.map(v=>cd.filter(r=>r[f.idx]===v).length);
-              const maxC=Math.max(...counts,1);
+        {isFiltered && <div style={{ fontSize:11, color:T.red[2], marginBottom:6, padding:"4px 8px", background:"#fef5f5", borderRadius:4, border:"1px solid #fde0e0", fontFamily:T.sans }}>
+          Aktiver Filter — Grafiken zeigen nur die Auswahl ({n} von {N})
+        </div>}
+        <div style={{ display:"flex", gap:12, flexWrap:"wrap", alignItems:"flex-start", justifyContent:"center" }}>
+          {ds.filters.map(f => {
+            const crossData = crossCounts[f.key] || allData;
+            if (f.type === "histogram") {
+              const counts = f.values.map(v => crossData.filter(r => r[f.idx]===v).length);
+              const maxC = Math.max(...counts, 1);
               return (
-                <div key={f.key} style={{minWidth:80,maxWidth:200}}>
-                  <div style={{fontSize:10,color:"#999",marginBottom:4,fontFamily:T.sans}}>{f.label}</div>
-                  <div style={{display:"flex",alignItems:"flex-end",gap:2,height:44,justifyContent:"center"}}>
-                    {counts.map((c,i)=>{const sel=filter[f.key]===f.values[i]; const dim=filter[f.key]!==null&&!sel; return (
-                      <div key={i} onClick={()=>toggle(f.key,f.values[i])} style={{width:24,display:"flex",flexDirection:"column",alignItems:"center",cursor:"pointer",opacity:dim?0.25:1,transition:"opacity 0.2s"}}>
-                        <div style={{fontSize:8,color:"#999",marginBottom:1,fontFamily:T.sans}}>{c}</div>
-                        <div style={{width:18,height:Math.max(3,c/maxC*30),background:sel?T.red[2]:T.red[0]+"60",borderRadius:"3px 3px 0 0",transition:"all 0.3s",border:sel?"2px solid "+T.red[1]:"2px solid transparent"}}/>
-                        <div style={{fontSize:7,color:"#777",marginTop:1,whiteSpace:"nowrap",fontFamily:T.sans}}>{f.labels[i]}</div>
-                      </div>
-                    );})}
+                <div key={f.key} style={{ minWidth:100, maxWidth:240, flex:"1 1 auto" }}>
+                  <div style={{ fontSize:10, color:"#999", marginBottom:4, fontFamily:T.sans, lineHeight:1.3 }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
+                  <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
+                    {counts.map((c, i) => {
+                      const sel = filter[f.key]===f.values[i];
+                      const dim = filter[f.key]!==null && !sel;
+                      return (
+                        <div key={i} onClick={()=>toggle(f.key,f.values[i])} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
+                          <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
+                          <div style={{ width:22, height:Math.max(3,c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
+                          <div style={{ fontSize:7, color:"#777", marginTop:2, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, verticalAlign:"top" }}>{f.labels[i]}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
             }
-            if(f.type==="histogram_range"){
-              const counts=f.groups.map(g=>cd.filter(r=>r[f.idx]>=g.min&&r[f.idx]<=g.max).length);
-              const maxC=Math.max(...counts,1);
+            if (f.type === "histogram_range") {
+              const counts = f.groups.map(g => crossData.filter(r => r[f.idx]>=g.min && r[f.idx]<=g.max).length);
+              const maxC = Math.max(...counts, 1);
               return (
-                <div key={f.key} style={{minWidth:80,maxWidth:180}}>
-                  <div style={{fontSize:10,color:"#999",marginBottom:4,fontFamily:T.sans}}>{f.label}</div>
-                  <div style={{display:"flex",alignItems:"flex-end",gap:2,height:44,justifyContent:"center"}}>
-                    {counts.map((c,i)=>{const sel=filter[f.key]===i; const dim=filter[f.key]!==null&&!sel; return (
-                      <div key={i} onClick={()=>toggle(f.key,i)} style={{width:24,display:"flex",flexDirection:"column",alignItems:"center",cursor:"pointer",opacity:dim?0.25:1,transition:"opacity 0.2s"}}>
-                        <div style={{fontSize:8,color:"#999",marginBottom:1,fontFamily:T.sans}}>{c}</div>
-                        <div style={{width:18,height:Math.max(3,c/maxC*30),background:sel?T.red[2]:T.red[0]+"60",borderRadius:"3px 3px 0 0",transition:"all 0.3s",border:sel?"2px solid "+T.red[1]:"2px solid transparent"}}/>
-                        <div style={{fontSize:7,color:"#777",marginTop:1,whiteSpace:"nowrap",fontFamily:T.sans}}>{f.groups[i].label}</div>
-                      </div>
-                    );})}
+                <div key={f.key} style={{ minWidth:100, maxWidth:200, flex:"1 1 auto" }}>
+                  <div style={{ fontSize:10, color:"#999", marginBottom:4, fontFamily:T.sans }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
+                  <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
+                    {counts.map((c, i) => {
+                      const sel = filter[f.key]===i;
+                      const dim = filter[f.key]!==null && !sel;
+                      return (
+                        <div key={i} onClick={()=>toggle(f.key,i)} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
+                          <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
+                          <div style={{ width:22, height:Math.max(3,c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
+                          <div style={{ fontSize:7, color:"#777", marginTop:2, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, verticalAlign:"top" }}>{f.groups[i].label}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
             }
-            if(f.type==="toggle"){
+            if (f.type === "toggle") {
               return (
                 <div key={f.key}>
-                  <div style={{fontSize:10,color:"#999",marginBottom:4,fontFamily:T.sans}}>{f.label}</div>
-                  <div style={{display:"flex",gap:4}}>
-                    {f.values.map((v,i)=>{const c=cd.filter(r=>r[f.idx]===v).length; const sel=filter[f.key]===v; const dim=filter[f.key]!==null&&!sel; return (
-                      <div key={v} onClick={()=>toggle(f.key,v)} style={{padding:"4px 10px",borderRadius:T.radius,cursor:"pointer",border:sel?"2px solid "+T.red[2]:"2px solid transparent",background:sel?"#fef5f5":"#f5f3f0",opacity:dim?0.3:1,transition:"all 0.2s",textAlign:"center"}}>
-                        <div style={{fontSize:13,fontWeight:600,color:"#444",fontFamily:T.sans}}>{c}</div>
-                        <div style={{fontSize:9,color:"#888",fontFamily:T.sans}}>{f.labels[i]}</div>
-                      </div>
-                    );})}
+                  <div style={{ fontSize:10, color:"#999", marginBottom:4, fontFamily:T.sans }}>{f.label}</div>
+                  <div style={{ display:"flex", gap:4 }}>
+                    {f.values.map((v, i) => {
+                      const c = crossData.filter(r => r[f.idx]===v).length;
+                      const sel = filter[f.key]===v;
+                      const dim = filter[f.key]!==null && !sel;
+                      return (
+                        <div key={v} onClick={()=>toggle(f.key,v)} style={{ padding:"4px 10px", borderRadius:T.radius, cursor:"pointer", border:sel?"2px solid "+T.red[2]:"2px solid transparent", background:sel?"#fef5f5":"#f5f3f0", opacity:dim?0.3:1, transition:"all 0.2s", textAlign:"center" }}>
+                          <div style={{ fontSize:13, fontWeight:600, color:"#444", fontFamily:T.sans }}>{c}</div>
+                          <div style={{ fontSize:9, color:"#888", fontFamily:T.sans }}>{f.labels[i]}</div>
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               );
@@ -537,216 +722,212 @@ function FilterPanel({ def, data, fs: filterState }) {
   );
 }
 
-/* ─── DASHBOARD ─── */
-function Dashboard({ dsKey, data, cb }) {
-  const def = DATASET_DEFS[dsKey];
-  const filterState = useFilterState(def, data);
-  const {filtered} = filterState;
+/* -- DASHBOARD RENDERER -- */
+function Dashboard({ dsKey, fontSize, cb }) {
+  const lg = fontSize;
+  const ds = DATASETS[dsKey];
+  if (!ds) return null;
+  const filterState = useFilterPanel(ds, ds.data);
+  const { filtered } = filterState;
   const n = filtered.length;
+
+  /* Pie charts: render side-by-side container */
   const renderCharts = (charts) => {
-    const pies=charts.filter(c=>c.type==="pie");
-    const others=charts.filter(c=>c.type!=="pie");
-    return (<>
-      {pies.length>0&&<div style={{textAlign:"center",marginBottom:8}}>{pies.map(c=><ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb}/>)}</div>}
-      {others.map(c=><ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb}/>)}
-    </>);
+    const pies = charts.filter(c => c.type === "pie");
+    const others = charts.filter(c => c.type !== "pie");
+    return (
+      <>
+        {pies.length > 0 && (
+          <div style={{ textAlign:"center", marginBottom:8 }}>
+            {pies.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
+          </div>
+        )}
+        {others.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
+      </>
+    );
   };
+
   return (
-    <div style={{animation:"fadeIn 0.3s ease"}}>
-      <div style={{padding:"16px 0 8px",borderBottom:"2px solid "+T.red[2],marginBottom:8}}>
-        <div style={{fontFamily:T.serif,fontSize:20,fontWeight:700,color:T.red[1]}}>{def.meta.title}</div>
-        <div style={{fontSize:11,color:"#888",marginTop:2,fontFamily:T.sans}}>{def.meta.desc}</div>
-        <div style={{fontSize:11,color:"#999",marginTop:2,fontFamily:T.sans}}>N = {def.meta.n} · Jahr: {def.meta.year}</div>
+    <div>
+      <div style={{ padding:"16px 0 8px", borderBottom:"2px solid "+T.red[2], marginBottom:8 }}>
+        <div style={{ fontFamily:T.serif, fontSize:fontSize==="large"?22:18, fontWeight:700, color:T.red[1] }}>{ds.meta.title}</div>
+        <div style={{ fontSize:fontSize==="large"?13:11, color:"#888", marginTop:2, fontFamily:T.sans }}>{ds.meta.desc}</div>
+        <div style={{ fontSize:fontSize==="large"?13:11, color:"#999", marginTop:2, fontFamily:T.sans }}>N = {ds.meta.n} · Jahr: {ds.meta.year}</div>
       </div>
-      {def.sections.sort((a,b)=>a.order-b.order).map(sec=>(
-        <Sec key={sec.id} title={sec.title} info={sec.info}>
-          {sec.text&&<p style={{fontSize:12,color:"#666",marginBottom:14,lineHeight:1.65,fontFamily:T.sans}}>{renderBold(sec.text)}</p>}
-          {renderCharts(sec.charts||[])}
+      {ds.sections.sort((a,b)=>a.order-b.order).map(sec => (
+        <Sec key={sec.id} title={sec.title} info={sec.info} lg={lg}>
+          {sec.text && <p style={{ fontSize:fontSize==="large"?14:12, color:"#666", marginBottom:14, lineHeight:1.65, fontFamily:T.sans }}>{renderBold(sec.text)}</p>}
+          {renderCharts(sec.charts || [])}
         </Sec>
       ))}
-      <FilterPanel def={def} data={data} fs={filterState}/>
+      <FilterPanel ds={ds} allData={ds.data} filterState={filterState} fontSize={fontSize} />
     </div>
   );
 }
 
-/* ─── NAVBAR ─── */
+/* -- NAVBAR + HAMBURGER MENU -- */
 function Navbar({ fontSize, setFontSize, cb, setCb, lang, setLang }) {
-  const [menuOpen,setMenuOpen] = useState(false);
-  const [infoOpen,setInfoOpen] = useState(false);
-  return (<>
-    <nav style={{position:"sticky",top:0,zIndex:50,background:"#faf8f5",borderBottom:"1px solid #eae7e2",padding:"0 16px",height:48,display:"flex",alignItems:"center",justifyContent:"space-between"}}>
-      <svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill={T.red[1]}/><text x="14" y="19" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="Noto Serif, serif" fontWeight="700">M</text></svg>
-      <div style={{fontFamily:T.serif,fontSize:15,fontWeight:700,color:T.red[1],letterSpacing:0.5}}>Moosburg Data Hub</div>
-      <button onClick={()=>setMenuOpen(!menuOpen)} style={{background:"none",border:"none",cursor:"pointer",padding:4,color:T.red[1],fontSize:20,lineHeight:1}} aria-label="Menü">{menuOpen?"✕":"☰"}</button>
-    </nav>
-    {menuOpen&&<>
-      <div onClick={()=>setMenuOpen(false)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.2)",zIndex:55}}/>
-      <div style={{position:"fixed",top:48,right:0,width:260,maxHeight:"80vh",overflowY:"auto",background:"#fff",borderRadius:"0 0 0 12px",boxShadow:"0 8px 24px rgba(0,0,0,0.12)",zIndex:60,padding:16,fontFamily:T.sans}}>
-        <div style={{paddingBottom:12,borderBottom:"1px solid #eae7e2",marginBottom:12}}>
-          <a href="#" onClick={(e)=>{e.preventDefault();setInfoOpen(true);setMenuOpen(false);}} style={{fontSize:13,color:T.red[2],textDecoration:"none"}}>ℹ Weitere Informationen →</a>
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [infoOpen, setInfoOpen] = useState(false);
+  return (
+    <>
+      <nav style={{ position:"sticky", top:0, zIndex:50, background:"#faf8f5", borderBottom:"1px solid #eae7e2", padding:"0 16px", height:48, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+        <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+          <svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill={T.red[1]} /><text x="14" y="19" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="Noto Serif, serif" fontWeight="700">M</text></svg>
         </div>
-        <div style={{paddingBottom:12,borderBottom:"1px solid #eae7e2",marginBottom:12}}>
-          <div style={{fontSize:11,color:"#999",marginBottom:6,textTransform:"uppercase",letterSpacing:1}}>Sprache</div>
-          {[["de","Deutsch"],["en","English"]].map(([code,name])=>{const active=lang===code; const disabled=code==="en"; return (
-            <div key={code} onClick={()=>!disabled&&setLang(code)} style={{display:"flex",alignItems:"center",gap:8,padding:"6px 0",cursor:disabled?"default":"pointer",opacity:disabled?0.35:1}}>
-              <span style={{width:16,height:16,borderRadius:"50%",border:"2px solid "+(active?T.red[2]:"#ccc"),display:"flex",alignItems:"center",justifyContent:"center"}}>{active&&<span style={{width:8,height:8,borderRadius:"50%",background:T.red[2]}}/>}</span>
-              <span style={{fontSize:13,color:disabled?"#aaa":"#444"}}>{name}</span>
-              {disabled&&<span style={{fontSize:10,color:"#bbb",marginLeft:4}}>(bald verfügbar)</span>}
-            </div>
-          );})}
-        </div>
-        <div>
-          <div style={{fontSize:11,color:"#999",marginBottom:6,textTransform:"uppercase",letterSpacing:1}}>Barrierefreiheit</div>
-          <div style={{marginBottom:8}}>
-            <div style={{fontSize:11,color:"#666",marginBottom:4}}>Schriftgröße</div>
-            {[["normal","Normal"],["large","Groß"]].map(([val,label])=>{const active=fontSize===val; return (
-              <div key={val} onClick={()=>setFontSize(val)} style={{display:"flex",alignItems:"center",gap:8,padding:"4px 0",cursor:"pointer"}}>
-                <span style={{width:16,height:16,borderRadius:"50%",border:"2px solid "+(active?T.red[2]:"#ccc"),display:"flex",alignItems:"center",justifyContent:"center"}}>{active&&<span style={{width:8,height:8,borderRadius:"50%",background:T.red[2]}}/>}</span>
-                <span style={{fontSize:13,color:"#444"}}>{label}</span>
-              </div>
-            );})}
+        <div style={{ fontFamily:T.serif, fontSize:15, fontWeight:700, color:T.red[1], letterSpacing:0.5 }}>Moosburg Data Hub</div>
+        <button onClick={()=>setMenuOpen(!menuOpen)} style={{ background:"none", border:"none", cursor:"pointer", padding:4, color:T.red[1], fontSize:20, lineHeight:1 }} aria-label="Menü">
+          {menuOpen ? "✕" : "☰"}
+        </button>
+      </nav>
+      {menuOpen && <>
+        <div onClick={()=>setMenuOpen(false)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.2)", zIndex:55 }} />
+        <div style={{ position:"fixed", top:48, right:0, width:260, maxHeight:"80vh", overflowY:"auto", background:"#fff", borderRadius:"0 0 0 12px", boxShadow:"0 8px 24px rgba(0,0,0,0.12)", zIndex:60, padding:16, fontFamily:T.sans }}>
+          <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
+            <a href="#" onClick={(e)=>{e.preventDefault();setInfoOpen(true);setMenuOpen(false);}} style={{ fontSize:13, color:T.red[2], textDecoration:"none" }}>ℹ Weitere Informationen →</a>
+          </div>
+          <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
+            <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Sprache</div>
+            {[["de","Deutsch"],["en","English"]].map(([code,name]) => {
+              const active=lang===code;
+              const disabled=code==="en";
+              return (
+                <div key={code} onClick={()=>!disabled&&setLang(code)} style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 0", cursor:disabled?"default":"pointer", opacity:disabled?0.35:1 }}>
+                  <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                    {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+                  </span>
+                  <span style={{ fontSize:13, color:disabled?"#aaa":"#444" }}>{name}</span>
+                  {disabled && <span style={{ fontSize:10, color:"#bbb", marginLeft:4 }}>(bald verfügbar)</span>}
+                </div>
+              );
+            })}
           </div>
           <div>
-            <div style={{fontSize:11,color:"#666",marginBottom:4}}>Farben</div>
-            {[["normal","Normal"],["cb","Farbenblind-sicher"]].map(([val,label])=>{const active=(val==="cb")===cb; return (
-              <div key={val} onClick={()=>setCb(val==="cb")} style={{display:"flex",alignItems:"center",gap:8,padding:"4px 0",cursor:"pointer"}}>
-                <span style={{width:16,height:16,borderRadius:"50%",border:"2px solid "+(active?T.red[2]:"#ccc"),display:"flex",alignItems:"center",justifyContent:"center"}}>{active&&<span style={{width:8,height:8,borderRadius:"50%",background:T.red[2]}}/>}</span>
-                <span style={{fontSize:13,color:"#444"}}>{label}</span>
-              </div>
-            );})}
+            <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Barrierefreiheit</div>
+            <div style={{ marginBottom:8 }}>
+              <div style={{ fontSize:11, color:"#666", marginBottom:4 }}>Schriftgröße</div>
+              {[["normal","Normal"],["large","Groß"]].map(([val,label]) => {
+                const active=fontSize===val;
+                return (
+                  <div key={val} onClick={()=>setFontSize(val)} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
+                    <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                      {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+                    </span>
+                    <span style={{ fontSize:13, color:"#444" }}>{label}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <div>
+              <div style={{ fontSize:11, color:"#666", marginBottom:4 }}>Farben</div>
+              {[["normal","Normal"],["cb","Farbenblind-sicher"]].map(([val,label]) => {
+                const active=(val==="cb")===cb;
+                return (
+                  <div key={val} onClick={()=>setCb(val==="cb")} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
+                    <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                      {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+                    </span>
+                    <span style={{ fontSize:13, color:"#444" }}>{label}</span>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
-    </>}
-    <Modal open={infoOpen} onClose={()=>setInfoOpen(false)}>
-      <h3 style={{fontFamily:T.serif,fontSize:18,color:T.red[1],marginBottom:12}}>Moosburg Data Hub</h3>
-      <p>Der Moosburg Data Hub ist eine interaktive Plattform der Stadt Moosburg a.d. Isar zur Visualisierung öffentlicher Umfragedaten.</p>
-      <p style={{marginTop:12}}>Bei Fragen oder Anregungen wenden Sie sich bitte an die Stadtverwaltung Moosburg.</p>
-      <button onClick={()=>setInfoOpen(false)} style={{marginTop:16,fontSize:13,color:T.gold,background:"none",border:"none",cursor:"pointer",fontFamily:T.sans}}>Schließen</button>
-    </Modal>
-  </>);
+      </>}
+      <Modal open={infoOpen} onClose={()=>setInfoOpen(false)}>
+        <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Moosburg Data Hub</h3>
+        <p>Der Moosburg Data Hub ist eine interaktive Plattform der Stadt Moosburg a.d. Isar zur Visualisierung öffentlicher Umfragedaten. Hier werden Ergebnisse verschiedener Datenerhebungen aufbereitet und für alle Bürgerinnen und Bürger zugaenglich gemacht.</p>
+        <p style={{ marginTop:12 }}>Bei Fragen oder Anregungen wenden Sie sich bitte an die Stadtverwaltung Moosburg.</p>
+      </Modal>
+    </>
+  );
 }
 
-/* ─── SEARCH ─── */
-function DatasetSearch({ selected, onSelect, loaded }) {
-  const [query,setQuery] = useState("");
-  const [open,setOpen] = useState(false);
+/* -- DATASET SEARCH -- */
+function DatasetSearch({ selected, onSelect }) {
+  const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const entries = Object.entries(DATASET_DEFS).map(([k,ds])=>({key:k,label:ds.meta.title+" ("+ds.meta.year+", N="+ds.meta.n+")"}));
-  const fil = query.length>0 ? entries.filter(e=>e.label.toLowerCase().includes(query.toLowerCase())) : entries;
-  useEffect(()=>{const h=(e)=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);}; document.addEventListener("mousedown",h); return ()=>document.removeEventListener("mousedown",h);}, []);
+  const entries = Object.entries(DATASETS).map(([k, ds]) => ({ key:k, label:ds.meta.title+" ("+ds.meta.year+", N="+ds.meta.n+")" }));
+  const fil = query.length>0 ? entries.filter(e => e.label.toLowerCase().includes(query.toLowerCase())) : entries;
+  useEffect(() => { const h=(e)=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);}; document.addEventListener("mousedown",h); return ()=>document.removeEventListener("mousedown",h); }, []);
+
   return (
-    <div ref={ref} style={{position:"relative",margin:"16px auto",maxWidth:600}}>
+    <div ref={ref} style={{ position:"relative", margin:"16px auto", maxWidth:600 }}>
       <input type="text" placeholder="Datenerhebung suchen…" value={query} onChange={e=>{setQuery(e.target.value);setOpen(true);}} onFocus={()=>setOpen(true)}
-        style={{width:"100%",padding:"10px 14px",border:"1px solid "+T.goldLight,borderRadius:T.radius+2,fontSize:14,background:"#faf8f5",color:"#333",outline:"none",boxSizing:"border-box",fontFamily:T.sans}}/>
-      {open&&fil.length>0&&(
-        <div style={{position:"absolute",top:"100%",left:0,right:0,background:"#fff",border:"1px solid "+T.goldLight,borderRadius:"0 0 "+T.radius+"px "+T.radius+"px",boxShadow:"0 4px 12px rgba(0,0,0,0.08)",zIndex:20,maxHeight:200,overflowY:"auto"}}>
-          {fil.map(e=>(
+        style={{ width:"100%", padding:"10px 14px", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:14, background:"#faf8f5", color:"#333", outline:"none", boxSizing:"border-box", fontFamily:T.sans }} />
+      {open && fil.length>0 && (
+        <div style={{ position:"absolute", top:"100%", left:0, right:0, background:"#fff", border:"1px solid "+T.goldLight, borderRadius:"0 0 "+T.radius+"px "+T.radius+"px", boxShadow:"0 4px 12px rgba(0,0,0,0.08)", zIndex:20, maxHeight:200, overflowY:"auto" }}>
+          {fil.map(e => (
             <div key={e.key} onClick={()=>{onSelect(e.key);setQuery(e.label);setOpen(false);}}
-              style={{padding:"10px 14px",cursor:"pointer",fontSize:13,color:selected===e.key?T.red[2]:"#444",fontWeight:selected===e.key?600:400,borderBottom:"1px solid #f5f3f0",fontFamily:T.sans}}
-              onMouseEnter={ev=>ev.currentTarget.style.background="#faf8f5"} onMouseLeave={ev=>ev.currentTarget.style.background="#fff"}>
+              style={{ padding:"10px 14px", cursor:"pointer", fontSize:13, color:selected===e.key?T.red[2]:"#444", fontWeight:selected===e.key?600:400, borderBottom:"1px solid #f5f3f0", fontFamily:T.sans }}
+              onMouseEnter={e2=>e2.currentTarget.style.background="#faf8f5"} onMouseLeave={e2=>e2.currentTarget.style.background="#fff"}>
               {e.label}
-              {loaded[e.key]===false&&<span style={{fontSize:10,color:"#bbb",marginLeft:8,fontFamily:T.sans}}>Lade…</span>}
             </div>
           ))}
         </div>
       )}
-      {selected&&<button onClick={()=>{onSelect(null);setQuery("");}} style={{position:"absolute",right:10,top:"50%",transform:"translateY(-50%)",background:"none",border:"none",cursor:"pointer",color:"#999",fontSize:16}}>✕</button>}
+      {selected && <button onClick={()=>{onSelect(null);setQuery("");}} style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#999", fontSize:16 }}>✕</button>}
     </div>
   );
 }
 
-/* ─── ROOT APP ─── */
+/* -- APP ROOT -- */
 function App() {
-  const [dsKey,setDsKey] = useState(null);
-  const [datasets,setDatasets] = useState({});   // key → data array
-  const [loading,setLoading] = useState({});      // key → bool
-  const [fontSize,setFontSize] = useState("normal");
-  const [cb,setCb] = useState(false);
-  const [lang,setLang] = useState("de");
-  const [impOpen,setImpOpen] = useState(false);
-  const [conOpen,setConOpen] = useState(false);
-
-  /* Load JSON when dataset selected */
-  const selectDs = useCallback((key) => {
-    setDsKey(key);
-    if(!key||datasets[key])return;
-    const src = DATASET_DEFS[key]?.meta?.src;
-    if(!src)return;
-    setLoading(l=>({...l,[key]:true}));
-    fetch(src)
-      .then(r=>{ if(!r.ok)throw new Error("HTTP "+r.status); return r.json(); })
-      .then(data=>{ setDatasets(d=>({...d,[key]:data})); setLoading(l=>({...l,[key]:false})); })
-      .catch(err=>{ console.error("Fehler beim Laden von",src,err); setLoading(l=>({...l,[key]:false})); });
-  }, [datasets]);
-
-  const loaded = Object.fromEntries(Object.keys(DATASET_DEFS).map(k=>[k, k in datasets]));
-  const isLoading = dsKey && loading[dsKey];
+  const [dsKey, setDsKey] = useState(null);
+  const [fontSize, setFontSize] = useState("normal");
+  const [cb, setCb] = useState(false);
+  const [lang, setLang] = useState("de");
+  const [impOpen, setImpOpen] = useState(false);
+  const [conOpen, setConOpen] = useState(false);
+  const fs = fontSize==="large" ? 16 : 14;
+  const lg = fontSize;
 
   return (
-    <div style={{fontFamily:T.sans,fontSize:fontSize==="large"?16:14,color:"#333",background:"#fdfcfa",minHeight:"100vh"}}>
-      <Navbar fontSize={fontSize} setFontSize={setFontSize} cb={cb} setCb={setCb} lang={lang} setLang={setLang}/>
-      <div style={{maxWidth:640,margin:"0 auto",padding:"0 16px"}}>
-        <DatasetSearch selected={dsKey} onSelect={selectDs} loaded={loaded}/>
-
-        {!dsKey&&(
-          <div style={{textAlign:"center",padding:"60px 20px",color:"#999"}}>
-            <div style={{fontFamily:T.serif,fontSize:22,color:T.red[1],marginBottom:8}}>Willkommen</div>
-            <p style={{fontSize:13,lineHeight:1.6,fontFamily:T.sans}}>Wählen Sie oben eine Datenerhebung aus, um das Dashboard zu laden.</p>
-            <div style={{display:"flex",gap:8,justifyContent:"center",flexWrap:"wrap",marginTop:20}}>
-              {Object.entries(DATASET_DEFS).map(([k,ds])=>(
-                <button key={k} onClick={()=>selectDs(k)}
-                  style={{padding:"10px 16px",borderRadius:T.radius,border:"1px solid "+T.goldLight,background:"#faf8f5",cursor:"pointer",fontSize:13,color:"#555",fontFamily:T.sans,transition:"all 0.2s"}}
-                  onMouseEnter={e=>{e.currentTarget.style.borderColor=T.red[2];e.currentTarget.style.color=T.red[2];}}
-                  onMouseLeave={e=>{e.currentTarget.style.borderColor=T.goldLight;e.currentTarget.style.color="#555";}}>
-                  {ds.meta.title} ({ds.meta.year})
-                </button>
-              ))}
+    <>
+      <FontLoader />
+      <div style={{ fontFamily:T.sans, fontSize:fs, color:"#333", background:"#fff", minHeight:"100vh" }}>
+        <Navbar fontSize={fontSize} setFontSize={setFontSize} cb={cb} setCb={setCb} lang={lang} setLang={setLang} />
+        <div style={{ maxWidth:640, margin:"0 auto", padding:"0 16px" }}>
+          <DatasetSearch selected={dsKey} onSelect={setDsKey} />
+          {!dsKey && (
+            <div style={{ textAlign:"center", padding:"60px 20px", color:"#999" }}>
+              <div style={{ fontFamily:T.serif, fontSize:20, color:T.red[1], marginBottom:8 }}>Willkommen</div>
+              <p style={{ fontSize:13, lineHeight:1.6, fontFamily:T.sans }}>Wählen Sie oben eine Datenerhebung aus, um das Dashboard zu laden.</p>
+              <div style={{ display:"flex", gap:8, justifyContent:"center", flexWrap:"wrap", marginTop:20 }}>
+                {Object.entries(DATASETS).map(([k, ds]) => (
+                  <button key={k} onClick={()=>setDsKey(k)}
+                    style={{ padding:"10px 16px", borderRadius:T.radius, border:"1px solid "+T.goldLight, background:"#faf8f5", cursor:"pointer", fontSize:13, color:"#555", fontFamily:T.sans, transition:"all 0.2s" }}
+                    onMouseEnter={e=>{e.currentTarget.style.borderColor=T.red[2];e.currentTarget.style.color=T.red[2];}}
+                    onMouseLeave={e=>{e.currentTarget.style.borderColor=T.goldLight;e.currentTarget.style.color="#555";}}>
+                    {ds.meta.title} ({ds.meta.year})
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        )}
-
-        {isLoading&&(
-          <div style={{textAlign:"center",padding:"40px 0"}}>
-            <div className="spinner"/>
-            <p style={{fontSize:13,color:"#999",fontFamily:T.sans,marginTop:8}}>Daten werden geladen…</p>
-          </div>
-        )}
-
-        {dsKey&&datasets[dsKey]&&!isLoading&&(
-          <Dashboard key={dsKey} dsKey={dsKey} data={datasets[dsKey]} cb={cb}/>
-        )}
-
-        {dsKey&&!datasets[dsKey]&&!isLoading&&(
-          <div style={{textAlign:"center",padding:"40px 0",color:"#999",fontFamily:T.sans,fontSize:13}}>
-            Daten konnten nicht geladen werden. Bitte Konsole prüfen.
-          </div>
-        )}
+          )}
+          {dsKey && <Dashboard dsKey={dsKey} fontSize={fontSize} cb={cb} />}
+        </div>
+        <footer style={{ padding:"12px 16px 14px", textAlign:"center", fontSize:S(11,lg), color:"#aaa", background:"#faf8f5", borderTop:"1px solid #eae7e2", marginTop:0, fontFamily:T.sans }}>
+          <a href="#" onClick={(e)=>{e.preventDefault();setImpOpen(true);}} style={{ color:T.gold, textDecoration:"none", marginRight:16 }}>Impressum</a>
+          <a href="#" onClick={(e)=>{e.preventDefault();setConOpen(true);}} style={{ color:T.gold, textDecoration:"none" }}>Kontakt</a>
+          <div style={{ marginTop:6, fontSize:10 }}>© {new Date().getFullYear()} Stadt Moosburg a.d. Isar</div>
+        </footer>
+        <Modal open={impOpen} onClose={()=>setImpOpen(false)}>
+          <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Impressum</h3>
+          <p>Stadt Moosburg a.d. Isar<br/>Stadtplatz 13<br/>85368 Moosburg a.d. Isar</p>
+          <p style={{ marginTop:8 }}>Vertreten durch den Ersten Bürgermeister.<br/>Platzhalter — wird später ersetzt.</p>
+        </Modal>
+        <Modal open={conOpen} onClose={()=>setConOpen(false)}>
+          <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Kontakt</h3>
+          <p>E-Mail: info@moosburg.de<br/>Telefon: +49 (0) 8761 / 000-0</p>
+          <p style={{ marginTop:8 }}>Platzhalter — wird später ersetzt.</p>
+        </Modal>
       </div>
-
-      <footer style={{padding:"20px 16px 14px",textAlign:"center",fontSize:11,color:"#aaa",borderTop:"1px solid #eae7e2",marginTop:24,fontFamily:T.sans}}>
-        <a href="#" onClick={(e)=>{e.preventDefault();setImpOpen(true);}} style={{color:T.gold,textDecoration:"none",marginRight:16}}>Impressum</a>
-        <a href="#" onClick={(e)=>{e.preventDefault();setConOpen(true);}} style={{color:T.gold,textDecoration:"none"}}>Kontakt</a>
-        <div style={{marginTop:6,fontSize:10}}>© {new Date().getFullYear()} Stadt Moosburg a.d. Isar</div>
-      </footer>
-
-      <Modal open={impOpen} onClose={()=>setImpOpen(false)}>
-        <h3 style={{fontFamily:T.serif,fontSize:18,color:T.red[1],marginBottom:12}}>Impressum</h3>
-        <p>Stadt Moosburg a.d. Isar<br/>Stadtplatz 13<br/>85368 Moosburg a.d. Isar</p>
-        <p style={{marginTop:8}}>Vertreten durch den Ersten Bürgermeister.<br/>Platzhalter — wird später ersetzt.</p>
-        <button onClick={()=>setImpOpen(false)} style={{marginTop:16,fontSize:13,color:T.gold,background:"none",border:"none",cursor:"pointer",fontFamily:T.sans}}>Schließen</button>
-      </Modal>
-      <Modal open={conOpen} onClose={()=>setConOpen(false)}>
-        <h3 style={{fontFamily:T.serif,fontSize:18,color:T.red[1],marginBottom:12}}>Kontakt</h3>
-        <p>E-Mail: info@moosburg.de<br/>Telefon: +49 (0) 8761 / 000-0</p>
-        <p style={{marginTop:8}}>Platzhalter — wird später ersetzt.</p>
-        <button onClick={()=>setConOpen(false)} style={{marginTop:16,fontSize:13,color:T.gold,background:"none",border:"none",cursor:"pointer",fontFamily:T.sans}}>Schließen</button>
-      </Modal>
-    </div>
+    </>
   );
 }
-
-ReactDOM.createRoot(document.getElementById("root")).render(<App/>);
-</script>
+  </script>
 </body>
 </html>
