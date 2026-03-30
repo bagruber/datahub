@@ -67,8 +67,10 @@
           // We need to manually trigger Babel for our deferred script
           const code = appScript.textContent;
           const transformed = Babel.transform(code, { presets: ['react'] }).code;
-          const fn = new Function(transformed);
-          fn();
+          // Execute in global scope so App is accessible
+          const script = document.createElement('script');
+          script.textContent = transformed;
+          document.head.appendChild(script);
 
           // Mount React
           const reactRoot = ReactDOM.createRoot(root);
