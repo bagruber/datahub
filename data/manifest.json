@@ -1,0 +1,7 @@
+{
+  "datasets": [
+    { "id": "christkindlmarkt_2025", "file": "christkindlmarkt_2025.json", "title": "Christkindlmarkt", "year": 2025, "n": 667 },
+    { "id": "website_innovationen_2025", "file": "website_innovationen_2025.json", "title": "Website Innovationen", "year": 2025, "n": 98 },
+    { "id": "bahnhofumfrage_2023", "file": "fahrgastumfrage_2023.json", "title": "Bahnhofumfrage", "year": 2023, "n": 1656 }
+  ]
+}
