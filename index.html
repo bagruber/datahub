@@ -6,15 +6,13 @@
   <title>Moosburg Data Hub</title>
   <meta name="description" content="Interaktive Daten-Dashboards der Stadt Moosburg a.d. Isar" />
 
-  <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-  <!-- React 18 from CDN -->
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <!-- Babel standalone for in-browser JSX -->
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
 
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -42,39 +40,22 @@
   </div>
 
   <script>
-    // Fetch JSON data, then compile and mount React app
     (async function boot() {
       const root = document.getElementById('root');
       try {
-        // Determine base path (works for both root and subdir hosting)
         const base = document.querySelector('base')?.href || './';
+        const mRes = await fetch(base + 'data/manifest.json');
+        if (!mRes.ok) throw new Error('Manifest konnte nicht geladen werden.');
+        window.__MANIFEST__ = await mRes.json();
+        window.__BASE__ = base;
 
-        const [ckRes, wiRes, bfRes] = await Promise.all([
-          fetch(base + 'data/christkindlmarkt_2025.json'),
-          fetch(base + 'data/website_innovationen_2025.json'),
-          fetch(base + 'data/fahrgastumfrage_2023.json'),
-        ]);
-        if (!ckRes.ok || !wiRes.ok || !bfRes.ok) throw new Error('Daten konnten nicht geladen werden.');
-
-        window.__DATA__ = {
-          ck: await ckRes.json(),
-          wi: await wiRes.json(),
-          bf: await bfRes.json(),
-        };
-
-        // Now load the JSX app
         const appScript = document.getElementById('app-jsx');
         if (appScript) {
-          // Babel will auto-transform script[type="text/babel"] but we loaded data first
-          // We need to manually trigger Babel for our deferred script
           const code = appScript.textContent;
           const transformed = Babel.transform(code, { presets: ['react'] }).code;
-          // Execute in global scope so App is accessible
           const script = document.createElement('script');
           script.textContent = transformed;
           document.head.appendChild(script);
-
-          // Mount React
           const reactRoot = ReactDOM.createRoot(root);
           reactRoot.render(React.createElement(App));
         }
@@ -85,12 +66,34 @@
     })();
   </script>
 
-  <!-- App JSX (deferred, compiled after data loads) -->
   <script id="app-jsx" type="text/plain">
 const { useState, useMemo, useCallback, useRef, useEffect } = React;
 
-/* MOOSBURG DATA HUB -- Unified Dashboard Framework */
+/* ========== THEME ========== */
+const T = {
+  red: ["#5A070A", "#9B0000", "#E6001E"],
+  gold: "#B39F7A", goldLight: "#D4C9A8", goldDark: "#8A7A5A",
+  rainbow: ["#E6001E","#CD0078","#008CE6","#78BE1E","#FFAA00","#00B5AD","#9B59B6","#E67E22","#2ECC71","#3498DB"],
+  likert6: ["#8c6d4f","#c29a6e","#e6d5b8","#b8d8d0","#6bb5a5","#2e8b7a"],
+  likert6cb: ["#d73027","#fc8d59","#fee08b","#d9ef8b","#91cf60","#1a9850"],
+  likert5: ["#c06040","#e0a878","#e6ddd4","#90b8b0","#3a8a7a"],
+  likert5cb: ["#d73027","#fc8d59","#ffffbf","#91bfdb","#4575b4"],
+  chartColors: ["#E6001E","#008CE6","#78BE1E","#CD0078","#FFAA00","#00B5AD","#9B59B6","#E67E22","#2ECC71","#3498DB"],
+  serif: "'Noto Serif', Georgia, serif",
+  sans: "'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif",
+  radius: 6,
+};
 
+/* ========== HELPERS ========== */
+const S = (base, lg) => lg === "large" ? Math.round(base * 1.2) : base;
+const pct = (n, t) => t ? Math.round(n / t * 1000) / 10 : 0;
+const renderBold = (text) => {
+  if (!text) return null;
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((p, i) => p.startsWith("**") ? React.createElement("strong", { key: i }, p.slice(2, -2)) : p);
+};
+
+/* ========== FONT LOADER ========== */
 const FontLoader = () => {
   useEffect(() => {
     const link = document.createElement("link");
@@ -101,721 +104,589 @@ const FontLoader = () => {
   return null;
 };
 
-const T = {
-  red: ["#5A070A","#9B0000","#E6001E"],
-  gold: "#B39F7A",
-  goldLight: "#D4C9A8",
-  goldDark: "#8A7A5A",
-  rainbow: ["#5A070A","#9B0000","#E6001E","#CD0078","#FFAA00","#FFEB00","#78BE1E","#008CE6","#621D80","#8C4100"],
-  likert6: ["#993C1D","#F0997B","#FAECE7","#E1F5EE","#5DCAA5","#0F6E56"],
-  likert6cb: ["#854F0B","#EF9F27","#FAEEDA","#E6F1FB","#85B7EB","#185FA5"],
-  likert5: ["#993C1D","#F0997B","#D5D5D5","#5DCAA5","#0F6E56"],
-  likert5cb: ["#854F0B","#EF9F27","#D5D5D5","#85B7EB","#185FA5"],
-  chartColors: ["#E6001E","#008CE6","#78BE1E","#CD0078","#FFAA00","#621D80","#8C4100","#5A070A","#5DCAA5","#9B0000"],
-  serif: "'Noto Serif', Georgia, serif",
-  sans: "'Noto Sans', -apple-system, BlinkMacSystemFont, sans-serif",
-  radius: 6,
-};
+/* ========== LAZY DATASET LOADING ========== */
+function useDataset(id) {
+  const cache = useRef({});
+  const [ds, setDs] = useState(null);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    if (!id) { setDs(null); return; }
+    if (cache.current[id]) { setDs(cache.current[id]); return; }
+    setLoading(true);
+    const entry = window.__MANIFEST__.datasets.find(d => d.id === id);
+    if (!entry) { setLoading(false); return; }
+    fetch(window.__BASE__ + 'data/' + entry.file)
+      .then(r => r.json())
+      .then(data => { cache.current[id] = data; setDs(data); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, [id]);
+  return { ds, loading };
+}
 
-/* Font size scale helper: S(base) returns scaled size */
-const S = (base, lg) => lg === "large" ? Math.round(base * 1.2) : base;
+/* ========== SHARED TOOLTIP ========== */
+function useTooltip() {
+  const [tip, setTip] = useState(null);
+  const show = useCallback((e, text) => {
+    const { clientX: x, clientY: y } = e.touches ? e.touches[0] : e;
+    setTip({ x, y, text });
+    if (e.touches) setTimeout(() => setTip(null), 2200);
+  }, []);
+  const hide = useCallback(() => setTip(null), []);
+  return { tip, show, hide };
+}
+function Tooltip({ tip }) {
+  if (!tip) return null;
+  return <div style={{ position:"fixed", top:tip.y-40, left:Math.min(tip.x+10, window.innerWidth-220), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tip.text}</div>;
+}
 
-
-/* Data loaded via fetch - see DATA_REGISTRY below */
-
-const DATASETS = {
-  christkindlmarkt_2025: {
-    meta: { id:"christkindlmarkt_2025", title:"Christkindlmarkt", year:2025, n:667, desc:"Besucherbefragung zum Moosburger Christkindlmarkt." },
-    data: window.__DATA__.ck,
-    filters: [
-      { key:"age", idx:0, type:"histogram", label:"Alter", labels:["Unter 18","18-30","31-50","51-70","70+"], values:[0,1,2,3,4] },
-      { key:"moos", idx:1, type:"toggle", label:"Wohnort", labels:["Moosburg","Auswärtig"], values:[1,2] },
-    ],
-    sections: [
-      { id:"besuchsverhalten", title:"Besuchsverhalten", order:1,
-        text:"Die große Mehrheit besucht den Markt **mehrmals im Jahr**. **Samstag Abend** ist die beliebteste Zeit, drei Viertel bleiben über eine Stunde. Zwei Drittel kommen **zu Fuß**.",
-        charts:[
-          { id:"freq", type:"bar_h", title:"Besuchshäufigkeit", color:"#E6001E",
-            mode:"grouped", idx:2, groups:[{label:"Mehrmals / Jahr",vals:[4]},{label:"Einmal / Jahr",vals:[3]},{label:"Seltener / Nie",vals:[1,2]}] },
-          { id:"days", type:"bar_h", title:"Besuchstage", color:"#CD0078",
-            mode:"bits", idx:3, bits:[[1,"Freitag"],[2,"Samstag"],[4,"Sonntag"]], note:"Mehrfachnennung" },
-          { id:"times", type:"bar_h", title:"Besuchszeiten", color:"#008CE6",
-            mode:"bits", idx:4, bits:[[1,"Nachmittags (13-17)"],[2,"Abends (17-21)"]], note:"Mehrfachnennung" },
-          { id:"dur", type:"bar_h", title:"Aufenthaltsdauer", color:"#78BE1E",
-            mode:"bits", idx:5, bits:[[1,"< 1 Stunde"],[2,"> 1 Stunde"]], note:"Mehrfachnennung" },
-          { id:"transport", type:"bar_h", title:"Anreise", color:"#9B0000",
-            mode:"bits", idx:6, bits:[[1,"Zu Fuß"],[2,"Auto"],[4,"Fahrrad"],[8,"ÖPNV"]], note:"Mehrfachnennung" },
-        ]},
-      { id:"bewertung", title:"Bewertung Angebot & Faktoren", order:2,
-        text:"**Sicherheitsgefühl** und **Deko/Atmosphäre** schneiden am besten ab. **Preise** für Essen und Getränke werden am kritischsten gesehen.",
-        info:"Divergierende Likert-Skala: Die Mittellinie trennt Werte 1-3 (eher negativ) von 4-6 (eher positiv). Breitere Segmente = mehr Befragte. Dunklere Farben = extremere Bewertungen.",
-        charts:[
-          { id:"likert_ratings", type:"likert6",
-            items:[
-              {idx:7,label:"Aussteller",group:"Angebotsqualität"},
-              {idx:8,label:"Essen (Qualität)",group:"Angebotsqualität"},
-              {idx:9,label:"Getränke (Qualität)",group:"Angebotsqualität"},
-              {idx:10,label:"Musik",group:"Angebotsqualität"},
-              {idx:11,label:"Deko / Atmosphäre",group:"Angebotsqualität"},
-              {idx:12,label:"Preise Essen",group:"Preisempfinden"},
-              {idx:13,label:"Preise Getränke",group:"Preisempfinden"},
-              {idx:14,label:"Barrierefreiheit",group:"Infrastruktur"},
-              {idx:15,label:"Sicherheitsgefühl",group:"Infrastruktur"},
-            ]}
-        ]},
-      { id:"hindernisse", title:"Was hält vom Besuch ab?", order:3,
-        text:"Häufigster Grund: **unattraktives Angebot**, gefolgt von Überfüllung und hohen Preisen.",
-        charts:[
-          { id:"barriers", type:"bar_h", title:"Hindernisse", color:"#E6001E",
-            mode:"bits", idx:16, bits:[[1,"Unattraktives Angebot"],[2,"Zu voll"],[4,"Zu teuer"],[8,"Kein Interesse"],[16,"Schlechte Erreichbarkeit"]], sort:"desc", note:"Mehrfachnennung" },
-        ]},
-      { id:"standort", title:"Standortfrage", order:4,
-        text:"Eine Mehrheit bevorzugt **den Plan** vor den Kirchen. Ältere Befragte (51+) tendieren stärker zum **Zehentstadel**.",
-        info:"Divergierendes Balkendiagramm: Links = Präferenz für den Plan. Rechts = Präferenz für den Zehentstadel. Mitte = beide/keine Meinung.",
-        charts:[
-          { id:"standort_div", type:"diverging3", idx:17,
-            options:[{value:1,label:"Der Plan",color:"#008CE6"},{value:3,label:"Beide / k.M.",color:"#B4B2A9"},{value:2,label:"Zehentstadel",color:"#78BE1E"}] },
-        ]},
-    ],
-  },
-  website_innovationen_2025: {
-    meta: { id:"website_innovationen_2025", title:"Website Innovationen", year:2025, n:98, desc:"Bewertung digitaler Innovationskonzepte für die Website der Stadt Moosburg a.d. Isar." },
-    data: window.__DATA__.wi,
-    filters: [
-      { key:"age", idx:0, type:"histogram_range", label:"Alter", groups:[{label:"≤ 30",min:0,max:30},{label:"31-50",min:31,max:50},{label:"51-70",min:51,max:70},{label:"> 70",min:71,max:999}] },
-      { key:"digital", idx:4, type:"histogram", label:"Sicherheit bei digitaler Nutzung", labels:["Sehr unsicher","Unsicher","Weder noch","Sicher","Sehr sicher"], values:[1,2,3,4,5] },
-    ],
-    sections: [
-      { id:"nutzung", title:"Nutzung & Demographie", order:1,
-        text:"Die Stichprobe umfasst **98 persönliche Interviews**. Über die Hälfte der Befragten leben in Moosburg.",
-        charts:[
-          { id:"wohnort_pie", type:"pie", title:"Wohnort", idx:2, labels:["Moosburg","Auswärtig"], values:[1,0], matchMode:"eq_vs_rest", colors:["#E6001E","#D4C9A8"] },
-          { id:"geschlecht_pie", type:"pie", title:"Geschlecht", idx:1, labels:["Weiblich","Männlich"], values:[1,2], colors:["#CD0078","#008CE6"] },
-          { id:"freq_wi", type:"bar_h", title:"Nutzungshäufigkeit Website", color:"#9B0000",
-            mode:"values", idx:3, items:[{label:"Täglich",val:5},{label:"Wöchentlich",val:4},{label:"Monatlich",val:3},{label:"Seltener",val:2},{label:"Nie",val:1}] },
-        ]},
-      { id:"innovationen", title:"Innovationen im Detail", order:2,
-        text:"Die **Suchfunktion** schneidet über alle Dimensionen am besten ab. **Chatbot** und **Community** erhalten die meisten Bedenken.",
-        info:"Likert-Skala zentriert auf 3 (neutral). Links = Ablehnung, rechts = Zustimmung. Bei 'Bedenken' ist die Skala invertiert.",
-        charts:[
-          { id:"likert_innovations", type:"likert5_group",
-            dimLabels:["Verständnis","Nützlichkeit","Nutzungsabsicht","Bedenken (inv.)","Sinnhaftigkeit"],
-            invertedDims:[3],
-            innovations:[
-              {key:"account",name:"Benutzerkonto",startIdx:5},
-              {key:"chatbot",name:"Chatbot",startIdx:10},
-              {key:"karte",name:"Interaktive Karte",startIdx:15},
-              {key:"suche",name:"Suchfunktion",startIdx:20},
-              {key:"community",name:"Community",startIdx:25},
-            ]},
-        ]},
-      { id:"vergleich", title:"Innovationen im Vergleich", order:3,
-        text:"Die **Suchfunktion** führt in fast allen Dimensionen. **Interaktive Karte** und **Benutzerkonto** folgen.",
-        info:"Spinnennetzdiagramm: Jede Achse zeigt den Mittelwert pro Dimension (1-5). Weiter außen = höhere Zustimmung.",
-        charts:[
-          { id:"radar_compare", type:"radar",
-            dimLabels:["Verständnis","Nützlichkeit","Nutzungsabsicht","Bedenken (inv.)","Sinnhaftigkeit"],
-            innovations:[
-              {key:"account",name:"Benutzerkonto",startIdx:5,color:"#E6001E"},
-              {key:"chatbot",name:"Chatbot",startIdx:10,color:"#008CE6"},
-              {key:"karte",name:"Interaktive Karte",startIdx:15,color:"#78BE1E"},
-              {key:"suche",name:"Suchfunktion",startIdx:20,color:"#CD0078"},
-              {key:"community",name:"Community",startIdx:25,color:"#FFAA00"},
-            ]},
-        ]},
-    ],
-  },
-  bahnhofumfrage_2023: {
-    meta: { id:"bahnhofumfrage_2023", title:"Bahnhofumfrage", year:2023, n:1656, desc:"Bürgerbefragung zur Neugestaltung des Moosburger Bahnhofs: Nutzungsverhalten, Verkehrsmittel, Wartezeiten, Anforderungen an Ausstattung und Services." },
-    data: window.__DATA__.bf.records,
-    config: window.__DATA__.bf,
-    filters: window.__DATA__.bf.filters,
-    sections: window.__DATA__.bf.sections,
-  },
-};
-
-/* -- UTILS -- */
-const pct = (n, t) => t ? Math.round(n / t * 1000) / 10 : 0;
-const avg = (arr) => arr.length ? Math.round(arr.reduce((a, b) => a + b, 0) / arr.length * 100) / 100 : 0;
-const getVal = (r, spec) => spec.source !== undefined ? r[spec.source] : r[spec.idx];
-function likertCountsNamed(data, key, scaleMax) { const c = Array(scaleMax).fill(0); data.forEach(r => { const v = r[key]; if (v >= 1 && v <= scaleMax) c[v - 1]++; }); return { counts: c, total: c.reduce((a, b) => a + b, 0) }; }
-function countBits(data, idx, bits) { return bits.map(([b, label]) => ({ label, count: data.filter(r => (r[idx] & b) > 0).length })); }
-function countGrouped(data, idx, groups) { return groups.map(g => ({ label: g.label, count: data.filter(r => g.vals.includes(r[idx])).length })); }
-function countValues(data, idx, items) { return items.map(it => ({ label: it.label, count: data.filter(r => r[idx] === it.val).length })); }
-function likertCounts(data, idx, scaleMax) { const c = Array(scaleMax).fill(0); data.forEach(r => { const v = r[idx]; if (v >= 1 && v <= scaleMax) c[v - 1]++; }); return { counts: c, total: c.reduce((a, b) => a + b, 0) }; }
-function renderBold(text) { if (!text) return null; const parts = text.split(/\*\*(.*?)\*\*/g); return parts.map((p, i) => i % 2 === 1 ? <strong key={i}>{p}</strong> : p); }
-
-/* -- GENERIC MODAL -- */
+/* ========== UI COMPONENTS ========== */
 function Modal({ open, onClose, children }) {
   if (!open) return null;
-  return (<>
+  return <>
     <div onClick={onClose} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.25)", zIndex:200 }} />
     <div style={{ position:"fixed", top:"50%", left:"50%", transform:"translate(-50%,-50%)", background:"#fff", borderRadius:T.radius+4, padding:"24px 28px", maxWidth:380, width:"90%", zIndex:210, boxShadow:"0 8px 32px rgba(0,0,0,0.15)", fontFamily:T.sans, fontSize:14, lineHeight:1.7, color:"#444" }}>
+      <button onClick={onClose} style={{ position:"absolute", top:10, right:14, background:"none", border:"none", fontSize:18, cursor:"pointer", color:"#aaa" }}>✕</button>
       {children}
     </div>
-  </>);
+  </>;
 }
 
-/* -- TOOLTIP -- */
-function Tip({ info, children }) {
-  const [show, setShow] = useState(false);
-  const [pos, setPos] = useState({ x:0, y:0 });
-  const onEnter = (e) => { setPos({ x:e.clientX, y:e.clientY }); setShow(true); };
-  const onLeave = () => setShow(false);
-  const onMove = (e) => setPos({ x:e.clientX, y:e.clientY });
-  const onTouch = (e) => { if (!show) { e.preventDefault(); const t=e.touches[0]; setPos({ x:t.clientX, y:t.clientY }); setShow(true); setTimeout(()=>setShow(false),2200); } };
-  return (
-    <div onMouseEnter={onEnter} onMouseLeave={onLeave} onMouseMove={onMove} onTouchStart={onTouch} style={{ cursor:"default" }}>
-      {children}
-      {show && <div style={{ position:"fixed", top:pos.y-48, left:Math.min(pos.x+10, typeof window!=="undefined"?window.innerWidth-220:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"5px 10px", fontSize:12, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 10px rgba(0,0,0,0.1)", color:"#333", fontFamily:T.sans }}>{info}</div>}
-    </div>
-  );
-}
-
-/* -- INFO BUTTON -- */
 function InfoBtn({ text }) {
   const [open, setOpen] = useState(false);
-  return (
-    <span style={{ position:"relative", display:"inline-block", marginLeft:8, verticalAlign:"middle" }}>
-      <button onClick={()=>setOpen(!open)} style={{ width:22, height:22, borderRadius:"50%", border:"1px solid "+T.goldLight, background:"transparent", fontSize:12, cursor:"pointer", color:T.gold, lineHeight:"20px", padding:0, fontWeight:600, fontFamily:T.sans }} aria-label="Info">?</button>
-      {open && <>
-        <div onClick={()=>setOpen(false)} style={{ position:"fixed", inset:0, zIndex:90 }} />
-        <div style={{ position:"absolute", top:28, left:-140, width:280, padding:"12px 14px", background:"#fff", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:13, color:"#555", zIndex:100, lineHeight:1.6, boxShadow:"0 4px 16px rgba(0,0,0,0.1)", fontFamily:T.sans, textTransform:"none", letterSpacing:"normal", fontWeight:400 }}>
-          {text}
-          <button onClick={()=>setOpen(false)} style={{ display:"block", marginTop:8, fontSize:11, color:T.gold, background:"none", border:"none", cursor:"pointer", padding:0, fontFamily:T.sans }}>Schließen</button>
-        </div>
-      </>}
-    </span>
-  );
+  return <span style={{ position:"relative", display:"inline-block", marginLeft:6 }}>
+    <button onClick={()=>setOpen(!open)} style={{ width:18, height:18, borderRadius:"50%", border:"1px solid "+T.gold, background:"none", color:T.gold, fontSize:11, cursor:"pointer", lineHeight:1, fontFamily:T.sans, fontWeight:600 }}>?</button>
+    {open && <>
+      <div onClick={()=>setOpen(false)} style={{ position:"fixed", inset:0, zIndex:90 }} />
+      <div style={{ position:"absolute", top:28, left:-140, width:280, padding:"12px 14px", background:"#fff", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:13, color:"#555", zIndex:100, lineHeight:1.6, boxShadow:"0 4px 16px rgba(0,0,0,0.1)", fontFamily:T.sans, textTransform:"none", letterSpacing:"normal", fontWeight:400 }}>
+        {text}
+        <div style={{ textAlign:"right", marginTop:6 }}><button onClick={()=>setOpen(false)} style={{ fontSize:11, color:T.gold, background:"none", border:"none", cursor:"pointer" }}>Schließen</button></div>
+      </div>
+    </>}
+  </span>;
 }
 
-/* -- SECTION HEADING -- */
 function Sec({ title, info, children, lg }) {
-  return (
-    <section style={{ padding:"28px 0 20px", borderBottom:"1px solid #eae7e2" }}>
-      <h2 style={{ fontFamily:T.serif, fontSize:S(18,typeof lg!=="undefined"?lg:null), fontWeight:700, textTransform:"uppercase", letterSpacing:1.5, color:T.goldDark, marginBottom:12, lineHeight:1.3 }}>
-        {title}
-        {info && <InfoBtn text={info} />}
-      </h2>
-      {children}
-    </section>
-  );
-}
-
-/* -- HORIZONTAL BAR CHART -- */
-function HBar({ items, color, total, title, note, lg }) {
-  const maxVal = Math.max(...items.map(d=>d.count), 1);
-  return (
-    <div style={{ marginBottom:16 }}>
-      {title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{title}{note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({note})</span>}</div>}
-      {items.map((d, i) => (
-        <Tip key={i} info={d.count + " (" + pct(d.count, total) + "%)"}>
-          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:5 }}>
-            <div style={{ width:lg==="large"?150:130, fontSize:S(12,lg), color:"#666", textAlign:"right", flexShrink:0, overflow:"hidden", textOverflow:"ellipsis", whiteSpace:"nowrap", fontFamily:T.sans }}>{d.label}</div>
-            <div style={{ flex:1, height:24, background:"#f5f3f0", borderRadius:4, overflow:"hidden" }}>
-              <div style={{ width:(d.count/maxVal*100)+"%", height:"100%", background:color, borderRadius:4, transition:"width 0.4s ease", minWidth:d.count>0?2:0 }} />
-            </div>
-            <div style={{ width:38, fontSize:S(11,lg), color:"#999", textAlign:"right", fontFamily:T.sans }}>{d.count}</div>
-          </div>
-        </Tip>
-      ))}
+  return <div style={{ marginBottom:20, paddingBottom:12, borderBottom:"1px solid #eae7e2" }}>
+    <div style={{ fontFamily:T.serif, fontSize:S(14,lg), fontWeight:700, color:T.goldDark, textTransform:"uppercase", letterSpacing:1.5, marginBottom:8 }}>
+      {title}{info && <InfoBtn text={info} />}
     </div>
-  );
+    {children}
+  </div>;
 }
 
-/* -- LIKERT 6-POINT (1% = 0.5vw, centered) -- */
-function LikertRow6({ counts, total, label, cb, lg }) {
-  const colors = cb ? T.likert6cb : T.likert6;
-  const pcts = counts.map(c => total > 0 ? c / total * 100 : 0);
-  const mean = total > 0 ? counts.reduce((s, c, i) => s + c * (i + 1), 0) / total : 0;
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const showTip = (e, v, n) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); };
-  const hideTip = () => setTipInfo(null);
-  const touchTip = (e, v, n) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); setTimeout(hideTip, 2000); };
+/* ========== D3 CHART COMPONENTS ========== */
 
-  /* Each 1% of response = 0.5vw width. Left side: values 1,2,3. Right side: values 4,5,6 */
-  const leftSegs = [0,1,2].map(i => ({ w: pcts[i] * 0.5, c: colors[i], v: i+1, n: counts[i] }));
-  const rightSegs = [3,4,5].map(i => ({ w: pcts[i] * 0.5, c: colors[i], v: i+1, n: counts[i] }));
+/* --- BAR CHART (horizontal) --- */
+function BarChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const items = useMemo(() => {
+    if (chart.multi && chart.codes) {
+      return chart.codes.map((code, i) => ({
+        label: chart.labels[i],
+        count: data.filter(r => (r[chart.source] || []).includes(code)).length
+      }));
+    }
+    if (chart.items) {
+      return chart.items.map(it => ({
+        label: it.label,
+        count: data.filter(r => it.vals.includes(r[chart.source])).length
+      }));
+    }
+    return [];
+  }, [data, chart]);
 
-  return (
-    <div style={{ marginBottom:10 }}>
-      <div style={{ display:"flex", alignItems:"baseline", gap:8, marginBottom:3 }}>
-        <span style={{ fontSize:S(12,lg), color:"#333", fontWeight:500, minWidth:lg==="large"?150:130, fontFamily:T.sans }}>{label}</span>
-        <span style={{ fontSize:S(11,lg), color:"#999", fontFamily:T.sans }}>Ø {mean.toFixed(2)}</span>
-      </div>
-      <div style={{ position:"relative", height:24, display:"flex", justifyContent:"center" }}>
-        <div style={{ display:"flex", justifyContent:"flex-end", width:"50%" }}>
-          {leftSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:24, background:s.c, transition:"width 0.4s ease", borderRadius:i===0?"3px 0 0 3px":"0", cursor:"default", flexShrink:0 }} />)}
+  const sorted = chart.sort === "desc" ? [...items].sort((a, b) => b.count - a.count) : items;
+  const xScale = d3.scaleLinear().domain([0, d3.max(sorted, d => d.count) || 1]).range([0, 100]);
+
+  return <div style={{ marginBottom:16 }}>
+    {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
+    {sorted.map((it, i) => {
+      const tipText = it.label + ": " + it.count + " (" + pct(it.count, total) + "%)";
+      return <div key={i} style={{ display:"flex", alignItems:"center", marginBottom:3, cursor:"default" }}
+        onMouseEnter={e => show(e, tipText)} onMouseLeave={hide}
+        onTouchStart={e => show(e, tipText)}>
+        <div style={{ width:S(110,lg), fontSize:S(11,lg), color:"#666", textAlign:"right", paddingRight:8, flexShrink:0, fontFamily:T.sans }}>{it.label}</div>
+        <div style={{ flex:1, background:"#f5f3f0", borderRadius:3, overflow:"hidden", height:18 }}>
+          <div style={{ width:xScale(it.count)+"%", height:"100%", background:chart.color||T.red[2], borderRadius:3, transition:"width 0.4s ease" }} />
         </div>
-        <div style={{ width:2, background:"#888", opacity:0.4, flexShrink:0, zIndex:2 }} />
-        <div style={{ display:"flex", width:"50%" }}>
-          {rightSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:24, background:s.c, transition:"width 0.4s ease", borderRadius:i===2?"0 3px 3px 0":"0", cursor:"default", flexShrink:0 }} />)}
-        </div>
-        {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+8, typeof window!=="undefined"?window.innerWidth-180:280), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-      </div>
-    </div>
-  );
+        <div style={{ width:36, fontSize:10, color:"#999", textAlign:"right", paddingLeft:4, fontFamily:T.sans }}>{it.count}</div>
+      </div>;
+    })}
+    <Tooltip tip={tip} />
+  </div>;
 }
 
-/* -- LIKERT 5-POINT (centered on 3, 1%=0.5vw, with inversion) -- */
-function LikertRow5({ counts, total, label, inverted, cb, lg }) {
-  const colors = cb ? T.likert5cb : T.likert5;
-  const pcts = counts.map(c => total > 0 ? c / total * 100 : 0);
-  const half3 = pcts[2] / 2;
-  const mean = total > 0 ? counts.reduce((s, c, i) => s + c * (i + 1), 0) / total : 0;
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const showTip = (e, v, n) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); };
-  const hideTip = () => setTipInfo(null);
-  const touchTip = (e, v, n) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo("Wert " + v + ": " + n + " (" + pct(n, total) + "%)"); setTimeout(hideTip, 2000); };
-
-  const leftSegs = [
-    { w: pcts[0]*0.5, c: inverted?colors[4]:colors[0], v:1, n:counts[0] },
-    { w: pcts[1]*0.5, c: inverted?colors[3]:colors[1], v:2, n:counts[1] },
-    { w: half3*0.5, c: colors[2], v:3, n:counts[2] },
-  ];
-  const rightSegs = [
-    { w: half3*0.5, c: colors[2], v:3, n:counts[2] },
-    { w: pcts[3]*0.5, c: inverted?colors[1]:colors[3], v:4, n:counts[3] },
-    { w: pcts[4]*0.5, c: inverted?colors[0]:colors[4], v:5, n:counts[4] },
-  ];
-
-  return (
-    <div style={{ marginBottom:8 }}>
-      <div style={{ display:"flex", alignItems:"baseline", gap:8, marginBottom:3 }}>
-        <span style={{ fontSize:S(12,lg), color:"#333", fontWeight:500, minWidth:lg==="large"?150:130, fontFamily:T.sans }}>{label}</span>
-        <span style={{ fontSize:S(11,lg), color:"#999", fontFamily:T.sans }}>Ø {mean.toFixed(2)}</span>
-      </div>
-      <div style={{ position:"relative", height:22, display:"flex", justifyContent:"center" }}>
-        <div style={{ display:"flex", justifyContent:"flex-end", width:"50%" }}>
-          {leftSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:22, background:s.c, transition:"width 0.4s ease", borderRadius:i===0?"3px 0 0 3px":"0", cursor:"default", flexShrink:0 }} />)}
-        </div>
-        <div style={{ width:2, background:"#888", opacity:0.4, flexShrink:0, zIndex:2 }} />
-        <div style={{ display:"flex", width:"50%" }}>
-          {rightSegs.map((s, i) => <div key={i} onMouseEnter={e=>showTip(e,s.v,s.n)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,s.v,s.n)} style={{ width:s.w+"vw", height:22, background:s.c, transition:"width 0.4s ease", borderRadius:i===2?"0 3px 3px 0":"0", cursor:"default", flexShrink:0 }} />)}
-        </div>
-        {tipInfo && <div style={{ position:"fixed", top:tipPos.y-38, left:Math.min(tipPos.x+8, typeof window!=="undefined"?window.innerWidth-180:280), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-      </div>
-    </div>
-  );
-}
-
-/* -- PIE CHART (with tooltips, can be side-by-side) -- */
-function PieSmall({ slices, title, total, lg }) {
-  const r=55, cx=65, cy=65;
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const hideTip = () => setTipInfo(null);
-
-  let cumAngle = -Math.PI / 2;
-  const paths = slices.map((s, i) => {
-    const angle = total > 0 ? (s.count / total) * 2 * Math.PI : 0;
-    const startX = cx + r * Math.cos(cumAngle);
-    const startY = cy + r * Math.sin(cumAngle);
-    cumAngle += angle;
-    const endX = cx + r * Math.cos(cumAngle);
-    const endY = cy + r * Math.sin(cumAngle);
-    const large = angle > Math.PI ? 1 : 0;
-    if (angle === 0) return null;
-    const tipText = s.label + ": " + s.count + " (" + pct(s.count, total) + "%)";
-    const onEnter = (e) => { setTipPos({ x:e.clientX, y:e.clientY }); setTipInfo(tipText); };
-    const onTouch = (e) => { const t=e.touches[0]; setTipPos({ x:t.clientX, y:t.clientY }); setTipInfo(tipText); setTimeout(hideTip,2000); };
-    if (angle >= 2 * Math.PI - 0.01) return <circle key={i} cx={cx} cy={cy} r={r} fill={s.color} onMouseEnter={onEnter} onMouseLeave={hideTip} onTouchStart={onTouch} style={{cursor:"default"}} />;
-    return <path key={i} d={"M"+cx+","+cy+" L"+startX+","+startY+" A"+r+","+r+" 0 "+large+",1 "+endX+","+endY+" Z"} fill={s.color} onMouseEnter={onEnter} onMouseLeave={hideTip} onTouchStart={onTouch} style={{cursor:"default"}} />;
-  });
-
-  return (
-    <div style={{ textAlign:"center", display:"inline-block", verticalAlign:"top", minWidth:140, margin:"0 8px 16px" }}>
-      {title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{title}</div>}
-      <svg viewBox="0 0 130 130" width="110" height="110">{paths}</svg>
-      <div style={{ display:"flex", justifyContent:"center", gap:8, marginTop:6, flexWrap:"wrap" }}>
-        {slices.map((s, i) => (
-          <span key={i} style={{ display:"flex", alignItems:"center", gap:3, fontSize:S(10,lg), color:"#666", fontFamily:T.sans }}>
-            <span style={{ width:8, height:8, borderRadius:2, background:s.color, flexShrink:0 }} />
-            {s.label}
-          </span>
-        ))}
-      </div>
-      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-    </div>
-  );
-}
-
-/* -- RADAR CHART (with toggleable series + tooltips) -- */
-function RadarChart({ series, dimLabels, scaleMax=5, lg }) {
-  const [visible, setVisible] = useState(() => Object.fromEntries(series.map(s => [s.name, true])));
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const hideTip = () => setTipInfo(null);
-
-  const cx=150, cy=150, maxR=110;
-  const n = dimLabels.length;
-  const angleStep = (2 * Math.PI) / n;
-  const getXY = (di, val) => {
-    const angle = -Math.PI / 2 + di * angleStep;
-    const rad = (val / scaleMax) * maxR;
-    return [cx + rad * Math.cos(angle), cy + rad * Math.sin(angle)];
-  };
-  const gridLevels = [1,2,3,4,5];
-  const grids = gridLevels.map(lv => {
-    const pts = dimLabels.map((_, i) => getXY(i, lv).join(",")).join(" ");
-    return <polygon key={lv} points={pts} fill="none" stroke="#eee" strokeWidth="1" />;
-  });
-  const axes = dimLabels.map((_, i) => { const [x,y]=getXY(i,scaleMax); return <line key={i} x1={cx} y1={cy} x2={x} y2={y} stroke="#ddd" strokeWidth="1" />; });
-  const labels = dimLabels.map((l, i) => { const [x,y]=getXY(i,scaleMax+0.7); return <text key={i} x={x} y={y} textAnchor="middle" dominantBaseline="middle" fontSize="9" fill="#666" fontFamily="Noto Sans, sans-serif">{l}</text>; });
-  const visibleSeries = series.filter(s => visible[s.name]);
-  const polygons = visibleSeries.map((s, si) => {
-    const pts = s.values.map((v, i) => getXY(i, v).join(",")).join(" ");
-    return <polygon key={si} points={pts} fill={s.color} fillOpacity="0.12" stroke={s.color} strokeWidth="2" />;
-  });
-  const dots = visibleSeries.flatMap((s, si) =>
-    s.values.map((v, i) => {
-      const [x,y] = getXY(i, v);
-      const tipText = s.name + " - " + dimLabels[i] + ": " + v.toFixed(2);
-      return <circle key={si+"-"+i} cx={x} cy={y} r="4" fill={s.color} style={{cursor:"default"}}
-        onMouseEnter={e=>{setTipPos({x:e.clientX,y:e.clientY});setTipInfo(tipText);}} onMouseLeave={hideTip}
-        onTouchStart={e=>{const t=e.touches[0];setTipPos({x:t.clientX,y:t.clientY});setTipInfo(tipText);setTimeout(hideTip,2000);}} />;
-    })
-  );
-  const toggle = (name) => setVisible(v => ({...v, [name]: !v[name]}));
-
-  return (
-    <div style={{ textAlign:"center", marginBottom:16 }}>
-      <svg viewBox="0 0 300 300" width="280" height="280">{grids}{axes}{polygons}{dots}{labels}</svg>
-      <div style={{ display:"flex", justifyContent:"center", gap:10, flexWrap:"wrap", marginTop:8 }}>
-        {series.map((s, i) => (
-          <span key={i} onClick={()=>toggle(s.name)} style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, color:visible[s.name]?"#444":"#bbb", cursor:"pointer", fontFamily:T.sans, transition:"color 0.2s", textDecoration:visible[s.name]?"none":"line-through" }}>
-            <span style={{ width:12, height:3, background:visible[s.name]?s.color:"#ccc", borderRadius:1, transition:"background 0.2s" }} />
-            {s.name}
-          </span>
-        ))}
-      </div>
-      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-    </div>
-  );
-}
-
-/* -- CIRCULAR PACKING BUBBLES (multi-select array) -- */
-function BubblesProportional({ data, chart, total, lg }) {
-  const codes = chart.labels.map((_, i) => i + 1);
-  const counts = codes.map(code => data.filter(r => (r[chart.source] || []).includes(code)).length);
-  const maxC = Math.max(...counts, 1);
-  const maxR = 46;
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const hideTip = () => setTipInfo(null);
-  const cols = T.chartColors;
-
-  /* Circle-packing: place largest first at origin, then greedily place each
-     next circle tangent to two already-placed circles, choosing the position
-     closest to the centroid. Gap of 3px between circles. */
-  const packed = useMemo(() => {
-    const items = counts.map((c, i) => ({
-      count: c, r: Math.max(12, Math.sqrt(c / maxC) * maxR),
-      label: chart.labels[i], color: cols[i % cols.length]
+/* --- BAR HORIZONTAL MULTI (object-source like times) --- */
+function BarMultiChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const items = useMemo(() => {
+    const codes = chart.labels.map((_, i) => i + 1);
+    return codes.map((code, i) => ({
+      label: chart.labels[i],
+      count: data.filter(r => Object.values(r[chart.source] || {}).includes(code)).length
     }));
-    const sorted = items.map((b, i) => ({ ...b, oi: i })).sort((a, b) => b.r - a.r);
-    const gap = 3;
-    const placed = [];
-    sorted.forEach((b, k) => {
-      if (k === 0) { placed.push({ ...b, x: 0, y: 0 }); return; }
-      if (k === 1) { placed.push({ ...b, x: placed[0].r + b.r + gap, y: 0 }); return; }
-      let bestX = 0, bestY = 0, bestD = Infinity;
-      for (let a = 0; a < placed.length; a++) {
-        for (let c = a + 1; c < placed.length; c++) {
-          const dx = placed[c].x - placed[a].x, dy = placed[c].y - placed[a].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          const rA = placed[a].r + b.r + gap, rB = placed[c].r + b.r + gap;
-          if (d > rA + rB || d < Math.abs(rA - rB)) continue;
-          const a2 = (rA * rA - rB * rB + d * d) / (2 * d);
-          const h2 = rA * rA - a2 * a2;
-          if (h2 < 0) continue;
-          const h = Math.sqrt(h2);
-          const px = placed[a].x + a2 * dx / d, py = placed[a].y + a2 * dy / d;
-          const mx = -dy / d * h, my = dx / d * h;
-          for (const [nx, ny] of [[px + mx, py + my], [px - mx, py - my]]) {
-            let ok = true;
-            for (let j = 0; j < placed.length; j++) {
-              const ex = nx - placed[j].x, ey = ny - placed[j].y;
-              if (Math.sqrt(ex * ex + ey * ey) < placed[j].r + b.r + gap - 0.5) { ok = false; break; }
-            }
-            if (ok) {
-              const dd = nx * nx + ny * ny;
-              if (dd < bestD) { bestD = dd; bestX = nx; bestY = ny; }
-            }
-          }
-        }
-      }
-      placed.push({ ...b, x: bestX, y: bestY });
-    });
-    return placed;
-  }, [data.length, chart.source, counts.join(",")]);
+  }, [data, chart]);
 
-  const pad = 16;
-  const lblH = 14;
-  const minX = Math.min(...packed.map(b => b.x - b.r)) - pad;
-  const minY = Math.min(...packed.map(b => b.y - b.r)) - pad;
-  const maxX = Math.max(...packed.map(b => b.x + b.r)) + pad;
-  const maxY = Math.max(...packed.map(b => b.y + b.r)) + pad + lblH;
-  const vw = maxX - minX, vh = maxY - minY;
+  const xScale = d3.scaleLinear().domain([0, d3.max(items, d => d.count) || 1]).range([0, 100]);
 
-  return (
-    <div style={{ marginBottom:16 }}>
-      {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
-      <svg viewBox={minX+" "+minY+" "+vw+" "+vh} width="100%" style={{ maxWidth:Math.min(vw * 1.3, 380), display:"block", margin:"0 auto" }}>
-        {packed.map((b, i) => {
-          const tipText = b.label + ": " + b.count + " (" + pct(b.count, total) + "%)";
-          return <g key={i}>
-            <circle cx={b.x} cy={b.y} r={b.r} fill={b.color} fillOpacity="0.78" stroke={b.color} strokeWidth="1.5" style={{cursor:"default"}}
-              onMouseEnter={e=>{setTipPos({x:e.clientX,y:e.clientY});setTipInfo(tipText);}} onMouseLeave={hideTip}
-              onTouchStart={e=>{const t=e.touches[0];setTipPos({x:t.clientX,y:t.clientY});setTipInfo(tipText);setTimeout(hideTip,2200);}} />
-            <text x={b.x} y={b.y+3} textAnchor="middle" fontSize="10" fill="#fff" fontFamily="Noto Sans, sans-serif" fontWeight="600" pointerEvents="none">{b.count}</text>
-            <text x={b.x} y={b.y+b.r+12} textAnchor="middle" fontSize="9" fill="#666" fontFamily="Noto Sans, sans-serif" pointerEvents="none">{b.label}</text>
-          </g>;
-        })}
-      </svg>
-      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-    </div>
-  );
+  return <div style={{ marginBottom:16 }}>
+    {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
+    {items.map((it, i) => {
+      const tipText = it.label + ": " + it.count + " (" + pct(it.count, total) + "%)";
+      return <div key={i} style={{ display:"flex", alignItems:"center", marginBottom:3, cursor:"default" }}
+        onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)}>
+        <div style={{ width:S(110,lg), fontSize:S(11,lg), color:"#666", textAlign:"right", paddingRight:8, flexShrink:0, fontFamily:T.sans }}>{it.label}</div>
+        <div style={{ flex:1, background:"#f5f3f0", borderRadius:3, overflow:"hidden", height:18 }}>
+          <div style={{ width:xScale(it.count)+"%", height:"100%", background:chart.color||T.red[2], borderRadius:3, transition:"width 0.4s ease" }} />
+        </div>
+        <div style={{ width:36, fontSize:10, color:"#999", textAlign:"right", paddingLeft:4, fontFamily:T.sans }}>{it.count}</div>
+      </div>;
+    })}
+    <Tooltip tip={tip} />
+  </div>;
 }
 
-/* -- 2-CIRCLE VENN DIAGRAM -- */
-function Venn2({ data, chart, total, lg }) {
+/* --- PIE CHART (d3.pie + d3.arc) --- */
+function PieChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const slices = useMemo(() => {
+    const vals = chart.values || chart.labels.map((_, i) => i + 1);
+    return vals.map((v, i) => ({
+      label: chart.labels[i],
+      count: data.filter(r => r[chart.source] === v).length,
+      color: (chart.colors || T.chartColors)[i]
+    }));
+  }, [data, chart]);
+
+  const pieGen = d3.pie().value(d => d.count).sort(null);
+  const arcGen = d3.arc().innerRadius(0).outerRadius(55);
+  const arcs = pieGen(slices);
+
+  return <div style={{ display:"inline-block", margin:"0 12px 16px", textAlign:"center", verticalAlign:"top" }}>
+    {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:4, fontFamily:T.sans }}>{chart.title}</div>}
+    <svg viewBox="-65 -65 130 130" width="130" height="130">
+      {arcs.map((a, i) => {
+        const tipText = slices[i].label + ": " + slices[i].count + " (" + pct(slices[i].count, total) + "%)";
+        return <path key={i} d={arcGen(a)} fill={slices[i].color} stroke="#fff" strokeWidth="1.5" style={{ cursor:"default" }}
+          onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} />;
+      })}
+    </svg>
+    <div style={{ display:"flex", gap:8, justifyContent:"center", flexWrap:"wrap", marginTop:4 }}>
+      {slices.map((s, i) => <span key={i} style={{ fontSize:10, color:"#666", display:"flex", alignItems:"center", gap:3, fontFamily:T.sans }}>
+        <span style={{ width:8, height:8, borderRadius:2, background:s.color, flexShrink:0 }} />{s.label}
+      </span>)}
+    </div>
+    <Tooltip tip={tip} />
+  </div>;
+}
+
+/* --- LIKERT ROW (unified 5 or 6 point) --- */
+function LikertRow({ counts, total, label, scaleMax, inverted, cb, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const palette = scaleMax === 5 ? (cb ? T.likert5cb : T.likert5) : (cb ? T.likert6cb : T.likert6);
+  const colors = inverted ? [...palette].reverse() : palette;
+  const center = scaleMax === 5 ? 3 : 3.5;
+  const mean = total > 0 ? d3.sum(counts.map((c, i) => c * (i + 1))) / total : 0;
+  const pcts = counts.map(c => total > 0 ? c / total * 100 : 0);
+
+  /* Split at center: for 6-point center=3.5, left=[0..2], right=[3..5]; for 5-point center=3, left=[0..1], split neutral, right=[3..4] */
+  const leftIdx = Math.floor(center - 1);
+  const splitNeutral = scaleMax === 5;
+
+  return <div style={{ display:"flex", alignItems:"center", marginBottom:4 }}>
+    <div style={{ width:S(130,lg), fontSize:S(10,lg), color:"#555", textAlign:"right", paddingRight:8, flexShrink:0, fontFamily:T.sans, lineHeight:1.3 }}>
+      {label} <span style={{ color:"#bbb", fontSize:S(9,lg) }}>({"Ø " + mean.toFixed(1)})</span>
+    </div>
+    <div style={{ flex:1, position:"relative" }}>
+      <svg viewBox="0 0 200 14" width="100%" height={S(14,lg)} preserveAspectRatio="none">
+        {(() => {
+          const wFactor = 1;
+          let leftW = 0, rightW = 0;
+          const rects = [];
+          /* left side (values below center, drawn right-to-left from center) */
+          for (let i = leftIdx; i >= 0; i--) {
+            leftW += pcts[i] * wFactor;
+          }
+          /* right side */
+          const rightStart = splitNeutral ? leftIdx + 1 : leftIdx + 1;
+          for (let i = rightStart; i < scaleMax; i++) {
+            rightW += pcts[i] * wFactor;
+          }
+          if (splitNeutral) {
+            leftW += pcts[leftIdx] * wFactor * 0.5;
+            rightW += pcts[leftIdx] * wFactor * 0.5;
+          }
+          const cx = 100;
+          /* draw left segments */
+          let x = cx;
+          for (let i = leftIdx; i >= 0; i--) {
+            const w = pcts[i] * wFactor;
+            x -= w;
+            const tipText = (i + 1) + ": " + counts[i] + " (" + pcts[i].toFixed(1) + "%)";
+            rects.push(<rect key={"l"+i} x={x} y={0} width={Math.max(w, 0.2)} height={14} fill={colors[i]}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} style={{ cursor:"default" }} />);
+          }
+          if (splitNeutral) {
+            const nw = pcts[leftIdx] * wFactor * 0.5;
+            const tipText = (leftIdx + 1) + ": " + counts[leftIdx] + " (" + pcts[leftIdx].toFixed(1) + "%)";
+            x -= nw;
+            rects.push(<rect key="nl" x={x} y={0} width={Math.max(nw, 0.1)} height={14} fill={colors[leftIdx]}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} style={{ cursor:"default" }} />);
+          }
+          /* draw right segments */
+          x = cx;
+          for (let i = (splitNeutral ? leftIdx + 1 : leftIdx + 1); i < scaleMax; i++) {
+            const w = pcts[i] * wFactor;
+            const tipText = (i + 1) + ": " + counts[i] + " (" + pcts[i].toFixed(1) + "%)";
+            rects.push(<rect key={"r"+i} x={x} y={0} width={Math.max(w, 0.2)} height={14} fill={colors[i]}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} style={{ cursor:"default" }} />);
+            x += w;
+          }
+          if (splitNeutral) {
+            const nw = pcts[leftIdx] * wFactor * 0.5;
+            const tipText = (leftIdx + 1) + ": " + counts[leftIdx] + " (" + pcts[leftIdx].toFixed(1) + "%)";
+            rects.push(<rect key="nr" x={cx} y={0} width={Math.max(nw, 0.1)} height={14} fill={colors[leftIdx]}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} style={{ cursor:"default" }} />);
+          }
+          /* center line */
+          rects.push(<line key="ctr" x1={cx} y1={0} x2={cx} y2={14} stroke="#888" strokeWidth={0.4} style={{ zIndex:2 }} />);
+          return rects;
+        })()}
+      </svg>
+    </div>
+    <Tooltip tip={tip} />
+  </div>;
+}
+
+/* --- LIKERT6 CHART (section chart wrapper) --- */
+function Likert6Chart({ chart, data, total, cb, lg }) {
+  const groups = useMemo(() => {
+    const gMap = new Map();
+    (chart.items || []).forEach(it => {
+      const g = it.group || "";
+      if (!gMap.has(g)) gMap.set(g, []);
+      gMap.get(g).push(it);
+    });
+    return gMap;
+  }, [chart]);
+
+  return <div>
+    <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
+      <span>{"← weniger"}</span><span>{"mehr →"}</span>
+    </div>
+    {[...groups.entries()].map(([gName, items]) => <div key={gName} style={{ marginBottom:10 }}>
+      {gName && <div style={{ fontFamily:T.serif, fontSize:S(11,lg), fontWeight:600, color:T.goldDark, marginBottom:3, textTransform:"uppercase", letterSpacing:1 }}>{gName}</div>}
+      {items.map(it => {
+        const counts = Array(6).fill(0);
+        data.forEach(r => { const v = r[it.source]; if (v >= 1 && v <= 6) counts[v - 1]++; });
+        const t = d3.sum(counts);
+        return <LikertRow key={it.source} counts={counts} total={t} label={it.label} scaleMax={6} cb={cb} lg={lg} />;
+      })}
+    </div>)}
+    <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:6, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
+      {[1,2,3,4,5,6].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}>
+        <span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert6cb:T.likert6)[v-1] }} />{v}
+      </span>)}
+    </div>
+  </div>;
+}
+
+/* --- LIKERT5 GROUP CHART --- */
+function Likert5GroupChart({ chart, data, total, cb, lg }) {
+  return <div>
+    <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
+      <span>{"← Ablehnung"}</span><span>{"Zustimmung →"}</span>
+    </div>
+    {(chart.innovations || []).map(inno => <div key={inno.key} style={{ marginBottom:12 }}>
+      <div style={{ fontFamily:T.serif, fontSize:S(12,lg), fontWeight:600, color:T.goldDark, marginBottom:4 }}>{inno.name}</div>
+      {(inno.sources || []).map((src, di) => {
+        const counts = Array(5).fill(0);
+        data.forEach(r => { const v = r[src]; if (v >= 1 && v <= 5) counts[v - 1]++; });
+        const t = d3.sum(counts);
+        const inv = (chart.invertedDims || []).includes(di);
+        return <LikertRow key={src} counts={counts} total={t} label={chart.dimLabels[di]} scaleMax={5} inverted={inv} cb={cb} lg={lg} />;
+      })}
+    </div>)}
+    <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:6, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
+      {[1,2,3,4,5].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}>
+        <span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert5cb:T.likert5)[v-1] }} />{v}
+      </span>)}
+    </div>
+  </div>;
+}
+
+/* --- RADAR CHART (d3.lineRadial) --- */
+function RadarChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const [hidden, setHidden] = useState({});
+  const ndims = chart.dimLabels.length;
+  const angleStep = (2 * Math.PI) / ndims;
+  const R = 100, cx = 150, cy = 150;
+  const rScale = d3.scaleLinear().domain([0, 5]).range([0, R]);
+
+  const series = useMemo(() => (chart.innovations || []).map(inno => {
+    const vals = (inno.sources || []).map(src => {
+      const arr = data.map(r => r[src]).filter(v => v >= 1 && v <= 5);
+      return arr.length ? d3.mean(arr) : 0;
+    });
+    return { name: inno.name, color: inno.color, values: vals };
+  }), [data, chart]);
+
+  const gridLevels = [1, 2, 3, 4, 5];
+  const lineGen = d3.lineRadial().angle((d, i) => i * angleStep).curve(d3.curveLinearClosed);
+
+  return <div style={{ marginBottom:16 }}>
+    <svg viewBox="0 0 300 300" width="100%" style={{ maxWidth:300 }}>
+      {/* grid */}
+      {gridLevels.map(lv => {
+        const pts = Array.from({length: ndims}, (_, i) => [i * angleStep, rScale(lv)]);
+        return <path key={lv} d={lineGen(pts)} fill="none" stroke="#e0ddd8" strokeWidth={lv===5?1:0.5} />;
+      })}
+      {/* axes */}
+      {chart.dimLabels.map((lbl, i) => {
+        const a = i * angleStep - Math.PI / 2;
+        const x2 = cx + R * Math.cos(a), y2 = cy + R * Math.sin(a);
+        const lx = cx + (R + 18) * Math.cos(a), ly = cy + (R + 18) * Math.sin(a);
+        return <g key={i}>
+          <line x1={cx} y1={cy} x2={x2} y2={y2} stroke="#e0ddd8" strokeWidth={0.5} />
+          <text x={lx} y={ly} textAnchor="middle" dominantBaseline="middle" fontSize="8" fill="#888" fontFamily={T.sans}>{lbl}</text>
+        </g>;
+      })}
+      {/* series polygons */}
+      {series.map((s, si) => {
+        if (hidden[si]) return null;
+        const pts = s.values.map((v, i) => [i * angleStep, rScale(v)]);
+        const pathD = lineGen(pts);
+        return <g key={si}>
+          <path d={pathD} fill={s.color} fillOpacity="0.12" stroke={s.color} strokeWidth="1.5" transform={`translate(${cx},${cy})`} />
+          {s.values.map((v, i) => {
+            const a = i * angleStep - Math.PI / 2;
+            const px = cx + rScale(v) * Math.cos(a), py = cy + rScale(v) * Math.sin(a);
+            const tipText = s.name + " – " + chart.dimLabels[i] + ": " + v.toFixed(2);
+            return <circle key={i} cx={px} cy={py} r={3} fill={s.color} style={{cursor:"default"}}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} />;
+          })}
+        </g>;
+      })}
+    </svg>
+    <div style={{ display:"flex", gap:10, flexWrap:"wrap", justifyContent:"center", marginTop:4 }}>
+      {series.map((s, i) => <span key={i} onClick={() => setHidden(h => ({...h, [i]: !h[i]}))}
+        style={{ display:"flex", alignItems:"center", gap:4, fontSize:11, cursor:"pointer", opacity:hidden[i]?0.3:1, fontFamily:T.sans }}>
+        <span style={{ width:10, height:10, borderRadius:2, background:s.color }} />{s.name}
+      </span>)}
+    </div>
+    <Tooltip tip={tip} />
+  </div>;
+}
+
+/* --- BUBBLES CHART (d3.pack) --- */
+function BubblesChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const items = useMemo(() => {
+    const codes = chart.labels.map((_, i) => i + 1);
+    return codes.map((code, i) => ({
+      label: chart.labels[i], id: i,
+      count: data.filter(r => (r[chart.source] || []).includes(code)).length
+    }));
+  }, [data, chart]);
+
+  const packed = useMemo(() => {
+    const root = d3.hierarchy({ children: items }).sum(d => d.count || 1);
+    d3.pack().size([200, 200]).padding(4)(root);
+    return root.leaves();
+  }, [items]);
+
+  return <div style={{ marginBottom:16 }}>
+    {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
+    <svg viewBox="0 0 200 200" width="100%" style={{ maxWidth:240, display:"block", margin:"0 auto" }}>
+      {packed.map((node, i) => {
+        const tipText = node.data.label + ": " + node.data.count + " (" + pct(node.data.count, total) + "%)";
+        return <g key={i}>
+          <circle cx={node.x} cy={node.y} r={node.r} fill={T.chartColors[i % T.chartColors.length]} fillOpacity="0.78" stroke={T.chartColors[i % T.chartColors.length]} strokeWidth="1.5" style={{cursor:"default"}}
+            onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} />
+          <text x={node.x} y={node.y+3} textAnchor="middle" fontSize={node.r > 20 ? 10 : 8} fill="#fff" fontWeight="600" fontFamily={T.sans} pointerEvents="none">{node.data.count}</text>
+          <text x={node.x} y={node.y+node.r+11} textAnchor="middle" fontSize="8" fill="#666" fontFamily={T.sans} pointerEvents="none">{node.data.label}</text>
+        </g>;
+      })}
+    </svg>
+    <Tooltip tip={tip} />
+  </div>;
+}
+
+/* --- VENN 2-CIRCLE DIAGRAM --- */
+function VennChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
   const src = chart.source;
   const onlyA = data.filter(r => { const d = r[src]||[]; return d.includes(1) && !d.includes(2); }).length;
   const onlyB = data.filter(r => { const d = r[src]||[]; return !d.includes(1) && d.includes(2); }).length;
   const both = data.filter(r => { const d = r[src]||[]; return d.includes(1) && d.includes(2); }).length;
-  const [tipInfo, setTipInfo] = useState(null);
-  const [tipPos, setTipPos] = useState({ x:0, y:0 });
-  const hideTip = () => setTipInfo(null);
-  const showTip = (e, text) => { setTipPos({x:e.clientX,y:e.clientY}); setTipInfo(text); };
-  const touchTip = (e, text) => { const t=e.touches[0]; setTipPos({x:t.clientX,y:t.clientY}); setTipInfo(text); setTimeout(hideTip,2200); };
 
-  const countA = onlyA + both;
-  const countB = onlyB + both;
-  const totalAB = onlyA + onlyB + both;
+  const countA = onlyA + both, countB = onlyB + both;
   const maxCount = Math.max(countA, countB, 1);
-  const maxR = 60;
-  const rA = Math.max(20, Math.sqrt(countA / maxCount) * maxR);
-  const rB = Math.max(20, Math.sqrt(countB / maxCount) * maxR);
-  const overlap = totalAB > 0 ? (both / totalAB) : 0;
+  const rScale = d3.scaleSqrt().domain([0, maxCount]).range([0, 65]);
+  const rA = Math.max(rScale(countA), 20), rB = Math.max(rScale(countB), 20);
+
+  const totalAB = onlyA + onlyB + both;
+  const overlap = totalAB > 0 ? both / totalAB : 0;
   const dx = (rA + rB) * (1 - overlap * 0.7);
-  const cx1 = 120, cy = 75, cx2 = cx1 + dx;
-  const svgW = cx2 + rB + 30;
+  const svgW = dx + rA + rB + 40;
+  const cxA = rA + 20, cxB = cxA + dx, cy = 80;
 
   const tipA = chart.labels[0] + " (nur): " + onlyA + " (" + pct(onlyA, total) + "%)";
   const tipB = chart.labels[1] + " (nur): " + onlyB + " (" + pct(onlyB, total) + "%)";
   const tipBoth = "Beide: " + both + " (" + pct(both, total) + "%)";
 
-  return (
-    <div style={{ marginBottom:16 }}>
-      {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
-      <svg viewBox={"0 0 "+svgW+" 150"} width="100%" height="150" style={{ maxWidth:svgW }}>
-        <circle cx={cx1} cy={cy} r={rA} fill="#008CE6" fillOpacity="0.3" stroke="#008CE6" strokeWidth="1.5" style={{cursor:"default"}}
-          onMouseEnter={e=>showTip(e,tipA)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,tipA)} />
-        <circle cx={cx2} cy={cy} r={rB} fill="#78BE1E" fillOpacity="0.3" stroke="#78BE1E" strokeWidth="1.5" style={{cursor:"default"}}
-          onMouseEnter={e=>showTip(e,tipB)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,tipB)} />
-        {both > 0 && <circle cx={(cx1+cx2)/2} cy={cy} r={Math.min(rA,rB)*0.4} fill="none" style={{cursor:"default", pointerEvents:"all"}}
-          onMouseEnter={e=>showTip(e,tipBoth)} onMouseLeave={hideTip} onTouchStart={e=>touchTip(e,tipBoth)} />}
-        <text x={cx1-rA*0.3} y={cy+4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#006BB8">{onlyA}</text>
-        <text x={(cx1+cx2)/2} y={cy+4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#444">{both}</text>
-        <text x={cx2+rB*0.3} y={cy+4} textAnchor="middle" fontSize="12" fontWeight="600" fill="#5A9E10">{onlyB}</text>
-        <text x={cx1} y={cy+rA+16} textAnchor="middle" fontSize="10" fill="#666" fontFamily="Noto Sans, sans-serif">{chart.labels[0]}</text>
-        <text x={cx2} y={cy+rB+16} textAnchor="middle" fontSize="10" fill="#666" fontFamily="Noto Sans, sans-serif">{chart.labels[1]}</text>
-      </svg>
-      {tipInfo && <div style={{ position:"fixed", top:tipPos.y-40, left:Math.min(tipPos.x+10, typeof window!=="undefined"?window.innerWidth-200:300), background:"#fff", border:"1px solid #e0ddd8", borderRadius:T.radius, padding:"4px 8px", fontSize:11, zIndex:200, pointerEvents:"none", whiteSpace:"nowrap", boxShadow:"0 2px 8px rgba(0,0,0,0.1)", fontFamily:T.sans }}>{tipInfo}</div>}
-    </div>
-  );
+  return <div style={{ marginBottom:16 }}>
+    {chart.title && <div style={{ fontSize:S(12,lg), fontWeight:600, color:"#555", marginBottom:6, fontFamily:T.sans }}>{chart.title}{chart.note && <span style={{ fontWeight:400, color:"#999", marginLeft:6, fontSize:11 }}>({chart.note})</span>}</div>}
+    <svg viewBox={"0 0 " + svgW + " 160"} width="100%" style={{ maxWidth:Math.min(svgW, 350) }}>
+      <circle cx={cxA} cy={cy} r={rA} fill={T.chartColors[0]} fillOpacity="0.3" stroke={T.chartColors[0]} strokeWidth="1.5"
+        onMouseEnter={e => show(e, tipA)} onMouseLeave={hide} onTouchStart={e => show(e, tipA)} style={{cursor:"default"}} />
+      <circle cx={cxB} cy={cy} r={rB} fill={T.chartColors[1]} fillOpacity="0.3" stroke={T.chartColors[1]} strokeWidth="1.5"
+        onMouseEnter={e => show(e, tipB)} onMouseLeave={hide} onTouchStart={e => show(e, tipB)} style={{cursor:"default"}} />
+      {both > 0 && <circle cx={(cxA+cxB)/2} cy={cy} r={Math.min(rA,rB)*0.4} fill="transparent"
+        onMouseEnter={e => show(e, tipBoth)} onMouseLeave={hide} onTouchStart={e => show(e, tipBoth)} style={{cursor:"default"}} />}
+      <text x={cxA - rA*0.3} y={cy+4} textAnchor="middle" fontSize="12" fill="#333" fontWeight="600" fontFamily={T.sans}>{onlyA}</text>
+      <text x={(cxA+cxB)/2} y={cy+4} textAnchor="middle" fontSize="12" fill="#333" fontWeight="600" fontFamily={T.sans}>{both}</text>
+      <text x={cxB + rB*0.3} y={cy+4} textAnchor="middle" fontSize="12" fill="#333" fontWeight="600" fontFamily={T.sans}>{onlyB}</text>
+      <text x={cxA} y={cy+rA+14} textAnchor="middle" fontSize="9" fill="#666" fontFamily={T.sans}>{chart.labels[0]}</text>
+      <text x={cxB} y={cy+rB+14} textAnchor="middle" fontSize="9" fill="#666" fontFamily={T.sans}>{chart.labels[1]}</text>
+    </svg>
+    <Tooltip tip={tip} />
+  </div>;
 }
 
-/* -- OPEN THEMES SECTION (aggregated open responses) -- */
+/* --- DIVERGING 3-OPTION BAR --- */
+function DivergingChart({ chart, data, total, lg }) {
+  const { tip, show, hide } = useTooltip();
+  const opts = chart.options;
+  const counts = opts.map(o => data.filter(r => r[chart.source] === o.value).length);
+  const t = d3.sum(counts);
+  const pcts = counts.map(c => t > 0 ? c / t * 100 : 0);
+
+  return <div style={{ marginBottom:16 }}>
+    <svg viewBox="0 0 200 24" width="100%" style={{ maxWidth:500 }}>
+      {(() => {
+        let x = 0;
+        return opts.map((o, i) => {
+          const w = pcts[i] * 2;
+          const tipText = o.label + ": " + counts[i] + " (" + pcts[i].toFixed(1) + "%)";
+          const el = <g key={i}>
+            <rect x={x} y={0} width={Math.max(w, 0.5)} height={18} fill={o.color}
+              onMouseEnter={e => show(e, tipText)} onMouseLeave={hide} onTouchStart={e => show(e, tipText)} style={{cursor:"default"}} />
+            {pcts[i] > 10 && <text x={x + w/2} y={12} textAnchor="middle" fontSize="9" fill="#fff" fontWeight="600" fontFamily={T.sans}>{pcts[i].toFixed(0)}%</text>}
+          </g>;
+          x += w;
+          return el;
+        });
+      })()}
+    </svg>
+    <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#888", marginTop:2, fontFamily:T.sans }}>
+      <span>{"← " + opts[0].label}</span>
+      {opts.length > 2 && <span>{opts[1].label}</span>}
+      <span>{opts[opts.length-1].label + " →"}</span>
+    </div>
+    <Tooltip tip={tip} />
+  </div>;
+}
+
+/* --- OPEN THEMES SECTION --- */
 function OpenThemesSection({ sec, lg }) {
-  const iconMap = { clean:"\u{1F9F9}", tunnel:"\u{1F687}", building:"\u{1F3D7}", food:"\u{1F37D}", accessible:"\u267F", shield:"\u{1F6E1}", counter:"\u{1F3AB}", bus:"\u{1F68C}", parking:"\u{1F17F}", design:"\u{1F3A8}" };
-  const themes = sec.themes || [];
-  return (
-    <div style={{ display:"flex", flexWrap:"wrap", gap:12 }}>
-      {themes.map((th, i) => (
-        <div key={i} style={{ flex:"1 1 280px", maxWidth:"100%", padding:"12px 14px", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, background:"#faf8f5" }}>
-          <div style={{ display:"flex", alignItems:"center", gap:8, marginBottom:6 }}>
-            <span style={{ fontSize:20 }}>{iconMap[th.icon] || "\u{1F4CB}"}</span>
-            <span style={{ fontFamily:T.serif, fontSize:S(13,lg), fontWeight:600, color:T.red[1] }}>{th.label}</span>
-          </div>
-          <div style={{ fontSize:S(11,lg), color:"#666", lineHeight:1.6, fontFamily:T.sans }}>{th.desc}</div>
-        </div>
-      ))}
-    </div>
-  );
+  const iconMap = { clean:"🧹", tunnel:"🚇", building:"🏗️", food:"🍽️", accessible:"♿", shield:"🛡️", counter:"🎫", bus:"🚌", parking:"🅿️", design:"🎨", tree:"🌳", bike:"🚲", info:"ℹ️" };
+  return <div style={{ display:"flex", flexWrap:"wrap", gap:10 }}>
+    {(sec.themes || []).map((th, i) => <div key={i} style={{ flex:"1 1 calc(50% - 10px)", minWidth:200, background:"#faf8f5", border:"1px solid "+T.goldLight, borderRadius:T.radius, padding:"10px 12px" }}>
+      <div style={{ fontSize:S(13,lg), fontWeight:600, color:T.goldDark, marginBottom:4, fontFamily:T.sans }}>
+        {iconMap[th.icon] || "📌"} {th.label}
+      </div>
+      <div style={{ fontSize:S(11,lg), color:"#666", lineHeight:1.5, fontFamily:T.sans }}>{th.desc}</div>
+    </div>)}
+  </div>;
 }
 
-/* -- DIVERGING 3-OPTION BAR (1%=0.5vw) -- */
-function Diverging3({ data, idx, options, total, lg }) {
-  const counts = options.map(o => ({ ...o, count: data.filter(r => r[idx] === o.value).length }));
-  const leftC=counts[0], centerC=counts[1], rightC=counts[2];
-  const leftPct = total>0 ? leftC.count/total*100 : 0;
-  const centerPct = total>0 ? centerC.count/total*100 : 0;
-  const rightPct = total>0 ? rightC.count/total*100 : 0;
+/* ========== CHART REGISTRY ========== */
+const CHARTS = {
+  bar_h: BarChart,
+  bar_horizontal_multi: BarMultiChart,
+  pie: PieChart,
+  likert6: Likert6Chart,
+  likert5_group: Likert5GroupChart,
+  radar: RadarChart,
+  bubbles_proportional: BubblesChart,
+  venn_2: VennChart,
+  diverging3: DivergingChart,
+};
 
-  return (
-    <div style={{ marginBottom:16 }}>
-      <div style={{ display:"flex", justifyContent:"space-between", fontSize:11, color:"#888", marginBottom:4, fontFamily:T.sans }}>
-        <span>← {leftC.label}</span><span>{centerC.label}</span><span>{rightC.label} →</span>
-      </div>
-      <div style={{ display:"flex", height:32, borderRadius:4, overflow:"hidden", justifyContent:"center" }}>
-        <Tip info={leftC.label+": "+leftC.count+" ("+pct(leftC.count,total)+"%)"}>
-          <div style={{ width:(leftPct*0.5)+"vw", height:32, background:leftC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{leftPct>10?Math.round(leftPct)+"%":""}</div>
-        </Tip>
-        <Tip info={centerC.label+": "+centerC.count+" ("+pct(centerC.count,total)+"%)"}>
-          <div style={{ width:(centerPct*0.5)+"vw", height:32, background:centerC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{centerPct>10?Math.round(centerPct)+"%":""}</div>
-        </Tip>
-        <Tip info={rightC.label+": "+rightC.count+" ("+pct(rightC.count,total)+"%)"}>
-          <div style={{ width:(rightPct*0.5)+"vw", height:32, background:rightC.color, display:"flex", alignItems:"center", justifyContent:"center", color:"#fff", fontSize:12, fontWeight:600, fontFamily:T.sans }}>{rightPct>10?Math.round(rightPct)+"%":""}</div>
-        </Tip>
-      </div>
-      <div style={{ display:"flex", justifyContent:"space-between", marginTop:4, fontFamily:T.sans }}>
-        {counts.map((c, i) => <span key={i} style={{ fontSize:11, color:"#888" }}>{c.count} ({pct(c.count,total)}%)</span>)}
-      </div>
-    </div>
-  );
-}
-
-/* -- CHART RENDERER -- */
 function ChartRenderer({ chart, data, total, cb, lg }) {
-  if (chart.type === "bar_h") {
-    let items;
-    if (chart.mode==="bits") items=countBits(data,chart.idx,chart.bits);
-    else if (chart.mode==="grouped") items=countGrouped(data,chart.idx,chart.groups);
-    else if (chart.mode==="values") items=countValues(data,chart.idx,chart.items);
-    else return null;
-    if (chart.sort==="desc") items.sort((a,b)=>b.count-a.count);
-    return <HBar items={items} color={chart.color} total={total} title={chart.title} note={chart.note} lg={lg} />;
-  }
-  if (chart.type === "likert6") {
-    return (
-      <div>
-        <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
-          <span>← eher negativ</span><span>eher positiv →</span>
-        </div>
-        {chart.items.map((it, i) => { const lk=likertCounts(data,it.idx,6); return <LikertRow6 key={i} counts={lk.counts} total={lk.total} label={it.label} cb={cb} lg={lg} />; })}
-        <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:8, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
-          {[1,2,3,4,5,6].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}><span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert6cb:T.likert6)[v-1] }} />{v}</span>)}
-        </div>
-      </div>
-    );
-  }
-  if (chart.type === "likert5_group") {
-    return (
-      <div>
-        <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
-          <span>← Ablehnung</span><span>Zustimmung →</span>
-        </div>
-        {chart.innovations.map((inn, ii) => (
-          <div key={inn.key} style={{ marginBottom:18 }}>
-            <div style={{ fontFamily:T.serif, fontSize:S(14,lg), fontWeight:600, color:T.goldDark, marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>{inn.name}</div>
-            {chart.dimLabels.map((dim, di) => { const lk=likertCounts(data,inn.startIdx+di,5); const inv=(chart.invertedDims||[]).includes(di); return <LikertRow5 key={di} counts={lk.counts} total={lk.total} label={dim} inverted={inv} cb={cb} lg={lg} />; })}
-          </div>
-        ))}
-        <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:8, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
-          {[1,2,3,4,5].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}><span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert5cb:T.likert5)[v-1] }} />{v}</span>)}
-        </div>
-      </div>
-    );
-  }
-  if (chart.type === "pie") {
-    let slices;
-    const vals = chart.values || chart.labels.map((_, i) => i + 1);
-    const cols = chart.colors || T.chartColors;
-    const accessor = chart.source !== undefined ? (r => r[chart.source]) : (r => r[chart.idx]);
-    if (chart.matchMode==="eq_vs_rest") {
-      const eqCount = data.filter(r => accessor(r)===vals[0]).length;
-      slices = [{ label:chart.labels[0], count:eqCount, color:cols[0] }, { label:chart.labels[1], count:total-eqCount, color:cols[1] }];
-    } else {
-      slices = vals.map((v, i) => ({ label:chart.labels[i], count:data.filter(r=>accessor(r)===v).length, color:cols[i % cols.length] }));
-    }
-    return <PieSmall slices={slices} title={chart.title} total={total} lg={lg} />;
-  }
-  if (chart.type === "bubbles_proportional") {
-    return <BubblesProportional data={data} chart={chart} total={total} lg={lg} />;
-  }
-  if (chart.type === "venn_2") {
-    return <Venn2 data={data} chart={chart} total={total} lg={lg} />;
-  }
-  if (chart.type === "bar_horizontal_multi") {
-    const codes = chart.labels.map((_, i) => i + 1);
-    const items = codes.map((code, i) => ({
-      label: chart.labels[i],
-      count: data.filter(r => Object.values(r[chart.source] || {}).includes(code)).length
-    }));
-    return <HBar items={items} color={chart.color || "#2E78B5"} total={total} title={chart.title} note={chart.note} lg={lg} />;
-  }
-  if (chart.type === "radar") {
-    const ser = chart.innovations.map(inn => ({
-      name: inn.name, color: inn.color,
-      values: chart.dimLabels.map((_, di) => { const vals=data.map(r=>r[inn.startIdx+di]).filter(v=>v>=1&&v<=5); return avg(vals); }),
-    }));
-    return <RadarChart series={ser} dimLabels={chart.dimLabels} lg={lg} />;
-  }
-  if (chart.type === "diverging3") return <Diverging3 data={data} idx={chart.idx} options={chart.options} total={total} lg={lg} />;
-  return <div style={{ color:"#999", fontSize:12, fontFamily:T.sans }}>Chart-Typ noch nicht implementiert</div>;
+  const C = CHARTS[chart.type];
+  if (!C) return null;
+  return <C chart={chart} data={data} total={total} cb={cb} lg={lg} />;
 }
 
-/* -- FILTER PANEL (sticky bottom, cross-reactive) -- */
-function useFilterPanel(ds, allData) {
-  const initFilter = {};
-  ds.filters.forEach(f => initFilter[f.key] = null);
-  const [filter, setFilter] = useState(initFilter);
-
-  useEffect(() => {
+/* ========== FILTER SYSTEM ========== */
+function useFilterPanel(ds) {
+  const allData = ds.records;
+  const initFilter = useMemo(() => {
     const f = {};
-    ds.filters.forEach(fl => f[fl.key] = null);
-    setFilter(f);
+    (ds.filters || []).forEach(fl => f[fl.key] = null);
+    return f;
   }, [ds]);
+  const [filter, setFilter] = useState(initFilter);
+  useEffect(() => { setFilter(initFilter); }, [initFilter]);
 
   const isFiltered = Object.values(filter).some(v => v !== null);
 
-  /* Filtered dataset (all filters applied) */
-  const filtered = useMemo(() => allData.filter(r => {
-    for (const f of ds.filters) {
-      const fv = filter[f.key];
-      if (fv === null || fv === undefined) continue;
-      const rv = getVal(r, f);
-      if (f.type==="histogram") { if (f.source !== undefined ? String(rv) !== String(fv) : rv !== fv) return false; }
-      else if (f.type==="histogram_range") { const g=f.groups[fv]; if (!g||rv<g.min||rv>g.max) return false; }
-      else if (f.type==="toggle") { if (rv!==fv) return false; }
-    }
-    return true;
-  }), [allData, filter, ds.filters]);
+  const filtered = useMemo(() => {
+    if (!isFiltered) return allData;
+    return allData.filter(r => {
+      for (const f of ds.filters) {
+        const fv = filter[f.key];
+        if (fv === null) continue;
+        const rv = r[f.source];
+        if (f.type === "histogram") {
+          if (String(rv) !== String(fv)) return false;
+        } else if (f.type === "histogram_range") {
+          if (rv < fv.min || rv > fv.max) return false;
+        } else if (f.type === "toggle") {
+          if (rv !== fv) return false;
+        }
+      }
+      return true;
+    });
+  }, [allData, filter, isFiltered, ds.filters]);
 
-  /* Cross-filtered counts: for each filter, apply all OTHER filters */
+  /* Cross-counts: for each filter, apply all OTHER active filters */
   const crossCounts = useMemo(() => {
-    const result = {};
-    ds.filters.forEach(fi => {
-      const otherFiltered = allData.filter(r => {
-        for (const fj of ds.filters) {
-          if (fj.key === fi.key) continue;
-          const fv = filter[fj.key];
-          if (fv === null || fv === undefined) continue;
-          const rv = getVal(r, fj);
-          if (fj.type==="histogram") { if (fj.source !== undefined ? String(rv) !== String(fv) : rv !== fv) return false; }
-          else if (fj.type==="histogram_range") { const g=fj.groups[fv]; if (!g||rv<g.min||rv>g.max) return false; }
-          else if (fj.type==="toggle") { if (rv!==fv) return false; }
+    const cc = {};
+    for (const f of ds.filters) {
+      if (!isFiltered) { cc[f.key] = allData; continue; }
+      cc[f.key] = allData.filter(r => {
+        for (const f2 of ds.filters) {
+          if (f2.key === f.key) continue;
+          const fv = filter[f2.key];
+          if (fv === null) continue;
+          const rv = r[f2.source];
+          if (f2.type === "histogram") {
+            if (String(rv) !== String(fv)) return false;
+          } else if (f2.type === "histogram_range") {
+            if (rv < fv.min || rv > fv.max) return false;
+          } else if (f2.type === "toggle") {
+            if (rv !== fv) return false;
+          }
         }
         return true;
       });
-      result[fi.key] = otherFiltered;
-    });
-    return result;
-  }, [allData, filter, ds.filters]);
+    }
+    return cc;
+  }, [allData, filter, isFiltered, ds.filters]);
 
-  const toggle = (key, val) => setFilter(f => ({ ...f, [key]: f[key]===val ? null : val }));
-  const reset = () => { const f={}; ds.filters.forEach(fl => f[fl.key]=null); setFilter(f); };
+  const toggle = (key, val) => setFilter(f => ({ ...f, [key]: f[key] === val ? null : val }));
+  const reset = () => setFilter(initFilter);
 
-  return { filtered, filter, isFiltered, crossCounts, toggle, reset, setFilter };
+  return { filtered, filter, isFiltered, crossCounts, toggle, reset, allData };
 }
 
-function FilterPanel({ ds, allData, filterState, fontSize }) {
+function FilterPanel({ ds, filterState, fontSize }) {
   const lg = fontSize;
-  const { filtered, filter, isFiltered, crossCounts, toggle, reset } = filterState;
+  const { filtered, filter, isFiltered, crossCounts, toggle, reset, allData } = filterState;
   const N = allData.length;
   const n = filtered.length;
 
@@ -824,80 +695,69 @@ function FilterPanel({ ds, allData, filterState, fontSize }) {
       <div style={{ maxWidth:640, margin:"0 auto" }}>
         <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:6 }}>
           <span style={{ fontSize:fontSize==="large"?14:12, fontWeight:600, color:"#555", fontFamily:T.sans }}>
-            Filter {isFiltered && <span style={{ color:T.red[2], fontWeight:500 }}>· {n}/{N}</span>}
+            Filter {isFiltered && <span style={{ color:T.red[2], fontWeight:500 }}>{" · " + n + "/" + N}</span>}
           </span>
           {isFiltered && <button onClick={reset} style={{ fontSize:11, padding:"2px 10px", border:"1px solid "+T.goldLight, borderRadius:T.radius, background:"#faf8f5", cursor:"pointer", color:"#888", fontFamily:T.sans }}>✕ Reset</button>}
         </div>
         {isFiltered && <div style={{ fontSize:11, color:T.red[2], marginBottom:6, padding:"4px 8px", background:"#fef5f5", borderRadius:4, border:"1px solid #fde0e0", fontFamily:T.sans }}>
-          Aktiver Filter — Grafiken zeigen nur die Auswahl ({n} von {N})
+          {"Aktiver Filter — Grafiken zeigen nur die Auswahl (" + n + " von " + N + ")"}
         </div>}
         <div style={{ display:"flex", gap:12, flexWrap:"wrap", alignItems:"flex-start", justifyContent:"center" }}>
-          {ds.filters.map(f => {
+          {(ds.filters || []).map(f => {
             const crossData = crossCounts[f.key] || allData;
             if (f.type === "histogram") {
-              const cats = f.categories || f.values;
-              const counts = cats.map(cat => crossData.filter(r => { const rv = getVal(r, f); return rv != null && String(rv) === String(cat); }).length);
+              const cats = f.categories;
+              const counts = cats.map(cat => crossData.filter(r => { const rv = r[f.source]; return rv != null && String(rv) === String(cat); }).length);
               const maxC = Math.max(...counts, 1);
-              return (
-                <div key={f.key} style={{ minWidth:100, maxWidth:240, flex:"1 1 auto" }}>
-                  <div style={{ fontSize:10, color:"#999", marginBottom:8, fontFamily:T.sans, lineHeight:1.3 }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
-                  <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
-                    {counts.map((c, i) => {
-                      const sel = filter[f.key]===cats[i];
-                      const dim = filter[f.key]!==null && !sel;
-                      return (
-                        <div key={i} onClick={()=>toggle(f.key,cats[i])} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
-                          <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
-                          <div style={{ width:22, height:Math.max(3,c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
-                          <div style={{ fontSize:7, color:"#777", marginTop:4, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, minHeight:20, display:"flex", alignItems:"flex-start", justifyContent:"center" }}>{f.labels[i]}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+              return <div key={f.key} style={{ minWidth:100, maxWidth:240, flex:"1 1 auto" }}>
+                <div style={{ fontSize:10, color:"#999", marginBottom:8, fontFamily:T.sans, lineHeight:1.3 }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
+                <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
+                  {counts.map((c, i) => {
+                    const sel = filter[f.key] === cats[i];
+                    const dim = filter[f.key] !== null && !sel;
+                    return <div key={i} onClick={() => toggle(f.key, cats[i])} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
+                      <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
+                      <div style={{ width:22, height:Math.max(3, c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
+                      <div style={{ fontSize:7, color:"#777", marginTop:4, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, minHeight:20, display:"flex", alignItems:"flex-start", justifyContent:"center" }}>{f.labels[i]}</div>
+                    </div>;
+                  })}
                 </div>
-              );
+              </div>;
             }
             if (f.type === "histogram_range") {
-              const counts = f.groups.map(g => crossData.filter(r => { const rv = getVal(r, f); return rv>=g.min && rv<=g.max; }).length);
+              const groups = f.groups;
+              const counts = groups.map(g => crossData.filter(r => { const rv = r[f.source]; return rv != null && rv >= g.min && rv <= g.max; }).length);
               const maxC = Math.max(...counts, 1);
-              return (
-                <div key={f.key} style={{ minWidth:100, maxWidth:200, flex:"1 1 auto" }}>
-                  <div style={{ fontSize:10, color:"#999", marginBottom:4, fontFamily:T.sans }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
-                  <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
-                    {counts.map((c, i) => {
-                      const sel = filter[f.key]===i;
-                      const dim = filter[f.key]!==null && !sel;
-                      return (
-                        <div key={i} onClick={()=>toggle(f.key,i)} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
-                          <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
-                          <div style={{ width:22, height:Math.max(3,c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
-                          <div style={{ fontSize:7, color:"#777", marginTop:2, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, minHeight:20, display:"flex", alignItems:"flex-start", justifyContent:"center" }}>{f.groups[i].label}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+              return <div key={f.key} style={{ minWidth:100, maxWidth:240, flex:"1 1 auto" }}>
+                <div style={{ fontSize:10, color:"#999", marginBottom:8, fontFamily:T.sans, lineHeight:1.3 }}>{f.label} <span style={{ fontSize:9 }}>(klicken)</span></div>
+                <div style={{ display:"flex", alignItems:"flex-end", gap:1, height:48, justifyContent:"center" }}>
+                  {counts.map((c, i) => {
+                    const g = groups[i];
+                    const sel = filter[f.key] && filter[f.key].min === g.min && filter[f.key].max === g.max;
+                    const dim = filter[f.key] !== null && !sel;
+                    return <div key={i} onClick={() => toggle(f.key, g)} style={{ width:30, display:"flex", flexDirection:"column", alignItems:"center", cursor:"pointer", opacity:dim?0.25:1, transition:"opacity 0.2s" }}>
+                      <div style={{ fontSize:8, color:"#999", marginBottom:1, fontFamily:T.sans }}>{c}</div>
+                      <div style={{ width:22, height:Math.max(3, c/maxC*34), background:sel?T.red[2]:T.red[0]+"60", borderRadius:"3px 3px 0 0", transition:"all 0.3s", border:sel?"2px solid "+T.red[1]:"2px solid transparent" }} />
+                      <div style={{ fontSize:7, color:"#777", marginTop:4, textAlign:"center", lineHeight:1.2, wordBreak:"break-word", width:30, fontFamily:T.sans, minHeight:20, display:"flex", alignItems:"flex-start", justifyContent:"center" }}>{g.label}</div>
+                    </div>;
+                  })}
                 </div>
-              );
+              </div>;
             }
             if (f.type === "toggle") {
-              return (
-                <div key={f.key}>
-                  <div style={{ fontSize:10, color:"#999", marginBottom:4, fontFamily:T.sans }}>{f.label}</div>
-                  <div style={{ display:"flex", gap:4 }}>
-                    {f.values.map((v, i) => {
-                      const c = crossData.filter(r => getVal(r, f)===v).length;
-                      const sel = filter[f.key]===v;
-                      const dim = filter[f.key]!==null && !sel;
-                      return (
-                        <div key={v} onClick={()=>toggle(f.key,v)} style={{ padding:"4px 10px", borderRadius:T.radius, cursor:"pointer", border:sel?"2px solid "+T.red[2]:"2px solid transparent", background:sel?"#fef5f5":"#f5f3f0", opacity:dim?0.3:1, transition:"all 0.2s", textAlign:"center" }}>
-                          <div style={{ fontSize:13, fontWeight:600, color:"#444", fontFamily:T.sans }}>{c}</div>
-                          <div style={{ fontSize:9, color:"#888", fontFamily:T.sans }}>{f.labels[i]}</div>
-                        </div>
-                      );
-                    })}
-                  </div>
+              return <div key={f.key} style={{ minWidth:80 }}>
+                <div style={{ fontSize:10, color:"#999", marginBottom:8, fontFamily:T.sans, lineHeight:1.3 }}>{f.label}</div>
+                <div style={{ display:"flex", gap:4 }}>
+                  {f.values.map((v, i) => {
+                    const sel = filter[f.key] === v;
+                    const c = crossData.filter(r => r[f.source] === v).length;
+                    return <button key={v} onClick={() => toggle(f.key, v)}
+                      style={{ padding:"3px 8px", fontSize:10, border:"1px solid "+(sel?T.red[2]:T.goldLight), borderRadius:T.radius, background:sel?"#fef5f5":"#faf8f5", color:sel?T.red[2]:"#777", cursor:"pointer", fontFamily:T.sans }}>
+                      {f.labels[i]} <span style={{ fontSize:8, color:"#bbb" }}>({c})</span>
+                    </button>;
+                  })}
                 </div>
-              );
+              </div>;
             }
             return null;
           })}
@@ -907,57 +767,55 @@ function FilterPanel({ ds, allData, filterState, fontSize }) {
   );
 }
 
-/* -- DASHBOARD RENDERER -- */
-function Dashboard({ dsKey, fontSize, cb }) {
+/* ========== DASHBOARD ========== */
+function Dashboard({ ds, fontSize, cb }) {
   const lg = fontSize;
-  const ds = DATASETS[dsKey];
-  if (!ds) return null;
-  const filterState = useFilterPanel(ds, ds.data);
+  const filterState = useFilterPanel(ds);
   const { filtered } = filterState;
   const n = filtered.length;
 
-  /* Pie charts: render side-by-side container */
   const renderCharts = (charts) => {
     const pies = charts.filter(c => c.type === "pie");
     const others = charts.filter(c => c.type !== "pie");
-    return (
-      <>
-        {pies.length > 0 && (
-          <div style={{ textAlign:"center", marginBottom:8 }}>
-            {pies.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
-          </div>
-        )}
-        {others.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
-      </>
-    );
+    return <>
+      {pies.length > 0 && <div style={{ textAlign:"center", marginBottom:8 }}>
+        {pies.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
+      </div>}
+      {others.map(c => <ChartRenderer key={c.id} chart={c} data={filtered} total={n} cb={cb} lg={lg} />)}
+    </>;
   };
 
   return (
     <div style={{ paddingBottom:150 }}>
       <div style={{ padding:"16px 0 8px", borderBottom:"2px solid "+T.red[2], marginBottom:8 }}>
         <div style={{ fontFamily:T.serif, fontSize:fontSize==="large"?22:18, fontWeight:700, color:T.red[1] }}>{ds.meta.title}</div>
-        <div style={{ fontSize:fontSize==="large"?13:11, color:"#888", marginTop:2, fontFamily:T.sans }}>{ds.meta.desc}</div>
-        <div style={{ fontSize:fontSize==="large"?13:11, color:"#999", marginTop:2, fontFamily:T.sans }}>N = {ds.meta.n} · Jahr: {ds.meta.year}</div>
+        <div style={{ fontSize:fontSize==="large"?13:11, color:"#888", marginTop:2, fontFamily:T.sans }}>{ds.meta.description}</div>
+        <div style={{ fontSize:fontSize==="large"?13:11, color:"#999", marginTop:2, fontFamily:T.sans }}>{"N = " + ds.meta.n + " · Jahr: " + ds.meta.year}</div>
       </div>
-      {ds.sections.sort((a,b)=>a.order-b.order).map(sec => (
+      {(ds.sections || []).sort((a,b) => a.order - b.order).map(sec => (
         <Sec key={sec.id} title={sec.title} info={sec.info || (sec.likert_config && sec.likert_config.info_text)} lg={lg}>
           {sec.text && <p style={{ fontSize:fontSize==="large"?14:12, color:"#666", marginBottom:14, lineHeight:1.65, fontFamily:T.sans }}>{renderBold(sec.text)}</p>}
           {sec.type === "likert_group" ? (
             <div>
               <div style={{ display:"flex", justifyContent:"space-between", fontSize:S(10,lg), color:"#999", marginBottom:6, padding:lg==="large"?"0 0 0 158px":"0 0 0 138px", fontFamily:T.sans }}>
-                <span>← {(sec.likert_config||{}).scale_labels_left || "weniger wichtig"}</span><span>{(sec.likert_config||{}).scale_labels_right || "sehr wichtig"} →</span>
+                <span>{"← " + ((sec.likert_config||{}).scale_labels_left || "weniger wichtig")}</span>
+                <span>{((sec.likert_config||{}).scale_labels_right || "sehr wichtig") + " →"}</span>
               </div>
               {[...new Set((sec.items||[]).map(it => it.group))].map(gName => (
                 <div key={gName} style={{ marginBottom:14 }}>
                   <div style={{ fontFamily:T.serif, fontSize:S(13,lg), fontWeight:600, color:T.goldDark, marginBottom:4, textTransform:"uppercase", letterSpacing:1 }}>{gName}</div>
                   {(sec.items||[]).filter(it => it.group===gName).map(it => {
-                    const lk = likertCountsNamed(filtered, it.key, 6);
-                    return <LikertRow6 key={it.key} counts={lk.counts} total={lk.total} label={it.label} cb={cb} lg={lg} />;
+                    const counts = Array(6).fill(0);
+                    filtered.forEach(r => { const v = r[it.key]; if (v >= 1 && v <= 6) counts[v-1]++; });
+                    const t = d3.sum(counts);
+                    return <LikertRow key={it.key} counts={counts} total={t} label={it.label} scaleMax={6} cb={cb} lg={lg} />;
                   })}
                 </div>
               ))}
               <div style={{ display:"flex", gap:8, flexWrap:"wrap", marginTop:8, fontSize:S(10,lg), color:"#999", fontFamily:T.sans }}>
-                {[1,2,3,4,5,6].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}><span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert6cb:T.likert6)[v-1] }} />{v}</span>)}
+                {[1,2,3,4,5,6].map(v => <span key={v} style={{ display:"flex", alignItems:"center", gap:3 }}>
+                  <span style={{ width:10, height:10, borderRadius:2, background:(cb?T.likert6cb:T.likert6)[v-1] }} />{v}
+                </span>)}
               </div>
             </div>
           ) : sec.type === "open_themes" ? (
@@ -967,120 +825,111 @@ function Dashboard({ dsKey, fontSize, cb }) {
           )}
         </Sec>
       ))}
-      <FilterPanel ds={ds} allData={ds.data} filterState={filterState} fontSize={fontSize} />
+      <FilterPanel ds={ds} filterState={filterState} fontSize={fontSize} />
     </div>
   );
 }
 
-/* -- NAVBAR + HAMBURGER MENU -- */
+/* ========== NAVBAR ========== */
 function Navbar({ fontSize, setFontSize, cb, setCb, lang, setLang }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [infoOpen, setInfoOpen] = useState(false);
-  return (
-    <>
-      <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:50, background:"#faf8f5", borderBottom:"1px solid #eae7e2", padding:"0 16px", height:48, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
-        <div style={{ display:"flex", alignItems:"center", gap:8 }}>
-          <svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill={T.red[1]} /><text x="14" y="19" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="Noto Serif, serif" fontWeight="700">M</text></svg>
+  return <>
+    <nav style={{ position:"fixed", top:0, left:0, right:0, zIndex:50, background:"#faf8f5", borderBottom:"1px solid #eae7e2", padding:"0 16px", height:48, display:"flex", alignItems:"center", justifyContent:"space-between" }}>
+      <div style={{ display:"flex", alignItems:"center", gap:8 }}>
+        <svg width="28" height="28" viewBox="0 0 28 28"><rect width="28" height="28" rx="6" fill={T.red[1]} /><text x="14" y="19" textAnchor="middle" fill="#fff" fontSize="14" fontFamily="Noto Serif, serif" fontWeight="700">M</text></svg>
+      </div>
+      <div style={{ fontFamily:T.serif, fontSize:15, fontWeight:700, color:T.red[1], letterSpacing:0.5 }}>Moosburg Data Hub</div>
+      <button onClick={() => setMenuOpen(!menuOpen)} style={{ background:"none", border:"none", cursor:"pointer", padding:4, color:T.red[1], fontSize:20, lineHeight:1 }} aria-label="Menü">
+        {menuOpen ? "✕" : "☰"}
+      </button>
+    </nav>
+    {menuOpen && <>
+      <div onClick={() => setMenuOpen(false)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.2)", zIndex:55 }} />
+      <div style={{ position:"fixed", top:48, right:0, width:260, maxHeight:"80vh", overflowY:"auto", background:"#fff", borderRadius:"0 0 0 12px", boxShadow:"0 8px 24px rgba(0,0,0,0.12)", zIndex:60, padding:16, fontFamily:T.sans }}>
+        <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
+          <a href="#" onClick={e => { e.preventDefault(); setInfoOpen(true); setMenuOpen(false); }} style={{ fontSize:13, color:T.red[2], textDecoration:"none" }}>{"ℹ Weitere Informationen →"}</a>
         </div>
-        <div style={{ fontFamily:T.serif, fontSize:15, fontWeight:700, color:T.red[1], letterSpacing:0.5 }}>Moosburg Data Hub</div>
-        <button onClick={()=>setMenuOpen(!menuOpen)} style={{ background:"none", border:"none", cursor:"pointer", padding:4, color:T.red[1], fontSize:20, lineHeight:1 }} aria-label="Menü">
-          {menuOpen ? "✕" : "☰"}
-        </button>
-      </nav>
-      {menuOpen && <>
-        <div onClick={()=>setMenuOpen(false)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.2)", zIndex:55 }} />
-        <div style={{ position:"fixed", top:48, right:0, width:260, maxHeight:"80vh", overflowY:"auto", background:"#fff", borderRadius:"0 0 0 12px", boxShadow:"0 8px 24px rgba(0,0,0,0.12)", zIndex:60, padding:16, fontFamily:T.sans }}>
-          <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
-            <a href="#" onClick={(e)=>{e.preventDefault();setInfoOpen(true);setMenuOpen(false);}} style={{ fontSize:13, color:T.red[2], textDecoration:"none" }}>ℹ Weitere Informationen →</a>
-          </div>
-          <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
-            <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Sprache</div>
-            {[["de","Deutsch"],["en","English"]].map(([code,name]) => {
-              const active=lang===code;
-              const disabled=code==="en";
-              return (
-                <div key={code} onClick={()=>!disabled&&setLang(code)} style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 0", cursor:disabled?"default":"pointer", opacity:disabled?0.35:1 }}>
-                  <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
-                    {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
-                  </span>
-                  <span style={{ fontSize:13, color:disabled?"#aaa":"#444" }}>{name}</span>
-                  {disabled && <span style={{ fontSize:10, color:"#bbb", marginLeft:4 }}>(bald verfügbar)</span>}
-                </div>
-              );
-            })}
-          </div>
-          <div>
-            <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Barrierefreiheit</div>
-            <div style={{ marginBottom:8 }}>
-              <div style={{ fontSize:11, color:"#666", marginBottom:4 }}>Schriftgröße</div>
-              {[["normal","Normal"],["large","Groß"]].map(([val,label]) => {
-                const active=fontSize===val;
-                return (
-                  <div key={val} onClick={()=>setFontSize(val)} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
-                    <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
-                      {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
-                    </span>
-                    <span style={{ fontSize:13, color:"#444" }}>{label}</span>
-                  </div>
-                );
-              })}
-            </div>
-            <div>
-              <div style={{ fontSize:11, color:"#666", marginBottom:4 }}>Farben</div>
-              {[["normal","Normal"],["cb","Farbenblind-sicher"]].map(([val,label]) => {
-                const active=(val==="cb")===cb;
-                return (
-                  <div key={val} onClick={()=>setCb(val==="cb")} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
-                    <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
-                      {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
-                    </span>
-                    <span style={{ fontSize:13, color:"#444" }}>{label}</span>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
+        <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
+          <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Sprache</div>
+          {[["de","Deutsch"],["en","English"]].map(([code,name]) => {
+            const active = lang === code;
+            const disabled = code === "en";
+            return <div key={code} onClick={() => !disabled && setLang(code)} style={{ display:"flex", alignItems:"center", gap:8, padding:"6px 0", cursor:disabled?"default":"pointer", opacity:disabled?0.35:1 }}>
+              <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+              </span>
+              <span style={{ fontSize:13, color:disabled?"#aaa":"#444" }}>{name}</span>
+              {disabled && <span style={{ fontSize:10, color:"#bbb", marginLeft:4 }}>(bald verfügbar)</span>}
+            </div>;
+          })}
         </div>
-      </>}
-      <Modal open={infoOpen} onClose={()=>setInfoOpen(false)}>
-        <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Moosburg Data Hub</h3>
-        <p>Der Moosburg Data Hub ist eine interaktive Plattform der Stadt Moosburg a.d. Isar zur Visualisierung öffentlicher Umfragedaten. Hier werden Ergebnisse verschiedener Datenerhebungen aufbereitet und für alle Bürgerinnen und Bürger zugaenglich gemacht.</p>
-        <p style={{ marginTop:12 }}>Bei Fragen oder Anregungen wenden Sie sich bitte an die Stadtverwaltung Moosburg.</p>
-      </Modal>
-    </>
-  );
+        <div style={{ paddingBottom:12, borderBottom:"1px solid #eae7e2", marginBottom:12 }}>
+          <div style={{ fontSize:11, color:"#999", marginBottom:6, textTransform:"uppercase", letterSpacing:1 }}>Barrierefreiheit</div>
+          <div style={{ fontSize:11, color:"#666", marginBottom:4 }}>Schriftgröße</div>
+          {[["normal","Normal"],["large","Groß"]].map(([val,label]) => {
+            const active = fontSize === val;
+            return <div key={val} onClick={() => setFontSize(val)} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
+              <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+              </span>
+              <span style={{ fontSize:13, color:"#444" }}>{label}</span>
+            </div>;
+          })}
+          <div style={{ fontSize:11, color:"#666", marginBottom:4, marginTop:8 }}>Farben</div>
+          {[["normal","Normal"],["cb","Farbenblind-sicher"]].map(([val,label]) => {
+            const active = (val === "cb") === cb;
+            return <div key={val} onClick={() => setCb(val === "cb")} style={{ display:"flex", alignItems:"center", gap:8, padding:"4px 0", cursor:"pointer" }}>
+              <span style={{ width:16, height:16, borderRadius:"50%", border:"2px solid "+(active?T.red[2]:"#ccc"), display:"flex", alignItems:"center", justifyContent:"center" }}>
+                {active && <span style={{ width:8, height:8, borderRadius:"50%", background:T.red[2] }} />}
+              </span>
+              <span style={{ fontSize:13, color:"#444" }}>{label}</span>
+            </div>;
+          })}
+        </div>
+      </div>
+    </>}
+    <Modal open={infoOpen} onClose={() => setInfoOpen(false)}>
+      <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Moosburg Data Hub</h3>
+      <p>Der Moosburg Data Hub ist eine interaktive Plattform der Stadt Moosburg a.d. Isar zur Visualisierung öffentlicher Umfragedaten. Hier werden Ergebnisse verschiedener Datenerhebungen aufbereitet und für alle Bürgerinnen und Bürger zugänglich gemacht.</p>
+      <p style={{ marginTop:12 }}>Bei Fragen oder Anregungen wenden Sie sich bitte an die Stadtverwaltung Moosburg.</p>
+    </Modal>
+  </>;
 }
 
-/* -- DATASET SEARCH -- */
+/* ========== DATASET SEARCH ========== */
 function DatasetSearch({ selected, onSelect }) {
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-  const entries = Object.entries(DATASETS).map(([k, ds]) => ({ key:k, label:ds.meta.title+" ("+ds.meta.year+", N="+ds.meta.n+")" }));
-  const fil = query.length>0 ? entries.filter(e => e.label.toLowerCase().includes(query.toLowerCase())) : entries;
-  useEffect(() => { const h=(e)=>{if(ref.current&&!ref.current.contains(e.target))setOpen(false);}; document.addEventListener("mousedown",h); return ()=>document.removeEventListener("mousedown",h); }, []);
+  const entries = window.__MANIFEST__.datasets.map(d => ({ key: d.id, label: d.title + " (" + d.year + ", N=" + d.n + ")" }));
+  const fil = query.length > 0 ? entries.filter(e => e.label.toLowerCase().includes(query.toLowerCase())) : entries;
+  useEffect(() => {
+    const h = e => { if (ref.current && !ref.current.contains(e.target)) setOpen(false); };
+    document.addEventListener("mousedown", h);
+    return () => document.removeEventListener("mousedown", h);
+  }, []);
 
-  return (
-    <div ref={ref} style={{ position:"relative", margin:"16px auto", maxWidth:600 }}>
-      <input type="text" placeholder="Datenerhebung suchen…" value={query} onChange={e=>{setQuery(e.target.value);setOpen(true);}} onFocus={()=>setOpen(true)}
-        style={{ width:"100%", padding:"10px 14px", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:14, background:"#faf8f5", color:"#333", outline:"none", boxSizing:"border-box", fontFamily:T.sans }} />
-      {open && fil.length>0 && (
-        <div style={{ position:"absolute", top:"100%", left:0, right:0, background:"#fff", border:"1px solid "+T.goldLight, borderRadius:"0 0 "+T.radius+"px "+T.radius+"px", boxShadow:"0 4px 12px rgba(0,0,0,0.08)", zIndex:20, maxHeight:200, overflowY:"auto" }}>
-          {fil.map(e => (
-            <div key={e.key} onClick={()=>{onSelect(e.key);setQuery(e.label);setOpen(false);}}
-              style={{ padding:"10px 14px", cursor:"pointer", fontSize:13, color:selected===e.key?T.red[2]:"#444", fontWeight:selected===e.key?600:400, borderBottom:"1px solid #f5f3f0", fontFamily:T.sans }}
-              onMouseEnter={e2=>e2.currentTarget.style.background="#faf8f5"} onMouseLeave={e2=>e2.currentTarget.style.background="#fff"}>
-              {e.label}
-            </div>
-          ))}
-        </div>
-      )}
-      {selected && <button onClick={()=>{onSelect(null);setQuery("");}} style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#999", fontSize:16 }}>✕</button>}
-    </div>
-  );
+  return <div ref={ref} style={{ position:"relative", margin:"16px auto", maxWidth:600 }}>
+    <input type="text" placeholder="Datenerhebung suchen…" value={query}
+      onChange={e => { setQuery(e.target.value); setOpen(true); }} onFocus={() => setOpen(true)}
+      style={{ width:"100%", padding:"10px 14px", border:"1px solid "+T.goldLight, borderRadius:T.radius+2, fontSize:14, background:"#faf8f5", color:"#333", outline:"none", boxSizing:"border-box", fontFamily:T.sans }} />
+    {open && fil.length > 0 && (
+      <div style={{ position:"absolute", top:"100%", left:0, right:0, background:"#fff", border:"1px solid "+T.goldLight, borderRadius:"0 0 "+T.radius+"px "+T.radius+"px", boxShadow:"0 4px 12px rgba(0,0,0,0.08)", zIndex:20, maxHeight:200, overflowY:"auto" }}>
+        {fil.map(e => (
+          <div key={e.key} onClick={() => { onSelect(e.key); setQuery(e.label); setOpen(false); }}
+            style={{ padding:"10px 14px", cursor:"pointer", fontSize:13, color:selected===e.key?T.red[2]:"#444", fontWeight:selected===e.key?600:400, borderBottom:"1px solid #f5f3f0", fontFamily:T.sans }}
+            onMouseEnter={e2 => e2.currentTarget.style.background="#faf8f5"} onMouseLeave={e2 => e2.currentTarget.style.background="#fff"}>
+            {e.label}
+          </div>
+        ))}
+      </div>
+    )}
+    {selected && <button onClick={() => { onSelect(null); setQuery(""); }} style={{ position:"absolute", right:10, top:"50%", transform:"translateY(-50%)", background:"none", border:"none", cursor:"pointer", color:"#999", fontSize:16 }}>✕</button>}
+  </div>;
 }
 
-/* -- APP ROOT -- */
+/* ========== APP ROOT ========== */
 function App() {
   const [dsKey, setDsKey] = useState(null);
   const [fontSize, setFontSize] = useState("normal");
@@ -1088,52 +937,56 @@ function App() {
   const [lang, setLang] = useState("de");
   const [impOpen, setImpOpen] = useState(false);
   const [conOpen, setConOpen] = useState(false);
-  const fs = fontSize==="large" ? 16 : 14;
+  const { ds, loading } = useDataset(dsKey);
   const lg = fontSize;
 
-  return (
-    <>
-      <FontLoader />
-      <div style={{ fontFamily:T.sans, fontSize:fs, color:"#333", background:"#fff", minHeight:"100vh" }}>
-        <Navbar fontSize={fontSize} setFontSize={setFontSize} cb={cb} setCb={setCb} lang={lang} setLang={setLang} />
-        <div style={{ maxWidth:640, margin:"0 auto", padding:"56px 16px 0" }}>
-          <DatasetSearch selected={dsKey} onSelect={setDsKey} />
-          {!dsKey && (
-            <div style={{ textAlign:"center", padding:"60px 20px", color:"#999" }}>
-              <div style={{ fontFamily:T.serif, fontSize:20, color:T.red[1], marginBottom:8 }}>Willkommen</div>
-              <p style={{ fontSize:13, lineHeight:1.6, fontFamily:T.sans }}>Wählen Sie oben eine Datenerhebung aus, um das Dashboard zu laden.</p>
-              <div style={{ display:"flex", gap:8, justifyContent:"center", flexWrap:"wrap", marginTop:20 }}>
-                {Object.entries(DATASETS).map(([k, ds]) => (
-                  <button key={k} onClick={()=>setDsKey(k)}
-                    style={{ padding:"10px 16px", borderRadius:T.radius, border:"1px solid "+T.goldLight, background:"#faf8f5", cursor:"pointer", fontSize:13, color:"#555", fontFamily:T.sans, transition:"all 0.2s" }}
-                    onMouseEnter={e=>{e.currentTarget.style.borderColor=T.red[2];e.currentTarget.style.color=T.red[2];}}
-                    onMouseLeave={e=>{e.currentTarget.style.borderColor=T.goldLight;e.currentTarget.style.color="#555";}}>
-                    {ds.meta.title} ({ds.meta.year})
-                  </button>
-                ))}
-              </div>
+  return <>
+    <FontLoader />
+    <div style={{ fontFamily:T.sans, fontSize:fontSize==="large"?16:14, color:"#333", background:"#fff", minHeight:"100vh" }}>
+      <Navbar fontSize={fontSize} setFontSize={setFontSize} cb={cb} setCb={setCb} lang={lang} setLang={setLang} />
+      <div style={{ maxWidth:640, margin:"0 auto", padding:"56px 16px 0" }}>
+        <DatasetSearch selected={dsKey} onSelect={setDsKey} />
+        {!dsKey && (
+          <div style={{ textAlign:"center", padding:"60px 20px", color:"#999" }}>
+            <div style={{ fontFamily:T.serif, fontSize:20, color:T.red[1], marginBottom:8 }}>Willkommen</div>
+            <p style={{ fontSize:13, lineHeight:1.6, fontFamily:T.sans }}>Wählen Sie oben eine Datenerhebung aus, um das Dashboard zu laden.</p>
+            <div style={{ display:"flex", gap:8, justifyContent:"center", flexWrap:"wrap", marginTop:20 }}>
+              {window.__MANIFEST__.datasets.map(d => (
+                <button key={d.id} onClick={() => setDsKey(d.id)}
+                  style={{ padding:"10px 16px", borderRadius:T.radius, border:"1px solid "+T.goldLight, background:"#faf8f5", cursor:"pointer", fontSize:13, color:"#555", fontFamily:T.sans, transition:"all 0.2s" }}
+                  onMouseEnter={e => { e.currentTarget.style.borderColor=T.red[2]; e.currentTarget.style.color=T.red[2]; }}
+                  onMouseLeave={e => { e.currentTarget.style.borderColor=T.goldLight; e.currentTarget.style.color="#555"; }}>
+                  {d.title + " (" + d.year + ")"}
+                </button>
+              ))}
             </div>
-          )}
-          {dsKey && <Dashboard dsKey={dsKey} fontSize={fontSize} cb={cb} />}
-        </div>
-        <footer style={{ padding:"12px 16px 14px", textAlign:"center", fontSize:S(11,lg), color:"#aaa", background:"#faf8f5", borderTop:"1px solid #eae7e2", marginTop:0, fontFamily:T.sans }}>
-          <a href="#" onClick={(e)=>{e.preventDefault();setImpOpen(true);}} style={{ color:T.gold, textDecoration:"none", marginRight:16 }}>Impressum</a>
-          <a href="#" onClick={(e)=>{e.preventDefault();setConOpen(true);}} style={{ color:T.gold, textDecoration:"none" }}>Kontakt</a>
-          <div style={{ marginTop:6, fontSize:10 }}>© {new Date().getFullYear()} Stadt Moosburg a.d. Isar</div>
-        </footer>
-        <Modal open={impOpen} onClose={()=>setImpOpen(false)}>
-          <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Impressum</h3>
-          <p>Stadt Moosburg a.d. Isar<br/>Stadtplatz 13<br/>85368 Moosburg a.d. Isar</p>
-          <p style={{ marginTop:8 }}>Vertreten durch den Ersten Bürgermeister.<br/>Platzhalter — wird später ersetzt.</p>
-        </Modal>
-        <Modal open={conOpen} onClose={()=>setConOpen(false)}>
-          <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Kontakt</h3>
-          <p>E-Mail: info@moosburg.de<br/>Telefon: +49 (0) 8761 / 000-0</p>
-          <p style={{ marginTop:8 }}>Platzhalter — wird später ersetzt.</p>
-        </Modal>
+          </div>
+        )}
+        {dsKey && loading && (
+          <div style={{ textAlign:"center", padding:"60px 20px" }}>
+            <div className="spinner" style={{ width:36, height:36, border:"3px solid #eae7e2", borderTopColor:T.red[1], borderRadius:"50%", animation:"spin 0.8s linear infinite", margin:"0 auto 16px" }} />
+            <div style={{ color:"#999", fontFamily:T.sans, fontSize:13 }}>Daten werden geladen...</div>
+          </div>
+        )}
+        {dsKey && ds && <Dashboard ds={ds} fontSize={fontSize} cb={cb} />}
       </div>
-    </>
-  );
+      <footer style={{ padding:"12px 16px 14px", textAlign:"center", fontSize:S(11,lg), color:"#aaa", background:"#faf8f5", borderTop:"1px solid #eae7e2", fontFamily:T.sans }}>
+        <a href="#" onClick={e => { e.preventDefault(); setImpOpen(true); }} style={{ color:T.gold, textDecoration:"none", marginRight:16 }}>Impressum</a>
+        <a href="#" onClick={e => { e.preventDefault(); setConOpen(true); }} style={{ color:T.gold, textDecoration:"none" }}>Kontakt</a>
+        <div style={{ marginTop:6, fontSize:10 }}>{"© " + new Date().getFullYear() + " Stadt Moosburg a.d. Isar"}</div>
+      </footer>
+      <Modal open={impOpen} onClose={() => setImpOpen(false)}>
+        <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Impressum</h3>
+        <p>Stadt Moosburg a.d. Isar<br/>Stadtplatz 13<br/>85368 Moosburg a.d. Isar</p>
+        <p style={{ marginTop:8 }}>Vertreten durch den Ersten Bürgermeister.<br/>Platzhalter — wird später ersetzt.</p>
+      </Modal>
+      <Modal open={conOpen} onClose={() => setConOpen(false)}>
+        <h3 style={{ fontFamily:T.serif, fontSize:18, color:T.red[1], marginBottom:12 }}>Kontakt</h3>
+        <p>E-Mail: info@moosburg.de<br/>Telefon: +49 (0) 8761 / 000-0</p>
+        <p style={{ marginTop:8 }}>Platzhalter — wird später ersetzt.</p>
+      </Modal>
+    </div>
+  </>;
 }
   </script>
 </body>
