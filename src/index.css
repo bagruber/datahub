@@ -1,0 +1,164 @@
+@import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+
+@theme {
+  /* ──────────────────────────────────────────────────────────────
+     Brand — aligned with sibling /moosburg site
+     Red leitfarbe + cream ground + gold accent
+     ────────────────────────────────────────────────────────────── */
+  --color-red-50: #fdf3f5;
+  --color-red-100: #fbe5e9;
+  --color-red-500: #c8102e;
+  --color-red-600: #b00e28;
+  --color-red-700: #9b0000; /* council deep red */
+  --color-red-900: #5a070a;
+
+  --color-gold-100: #f6ecd5;
+  --color-gold-200: #e8dfcf;
+  --color-gold-400: #b39f7a; /* council accent */
+  --color-gold-500: #b8964e;
+  --color-gold-600: #968b69;
+  --color-gold-700: #6e5a30;
+
+  --color-cream: #faf7f2;
+  --color-cream-dark: #f1ece1;
+
+  --color-ink: #1c1c1c;
+  --color-ink-soft: #555555;
+  --color-ink-muted: #888888;
+  --color-ink-line: #e4e0d7;
+
+  /* Semantic data palette — civic surveys (from council) */
+  --color-data-yes: #78be1e;
+  --color-data-no: #9b0000;
+  --color-data-absent: #b0b0b0;
+  --color-data-info: #5b9bd5;
+  --color-data-teal: #00b4d8;
+  --color-data-purple: #9b59b6;
+
+  /* Diverging Likert ramp — 6 steps, perceptually ordered */
+  --color-likert-1: #b00e28;
+  --color-likert-2: #d96a4f;
+  --color-likert-3: #e8b878;
+  --color-likert-4: #c9d39e;
+  --color-likert-5: #82b67c;
+  --color-likert-6: #3f8c52;
+
+  /* Rainbow stripe — fixed order, ornament only */
+  --color-rb-1: #e91e8c;
+  --color-rb-2: #e5202e;
+  --color-rb-3: #f4830a;
+  --color-rb-4: #f5d400;
+  --color-rb-5: #0a9e4c;
+  --color-rb-6: #009ac7;
+  --color-rb-7: #3b3f9a;
+  --color-rb-8: #8b4a2a;
+  --color-rb-9: #1a1a1a;
+
+  /* Typography */
+  --font-display: "Playfair Display", ui-serif, Georgia, serif;
+  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --text-display-1: 3rem;     /* 48px — hero */
+  --text-display-2: 2.25rem;  /* 36px — h1 */
+  --text-display-3: 1.5rem;   /* 24px — h2 */
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-2xl: 20px;
+
+  --shadow-soft: 0 1px 3px rgb(0 0 0 / 0.07);
+  --shadow-lift: 0 4px 16px rgb(0 0 0 / 0.10);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-cream);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "ss01", "cv11";
+  /* Accessibility: large base — 17px mobile, 18px desktop */
+  font-size: 17px;
+  line-height: 1.6;
+}
+@media (min-width: 1024px) {
+  body { font-size: 18px; }
+}
+
+.font-display { font-family: var(--font-display); }
+
+.headline {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.005em;
+  line-height: 1.1;
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--color-gold-600);
+}
+
+/* Rainbow stripe — 9 fixed segments, 4px */
+.rainbow-stripe {
+  display: flex;
+  height: 4px;
+  width: 100%;
+}
+.rainbow-stripe > span { flex: 1; }
+.rainbow-stripe > span:nth-child(1) { background: var(--color-rb-1); }
+.rainbow-stripe > span:nth-child(2) { background: var(--color-rb-2); }
+.rainbow-stripe > span:nth-child(3) { background: var(--color-rb-3); }
+.rainbow-stripe > span:nth-child(4) { background: var(--color-rb-4); }
+.rainbow-stripe > span:nth-child(5) { background: var(--color-rb-5); }
+.rainbow-stripe > span:nth-child(6) { background: var(--color-rb-6); }
+.rainbow-stripe > span:nth-child(7) { background: var(--color-rb-7); }
+.rainbow-stripe > span:nth-child(8) { background: var(--color-rb-8); }
+.rainbow-stripe > span:nth-child(9) { background: var(--color-rb-9); }
+
+/* Focus ring */
+:where(a, button, select, textarea, [role="button"]):focus-visible {
+  outline: 2px solid var(--color-red-500);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Plot figure resets — keep charts on the cream ground, no extra margin */
+figure.plot-figure { margin: 0; }
+figure.plot-figure svg { display: block; max-width: 100%; height: auto; }
+
+/* Suppress browser tap-highlight and focus stroke on interactive SVG shapes
+   (filter bars, pie slices). They have their own visual feedback. */
+svg [tabindex] {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+svg [tabindex]:focus { outline: none; }
+svg [tabindex]:focus-visible {
+  outline: 2px solid var(--color-red-500);
+  outline-offset: 1px;
+}
+
+/* Visually hidden — for chart data tables exposed to AT */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
