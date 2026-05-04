@@ -3,6 +3,8 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
+import { INK, RADIUS, STROKE } from "@/lib/palette";
+import { useIsMobile } from "@/lib/useIsMobile";
 import type { Dataset } from "@/lib/data";
 
 type Option = { value: number; label: string; color: string };
@@ -23,14 +25,18 @@ type Row = {
   n: number;
   x1: number;
   x2: number;
-  xm: number;
   row: string;
 };
 
 /** Diverging 3-option bar: option 0 extends left of centre, option 1 (the
  *  "neutral" / undecided) straddles 0, option 2 extends right of centre.
- *  Bar uses full content width — full picture across the page. */
+ *  Percentages live OUTSIDE the bar (left edge for the left option, right
+ *  edge for the right option), matching the BarH end-of-bar convention.
+ *  Centre option's percentage is omitted from the chart and read from the
+ *  legend, since it has no "side" of its own. */
 export function Diverging3({ records, source, options }: Props) {
+  const isMobile = useIsMobile();
+
   const data: Row[] = useMemo(() => {
     let answered = 0;
     const counts = new Map<number, number>();
@@ -53,17 +59,29 @@ export function Diverging3({ records, source, options }: Props) {
         n: answered,
         x1: seg.x1,
         x2: seg.x2,
-        xm: (seg.x1 + seg.x2) / 2,
         row: "all",
       };
     });
   }, [records, source, options]);
 
+  const fontPx = isMobile ? 11 : 13;
+
+  // Annotations: Option 0 (left) labelled at its x1 (leftmost edge),
+  // Option 2 (right) labelled at its x2 (rightmost edge). Centre omitted.
+  const annotations = useMemo(() => {
+    const left = data.find((d) => d.label === options[0].label);
+    const right = data.find((d) => d.label === options[2].label);
+    return [
+      ...(left ? [{ ...left, side: "left" as const, anchor: left.x1 }] : []),
+      ...(right ? [{ ...right, side: "right" as const, anchor: right.x2 }] : []),
+    ];
+  }, [data, options]);
+
   const plotOptions: Plot.PlotOptions = useMemo(
     () => ({
       height: 110,
-      marginLeft: 24,
-      marginRight: 24,
+      marginLeft: 56,
+      marginRight: 56,
       marginTop: 36,
       marginBottom: 28,
       x: {
@@ -82,8 +100,8 @@ export function Diverging3({ records, source, options }: Props) {
       },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: "13px",
-        color: "#1c1c1c",
+        fontSize: `${fontPx}px`,
+        color: INK,
       },
       marks: [
         Plot.barX(data, {
@@ -93,24 +111,27 @@ export function Diverging3({ records, source, options }: Props) {
           fill: "label",
           insetTop: 0,
           insetBottom: 0,
+          rx: RADIUS.bar,
           tip: true,
           title: (d: Row) =>
             `${d.label}\n${fmtInt(d.count)} von ${fmtInt(d.n)} Antworten\n${fmtPct(d.share)}`,
         }),
-        Plot.text(data, {
-          x: "xm",
+        // Outside percentage labels — left option goes left, right option goes right
+        Plot.text(annotations, {
+          x: (d: { anchor: number }) => d.anchor,
           y: "row",
-          text: (d: Row) =>
-            d.share >= 0.08 ? `${d.label}\n${fmtPct(d.share)}` : "",
-          fill: "white",
-          fontWeight: 600,
-          textAnchor: "middle",
+          text: (d: { share: number }) => fmtPct(d.share),
+          dx: (d: { side: "left" | "right" }) => (d.side === "left" ? -6 : 6),
+          textAnchor: (d: { side: "left" | "right" }) => (d.side === "left" ? "end" : "start"),
           lineAnchor: "middle",
+          fontWeight: 700,
+          fontSize: fontPx,
+          fill: INK,
         } as never),
-        Plot.ruleX([0], { stroke: "#1c1c1c", strokeWidth: 1.5 }),
+        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
       ],
     }),
-    [data, options],
+    [data, annotations, options, fontPx],
   );
 
   return (

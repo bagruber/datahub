@@ -119,6 +119,8 @@ export const HELP: Record<string, string> = {
     "Korrelations-Heatmap. Jede Zelle zeigt, wie stark zwei Bewertungen zusammenhängen — von −1 (gegensätzlich, dunkelrot) über 0 (kein Zusammenhang, hell) bis +1 (gleichgerichtet, dunkelgrün). Die Diagonale ist immer 1.",
   venn2:
     "Flächentreues Venn-Diagramm: jede Kreisfläche ist proportional zur Gruppengröße, die Schnittfläche zur Anzahl gemeinsamer Antworten. Hover über Kreis, Schnittmenge oder Legende zeigt Detailwerte.",
+  venn3:
+    "Drei-Kreis-Venn: Kreisflächen entsprechen den Gruppengrößen, paarweise Schnittflächen den gemeinsamen Antworten. Die zentrale Schnittmenge zeigt Befragte, die zu allen drei Gruppen zählen. Hover hebt die jeweilige Gruppe hervor.",
   likert5_group:
     "Pro Innovation ein eigener divergierender Stapelbalken. Negative Bewertungen wachsen nach links, positive nach rechts; die neutrale Mitte überlagert die Null-Linie. So lassen sich Innovationen direkt vergleichen.",
 };

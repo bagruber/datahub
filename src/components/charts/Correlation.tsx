@@ -2,6 +2,8 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
+import { CORRELATION_RAMP, INK, RADIUS } from "@/lib/palette";
+import { useIsMobile } from "@/lib/useIsMobile";
 import type { Dataset } from "@/lib/data";
 
 type Source = { source: string; label: string };
@@ -54,18 +56,37 @@ export function Correlation({ records, sources }: Props) {
     return out;
   }, [records, sources]);
 
+  const isMobile = useIsMobile();
   const labels = useMemo(() => sources.map((s) => s.label), [sources]);
   // y-axis top-to-bottom = first to last
   const yDomain = useMemo(() => [...labels].reverse(), [labels]);
   const longestLabel = useMemo(() => labels.reduce((m, l) => Math.max(m, l.length), 0), [labels]);
-  const marginLeft = Math.min(220, Math.max(110, longestLabel * 8));
-  const marginTop = Math.min(160, Math.max(80, longestLabel * 7));
+  const marginLeft = isMobile
+    ? Math.min(140, Math.max(80, longestLabel * 6))
+    : Math.min(220, Math.max(110, longestLabel * 8));
+  const marginTop = isMobile
+    ? Math.min(110, Math.max(60, longestLabel * 5))
+    : Math.min(160, Math.max(80, longestLabel * 7));
+  const fontPx = isMobile ? 9 : 12;
+  const cellPx = isMobile ? 9 : 11;
+
+  // Format r-value for the cell. On mobile, fewer digits to keep it readable
+  // inside small cells. Diagonal cells (r === 1, where x === y) collapse to "1".
+  const formatR = (d: Cell): string => {
+    if (Number.isNaN(d.r)) return "–";
+    if (d.xi === d.yi) return "1";
+    const digits = isMobile ? 1 : 2;
+    const rounded = d.r.toFixed(digits);
+    // Drop leading zero for compactness: 0.42 → ,42; -0.42 → −,42
+    const noLead = rounded.replace(/^(-?)0\./, "$1.");
+    return noLead.replace(".", ",").replace("-", "−");
+  };
 
   const options: Plot.PlotOptions = useMemo(
     () => ({
-      height: labels.length * 38 + marginTop + 24,
+      height: labels.length * (isMobile ? 30 : 38) + marginTop + 24,
       marginLeft,
-      marginRight: 24,
+      marginRight: isMobile ? 12 : 24,
       marginTop,
       marginBottom: 24,
       x: {
@@ -79,15 +100,15 @@ export function Correlation({ records, sources }: Props) {
       color: {
         type: "linear",
         domain: [-1, 0, 1],
-        range: ["#b00e28", "#f6ecd5", "#3f8c52"],
+        range: CORRELATION_RAMP,
         legend: true,
         label: "Pearson r (−1 = gegenläufig, 0 = kein Zusammenhang, +1 = gleichgerichtet)",
         ticks: [-1, -0.5, 0, 0.5, 1],
       },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: "12px",
-        color: "#1c1c1c",
+        fontSize: `${fontPx}px`,
+        color: INK,
       },
       marks: [
         Plot.cell(cells, {
@@ -95,7 +116,7 @@ export function Correlation({ records, sources }: Props) {
           y: "y",
           fill: "r",
           inset: 1,
-          rx: 3,
+          rx: RADIUS.cell,
           tip: true,
           title: (d: Cell) =>
             `${d.y}\n× ${d.x}\nr = ${
@@ -105,14 +126,14 @@ export function Correlation({ records, sources }: Props) {
         Plot.text(cells, {
           x: "x",
           y: "y",
-          text: (d: Cell) =>
-            Number.isNaN(d.r) ? "–" : d.r.toFixed(2).replace(".", ",").replace("0,", ",").replace("-,", "−,"),
-          fill: (d: Cell) => (Math.abs(d.r) > 0.55 ? "white" : "#1c1c1c"),
+          text: formatR,
+          fill: (d: Cell) => (Math.abs(d.r) > 0.55 ? "white" : INK),
           fontWeight: 600,
+          fontSize: cellPx,
         } as never),
       ],
     }),
-    [cells, labels, yDomain, marginLeft, marginTop],
+    [cells, labels, yDomain, marginLeft, marginTop, isMobile, fontPx, cellPx],
   );
 
   return (

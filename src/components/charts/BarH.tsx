@@ -3,6 +3,8 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { isAnswered } from "@/lib/stats";
 import { fmtInt, fmtPct } from "@/lib/format";
+import { ACCENT_RED, INK, RADIUS } from "@/lib/palette";
+import { useIsMobile } from "@/lib/useIsMobile";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Props = {
@@ -19,10 +21,12 @@ type Row = { label: string; share: number; count: number };
 // Same constants for every BarH on the page → bar thickness identical and
 // the 0 % gridline lands at the same x across charts.
 const BAR_BAND = 32;
-const MARGIN_LEFT = 160;
-const MARGIN_RIGHT = 60;
+const MARGIN_LEFT_DESKTOP = 160;
+const MARGIN_LEFT_MOBILE = 100;
+const MARGIN_RIGHT = 56;
 const MARGIN_TOP = 12;
-const MARGIN_BOTTOM = 32;
+const MARGIN_BOTTOM_DESKTOP = 32;
+const MARGIN_BOTTOM_MOBILE = 24;
 
 function buildRows(
   records: Dataset["records"],
@@ -70,39 +74,44 @@ function buildRows(
 }
 
 export function BarH({ records, codebook, source, items, color }: Props) {
+  const isMobile = useIsMobile();
   const { rows, answered } = useMemo(
     () => buildRows(records, codebook, source, items),
     [records, codebook, source, items],
   );
 
   const sorted = useMemo(() => [...rows].sort((a, b) => b.share - a.share), [rows]);
-  const accent = color ?? "#c8102e";
+  const accent = color ?? ACCENT_RED;
+
+  const marginLeft = isMobile ? MARGIN_LEFT_MOBILE : MARGIN_LEFT_DESKTOP;
+  const marginBottom = isMobile ? MARGIN_BOTTOM_MOBILE : MARGIN_BOTTOM_DESKTOP;
+  const fontPx = isMobile ? 11 : 13;
+  const axisPx = isMobile ? 10 : 12;
 
   const options: Plot.PlotOptions = useMemo(
     () => ({
-      height: sorted.length * BAR_BAND + MARGIN_TOP + MARGIN_BOTTOM,
-      marginLeft: MARGIN_LEFT,
+      height: sorted.length * BAR_BAND + MARGIN_TOP + marginBottom,
+      marginLeft,
       marginRight: MARGIN_RIGHT,
       marginTop: MARGIN_TOP,
-      marginBottom: MARGIN_BOTTOM,
-      x: { axis: "bottom", percent: true, grid: true, label: null, ticks: 5 },
+      marginBottom,
+      x: { axis: "bottom", percent: true, grid: true, label: null, ticks: isMobile ? 4 : 5 },
       y: { domain: sorted.map((d) => d.label), label: null, tickSize: 0 },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: "13px",
-        color: "#1c1c1c",
+        fontSize: `${fontPx}px`,
+        color: INK,
         background: "transparent",
       },
       marks: [
-        // Custom y axis with auto-wrap (lineWidth in em). With MARGIN_LEFT 160,
-        // ~13px fonts have ~12 chars/em, so lineWidth 12 ≈ 144px ≈ 12em.
-        Plot.axisY({ lineWidth: 11, fontSize: 12 }),
+        Plot.axisY({ lineWidth: isMobile ? 9 : 11, fontSize: axisPx }),
         Plot.barX(sorted, {
           x: "share",
           y: "label",
           fill: accent,
           insetTop: 4,
           insetBottom: 4,
+          rx: RADIUS.bar,
           tip: true,
           title: (d: Row) =>
             `${d.label}\n${fmtInt(d.count)} Antworten\n${fmtPct(d.share)}${
@@ -113,15 +122,16 @@ export function BarH({ records, codebook, source, items, color }: Props) {
           x: "share",
           y: "label",
           text: (d: Row) => fmtPct(d.share),
-          dx: 6,
+          dx: 5,
           textAnchor: "start",
           fontWeight: 600,
-          fill: "#1c1c1c",
+          fontSize: fontPx,
+          fill: INK,
         }),
         Plot.ruleX([0]),
       ],
     }),
-    [sorted, accent, answered],
+    [sorted, accent, answered, isMobile, marginLeft, marginBottom, fontPx, axisPx],
   );
 
   return (

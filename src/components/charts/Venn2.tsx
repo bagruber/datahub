@@ -2,6 +2,8 @@ import { useMemo, useState } from "react";
 import { layoutVenn2 } from "@/lib/venn";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { cn } from "@/lib/cn";
+import { Chip } from "@/components/svg/Chip";
+import { ACCENT_GOLD, ACCENT_RED, STROKE } from "@/lib/palette";
 import type { Dataset } from "@/lib/data";
 
 type Region = "onlyA" | "onlyB" | "both";
@@ -15,8 +17,8 @@ type Props = {
   title?: string;
 };
 
-const PAD = 36; // viewBox padding (room for outside labels)
-const TARGET_W = 480; // nominal viewBox width; SVG scales to container
+const PAD = 40;
+const TARGET_W = 480;
 
 export function Venn2({ records, source, values, labels, colors }: Props) {
   const [hover, setHover] = useState<Region | null>(null);
@@ -48,7 +50,7 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
     [counts],
   );
 
-  const denom = counts.onlyA + counts.onlyB + counts.both; // share over those who answered
+  const denom = counts.onlyA + counts.onlyB + counts.both;
   const share = (n: number) => (denom === 0 ? 0 : n / denom);
 
   if (!layout) {
@@ -59,7 +61,10 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
     );
   }
 
-  // Scale unit-space layout to the SVG viewBox
+  const colorA = colors[0] ?? ACCENT_RED;
+  const colorB = colors[1] ?? ACCENT_GOLD;
+
+  // Scale layout to viewBox
   const innerW = TARGET_W - PAD * 2;
   const scale = innerW / layout.width;
   const innerH = layout.height * scale;
@@ -74,14 +79,6 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
   const onlyBCenter = { x: cxB + rB * 0.55, y: cy };
   const bothCenter = { x: (cxA + cxB) / 2, y: cy };
 
-  const regionLabel = (region: Region) => {
-    if (region === "onlyA") return `Nur ${labels[0]}`;
-    if (region === "onlyB") return `Nur ${labels[1]}`;
-    return `${labels[0]} & ${labels[1]}`;
-  };
-  const regionCount = (region: Region) =>
-    region === "onlyA" ? counts.onlyA : region === "onlyB" ? counts.onlyB : counts.both;
-
   return (
     <figure>
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-center">
@@ -94,38 +91,15 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
           onMouseLeave={() => setHover(null)}
           className="block"
         >
-          {/* Outer set labels (above each circle) */}
-          <text
-            x={cxA}
-            y={cy - rA - 10}
-            textAnchor="middle"
-            fontWeight={700}
-            style={{ fontFamily: "var(--font-sans)", fontSize: 13 }}
-            className="fill-ink"
-          >
-            {labels[0]}
-          </text>
-          <text
-            x={cxB}
-            y={cy - rB - 10}
-            textAnchor="middle"
-            fontWeight={700}
-            style={{ fontFamily: "var(--font-sans)", fontSize: 13 }}
-            className="fill-ink"
-          >
-            {labels[1]}
-          </text>
-
-          {/* Circles. Render second so its outline doesn't get covered. */}
           <circle
             cx={cxA}
             cy={cy}
             r={rA}
-            fill={colors[0]}
+            fill={colorA}
             fillOpacity={hover === "onlyA" || hover === "both" ? 0.7 : 0.55}
-            stroke={colors[0]}
+            stroke={colorA}
             strokeOpacity={0.9}
-            strokeWidth={1}
+            strokeWidth={STROKE.outline}
             style={{ transition: "fill-opacity 120ms", cursor: "pointer" }}
             onMouseEnter={() => setHover("onlyA")}
           />
@@ -133,16 +107,15 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
             cx={cxB}
             cy={cy}
             r={rB}
-            fill={colors[1]}
+            fill={colorB}
             fillOpacity={hover === "onlyB" || hover === "both" ? 0.7 : 0.55}
-            stroke={colors[1]}
+            stroke={colorB}
             strokeOpacity={0.9}
-            strokeWidth={1}
+            strokeWidth={STROKE.outline}
             style={{ transition: "fill-opacity 120ms", cursor: "pointer" }}
             onMouseEnter={() => setHover("onlyB")}
           />
-          {/* Invisible hit-target for the lens — small ellipse at the midpoint.
-              Lets the user hover the intersection without one circle stealing. */}
+          {/* Lens hit-target (lets users hover the intersection cleanly) */}
           {layout.d < layout.rA + layout.rB && layout.d > Math.abs(layout.rA - layout.rB) && (
             <ellipse
               cx={(cxA + cxB) / 2}
@@ -155,36 +128,53 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
             />
           )}
 
-          {/* Counts inside each region */}
-          <RegionLabel
+          {/* Set-name chips above each circle */}
+          <Chip x={cxA} y={cy - rA - 14} text={labels[0]} borderColor={colorA} />
+          <Chip x={cxB} y={cy - rB - 14} text={labels[1]} borderColor={colorB} />
+
+          {/* Region count chips */}
+          <Chip
             x={onlyACenter.x}
             y={onlyACenter.y}
-            primary={fmtInt(counts.onlyA)}
-            secondary={fmtPct(share(counts.onlyA))}
+            text={fmtInt(counts.onlyA)}
+            sub={fmtPct(share(counts.onlyA))}
+            borderColor={colorA}
+            fontSize={13}
             emphasized={hover === "onlyA"}
           />
-          <RegionLabel
+          <Chip
             x={bothCenter.x}
             y={bothCenter.y}
-            primary={fmtInt(counts.both)}
-            secondary={fmtPct(share(counts.both))}
+            text={fmtInt(counts.both)}
+            sub={fmtPct(share(counts.both))}
+            borderColor="#888"
+            fontSize={13}
             emphasized={hover === "both"}
           />
-          <RegionLabel
+          <Chip
             x={onlyBCenter.x}
             y={onlyBCenter.y}
-            primary={fmtInt(counts.onlyB)}
-            secondary={fmtPct(share(counts.onlyB))}
+            text={fmtInt(counts.onlyB)}
+            sub={fmtPct(share(counts.onlyB))}
+            borderColor={colorB}
+            fontSize={13}
             emphasized={hover === "onlyB"}
           />
         </svg>
 
-        {/* Legend with counts — also acts as hover target on desktop */}
+        {/* Legend with counts — also acts as hover target */}
         <ul className="grid gap-2 text-sm">
           {(["onlyA", "both", "onlyB"] as const).map((region) => {
             const isHover = hover === region;
             const dim = hover !== null && !isHover;
-            const color = region === "onlyB" ? colors[1] : colors[0];
+            const regionLabel =
+              region === "onlyA"
+                ? `Nur ${labels[0]}`
+                : region === "onlyB"
+                ? `Nur ${labels[1]}`
+                : `${labels[0]} & ${labels[1]}`;
+            const count =
+              region === "onlyA" ? counts.onlyA : region === "onlyB" ? counts.onlyB : counts.both;
             return (
               <li key={region}>
                 <button
@@ -203,13 +193,18 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
                     aria-hidden
                     className="inline-block w-3 h-3 rounded-sm shrink-0 self-center"
                     style={{
-                      background: region === "both" ? `linear-gradient(90deg, ${colors[0]} 50%, ${colors[1]} 50%)` : color,
+                      background:
+                        region === "both"
+                          ? `linear-gradient(90deg, ${colorA} 50%, ${colorB} 50%)`
+                          : region === "onlyA"
+                          ? colorA
+                          : colorB,
                     }}
                   />
-                  <span className="truncate text-ink">{regionLabel(region)}</span>
+                  <span className="truncate text-ink">{regionLabel}</span>
                   <span className="tabular-nums text-ink-soft shrink-0">
-                    <span className="font-semibold text-ink">{fmtInt(regionCount(region))}</span>
-                    <span className="text-ink-muted text-xs"> ({fmtPct(share(regionCount(region)))})</span>
+                    <span className="font-semibold text-ink">{fmtInt(count)}</span>
+                    <span className="text-ink-muted text-xs"> ({fmtPct(share(count))})</span>
                   </span>
                 </button>
               </li>
@@ -226,47 +221,5 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
         </tbody>
       </table>
     </figure>
-  );
-}
-
-function RegionLabel({
-  x,
-  y,
-  primary,
-  secondary,
-  emphasized,
-}: {
-  x: number;
-  y: number;
-  primary: string;
-  secondary: string;
-  emphasized: boolean;
-}) {
-  return (
-    <g pointerEvents="none">
-      <text
-        x={x}
-        y={y - 2}
-        textAnchor="middle"
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: emphasized ? 22 : 18,
-          fontWeight: 700,
-          transition: "font-size 120ms",
-        }}
-        className="fill-ink"
-      >
-        {primary}
-      </text>
-      <text
-        x={x}
-        y={y + 14}
-        textAnchor="middle"
-        style={{ fontFamily: "var(--font-sans)", fontSize: 11 }}
-        className="fill-ink-soft"
-      >
-        {secondary}
-      </text>
-    </g>
   );
 }

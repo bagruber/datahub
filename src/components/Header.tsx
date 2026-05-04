@@ -7,12 +7,12 @@ export function Header() {
     <header className="sticky top-0 z-30 bg-cream/90 backdrop-blur border-b border-ink-line">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 py-3 flex items-center justify-between gap-4">
         <Link to="/" className="flex items-center gap-3 group">
-          <span
+          <img
+            src={`${import.meta.env.BASE_URL}logo.svg`}
+            alt=""
             aria-hidden
-            className="inline-block w-8 h-8 rounded-md bg-red-500 grid place-items-center text-cream font-display font-bold"
-          >
-            M
-          </span>
+            className="w-9 h-9"
+          />
           <span className="leading-tight">
             <span className="block headline text-[1.05rem] sm:text-[1.2rem]">Datenhub</span>
             <span className="block eyebrow text-[0.65rem]">Moosburg an der Isar</span>
