@@ -3,6 +3,8 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
+import { INK, LIKERT6_RAMP, RADIUS, STROKE } from "@/lib/palette";
+import { useIsMobile } from "@/lib/useIsMobile";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Item = { source: string; label: string; group?: string };
@@ -15,7 +17,6 @@ type Props = {
 };
 
 const SCALE = [1, 2, 3, 4, 5, 6];
-const RAMP_HEX = ["#b00e28", "#d96a4f", "#e8b878", "#c9d39e", "#82b67c", "#3f8c52"];
 
 type Row = {
   item: string;
@@ -60,17 +61,16 @@ function buildRows(records: Dataset["records"], items: Item[]): Row[] {
 
 export function Likert6({ records, codebook, items }: Props) {
   void codebook;
+  const isMobile = useIsMobile();
   const rows = useMemo(() => buildRows(records, items), [records, items]);
   const itemOrder = useMemo(() => items.map((i) => i.label).reverse(), [items]);
-  const longestLabel = useMemo(
-    () => itemOrder.reduce((m, l) => Math.max(m, l.length), 0),
-    [itemOrder],
-  );
-  const marginLeft = Math.min(220, Math.max(110, longestLabel * 8));
+
+  const marginLeft = isMobile ? 110 : 180;
+  const fontPx = isMobile ? 11 : 13;
+  const axisPx = isMobile ? 10 : 12;
 
   const extent = useMemo(() => {
     const m = rows.reduce((a, r) => Math.max(a, Math.abs(r.x1), Math.abs(r.x2)), 0);
-    // Round up to nearest 0.1 for clean ticks; never less than 0.5
     return Math.max(0.5, Math.ceil(m * 10) / 10);
   }, [rows]);
 
@@ -86,23 +86,24 @@ export function Likert6({ records, codebook, items }: Props) {
         axis: "top",
         label: null,
         grid: true,
-        ticks: 5,
+        ticks: isMobile ? 4 : 5,
         tickFormat: (v: number) => `${Math.abs(Math.round(v * 100))}%`,
       },
       y: { domain: itemOrder, label: null, tickSize: 0 },
       color: {
         type: "ordinal",
         domain: SCALE,
-        range: RAMP_HEX,
+        range: LIKERT6_RAMP,
         legend: true,
         label: "Bewertung (1 = sehr schlecht … 6 = sehr gut)",
       },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: "13px",
-        color: "#1c1c1c",
+        fontSize: `${fontPx}px`,
+        color: INK,
       },
       marks: [
+        Plot.axisY({ lineWidth: isMobile ? 9 : 12, fontSize: axisPx }),
         Plot.barX(rows, {
           x1: "x1",
           x2: "x2",
@@ -110,14 +111,15 @@ export function Likert6({ records, codebook, items }: Props) {
           fill: "rating",
           insetTop: 3,
           insetBottom: 3,
+          rx: RADIUS.bar,
           tip: true,
           title: (d: Row) =>
             `${d.item}\nBewertung ${d.rating}\n${fmtInt(d.count)} von ${fmtInt(d.n)}\n${fmtPct(d.share)}`,
         }),
-        Plot.ruleX([0], { stroke: "#1c1c1c", strokeWidth: 1.25 }),
+        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
       ],
     }),
-    [rows, itemOrder, marginLeft, extent],
+    [rows, itemOrder, marginLeft, extent, isMobile, fontPx, axisPx],
   );
 
   return (

@@ -3,6 +3,8 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
+import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
+import { useIsMobile } from "@/lib/useIsMobile";
 import type { Dataset } from "@/lib/data";
 
 type Innovation = { key: string; name: string; sources: string[] };
@@ -16,7 +18,6 @@ type Props = {
 };
 
 const SCALE = [1, 2, 3, 4, 5];
-const RAMP_HEX = ["#b00e28", "#d96a4f", "#d6cfc1", "#82b67c", "#3f8c52"];
 
 export function Likert5Group({ records, dimLabels, invertedDims, innovations }: Props) {
   return (
@@ -96,8 +97,9 @@ function InnovationPanel({
     [innovation.sources, dimLabels],
   );
 
-  const longest = useMemo(() => dimOrder.reduce((m, l) => Math.max(m, l.length), 0), [dimOrder]);
-  const marginLeft = Math.min(180, Math.max(110, longest * 7.5));
+  const isMobile = useIsMobile();
+  const marginLeft = isMobile ? 100 : 160;
+  const fontPx = isMobile ? 10 : 12;
 
   const extent = useMemo(() => {
     const m = rows.reduce((a, r) => Math.max(a, Math.abs(r.x1), Math.abs(r.x2)), 0);
@@ -116,20 +118,20 @@ function InnovationPanel({
         axis: "top",
         label: null,
         grid: true,
-        ticks: 5,
+        ticks: isMobile ? 4 : 5,
         tickFormat: (v: number) => `${Math.abs(Math.round(v * 100))}%`,
       },
       y: { domain: dimOrder, label: null, tickSize: 0 },
       color: {
         type: "ordinal",
         domain: SCALE,
-        range: RAMP_HEX,
+        range: LIKERT5_RAMP,
         legend: true,
         label: "1 = stimme gar nicht zu  ·  5 = stimme voll zu",
       },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: "12px",
+        fontSize: `${fontPx}px`,
         color: "#1c1c1c",
       },
       marks: [
@@ -140,11 +142,12 @@ function InnovationPanel({
           fill: "rating",
           insetTop: 3,
           insetBottom: 3,
+          rx: RADIUS.bar,
           tip: true,
           title: (d: Row) =>
             `${d.dim}\nBewertung ${d.rating}\n${fmtInt(d.count)} von ${fmtInt(d.n)}\n${fmtPct(d.share)}`,
         }),
-        Plot.ruleX([0], { stroke: "#1c1c1c", strokeWidth: 1.25 }),
+        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
       ],
     }),
     [rows, dimOrder, marginLeft, extent],

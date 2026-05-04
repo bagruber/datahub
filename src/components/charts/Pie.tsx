@@ -3,13 +3,19 @@ import { arc, pie } from "d3-shape";
 import { fmtPct, fmtInt } from "@/lib/format";
 import type { Dataset } from "@/lib/data";
 import { cn } from "@/lib/cn";
+import { CATEGORICAL, RADIUS } from "@/lib/palette";
+
+type SliceItem = { label: string; vals: number[]; color?: string };
 
 type Props = {
   records: Dataset["records"];
   source: string;
-  labels: string[];
-  values: number[];
-  colors: string[];
+  /** Simple mode — one code per slice. */
+  labels?: string[];
+  values?: number[];
+  colors?: string[];
+  /** Grouped mode — each slice can merge several codes (like bar_h items). */
+  items?: SliceItem[];
   title?: string;
 };
 
@@ -17,27 +23,58 @@ const SIZE = 220;
 const R = SIZE / 2 - 4;
 const RI = R * 0.58;
 
-export function Pie({ records, source, labels, values, colors }: Props) {
+type Slice = { label: string; color: string; count: number; share: number };
+
+function buildSlices(
+  records: Dataset["records"],
+  source: string,
+  spec: { labels?: string[]; values?: number[]; colors?: string[]; items?: SliceItem[] },
+): Slice[] {
+  // Normalize to a list of {label, color, vals[]} regardless of input shape.
+  const slices = spec.items
+    ? spec.items.map((it, i) => ({
+        label: it.label,
+        color: it.color ?? CATEGORICAL[i % CATEGORICAL.length],
+        vals: it.vals,
+      }))
+    : (spec.labels ?? []).map((label, i) => ({
+        label,
+        color: spec.colors?.[i] ?? CATEGORICAL[i % CATEGORICAL.length],
+        vals: [spec.values?.[i] ?? -1],
+      }));
+
+  const sets = slices.map((s) => new Set(s.vals));
+  const counts = new Array(slices.length).fill(0);
+  let total = 0;
+  for (const r of records) {
+    const v = r[source];
+    if (typeof v !== "number") continue;
+    let matched = false;
+    for (let i = 0; i < sets.length; i++) {
+      if (sets[i].has(v)) {
+        counts[i]++;
+        matched = true;
+        break;
+      }
+    }
+    if (matched) total++;
+  }
+
+  return slices.map((s, i) => ({
+    label: s.label,
+    color: s.color,
+    count: counts[i],
+    share: total === 0 ? 0 : counts[i] / total,
+  }));
+}
+
+export function Pie({ records, source, labels, values, colors, items }: Props) {
   const [hover, setHover] = useState<number | null>(null);
 
-  const data = useMemo(() => {
-    let total = 0;
-    const counts = new Array(values.length).fill(0);
-    for (const r of records) {
-      const v = r[source];
-      if (typeof v !== "number") continue;
-      const idx = values.indexOf(v);
-      if (idx < 0) continue;
-      counts[idx]++;
-      total++;
-    }
-    return labels.map((label, i) => ({
-      label,
-      color: colors[i] ?? "#888",
-      count: counts[i],
-      share: total === 0 ? 0 : counts[i] / total,
-    }));
-  }, [records, source, values, labels, colors]);
+  const data = useMemo(
+    () => buildSlices(records, source, { labels, values, colors, items }),
+    [records, source, labels, values, colors, items],
+  );
 
   const total = useMemo(() => data.reduce((s, d) => s + d.count, 0), [data]);
 
@@ -46,7 +83,7 @@ export function Pie({ records, source, labels, values, colors }: Props) {
       .sort(null)
       .padAngle(0.01)
       .value((d) => d.share)(data);
-    const a = arc<(typeof layout)[number]>().innerRadius(RI).outerRadius(R).cornerRadius(2);
+    const a = arc<(typeof layout)[number]>().innerRadius(RI).outerRadius(R).cornerRadius(RADIUS.cell);
     return layout.map((p, i) => ({ d: a(p) ?? "", datum: p.data, idx: i }));
   }, [data]);
 

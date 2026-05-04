@@ -66,8 +66,9 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
 
   return (
     <div className="rounded-lg bg-white border border-ink-line min-w-0 flex flex-col">
-      {/* Header — same for both layouts */}
-      <div className="flex items-baseline justify-between gap-2 px-2.5 pt-2 pb-1.5">
+      {/* Header — fixed min-height so bars/legends align across cards even
+          when one label wraps to 2 lines and another sits on 1. */}
+      <div className="flex items-baseline justify-between gap-2 px-2.5 pt-2 pb-1.5 min-h-[3.1em]">
         <p className="eyebrow leading-snug" style={{ wordBreak: "break-word" }}>
           {spec.label}
         </p>

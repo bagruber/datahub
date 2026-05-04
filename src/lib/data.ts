@@ -71,6 +71,8 @@ export type ChartSpec =
       labels?: string[];
       values?: number[];
       colors?: string[];
+      /** Grouped slices — each can merge multiple codes (like bar_h items). */
+      items?: { label: string; vals: number[]; color?: string }[];
     }
   | {
       type: "likert5_group";
@@ -102,6 +104,15 @@ export type ChartSpec =
       values: number[]; // [codeA, codeB]
       labels: string[];
       colors?: string[];
+    }
+  | {
+      type: "venn3";
+      id: string;
+      title: string;
+      source: string;
+      values: number[]; // [codeA, codeB, codeC]
+      labels: string[]; // 3 entries
+      colors?: string[]; // 3 entries
     };
 
 export type Section = {

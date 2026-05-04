@@ -7,6 +7,7 @@ import { Likert5Group } from "./Likert5Group";
 import { Radar } from "./Radar";
 import { Correlation } from "./Correlation";
 import { Venn2 } from "./Venn2";
+import { Venn3 } from "./Venn3";
 
 type Props = {
   spec: ChartSpec;
@@ -49,13 +50,23 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
         />
       );
     case "pie": {
-      // Tolerate datasets that ship only a `source` and rely on the codebook.
+      // If `items` provided, Pie handles grouped slices itself. Otherwise
+      // derive labels/values from the codebook so authors can ship just
+      // `{type:'pie', source}`.
+      if (spec.items && spec.items.length > 0) {
+        return (
+          <Pie
+            records={records}
+            source={spec.source}
+            items={spec.items}
+            title={spec.title}
+          />
+        );
+      }
       const cb = codebook[spec.source] ?? {};
       const cbKeys = Object.keys(cb).map(Number).filter((n) => !Number.isNaN(n));
       const labels = spec.labels ?? cbKeys.map((k) => cb[String(k)]);
       const values = spec.values ?? cbKeys;
-      const palette = ["#c8102e", "#b8964e", "#5b9bd5", "#78be1e", "#9b59b6", "#00b4d8", "#e8b878"];
-      const colors = spec.colors ?? labels.map((_, i) => palette[i % palette.length]);
       if (labels.length === 0 || values.length === 0) {
         return <UnsupportedChart type={spec.type} note="Keine Kategorien im Codebuch." />;
       }
@@ -65,7 +76,7 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           source={spec.source}
           labels={labels}
           values={values}
-          colors={colors}
+          colors={spec.colors}
           title={spec.title}
         />
       );
@@ -99,9 +110,24 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
         />
       );
     case "venn2": {
-      const colors = spec.colors ?? ["#c8102e", "#b8964e"];
+      // Default to high-contrast red + blue.
+      const colors = spec.colors ?? ["#c8102e", "#1f77b4"];
       return (
         <Venn2
+          records={records}
+          source={spec.source}
+          values={spec.values}
+          labels={spec.labels}
+          colors={colors}
+          title={spec.title}
+        />
+      );
+    }
+    case "venn3": {
+      // Default: yellow + blue + red (high pairwise contrast on cream).
+      const colors = spec.colors ?? ["#e2a900", "#1f77b4", "#c8102e"];
+      return (
+        <Venn3
           records={records}
           source={spec.source}
           values={spec.values}

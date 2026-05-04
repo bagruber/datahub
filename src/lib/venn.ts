@@ -71,3 +71,76 @@ export function layoutVenn2(setA: number, setB: number, both: number): Venn2Layo
   const height = cy * 2;
   return { rA, rB, d, width, height, cxA, cxB, cy, cxMid: (cxA + cxB) / 2 };
 }
+
+export type Venn3Layout = {
+  rA: number; rB: number; rC: number;
+  cxA: number; cyA: number;
+  cxB: number; cyB: number;
+  cxC: number; cyC: number;
+  width: number;
+  height: number;
+};
+
+/** Area-proportional 3-circle layout. Radii from set sizes; pairwise centre
+ *  distances solve the lens-area equation per pair (same bisection as 2-circle).
+ *  Circles are placed in a triangle whose side lengths equal those distances —
+ *  found via the law of cosines. The 3-way intersection (ABC) is *not*
+ *  separately optimised; for civic-data audiences the relative magnitudes are
+ *  what matter, and full optimisation (venn.js style) is overkill. */
+export function layoutVenn3(counts: {
+  setA: number; setB: number; setC: number;
+  ab: number; ac: number; bc: number;
+}): Venn3Layout | null {
+  const { setA, setB, setC, ab, ac, bc } = counts;
+  if (setA <= 0 || setB <= 0 || setC <= 0) return null;
+
+  const rA = Math.sqrt(setA / Math.PI);
+  const rB = Math.sqrt(setB / Math.PI);
+  const rC = Math.sqrt(setC / Math.PI);
+
+  const dAB = distanceForOverlap(rA, rB, Math.min(ab, setA, setB));
+  const dAC = distanceForOverlap(rA, rC, Math.min(ac, setA, setC));
+  const dBC = distanceForOverlap(rB, rC, Math.min(bc, setB, setC));
+
+  // Place B at origin, C along +x at dBC. A is found via law of cosines:
+  // for triangle with sides dAB (B-A), dBC (B-C), dAC (A-C),
+  // angle at B = arccos((dAB² + dBC² - dAC²) / (2·dAB·dBC)).
+  let cxB = 0;
+  let cyB = 0;
+  let cxC = dBC;
+  let cyC = 0;
+  let cxA = 0;
+  let cyA = 0;
+
+  // Triangle inequality check — if the distances don't form a valid triangle
+  // (rare with real data, but guard anyway), fall back to a vertical layout.
+  const validTriangle =
+    dAB + dBC >= dAC && dAB + dAC >= dBC && dAC + dBC >= dAB;
+
+  if (validTriangle) {
+    const cosB = (dAB * dAB + dBC * dBC - dAC * dAC) / (2 * dAB * dBC);
+    const sinB = Math.sqrt(Math.max(0, 1 - cosB * cosB));
+    cxA = dAB * cosB;
+    cyA = -dAB * sinB; // negative = above BC line in SVG y-axis
+  } else {
+    cxA = dBC / 2;
+    cyA = -(dAB + dAC) / 2;
+  }
+
+  // Translate so all coordinates are positive (origin = top-left of bbox)
+  const xs = [cxA - rA, cxA + rA, cxB - rB, cxB + rB, cxC - rC, cxC + rC];
+  const ys = [cyA - rA, cyA + rA, cyB - rB, cyB + rB, cyC - rC, cyC + rC];
+  const minX = Math.min(...xs);
+  const minY = Math.min(...ys);
+  const maxX = Math.max(...xs);
+  const maxY = Math.max(...ys);
+
+  return {
+    rA, rB, rC,
+    cxA: cxA - minX, cyA: cyA - minY,
+    cxB: cxB - minX, cyB: cyB - minY,
+    cxC: cxC - minX, cyC: cyC - minY,
+    width: maxX - minX,
+    height: maxY - minY,
+  };
+}

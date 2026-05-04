@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/cn";
 import { fmtInt } from "@/lib/format";
+import { STROKE } from "@/lib/palette";
 import type { Dataset } from "@/lib/data";
 
 type Innovation = { key: string; name: string; color: string; sources: string[] };
@@ -150,7 +151,7 @@ export function Radar({ records, dimLabels, invertedDims, innovations }: Props) 
                   fill={s.color}
                   fillOpacity={isHover ? 0.35 : 0.18}
                   stroke={s.color}
-                  strokeWidth={isHover ? 2.5 : 1.75}
+                  strokeWidth={isHover ? STROKE.outlineHover : STROKE.outline + 0.75}
                   strokeLinejoin="round"
                 />
                 {s.points.map((p, i) => {
