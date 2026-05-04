@@ -48,10 +48,21 @@ export type ChartSpec =
       source: string;
       color?: string;
       items?: ChartItemBin[]; // when present, group categories into custom bins
+      /** Object-keys mode: source value is `{key: anything}`; counting checks
+       *  presence of each declared key. */
+      slots?: { key: string; label: string }[];
       sort?: "asc" | "desc" | "given";
+      /** Keep declared order instead of sorting by share. */
+      preserveOrder?: boolean;
     }
   | {
       type: "likert6";
+      id: string;
+      title: string;
+      items: { source: string; label: string; group?: string }[];
+    }
+  | {
+      type: "likert5";
       id: string;
       title: string;
       items: { source: string; label: string; group?: string }[];
@@ -136,7 +147,10 @@ export type Dataset = {
   codebook: Codebook;
   filters: FilterSpec[];
   sections: Section[];
-  records: Record<string, number | number[] | null | undefined>[];
+  // Records hold heterogeneous values: numeric codes, code arrays for
+  // multi-select, free-text strings, and the occasional `{key: rank}` object
+  // (e.g. Bahnhof time slots). `unknown` lets chart components narrow per use.
+  records: Record<string, unknown>[];
 };
 
 export type ManifestEntry = { id: string; file: string; title: string; year: number; n: number };

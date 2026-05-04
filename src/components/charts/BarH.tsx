@@ -12,8 +12,15 @@ type Props = {
   codebook: Codebook;
   source: string;
   items?: { label: string; vals: number[] }[];
+  /** Object-keys mode: source value is an object; count records whose object
+   *  has each declared key. Used for the Bahnhof Uhrzeiten chart where
+   *  `times` is `{slot: rank}`. Slots are kept in the declared order. */
+  slots?: { key: string; label: string }[];
   color?: string;
   title?: string;
+  /** When true, do not sort by share — preserve the spec/codebook order
+   *  (used for chronological axes like Uhrzeiten). */
+  preserveOrder?: boolean;
 };
 
 type Row = { label: string; share: number; count: number };
@@ -33,9 +40,25 @@ function buildRows(
   codebook: Codebook,
   source: string,
   items?: { label: string; vals: number[] }[],
+  slots?: { key: string; label: string }[],
 ): { rows: Row[]; answered: number } {
   let answered = 0;
   for (const r of records) if (isAnswered(r[source])) answered++;
+
+  // Object-keys mode: source is an object; presence of a key counts.
+  if (slots && slots.length > 0) {
+    const rows = slots.map((s) => {
+      let count = 0;
+      for (const r of records) {
+        const v = r[source];
+        if (v && typeof v === "object" && !Array.isArray(v)) {
+          if (Object.prototype.hasOwnProperty.call(v, s.key)) count++;
+        }
+      }
+      return { label: s.label, count, share: answered === 0 ? 0 : count / answered };
+    });
+    return { rows, answered };
+  }
 
   if (items && items.length > 0) {
     const rows = items.map((b) => {
@@ -73,14 +96,18 @@ function buildRows(
   return { rows, answered };
 }
 
-export function BarH({ records, codebook, source, items, color }: Props) {
+export function BarH({ records, codebook, source, items, slots, color, preserveOrder }: Props) {
   const isMobile = useIsMobile();
   const { rows, answered } = useMemo(
-    () => buildRows(records, codebook, source, items),
-    [records, codebook, source, items],
+    () => buildRows(records, codebook, source, items, slots),
+    [records, codebook, source, items, slots],
   );
 
-  const sorted = useMemo(() => [...rows].sort((a, b) => b.share - a.share), [rows]);
+  // Object-keys mode and preserveOrder both default to spec/codebook order.
+  const sorted = useMemo(
+    () => (preserveOrder || slots ? rows : [...rows].sort((a, b) => b.share - a.share)),
+    [rows, preserveOrder, slots],
+  );
   const accent = color ?? ACCENT_RED;
 
   const marginLeft = isMobile ? MARGIN_LEFT_MOBILE : MARGIN_LEFT_DESKTOP;
