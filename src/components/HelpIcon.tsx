@@ -111,6 +111,8 @@ export function HelpIcon({ explanation, label = "Erklärung" }: Props) {
 export const HELP: Record<string, string> = {
   likert6:
     "Divergierender Stapelbalken: jede Zeile ist ein Merkmal. Schlechte Bewertungen (1–3, rot) wachsen nach links, gute (4–6, grün) nach rechts. Je weiter ein Balken vom Mittel weg liegt, desto eindeutiger die Tendenz.",
+  likert5:
+    "Divergierender Stapelbalken auf einer 1–5-Skala. Negative Bewertungen (1–2, rot) wachsen nach links, positive (4–5, grün) nach rechts; die neutrale Mitte (3) überlagert die Null-Linie hälftig.",
   diverging3:
     "Divergierender Balken: die linke und rechte Option streben nach außen, die unentschlossene Mitte überlagert die Null-Linie hälftig. Hängt der Balken stark nach einer Seite, dominiert diese Option.",
   radar:
