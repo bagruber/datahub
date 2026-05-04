@@ -3,7 +3,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { INK, RADIUS, STROKE } from "@/lib/palette";
+import { CREAM, INK, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import type { Dataset } from "@/lib/data";
 
@@ -66,22 +66,23 @@ export function Diverging3({ records, source, options }: Props) {
 
   const fontPx = isMobile ? 11 : 13;
 
-  // Annotations: Option 0 (left) labelled at its x1 (leftmost edge),
-  // Option 2 (right) labelled at its x2 (rightmost edge). Centre omitted.
-  const annotations = useMemo(() => {
+  // Plot's `dx` and `textAnchor` accept constants only — funcs/channels can
+  // silently no-op. So we render the left and right outside-percent labels
+  // with two separate marks, each with constant offsets.
+  const leftAnnot = useMemo(() => {
     const left = data.find((d) => d.label === options[0].label);
+    return left ? [{ x: left.x1, share: left.share }] : [];
+  }, [data, options]);
+  const rightAnnot = useMemo(() => {
     const right = data.find((d) => d.label === options[2].label);
-    return [
-      ...(left ? [{ ...left, side: "left" as const, anchor: left.x1 }] : []),
-      ...(right ? [{ ...right, side: "right" as const, anchor: right.x2 }] : []),
-    ];
+    return right ? [{ x: right.x2, share: right.share }] : [];
   }, [data, options]);
 
   const plotOptions: Plot.PlotOptions = useMemo(
     () => ({
-      height: 110,
-      marginLeft: 56,
-      marginRight: 56,
+      height: 120,
+      marginLeft: 76,
+      marginRight: 76,
       marginTop: 36,
       marginBottom: 28,
       x: {
@@ -116,22 +117,40 @@ export function Diverging3({ records, source, options }: Props) {
           title: (d: Row) =>
             `${d.label}\n${fmtInt(d.count)} von ${fmtInt(d.n)} Antworten\n${fmtPct(d.share)}`,
         }),
-        // Outside percentage labels — left option goes left, right option goes right
-        Plot.text(annotations, {
-          x: (d: { anchor: number }) => d.anchor,
-          y: "row",
+        // Outside percentage labels — split into two marks because Plot only
+        // accepts constants for `dx`/`textAnchor`.
+        Plot.text(leftAnnot, {
+          x: "x",
+          y: () => "all",
           text: (d: { share: number }) => fmtPct(d.share),
-          dx: (d: { side: "left" | "right" }) => (d.side === "left" ? -6 : 6),
-          textAnchor: (d: { side: "left" | "right" }) => (d.side === "left" ? "end" : "start"),
+          dx: -10,
+          textAnchor: "end",
           lineAnchor: "middle",
           fontWeight: 700,
           fontSize: fontPx,
           fill: INK,
+          stroke: CREAM,
+          strokeWidth: 3,
+          paintOrder: "stroke",
+        } as never),
+        Plot.text(rightAnnot, {
+          x: "x",
+          y: () => "all",
+          text: (d: { share: number }) => fmtPct(d.share),
+          dx: 10,
+          textAnchor: "start",
+          lineAnchor: "middle",
+          fontWeight: 700,
+          fontSize: fontPx,
+          fill: INK,
+          stroke: CREAM,
+          strokeWidth: 3,
+          paintOrder: "stroke",
         } as never),
         Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
       ],
     }),
-    [data, annotations, options, fontPx],
+    [data, leftAnnot, rightAnnot, options, fontPx],
   );
 
   return (

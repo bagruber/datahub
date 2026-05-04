@@ -20,17 +20,6 @@ type Props = {
 const PAD = 44;
 const TARGET_W = 520;
 
-type Region = "onlyA" | "onlyB" | "onlyC" | "ab" | "ac" | "bc" | "abc";
-
-const REGION_SETS: Record<Region, SetKey[]> = {
-  onlyA: ["A"],
-  onlyB: ["B"],
-  onlyC: ["C"],
-  ab: ["A", "B"],
-  ac: ["A", "C"],
-  bc: ["B", "C"],
-  abc: ["A", "B", "C"],
-};
 
 export function Venn3({ records, source, values, labels, colors }: Props) {
   const [hoverSet, setHoverSet] = useState<SetKey | null>(null);
@@ -101,53 +90,9 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
   const rB = layout.rB * scale;
   const rC = layout.rC * scale;
 
-  // Region label positions (heuristic centroids)
+  // Set-name chip positions (outside each circle, away from triangle centroid)
   const tcx = (cxA + cxB + cxC) / 3;
   const tcy = (cyA + cyB + cyC) / 3;
-  const minR = Math.min(rA, rB, rC);
-
-  function awayFrom(cx: number, cy: number, r: number, factor = 0.55) {
-    const dx = cx - tcx;
-    const dy = cy - tcy;
-    const len = Math.hypot(dx, dy) || 1;
-    return { x: cx + (dx / len) * (r * factor), y: cy + (dy / len) * (r * factor) };
-  }
-  function pairCentroid(c1x: number, c1y: number, c2x: number, c2y: number, otherX: number, otherY: number) {
-    const mx = (c1x + c2x) / 2;
-    const my = (c1y + c2y) / 2;
-    const dx = mx - otherX;
-    const dy = my - otherY;
-    const len = Math.hypot(dx, dy) || 1;
-    return { x: mx + (dx / len) * minR * 0.18, y: my + (dy / len) * minR * 0.18 };
-  }
-
-  const labelPositions: Record<Region, { x: number; y: number }> = {
-    onlyA: awayFrom(cxA, cyA, rA),
-    onlyB: awayFrom(cxB, cyB, rB),
-    onlyC: awayFrom(cxC, cyC, rC),
-    ab: pairCentroid(cxA, cyA, cxB, cyB, cxC, cyC),
-    ac: pairCentroid(cxA, cyA, cxC, cyC, cxB, cyB),
-    bc: pairCentroid(cxB, cyB, cxC, cyC, cxA, cyA),
-    abc: { x: tcx, y: tcy },
-  };
-
-  const regionCount: Record<Region, number> = {
-    onlyA: counts.onlyA,
-    onlyB: counts.onlyB,
-    onlyC: counts.onlyC,
-    ab: counts.abOnly,
-    ac: counts.acOnly,
-    bc: counts.bcOnly,
-    abc: counts.abc,
-  };
-
-  // Whether a region "belongs" to the hovered set (for emphasis)
-  const isHighlighted = (region: Region): boolean => {
-    if (!hoverSet) return false;
-    return REGION_SETS[region].includes(hoverSet);
-  };
-
-  // Set-name chip positions (above each circle, away from triangle centroid)
   function namePos(cx: number, cy: number, r: number) {
     const dx = cx - tcx;
     const dy = cy - tcy;
@@ -206,36 +151,19 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
           {renderCircle("B", cxB, cyB, rB, colors[1])}
           {renderCircle("C", cxC, cyC, rC, colors[2])}
 
-          {/* Set-name chips (outside each circle) */}
+          {/* Only set-name chips inside the SVG. Region counts moved to the
+              side legend — three circles overlap too densely for inline chips
+              to stay legible. */}
           <Chip x={nameA.x} y={nameA.y} text={labels[0]} borderColor={colors[0]} />
           <Chip x={nameB.x} y={nameB.y} text={labels[1]} borderColor={colors[1]} />
           <Chip x={nameC.x} y={nameC.y} text={labels[2]} borderColor={colors[2]} />
-
-          {/* Region count chips. Skip empty regions to reduce clutter. */}
-          {(Object.keys(labelPositions) as Region[]).map((region) => {
-            const n = regionCount[region];
-            if (n === 0) return null;
-            const pos = labelPositions[region];
-            const sets = REGION_SETS[region];
-            const borderColor =
-              sets.length === 1 ? colors[sets[0] === "A" ? 0 : sets[0] === "B" ? 1 : 2] : "#888";
-            return (
-              <Chip
-                key={region}
-                x={pos.x}
-                y={pos.y}
-                text={fmtInt(n)}
-                sub={fmtPct(share(n))}
-                borderColor={borderColor}
-                fontSize={12}
-                emphasized={isHighlighted(region)}
-              />
-            );
-          })}
         </svg>
 
-        {/* Side legend with set sizes + ABC intersection */}
-        <ul className="grid gap-2 text-sm">
+        {/* Side legend — 3 set rows (solid square), 3 pairwise rows (split
+            square = the Venn2 "both" idiom), and one "Alle drei" row
+            (three-thirds square). All 7 region counts are read here. */}
+        <ul className="grid gap-1.5 text-sm">
+          {/* Sets */}
           {setEntries.map((s) => {
             const isHover = hoverSet === s.key;
             const dim = hoverSet !== null && !isHover;
@@ -248,35 +176,48 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
                   onFocus={() => setHoverSet(s.key)}
                   onBlur={() => setHoverSet(null)}
                   className={cn(
-                    "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1.5 rounded-md text-left transition-colors",
+                    "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md text-left transition-colors",
                     isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
                   )}
                   style={{ opacity: dim ? 0.5 : 1 }}
                 >
-                  <span
-                    aria-hidden
-                    className="inline-block w-3 h-3 rounded-sm shrink-0 self-center"
-                    style={{ background: s.color }}
-                  />
+                  <Swatch fill={s.color} />
                   <span className="truncate text-ink">{s.label}</span>
-                  <span className="tabular-nums text-ink-soft shrink-0">
-                    <span className="font-semibold text-ink">{fmtInt(s.size)}</span>
-                    <span className="text-ink-muted text-xs"> ({fmtPct(share(s.size))})</span>
-                  </span>
+                  <LegendCount n={s.size} share={share(s.size)} />
                 </button>
               </li>
             );
           })}
-          <li className="border-t border-ink-line pt-2 mt-1">
-            <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 text-ink-soft">
-              <span aria-hidden className="inline-block w-3 h-3 rounded-sm shrink-0 self-center bg-ink-muted/40" />
-              <span className="text-ink-soft">Alle drei</span>
-              <span className="tabular-nums shrink-0">
-                <span className="font-semibold text-ink">{fmtInt(counts.abc)}</span>
-                <span className="text-ink-muted text-xs"> ({fmtPct(share(counts.abc))})</span>
-              </span>
-            </div>
+          <li className="border-t border-ink-line pt-1.5 mt-0.5">
+            <p className="eyebrow text-[10px] mb-1 px-2">Schnittmengen</p>
           </li>
+          {/* Pairwise — split squares */}
+          <LegendRow
+            half={[colors[0], colors[1]]}
+            label={`Nur ${labels[0]} & ${labels[1]}`}
+            n={counts.abOnly}
+            share={share(counts.abOnly)}
+          />
+          <LegendRow
+            half={[colors[0], colors[2]]}
+            label={`Nur ${labels[0]} & ${labels[2]}`}
+            n={counts.acOnly}
+            share={share(counts.acOnly)}
+          />
+          <LegendRow
+            half={[colors[1], colors[2]]}
+            label={`Nur ${labels[1]} & ${labels[2]}`}
+            n={counts.bcOnly}
+            share={share(counts.bcOnly)}
+          />
+          {/* Triple */}
+          <LegendRow
+            thirds={[colors[0], colors[1], colors[2]]}
+            label="Alle drei"
+            n={counts.abc}
+            share={share(counts.abc)}
+            emphasized
+          />
         </ul>
       </div>
       <table className="sr-only">
@@ -292,5 +233,78 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
         </tbody>
       </table>
     </figure>
+  );
+}
+
+// ────────────────────────────────────────────────────────────────────────
+// Legend helpers — local to Venn3 since the swatch idiom (split square,
+// thirds square) only makes sense for Venn diagrams.
+
+function Swatch({ fill }: { fill: string }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
+      style={{ background: fill }}
+    />
+  );
+}
+
+function HalfSwatch({ left, right }: { left: string; right: string }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
+      style={{ background: `linear-gradient(90deg, ${left} 50%, ${right} 50%)` }}
+    />
+  );
+}
+
+function ThirdsSwatch({ a, b, c }: { a: string; b: string; c: string }) {
+  return (
+    <span
+      aria-hidden
+      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
+      style={{
+        background: `linear-gradient(90deg, ${a} 0 33.33%, ${b} 33.33% 66.66%, ${c} 66.66% 100%)`,
+      }}
+    />
+  );
+}
+
+function LegendCount({ n, share }: { n: number; share: number }) {
+  return (
+    <span className="tabular-nums shrink-0 text-ink-soft">
+      <span className="font-semibold text-ink">{fmtInt(n)}</span>
+      <span className="text-ink-muted text-xs"> ({fmtPct(share)})</span>
+    </span>
+  );
+}
+
+function LegendRow(props: {
+  label: string;
+  n: number;
+  share: number;
+  half?: [string, string];
+  thirds?: [string, string, string];
+  emphasized?: boolean;
+}) {
+  const { label, n, share, half, thirds, emphasized } = props;
+  return (
+    <li>
+      <div
+        className={cn(
+          "grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md",
+          emphasized && "bg-cream-dark",
+        )}
+      >
+        {half && <HalfSwatch left={half[0]} right={half[1]} />}
+        {thirds && <ThirdsSwatch a={thirds[0]} b={thirds[1]} c={thirds[2]} />}
+        <span className={cn("truncate", emphasized ? "text-ink font-semibold" : "text-ink-soft")}>
+          {label}
+        </span>
+        <LegendCount n={n} share={share} />
+      </div>
+    </li>
   );
 }
