@@ -7,6 +7,21 @@ import { STROKE } from "@/lib/palette";
 import type { Dataset } from "@/lib/data";
 
 type SetKey = "A" | "B" | "C";
+type Region = "onlyA" | "onlyB" | "onlyC" | "ab" | "ac" | "bc" | "abc";
+
+type HoverEntry =
+  | { kind: "set"; key: SetKey }
+  | { kind: "region"; region: Region };
+
+const REGION_SETS: Record<Region, SetKey[]> = {
+  onlyA: ["A"],
+  onlyB: ["B"],
+  onlyC: ["C"],
+  ab: ["A", "B"],
+  ac: ["A", "C"],
+  bc: ["B", "C"],
+  abc: ["A", "B", "C"],
+};
 
 type Props = {
   records: Dataset["records"];
@@ -20,9 +35,8 @@ type Props = {
 const PAD = 44;
 const TARGET_W = 520;
 
-
 export function Venn3({ records, source, values, labels, colors }: Props) {
-  const [hoverSet, setHoverSet] = useState<SetKey | null>(null);
+  const [hover, setHover] = useState<HoverEntry | null>(null);
 
   const counts = useMemo(() => {
     let onlyA = 0, onlyB = 0, onlyC = 0;
@@ -75,7 +89,7 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
     );
   }
 
-  // Scale to viewBox
+  // Scale layout to viewBox
   const innerW = TARGET_W - PAD * 2;
   const scale = innerW / layout.width;
   const innerH = layout.height * scale;
@@ -90,9 +104,11 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
   const rB = layout.rB * scale;
   const rC = layout.rC * scale;
 
-  // Set-name chip positions (outside each circle, away from triangle centroid)
+  // Triangle centroid (used for outside-label direction + abc hit target)
   const tcx = (cxA + cxB + cxC) / 3;
   const tcy = (cyA + cyB + cyC) / 3;
+  const minR = Math.min(rA, rB, rC);
+
   function namePos(cx: number, cy: number, r: number) {
     const dx = cx - tcx;
     const dy = cy - tcy;
@@ -103,36 +119,87 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
   const nameB = namePos(cxB, cyB, rB);
   const nameC = namePos(cxC, cyC, rC);
 
-  const renderCircle = (
-    key: SetKey,
-    cx: number,
-    cy: number,
-    r: number,
-    color: string,
-  ) => {
-    const dimmed = hoverSet !== null && hoverSet !== key;
-    return (
-      <circle
-        key={key}
-        cx={cx}
-        cy={cy}
-        r={r}
-        fill={color}
-        fillOpacity={hoverSet === key ? 0.55 : 0.4}
-        stroke={color}
-        strokeOpacity={dimmed ? 0.4 : 0.9}
-        strokeWidth={STROKE.outline}
-        style={{ transition: "fill-opacity 120ms, stroke-opacity 120ms", cursor: "pointer" }}
-        onMouseEnter={() => setHoverSet(key)}
-      />
-    );
+  // Region centroids (heuristic) for hit targets and on-hover chips
+  function pairCentroid(c1x: number, c1y: number, c2x: number, c2y: number, oX: number, oY: number) {
+    const mx = (c1x + c2x) / 2;
+    const my = (c1y + c2y) / 2;
+    // Bias toward triangle centroid so the hit target sits in the lens, not on its outer edge
+    const dx = tcx - mx;
+    const dy = tcy - my;
+    const len = Math.hypot(dx, dy) || 1;
+    return { x: mx + (dx / len) * minR * 0.15, y: my + (dy / len) * minR * 0.15 };
+    void oX; void oY;
+  }
+  const regionCentroid: Record<Region, { x: number; y: number }> = {
+    onlyA: { x: cxA + ((cxA - tcx) / (Math.hypot(cxA - tcx, cyA - tcy) || 1)) * rA * 0.55,
+             y: cyA + ((cyA - tcy) / (Math.hypot(cxA - tcx, cyA - tcy) || 1)) * rA * 0.55 },
+    onlyB: { x: cxB + ((cxB - tcx) / (Math.hypot(cxB - tcx, cyB - tcy) || 1)) * rB * 0.55,
+             y: cyB + ((cyB - tcy) / (Math.hypot(cxB - tcx, cyB - tcy) || 1)) * rB * 0.55 },
+    onlyC: { x: cxC + ((cxC - tcx) / (Math.hypot(cxC - tcx, cyC - tcy) || 1)) * rC * 0.55,
+             y: cyC + ((cyC - tcy) / (Math.hypot(cxC - tcx, cyC - tcy) || 1)) * rC * 0.55 },
+    ab: pairCentroid(cxA, cyA, cxB, cyB, cxC, cyC),
+    ac: pairCentroid(cxA, cyA, cxC, cyC, cxB, cyB),
+    bc: pairCentroid(cxB, cyB, cxC, cyC, cxA, cyA),
+    abc: { x: tcx, y: tcy },
   };
+
+  const regionCount: Record<Region, number> = {
+    onlyA: counts.onlyA, onlyB: counts.onlyB, onlyC: counts.onlyC,
+    ab: counts.abOnly, ac: counts.acOnly, bc: counts.bcOnly, abc: counts.abc,
+  };
+
+  // Which sets does the current hover touch? (for circle dimming)
+  const activeSets: Set<SetKey> | null = (() => {
+    if (!hover) return null;
+    if (hover.kind === "set") return new Set([hover.key]);
+    return new Set(REGION_SETS[hover.region]);
+  })();
+
+  const isCircleEmphasized = (key: SetKey) =>
+    hover?.kind === "set" && hover.key === key;
+  const isCircleDimmed = (key: SetKey) =>
+    activeSets !== null && !activeSets.has(key);
+
+  const renderCircle = (key: SetKey, cx: number, cy: number, r: number, color: string) => (
+    <circle
+      key={key}
+      cx={cx}
+      cy={cy}
+      r={r}
+      fill={color}
+      fillOpacity={isCircleEmphasized(key) ? 0.55 : 0.4}
+      stroke={color}
+      strokeOpacity={isCircleDimmed(key) ? 0.4 : 0.9}
+      strokeWidth={STROKE.outline}
+      style={{ transition: "fill-opacity 120ms, stroke-opacity 120ms", cursor: "pointer" }}
+      onMouseEnter={() => setHover({ kind: "set", key })}
+    />
+  );
+
+  // Hit-target sizing: small ellipses in pixel units of the viewBox.
+  // Lens overlap → smallish; abc center → slightly larger.
+  const lensRX = Math.max(14, minR * 0.22);
+  const lensRY = Math.max(11, minR * 0.18);
+  const abcR = Math.max(12, minR * 0.20);
 
   const setEntries: { key: SetKey; label: string; color: string; size: number }[] = [
     { key: "A", label: labels[0], color: colors[0], size: counts.setA },
     { key: "B", label: labels[1], color: colors[1], size: counts.setB },
     { key: "C", label: labels[2], color: colors[2], size: counts.setC },
   ];
+
+  // Show a chip with the region's count over the centroid while hovered.
+  const hoveredChip = (() => {
+    if (hover?.kind !== "region") return null;
+    const region = hover.region;
+    const n = regionCount[region];
+    if (n === 0) return null;
+    const { x, y } = regionCentroid[region];
+    const sets = REGION_SETS[region];
+    const borderColor =
+      sets.length === 1 ? colors[sets[0] === "A" ? 0 : sets[0] === "B" ? 1 : 2] : "#333";
+    return { x, y, n, share: share(n), borderColor };
+  })();
 
   return (
     <figure>
@@ -143,38 +210,78 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
           height={VIEW_H}
           role="img"
           aria-label={`Venn-Diagramm ${labels.join(", ")}`}
-          onMouseLeave={() => setHoverSet(null)}
+          onMouseLeave={() => setHover(null)}
           className="block"
         >
-          {/* Circles render in source order; overlaps blend through opacity. */}
+          {/* Circles */}
           {renderCircle("A", cxA, cyA, rA, colors[0])}
           {renderCircle("B", cxB, cyB, rB, colors[1])}
           {renderCircle("C", cxC, cyC, rC, colors[2])}
 
-          {/* Only set-name chips inside the SVG. Region counts moved to the
-              side legend — three circles overlap too densely for inline chips
-              to stay legible. */}
+          {/* Hit targets for overlap regions — rendered above the circles so
+              they capture pointer events. Transparent fills, only catch hover. */}
+          <ellipse
+            cx={regionCentroid.ab.x} cy={regionCentroid.ab.y}
+            rx={lensRX} ry={lensRY}
+            fill="transparent"
+            style={{ cursor: "pointer" }}
+            onMouseEnter={() => setHover({ kind: "region", region: "ab" })}
+          />
+          <ellipse
+            cx={regionCentroid.ac.x} cy={regionCentroid.ac.y}
+            rx={lensRX} ry={lensRY}
+            fill="transparent"
+            style={{ cursor: "pointer" }}
+            onMouseEnter={() => setHover({ kind: "region", region: "ac" })}
+          />
+          <ellipse
+            cx={regionCentroid.bc.x} cy={regionCentroid.bc.y}
+            rx={lensRX} ry={lensRY}
+            fill="transparent"
+            style={{ cursor: "pointer" }}
+            onMouseEnter={() => setHover({ kind: "region", region: "bc" })}
+          />
+          <circle
+            cx={regionCentroid.abc.x} cy={regionCentroid.abc.y}
+            r={abcR}
+            fill="transparent"
+            style={{ cursor: "pointer" }}
+            onMouseEnter={() => setHover({ kind: "region", region: "abc" })}
+          />
+
+          {/* Set-name chips (outside each circle) */}
           <Chip x={nameA.x} y={nameA.y} text={labels[0]} borderColor={colors[0]} />
           <Chip x={nameB.x} y={nameB.y} text={labels[1]} borderColor={colors[1]} />
           <Chip x={nameC.x} y={nameC.y} text={labels[2]} borderColor={colors[2]} />
+
+          {/* On-hover region chip */}
+          {hoveredChip && (
+            <Chip
+              x={hoveredChip.x}
+              y={hoveredChip.y}
+              text={fmtInt(hoveredChip.n)}
+              sub={fmtPct(hoveredChip.share)}
+              borderColor={hoveredChip.borderColor}
+              fontSize={12}
+              emphasized
+            />
+          )}
         </svg>
 
-        {/* Side legend — 3 set rows (solid square), 3 pairwise rows (split
-            square = the Venn2 "both" idiom), and one "Alle drei" row
-            (three-thirds square). All 7 region counts are read here. */}
+        {/* Legend */}
         <ul className="grid gap-1.5 text-sm">
           {/* Sets */}
           {setEntries.map((s) => {
-            const isHover = hoverSet === s.key;
-            const dim = hoverSet !== null && !isHover;
+            const isHover = hover?.kind === "set" && hover.key === s.key;
+            const dim = activeSets !== null && !activeSets.has(s.key);
             return (
               <li key={s.key}>
                 <button
                   type="button"
-                  onMouseEnter={() => setHoverSet(s.key)}
-                  onMouseLeave={() => setHoverSet(null)}
-                  onFocus={() => setHoverSet(s.key)}
-                  onBlur={() => setHoverSet(null)}
+                  onMouseEnter={() => setHover({ kind: "set", key: s.key })}
+                  onMouseLeave={() => setHover(null)}
+                  onFocus={() => setHover({ kind: "set", key: s.key })}
+                  onBlur={() => setHover(null)}
                   className={cn(
                     "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md text-left transition-colors",
                     isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
@@ -191,32 +298,43 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
           <li className="border-t border-ink-line pt-1.5 mt-0.5">
             <p className="eyebrow text-[10px] mb-1 px-2">Schnittmengen</p>
           </li>
-          {/* Pairwise — split squares */}
-          <LegendRow
+          {/* Pairwise — split squares (interactive) */}
+          <RegionRow
+            region="ab"
             half={[colors[0], colors[1]]}
             label={`Nur ${labels[0]} & ${labels[1]}`}
             n={counts.abOnly}
             share={share(counts.abOnly)}
+            hover={hover}
+            setHover={setHover}
           />
-          <LegendRow
+          <RegionRow
+            region="ac"
             half={[colors[0], colors[2]]}
             label={`Nur ${labels[0]} & ${labels[2]}`}
             n={counts.acOnly}
             share={share(counts.acOnly)}
+            hover={hover}
+            setHover={setHover}
           />
-          <LegendRow
+          <RegionRow
+            region="bc"
             half={[colors[1], colors[2]]}
             label={`Nur ${labels[1]} & ${labels[2]}`}
             n={counts.bcOnly}
             share={share(counts.bcOnly)}
+            hover={hover}
+            setHover={setHover}
           />
           {/* Triple */}
-          <LegendRow
+          <RegionRow
+            region="abc"
             thirds={[colors[0], colors[1], colors[2]]}
             label="Alle drei"
             n={counts.abc}
             share={share(counts.abc)}
-            emphasized
+            hover={hover}
+            setHover={setHover}
           />
         </ul>
       </div>
@@ -237,8 +355,7 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
 }
 
 // ────────────────────────────────────────────────────────────────────────
-// Legend helpers — local to Venn3 since the swatch idiom (split square,
-// thirds square) only makes sense for Venn diagrams.
+// Legend helpers — local to Venn3.
 
 function Swatch({ fill }: { fill: string }) {
   return (
@@ -281,30 +398,38 @@ function LegendCount({ n, share }: { n: number; share: number }) {
   );
 }
 
-function LegendRow(props: {
+function RegionRow(props: {
+  region: Region;
   label: string;
   n: number;
   share: number;
   half?: [string, string];
   thirds?: [string, string, string];
-  emphasized?: boolean;
+  hover: HoverEntry | null;
+  setHover: (h: HoverEntry | null) => void;
 }) {
-  const { label, n, share, half, thirds, emphasized } = props;
+  const { region, label, n, share, half, thirds, hover, setHover } = props;
+  const isHover = hover?.kind === "region" && hover.region === region;
   return (
     <li>
-      <div
+      <button
+        type="button"
+        onMouseEnter={() => setHover({ kind: "region", region })}
+        onMouseLeave={() => setHover(null)}
+        onFocus={() => setHover({ kind: "region", region })}
+        onBlur={() => setHover(null)}
         className={cn(
-          "grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md",
-          emphasized && "bg-cream-dark",
+          "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md text-left transition-colors",
+          isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
         )}
       >
         {half && <HalfSwatch left={half[0]} right={half[1]} />}
         {thirds && <ThirdsSwatch a={thirds[0]} b={thirds[1]} c={thirds[2]} />}
-        <span className={cn("truncate", emphasized ? "text-ink font-semibold" : "text-ink-soft")}>
+        <span className={cn("truncate", isHover ? "text-ink font-semibold" : "text-ink-soft")}>
           {label}
         </span>
         <LegendCount n={n} share={share} />
-      </div>
+      </button>
     </li>
   );
 }
