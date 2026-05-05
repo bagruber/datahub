@@ -56,6 +56,17 @@ export type ChartSpec =
       preserveOrder?: boolean;
     }
   | {
+      type: "bar_v";
+      id: string;
+      title: string;
+      source: string;
+      color?: string;
+      items?: ChartItemBin[];
+      slots?: { key: string; label: string }[];
+      /** Default true for bar_v — pass `false` to sort by share. */
+      preserveOrder?: boolean;
+    }
+  | {
       type: "likert6";
       id: string;
       title: string;
@@ -66,6 +77,13 @@ export type ChartSpec =
       id: string;
       title: string;
       items: { source: string; label: string; group?: string }[];
+    }
+  | {
+      type: "price";
+      id: string;
+      title: string;
+      scale: 5 | 6;
+      items: { source: string; label: string }[];
     }
   | {
       type: "diverging3";

@@ -113,6 +113,10 @@ export const HELP: Record<string, string> = {
     "Divergierender Stapelbalken: jede Zeile ist ein Merkmal. Schlechte Bewertungen (1–3, rot) wachsen nach links, gute (4–6, grün) nach rechts. Je weiter ein Balken vom Mittel weg liegt, desto eindeutiger die Tendenz.",
   likert5:
     "Divergierender Stapelbalken auf einer 1–5-Skala. Negative Bewertungen (1–2, rot) wachsen nach links, positive (4–5, grün) nach rechts; die neutrale Mitte (3) überlagert die Null-Linie hälftig.",
+  price:
+    "Preisempfinden statt Qualitätsbewertung: niedrige Werte stehen für „günstig“, hohe für „teuer“. Es gibt kein gut/schlecht — die Skala beschreibt nur die Richtung. Deshalb ein neutraler Blau-Verlauf (hell = günstig, dunkel = teuer) ohne Rot/Grün.",
+  bar_v:
+    "Senkrechte Balken — bewährt für zeitliche oder geordnete Reihen wie Wochentage oder Uhrzeiten. Die Reihenfolge entspricht dem Sachzusammenhang, nicht der Häufigkeit.",
   diverging3:
     "Divergierender Balken: die linke und rechte Option streben nach außen, die unentschlossene Mitte überlagert die Null-Linie hälftig. Hängt der Balken stark nach einer Seite, dominiert diese Option.",
   radar:
