@@ -51,7 +51,7 @@ const cb = {
   anreise: {
     1: "zu Fuß", 2: "Fahrrad", 3: "PKW", 4: "Bus", 5: "Zug", 6: "Motorrad",
   },
-  nutzung_ort: { 1: "Im Festzelt", 2: "Von den Ständen" },
+  nutzung_ort: { 1: "Im Festzelt", 2: "Von den Ständen auf dem Festplatz" },
   ernaehrung: {
     1: "vegetarisch",
     2: "vegan",
