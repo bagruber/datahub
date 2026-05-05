@@ -209,7 +209,7 @@ const sections = [
     charts: [
       {
         id: "tage",
-        type: "bar_h",
+        type: "bar_v",
         title: "Besuchstage",
         source: "tage",
         color: "#c8102e",
@@ -284,12 +284,6 @@ const sections = [
           { source: "angebot_essen", label: "Angebot Essen" },
         ],
       },
-      {
-        id: "essen_preise",
-        type: "likert5",
-        title: "Bewertung Preise Essen",
-        items: [{ source: "preise_essen", label: "Preise Essen" }],
-      },
     ],
   },
   {
@@ -313,18 +307,30 @@ const sections = [
         title: "Bewertung Angebot Getränke",
         items: [{ source: "angebot_getraenke", label: "Angebot Getränke" }],
       },
+    ],
+  },
+  {
+    id: "preise",
+    title: "Preisempfinden",
+    order: 5,
+    text: "Niedrige Werte stehen für „günstig“, hohe für „teuer“ — keine Qualitätsbewertung.",
+    charts: [
       {
-        id: "getraenke_preise",
-        type: "likert5",
-        title: "Bewertung Preise Getränke",
-        items: [{ source: "preise_getraenke", label: "Preise Getränke" }],
+        id: "preise",
+        type: "price",
+        title: "Preise Essen & Getränke",
+        scale: 5,
+        items: [
+          { source: "preise_essen", label: "Essen" },
+          { source: "preise_getraenke", label: "Getränke" },
+        ],
       },
     ],
   },
   {
     id: "programm",
     title: "Programm & Fahrgeschäfte",
-    order: 5,
+    order: 6,
     text: "Wie wird das Unterhaltungsangebot bewertet?",
     charts: [
       {
@@ -341,7 +347,7 @@ const sections = [
   {
     id: "sicherheit",
     title: "Sicherheit",
-    order: 6,
+    order: 7,
     text: "Wie sicher fühlen sich Besucher auf den Moosburger Volksfesten?",
     charts: [
       {
@@ -355,7 +361,7 @@ const sections = [
   {
     id: "zusammenhaenge",
     title: "Zusammenhänge der Bewertungen",
-    order: 7,
+    order: 8,
     text: "Welche Bewertungen hängen zusammen? Werte nahe +1 bedeuten gleichgerichtete Bewertungen, Werte nahe 0 keinen Zusammenhang.",
     charts: [
       {

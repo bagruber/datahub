@@ -1,7 +1,9 @@
 import type { ChartSpec, Codebook, Dataset } from "@/lib/data";
 import { BarH } from "./BarH";
+import { BarV } from "./BarV";
 import { Likert6 } from "./Likert6";
 import { Likert5 } from "./Likert5";
+import { Price } from "./Price";
 import { Diverging3 } from "./Diverging3";
 import { Pie } from "./Pie";
 import { Likert5Group } from "./Likert5Group";
@@ -34,6 +36,19 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           title={spec.title}
         />
       );
+    case "bar_v":
+      return (
+        <BarV
+          records={records}
+          codebook={codebook}
+          source={spec.source}
+          items={spec.items}
+          slots={spec.slots}
+          preserveOrder={spec.preserveOrder}
+          color={spec.color}
+          title={spec.title}
+        />
+      );
     case "likert6":
       return (
         <Likert6
@@ -49,6 +64,16 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           records={records}
           codebook={codebook}
           items={spec.items}
+          title={spec.title}
+        />
+      );
+    case "price":
+      return (
+        <Price
+          records={records}
+          codebook={codebook}
+          items={spec.items}
+          scale={spec.scale}
           title={spec.title}
         />
       );

@@ -23,6 +23,11 @@ export const LIKERT5_RAMP = ["#b00e28", "#d96a4f", "#d6cfc1", "#82b67c", "#3f8c5
 // Correlation ramp: red (-1) → cream (0) → green (+1)
 export const CORRELATION_RAMP = ["#b00e28", "#f6ecd5", "#3f8c52"];
 
+// Price ramps — neutral single-hue blue (no value judgement). Light = günstig,
+// dark = teuer. Used when low/high don't map to good/bad on a Likert.
+export const PRICE5_RAMP = ["#dbeafe", "#93c5fd", "#3b82f6", "#1e40af", "#1e3a8a"];
+export const PRICE6_RAMP = ["#e0f2fe", "#bae6fd", "#7dd3fc", "#0ea5e9", "#0369a1", "#0c4a6e"];
+
 // Generic categorical fallback (pie, charts that ship no colors).
 export const CATEGORICAL = [
   "#c8102e",
