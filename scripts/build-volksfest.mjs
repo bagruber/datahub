@@ -205,7 +205,7 @@ const sections = [
     id: "besuch",
     title: "Besuchsverhalten",
     order: 1,
-    text: "Wann und an welchen Tagen wird das Volksfest besucht?",
+    text: "Das Volksfest hat einen klaren **Wochenend-Schwerpunkt**: drei Viertel kommen am **Samstag**, zwei Drittel am **Freitag**. Auch der **Mittwoch** als traditioneller Familientag sticht mit fast einem Drittel hervor. Bei den Tageszeiten dominiert der **Abend** nach 18 Uhr (71 %), der frühe Festbesuch vor 14 Uhr ist mit 12 % die Ausnahme.",
     charts: [
       {
         id: "tage",
@@ -234,7 +234,7 @@ const sections = [
     id: "erreichbarkeit",
     title: "Erreichbarkeit",
     order: 2,
-    text: "Wie kommen Besucher zum Festplatz, und wie wird die Erreichbarkeit bewertet?",
+    text: "Das Festgelände ist **fußläufig gut erschlossen**: knapp zwei Drittel kommen zu Fuß, fast die Hälfte mit dem Fahrrad. **PKW** spielt mit gut einem Fünftel eine Nebenrolle, ÖPNV praktisch keine. Entsprechend bewerten die Befragten die **Erreichbarkeit** fast durchgängig positiv. Drei von vier vergeben 5 oder 6.",
     charts: [
       {
         id: "anreise",
@@ -257,7 +257,7 @@ const sections = [
     id: "essen",
     title: "Essen",
     order: 3,
-    text: "Wo wird gegessen, welche Ernährungspräferenzen werden gewünscht, und wie wird das Angebot bewertet?",
+    text: "Beim Essen werden **die Stände** etwas häufiger genutzt als das Festzelt. Etwa die Hälfte aller Besucher kauft an beiden Orten. Eine deutliche Mehrheit (63 %) wünscht sich **keine zusätzlichen Ernährungsangebote**, doch ein Drittel meldet **vegetarischen** Bedarf an, jeder Siebte einen veganen. Geeignetes Essen zu finden gelingt offenbar gut, das **Angebot** insgesamt wird jedoch nur durchschnittlich bewertet.",
     charts: [
       {
         id: "essen_nutzung",
@@ -290,7 +290,7 @@ const sections = [
     id: "getraenke",
     title: "Getränke",
     order: 4,
-    text: "Wo wird getrunken, und wie wird das Angebot bewertet?",
+    text: "Bei den Getränken kehrt sich das Bild gegenüber dem Essen um. **Das Festzelt** ist der eindeutige Anlaufpunkt: fast neun von zehn nutzen es, an den Ständen kauft nur knapp jeder Dritte. Das **Angebot** insgesamt wird durchgehend gut bewertet.",
     charts: [
       {
         id: "getraenke_nutzung",
@@ -313,7 +313,7 @@ const sections = [
     id: "preise",
     title: "Preisempfinden",
     order: 5,
-    text: 'Niedrige Werte stehen für „günstig“, hohe für „teuer“ — keine Qualitätsbewertung.',
+    text: "Bei den Preisen empfindet die Mehrheit beide Bereiche **eher als angemessen oder günstig**. Wenn überhaupt, gelten die **Getränke** als teurer: 37 % vergeben 4 oder 5, beim **Essen** sind es 30 %.",
     charts: [
       {
         id: "preise",
@@ -331,7 +331,7 @@ const sections = [
     id: "programm",
     title: "Programm & Fahrgeschäfte",
     order: 6,
-    text: "Wie wird das Unterhaltungsangebot bewertet?",
+    text: "Programm und Fahrgeschäfte werden ähnlich, aber **nur durchschnittlich** bewertet. Beide Mittelwerte liegen knapp unter 4. Ein Drittel findet die **Musikgruppen** sehr gut, etwas weniger sehen das bei den **Fahrgeschäften** so.",
     charts: [
       {
         id: "programm_likert6",
@@ -348,7 +348,7 @@ const sections = [
     id: "sicherheit",
     title: "Sicherheit",
     order: 7,
-    text: "Wie sicher fühlen sich Besucher auf den Moosburger Volksfesten?",
+    text: "Das **Sicherheitsempfinden** ist hoch: mehr als sieben von zehn Befragten vergeben 5 oder 6. Nennenswerte Sorgen schildern nur Einzelne.",
     charts: [
       {
         id: "sicherheit_likert6",
