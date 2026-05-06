@@ -313,7 +313,7 @@ const sections = [
     id: "preise",
     title: "Preisempfinden",
     order: 5,
-    text: "Niedrige Werte stehen für „günstig“, hohe für „teuer“ — keine Qualitätsbewertung.",
+    text: 'Niedrige Werte stehen für „günstig“, hohe für „teuer“ — keine Qualitätsbewertung.',
     charts: [
       {
         id: "preise",
