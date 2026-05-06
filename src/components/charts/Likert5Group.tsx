@@ -5,6 +5,7 @@ import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ScaleCaption } from "./ScaleCaption";
 import type { Dataset } from "@/lib/data";
 
 type Innovation = { key: string; name: string; sources: string[] };
@@ -15,11 +16,14 @@ type Props = {
   invertedDims: number[];
   innovations: Innovation[];
   title?: string;
+  endpoints?: { left: string; right: string };
 };
 
 const SCALE = [1, 2, 3, 4, 5];
 
-export function Likert5Group({ records, dimLabels, invertedDims, innovations }: Props) {
+export function Likert5Group({ records, dimLabels, invertedDims, innovations, endpoints }: Props) {
+  const left = endpoints?.left ?? "stimme nicht zu";
+  const right = endpoints?.right ?? "stimme voll zu";
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {innovations.map((inn) => (
@@ -29,6 +33,8 @@ export function Likert5Group({ records, dimLabels, invertedDims, innovations }: 
           records={records}
           dimLabels={dimLabels}
           invertedDims={invertedDims}
+          left={left}
+          right={right}
         />
       ))}
     </div>
@@ -50,11 +56,15 @@ function InnovationPanel({
   records,
   dimLabels,
   invertedDims,
+  left,
+  right,
 }: {
   innovation: Innovation;
   records: Dataset["records"];
   dimLabels: string[];
   invertedDims: number[];
+  left: string;
+  right: string;
 }) {
   const inverted = useMemo(() => new Set(invertedDims), [invertedDims]);
 
@@ -159,6 +169,7 @@ function InnovationPanel({
         {innovation.name}
       </figcaption>
       <PlotFigure options={options} />
+      <ScaleCaption left={left} right={right} />
     </figure>
   );
 }

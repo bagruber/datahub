@@ -56,6 +56,7 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           codebook={codebook}
           items={spec.items}
           title={spec.title}
+          endpoints={spec.endpoints}
         />
       );
     case "likert5":
@@ -65,6 +66,7 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           codebook={codebook}
           items={spec.items}
           title={spec.title}
+          endpoints={spec.endpoints}
         />
       );
     case "price":
@@ -75,6 +77,7 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           items={spec.items}
           scale={spec.scale}
           title={spec.title}
+          endpoints={spec.endpoints}
         />
       );
     case "diverging3":
@@ -126,6 +129,7 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
           invertedDims={spec.invertedDims ?? []}
           innovations={spec.innovations}
           title={spec.title}
+          endpoints={spec.endpoints}
         />
       );
     case "radar":

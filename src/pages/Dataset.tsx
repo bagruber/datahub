@@ -13,6 +13,7 @@ import { Stat } from "@/components/Stat";
 import { Section } from "@/components/Section";
 import { FilterChart } from "@/components/FilterChart";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
+import { PressSection } from "@/components/press/PressSection";
 import { HELP, HelpIcon } from "@/components/HelpIcon";
 import { fmtInt } from "@/lib/format";
 
@@ -202,6 +203,9 @@ export function Dataset() {
         ))}
       </div>
 
+      {dataset.press && dataset.press.length > 0 && (
+        <PressSection press={dataset.press} />
+      )}
     </div>
   );
 }

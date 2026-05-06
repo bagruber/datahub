@@ -5,6 +5,7 @@ import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, PRICE5_RAMP, PRICE6_RAMP, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ScaleCaption } from "./ScaleCaption";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Item = { source: string; label: string };
@@ -15,6 +16,7 @@ type Props = {
   items: Item[];
   scale: 5 | 6;
   title?: string;
+  endpoints?: { left: string; right: string };
 };
 
 type Row = {
@@ -72,8 +74,10 @@ function buildRows(records: Dataset["records"], items: Item[], scale: number): R
   return out;
 }
 
-export function Price({ records, codebook, items, scale }: Props) {
+export function Price({ records, codebook, items, scale, endpoints }: Props) {
   void codebook;
+  const left = endpoints?.left ?? "günstig";
+  const right = endpoints?.right ?? "teuer";
   const isMobile = useIsMobile();
   const rows = useMemo(() => buildRows(records, items, scale), [records, items, scale]);
   const itemOrder = useMemo(() => items.map((i) => i.label).reverse(), [items]);
@@ -140,10 +144,7 @@ export function Price({ records, codebook, items, scale }: Props) {
   return (
     <figure className="mx-auto w-full max-w-2xl">
       <PlotFigure options={options} />
-      <div className="mt-2 flex items-baseline justify-between text-[11px] text-ink-muted px-1">
-        <span>← günstig</span>
-        <span>teuer →</span>
-      </div>
+      <ScaleCaption left={left} right={right} />
       <table className="sr-only">
         <thead>
           <tr>

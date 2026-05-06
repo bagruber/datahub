@@ -384,6 +384,21 @@ const sections = [
   },
 ];
 
+const press = [
+  {
+    outlet: "idowa",
+    title: "Punkte für die Moosburger Herbstschau vergeben",
+    date: "2024-09-25",
+    url: "https://www.idowa.de/regionen/moosburg/punkte-fuer-die-moosburger-herbstschau-vergeben-art-301075",
+  },
+  {
+    outlet: "sz",
+    title: 'Den runden Geburtstag „ein bisserl feiern“',
+    date: "2024-09-12",
+    url: "https://www.sueddeutsche.de/muenchen/freising/moosburg-herbstschau-100-jahre-jubilaeum-bierprobe-festwirt-kraemmer-lux.Kfr9MEdsHja52TJjFVkVEA",
+  },
+];
+
 const out = {
   meta: {
     id: "volksfest_2024",
@@ -396,6 +411,7 @@ const out = {
   codebook: cb,
   filters,
   sections,
+  press,
   records,
 };
 
