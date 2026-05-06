@@ -114,7 +114,7 @@ export const HELP: Record<string, string> = {
   likert5:
     "Divergierender Stapelbalken auf einer 1–5-Skala. Negative Bewertungen (1–2, rot) wachsen nach links, positive (4–5, grün) nach rechts; die neutrale Mitte (3) überlagert die Null-Linie hälftig.",
   price:
-    "Preisempfinden statt Qualitätsbewertung: niedrige Werte stehen für „günstig“, hohe für „teuer“. Es gibt kein gut/schlecht — die Skala beschreibt nur die Richtung. Deshalb ein neutraler Blau-Verlauf (hell = günstig, dunkel = teuer) ohne Rot/Grün.",
+    "Divergierender Stapelbalken für Preisempfinden: günstige Bewertungen wachsen nach links, teure nach rechts. Anders als bei Qualitäts-Likerts gibt es hier kein gut/schlecht — deshalb ein neutraler Blau-Verlauf (hell = günstig, dunkel = teuer) statt Rot/Grün.",
   bar_v:
     "Senkrechte Balken — bewährt für zeitliche oder geordnete Reihen wie Wochentage oder Uhrzeiten. Die Reihenfolge entspricht dem Sachzusammenhang, nicht der Häufigkeit.",
   diverging3:
