@@ -23,13 +23,13 @@ type Row = { label: string; share: number; count: number };
 // Vertical-bar variant of BarH for chronological / ordinal-temporal data.
 // Bar widths fixed via x band; bar HEIGHTS encode share. X-axis labels
 // rotate so 7–9 short labels fit on phone widths without overlapping.
-const BAR_BAND = 32;       // px per bar (band width)
-const HEIGHT = 280;
+const BAR_BAND = 36;       // px per bar (band width) — wider to fit -45° labels
+const HEIGHT = 300;
 const MARGIN_TOP_DESKTOP = 12;
 const MARGIN_TOP_MOBILE = 8;
-const MARGIN_BOTTOM_DESKTOP = 80;
-const MARGIN_BOTTOM_MOBILE = 70;
-const MARGIN_LEFT = 48;    // y-axis percent labels
+const MARGIN_BOTTOM_DESKTOP = 96; // -45° labels need more vertical room
+const MARGIN_BOTTOM_MOBILE = 84;
+const MARGIN_LEFT = 48;
 const MARGIN_RIGHT = 16;
 
 function buildRows(
@@ -110,8 +110,8 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
   const accent = color ?? ACCENT_RED;
   const marginTop = isMobile ? MARGIN_TOP_MOBILE : MARGIN_TOP_DESKTOP;
   const marginBottom = isMobile ? MARGIN_BOTTOM_MOBILE : MARGIN_BOTTOM_DESKTOP;
-  const fontPx = isMobile ? 11 : 13;
-  const axisPx = isMobile ? 10 : 12;
+  const fontPx = isMobile ? 10 : 12;
+  const axisPx = isMobile ? 9 : 11;
 
   const options: Plot.PlotOptions = useMemo(
     () => ({
@@ -125,8 +125,9 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
         domain: ordered.map((d) => d.label),
         label: null,
         tickSize: 0,
-        // Rotate so labels don't overlap; -35° reads naturally for time slots.
-        tickRotate: -35,
+        // Rotate steeper (-45°) so longer labels like "Nach 21:00" or
+        // "Donnerstag" don't bump into their neighbours on narrow viewports.
+        tickRotate: -45,
       },
       y: {
         percent: true,
