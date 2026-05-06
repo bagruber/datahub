@@ -71,12 +71,17 @@ export type ChartSpec =
       id: string;
       title: string;
       items: { source: string; label: string; group?: string }[];
+      /** Caption shown beneath the chart: "← left  …  right →".
+       *  Defaults to ["sehr schlecht", "sehr gut"]. Override for e.g.
+       *  importance scales: ["unwichtig", "sehr wichtig"]. */
+      endpoints?: { left: string; right: string };
     }
   | {
       type: "likert5";
       id: string;
       title: string;
       items: { source: string; label: string; group?: string }[];
+      endpoints?: { left: string; right: string };
     }
   | {
       type: "price";
@@ -84,6 +89,7 @@ export type ChartSpec =
       title: string;
       scale: 5 | 6;
       items: { source: string; label: string }[];
+      endpoints?: { left: string; right: string };
     }
   | {
       type: "diverging3";
@@ -110,6 +116,7 @@ export type ChartSpec =
       dimLabels: string[];
       invertedDims?: number[];
       innovations: { key: string; name: string; sources: string[] }[];
+      endpoints?: { left: string; right: string };
     }
   | {
       type: "radar";
@@ -160,11 +167,26 @@ export type DatasetMeta = {
   description?: string;
 };
 
+export type PressOutlet = "sz" | "merkur" | "mz" | "idowa";
+
+export type PressLink = {
+  outlet: PressOutlet;
+  title: string;
+  /** ISO date or German display date — both fine; rendered with toLocaleDateString. */
+  date: string;
+  url: string;
+  /** Optional thumbnail path under /public/press/thumbs/ (or full URL). */
+  thumb?: string;
+};
+
 export type Dataset = {
   meta: DatasetMeta;
   codebook: Codebook;
   filters: FilterSpec[];
   sections: Section[];
+  /** Optional press coverage list — rendered as a "Pressestimmen" section
+   *  at the bottom of the dataset page when present. */
+  press?: PressLink[];
   // Records hold heterogeneous values: numeric codes, code arrays for
   // multi-select, free-text strings, and the occasional `{key: rank}` object
   // (e.g. Bahnhof time slots). `unknown` lets chart components narrow per use.

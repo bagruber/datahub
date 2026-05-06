@@ -5,6 +5,7 @@ import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ScaleCaption } from "./ScaleCaption";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Item = { source: string; label: string };
@@ -14,6 +15,7 @@ type Props = {
   codebook: Codebook;
   items: Item[];
   title?: string;
+  endpoints?: { left: string; right: string };
 };
 
 const SCALE = [1, 2, 3, 4, 5];
@@ -58,8 +60,10 @@ function buildRows(records: Dataset["records"], items: Item[]): Row[] {
   return out;
 }
 
-export function Likert5({ records, codebook, items }: Props) {
+export function Likert5({ records, codebook, items, endpoints }: Props) {
   void codebook;
+  const left = endpoints?.left ?? "sehr schlecht";
+  const right = endpoints?.right ?? "sehr gut";
   const isMobile = useIsMobile();
   const rows = useMemo(() => buildRows(records, items), [records, items]);
   const itemOrder = useMemo(() => items.map((i) => i.label).reverse(), [items]);
@@ -124,6 +128,7 @@ export function Likert5({ records, codebook, items }: Props) {
   return (
     <figure className="mx-auto w-full max-w-2xl">
       <PlotFigure options={options} />
+      <ScaleCaption left={left} right={right} />
       <table className="sr-only">
         <thead>
           <tr>
