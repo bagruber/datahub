@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
+import { distributionOnScale } from "@/lib/aggregate";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
-import { ScaleCaption } from "./ScaleCaption";
+import { ChartFrame } from "./ChartFrame";
+import { ChartTable } from "./ChartTable";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Item = { source: string; label: string };
@@ -33,24 +35,15 @@ type Row = {
 function buildRows(records: Dataset["records"], items: Item[]): Row[] {
   const out: Row[] = [];
   items.forEach((it) => {
-    const counts = new Map<number, number>(SCALE.map((k) => [k, 0]));
-    let n = 0;
-    for (const r of records) {
-      const v = r[it.source];
-      if (typeof v !== "number" || !counts.has(v)) continue;
-      n++;
-      counts.set(v, counts.get(v)! + 1);
-    }
-    const shares = SCALE.map((k) => (n === 0 ? 0 : counts.get(k)! / n));
-    // 5-point scale with neutral at index 2 (rating 3 straddles centre).
+    const { counts, shares, n } = distributionOnScale(records, it.source, SCALE);
+    // 5-point with neutral at index 2 (rating 3 straddles centre).
     const segs = divergingStack(shares, { negative: [1, 0], center: 2, positive: [3, 4] });
     segs.forEach((seg) => {
-      const rating = SCALE[seg.idx];
       out.push({
         item: it.label,
-        rating,
+        rating: SCALE[seg.idx],
         share: shares[seg.idx],
-        count: counts.get(rating)!,
+        count: counts[seg.idx],
         n,
         x1: seg.x1,
         x2: seg.x2,
@@ -62,9 +55,9 @@ function buildRows(records: Dataset["records"], items: Item[]): Row[] {
 
 export function Likert5({ records, codebook, items, endpoints }: Props) {
   void codebook;
+  const isMobile = useIsMobile();
   const left = endpoints?.left ?? "sehr schlecht";
   const right = endpoints?.right ?? "sehr gut";
-  const isMobile = useIsMobile();
   const rows = useMemo(() => buildRows(records, items), [records, items]);
   const itemOrder = useMemo(() => items.map((i) => i.label).reverse(), [items]);
 
@@ -125,29 +118,14 @@ export function Likert5({ records, codebook, items, endpoints }: Props) {
     [rows, itemOrder, marginLeft, extent, isMobile, fontPx, axisPx],
   );
 
+  const tableRows = items.map((it) => {
+    const r = rows.filter((x) => x.item === it.label).sort((a, b) => a.rating - b.rating);
+    return [it.label, ...r.map((d) => fmtPct(d.share))];
+  });
+
   return (
-    <figure className="mx-auto w-full max-w-2xl">
+    <ChartFrame caption={{ left, right }} table={<ChartTable headers={["Merkmal", ...SCALE.map(String)]} rows={tableRows} />}>
       <PlotFigure options={options} />
-      <ScaleCaption left={left} right={right} />
-      <table className="sr-only">
-        <thead>
-          <tr>
-            <th>Merkmal</th>
-            {SCALE.map((s) => <th key={s}>{s}</th>)}
-          </tr>
-        </thead>
-        <tbody>
-          {items.map((it) => {
-            const r = rows.filter((x) => x.item === it.label).sort((a, b) => a.rating - b.rating);
-            return (
-              <tr key={it.source}>
-                <td>{it.label}</td>
-                {r.map((d) => <td key={d.rating}>{fmtPct(d.share)}</td>)}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-    </figure>
+    </ChartFrame>
   );
 }

@@ -1,10 +1,12 @@
 import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
-import { isAnswered } from "@/lib/stats";
+import { countByBins, countByCodebook, countByObjectKeys, type AggResult } from "@/lib/aggregate";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { ACCENT_RED, INK, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ChartFrame } from "./ChartFrame";
+import { ChartTable } from "./ChartTable";
 import type { Codebook, Dataset } from "@/lib/data";
 
 type Props = {
@@ -18,90 +20,26 @@ type Props = {
   preserveOrder?: boolean;
 };
 
-type Row = { label: string; share: number; count: number };
-
 // Vertical-bar variant of BarH for chronological / ordinal-temporal data.
-// Bar widths fixed via x band; bar HEIGHTS encode share. X-axis labels
-// rotate so 7–9 short labels fit on phone widths without overlapping.
-const BAR_BAND = 36;       // px per bar (band width) — wider to fit -45° labels
+const BAR_BAND = 36;
 const HEIGHT = 300;
 const MARGIN_TOP_DESKTOP = 12;
 const MARGIN_TOP_MOBILE = 8;
-const MARGIN_BOTTOM_DESKTOP = 96; // -45° labels need more vertical room
+const MARGIN_BOTTOM_DESKTOP = 96;
 const MARGIN_BOTTOM_MOBILE = 84;
 const MARGIN_LEFT = 48;
 const MARGIN_RIGHT = 16;
 
-function buildRows(
-  records: Dataset["records"],
-  codebook: Codebook,
-  source: string,
-  items?: { label: string; vals: number[] }[],
-  slots?: { key: string; label: string }[],
-): { rows: Row[]; answered: number } {
-  let answered = 0;
-  for (const r of records) if (isAnswered(r[source])) answered++;
-
-  if (slots && slots.length > 0) {
-    const rows = slots.map((s) => {
-      let count = 0;
-      for (const r of records) {
-        const v = r[source];
-        if (v && typeof v === "object" && !Array.isArray(v)) {
-          if (Object.prototype.hasOwnProperty.call(v, s.key)) count++;
-        }
-      }
-      return { label: s.label, count, share: answered === 0 ? 0 : count / answered };
-    });
-    return { rows, answered };
-  }
-
-  if (items && items.length > 0) {
-    const rows = items.map((b) => {
-      const set = new Set(b.vals);
-      let count = 0;
-      for (const r of records) {
-        const v = r[source];
-        if (!isAnswered(v)) continue;
-        if (Array.isArray(v)) {
-          if (v.some((x) => typeof x === "number" && set.has(x))) count++;
-        } else if (typeof v === "number" && set.has(v)) {
-          count++;
-        }
-      }
-      return { label: b.label, count, share: answered === 0 ? 0 : count / answered };
-    });
-    return { rows, answered };
-  }
-
-  const cb = codebook[source] ?? {};
-  const keys = Object.keys(cb).map(Number);
-  const counts = new Map<number, number>(keys.map((k) => [k, 0]));
-  for (const r of records) {
-    const v = r[source];
-    if (!isAnswered(v)) continue;
-    const list = Array.isArray(v) ? v : [v];
-    for (const x of list) {
-      if (typeof x === "number" && counts.has(x)) counts.set(x, counts.get(x)! + 1);
-    }
-  }
-  const rows = keys.map((k) => ({
-    label: cb[String(k)],
-    count: counts.get(k)!,
-    share: answered === 0 ? 0 : counts.get(k)! / answered,
-  }));
-  return { rows, answered };
-}
-
 export function BarV({ records, codebook, source, items, slots, color, preserveOrder }: Props) {
   const isMobile = useIsMobile();
-  const { rows, answered } = useMemo(
-    () => buildRows(records, codebook, source, items, slots),
-    [records, codebook, source, items, slots],
-  );
+  const { rows, n: answered } = useMemo<AggResult>(() => {
+    if (slots && slots.length > 0) return countByObjectKeys(records, source, slots);
+    if (items && items.length > 0) return countByBins(records, source, items);
+    return countByCodebook(records, source, codebook[source] ?? {});
+  }, [records, codebook, source, items, slots]);
 
   // BarV defaults to declared/codebook order — vertical axes are usually
-  // chronological, where sorting by share would scramble the time axis.
+  // chronological where sorting by share would scramble the time axis.
   const ordered = useMemo(
     () => (preserveOrder === false ? [...rows].sort((a, b) => b.share - a.share) : rows),
     [rows, preserveOrder],
@@ -120,21 +58,13 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
       marginRight: MARGIN_RIGHT,
       marginTop,
       marginBottom,
-      // Width left to PlotFigure ResizeObserver (responsive).
       x: {
         domain: ordered.map((d) => d.label),
         label: null,
         tickSize: 0,
-        // Rotate steeper (-45°) so longer labels like "Nach 21:00" or
-        // "Donnerstag" don't bump into their neighbours on narrow viewports.
         tickRotate: -45,
       },
-      y: {
-        percent: true,
-        grid: true,
-        label: null,
-        ticks: isMobile ? 3 : 4,
-      },
+      y: { percent: true, grid: true, label: null, ticks: isMobile ? 3 : 4 },
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
         fontSize: `${fontPx}px`,
@@ -151,17 +81,15 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
           insetRight: 4,
           rx: RADIUS.bar,
           tip: true,
-          title: (d: Row) =>
+          title: (d) =>
             `${d.label}\n${fmtInt(d.count)} Antworten\n${fmtPct(d.share)}${
               answered > 0 ? ` von ${fmtInt(answered)}` : ""
             }`,
         }),
-        // Bar-end percent label, like BarH's end-of-bar — but on top of each
-        // column. Skipped on very small bars.
         Plot.text(ordered, {
           x: "label",
           y: "share",
-          text: (d: Row) => (d.share >= 0.04 ? fmtPct(d.share) : ""),
+          text: (d) => (d.share >= 0.04 ? fmtPct(d.share) : ""),
           dy: -6,
           textAnchor: "middle",
           fontWeight: 600,
@@ -174,29 +102,23 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
     [ordered, accent, answered, isMobile, marginTop, marginBottom, fontPx, axisPx],
   );
 
-  // Width hint for the SVG container — narrower-than-full when there are few
-  // bars so a 7-bar chart doesn't stretch awkwardly across a wide screen.
   const minWidth = ordered.length * BAR_BAND + MARGIN_LEFT + MARGIN_RIGHT;
-  const figClass =
-    ordered.length <= 7 ? "mx-auto w-full max-w-md" :
-    ordered.length <= 9 ? "mx-auto w-full max-w-xl" :
-    "w-full";
+  const width: "narrow" | "normal" | "wide" =
+    ordered.length <= 7 ? "narrow" : ordered.length <= 9 ? "normal" : "wide";
 
   return (
-    <figure className={figClass} style={{ minWidth: 0 }}>
+    <ChartFrame
+      width={width}
+      table={
+        <ChartTable
+          headers={["Kategorie", "Anzahl", "Anteil"]}
+          rows={ordered.map((d) => [d.label, fmtInt(d.count), fmtPct(d.share)])}
+        />
+      }
+    >
       <div style={{ minWidth }}>
         <PlotFigure options={options} />
       </div>
-      <table className="sr-only">
-        <thead>
-          <tr><th>Kategorie</th><th>Anzahl</th><th>Anteil</th></tr>
-        </thead>
-        <tbody>
-          {ordered.map((d) => (
-            <tr key={d.label}><td>{d.label}</td><td>{fmtInt(d.count)}</td><td>{fmtPct(d.share)}</td></tr>
-          ))}
-        </tbody>
-      </table>
-    </figure>
+    </ChartFrame>
   );
 }

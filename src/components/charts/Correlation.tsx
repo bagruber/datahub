@@ -4,6 +4,8 @@ import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
 import { CORRELATION_RAMP, INK, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ChartFrame } from "./ChartFrame";
+import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
 
 type Source = { source: string; label: string };
@@ -137,24 +139,22 @@ export function Correlation({ records, sources }: Props) {
   );
 
   return (
-    <figure>
+    <ChartFrame
+      width="wide"
+      table={
+        <ChartTable
+          headers={["", ...labels]}
+          rows={labels.map((row, i) => [
+            row,
+            ...labels.map((_, j) => {
+              const c = cells.find((x) => x.xi === j && x.yi === i);
+              return c && !Number.isNaN(c.r) ? c.r.toFixed(2) : "–";
+            }),
+          ])}
+        />
+      }
+    >
       <PlotFigure options={options} />
-      <table className="sr-only">
-        <thead>
-          <tr><th></th>{labels.map((l) => <th key={l}>{l}</th>)}</tr>
-        </thead>
-        <tbody>
-          {labels.map((row, i) => (
-            <tr key={row}>
-              <td>{row}</td>
-              {labels.map((_, j) => {
-                const c = cells.find((x) => x.xi === j && x.yi === i);
-                return <td key={j}>{c && !Number.isNaN(c.r) ? c.r.toFixed(2) : "–"}</td>;
-              })}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </figure>
+    </ChartFrame>
   );
 }

@@ -5,6 +5,8 @@ import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { CREAM, INK, RADIUS, STROKE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
+import { ChartFrame } from "./ChartFrame";
+import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
 
 type Option = { value: number; label: string; color: string };
@@ -154,16 +156,16 @@ export function Diverging3({ records, source, options }: Props) {
   );
 
   return (
-    <figure className="w-full">
+    <ChartFrame
+      width="wide"
+      table={
+        <ChartTable
+          headers={["Option", "Anzahl", "Anteil"]}
+          rows={data.map((d) => [d.label, fmtInt(d.count), fmtPct(d.share)])}
+        />
+      }
+    >
       <PlotFigure options={plotOptions} />
-      <table className="sr-only">
-        <thead><tr><th>Option</th><th>Anzahl</th><th>Anteil</th></tr></thead>
-        <tbody>
-          {data.map((d) => (
-            <tr key={d.label}><td>{d.label}</td><td>{fmtInt(d.count)}</td><td>{fmtPct(d.share)}</td></tr>
-          ))}
-        </tbody>
-      </table>
-    </figure>
+    </ChartFrame>
   );
 }
