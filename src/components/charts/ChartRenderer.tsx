@@ -9,9 +9,9 @@ import type { ChartSpec, Codebook, Dataset } from "@/lib/data";
 // named (not default) components — React.lazy requires a `default` export.
 const BarH        = lazy(() => import("./BarH").then((m)        => ({ default: m.BarH })));
 const BarV        = lazy(() => import("./BarV").then((m)        => ({ default: m.BarV })));
-const Likert6     = lazy(() => import("./Likert6").then((m)     => ({ default: m.Likert6 })));
-const Likert5     = lazy(() => import("./Likert5").then((m)     => ({ default: m.Likert5 })));
-const Price       = lazy(() => import("./Price").then((m)       => ({ default: m.Price })));
+// One shared lazy chunk for the Likert/Price family — they all funnel
+// through <DivergingLikert /> with different scale + tone + endpoints.
+const DivergingLikert = lazy(() => import("./DivergingLikert").then((m) => ({ default: m.DivergingLikert })));
 const Diverging3  = lazy(() => import("./Diverging3").then((m)  => ({ default: m.Diverging3 })));
 const Pie         = lazy(() => import("./Pie").then((m)         => ({ default: m.Pie })));
 const Likert5Group = lazy(() => import("./Likert5Group").then((m) => ({ default: m.Likert5Group })));
@@ -79,32 +79,34 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
       );
     case "likert6":
       return (
-        <Likert6
+        <DivergingLikert
           records={records}
           codebook={codebook}
           items={spec.items}
-          title={spec.title}
+          scale={6}
+          tone="evaluative"
           endpoints={spec.endpoints}
         />
       );
     case "likert5":
       return (
-        <Likert5
+        <DivergingLikert
           records={records}
           codebook={codebook}
           items={spec.items}
-          title={spec.title}
+          scale={5}
+          tone="evaluative"
           endpoints={spec.endpoints}
         />
       );
     case "price":
       return (
-        <Price
+        <DivergingLikert
           records={records}
           codebook={codebook}
           items={spec.items}
           scale={spec.scale}
-          title={spec.title}
+          tone="neutral"
           endpoints={spec.endpoints}
         />
       );
@@ -153,6 +155,7 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
       return (
         <Likert5Group
           records={records}
+          codebook={codebook}
           dimLabels={spec.dimLabels}
           invertedDims={spec.invertedDims ?? []}
           innovations={spec.innovations}
