@@ -1,18 +1,12 @@
 import { useMemo } from "react";
-import * as Plot from "@observablehq/plot";
-import { PlotFigure } from "@/lib/Plot";
-import { asScalar } from "@/lib/record";
-import { divergingStack } from "@/lib/diverging";
-import { fmtInt, fmtPct } from "@/lib/format";
-import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
-import { useIsMobile } from "@/lib/useIsMobile";
-import { ScaleCaption } from "./ScaleCaption";
-import type { Dataset } from "@/lib/data";
+import { DivergingLikert } from "./DivergingLikert";
+import type { Codebook, Dataset } from "@/lib/data";
 
 type Innovation = { key: string; name: string; sources: string[] };
 
 type Props = {
   records: Dataset["records"];
+  codebook: Codebook;
   dimLabels: string[];
   invertedDims: number[];
   innovations: Innovation[];
@@ -20,19 +14,29 @@ type Props = {
   endpoints?: { left: string; right: string };
 };
 
-const SCALE = [1, 2, 3, 4, 5];
-
-export function Likert5Group({ records, dimLabels, invertedDims, innovations, endpoints }: Props) {
+/** Per-innovation grid of compact 5-point Likerts. Inversion (e.g. "Bedenken"
+ *  where high = bad) is applied by index so the chart reads consistently as
+ *  "higher = better" across all dimensions. */
+export function Likert5Group({
+  records,
+  codebook,
+  dimLabels,
+  invertedDims,
+  innovations,
+  endpoints,
+}: Props) {
   const left = endpoints?.left ?? "stimme nicht zu";
   const right = endpoints?.right ?? "stimme voll zu";
+
   return (
     <div className="grid gap-6 lg:grid-cols-2">
       {innovations.map((inn) => (
         <InnovationPanel
           key={inn.key}
-          innovation={inn}
+          name={inn.name}
+          items={inn.sources.map((source, i) => ({ source, label: dimLabels[i] ?? `Dim ${i + 1}` }))}
           records={records}
-          dimLabels={dimLabels}
+          codebook={codebook}
           invertedDims={invertedDims}
           left={left}
           right={right}
@@ -42,135 +46,39 @@ export function Likert5Group({ records, dimLabels, invertedDims, innovations, en
   );
 }
 
-type Row = {
-  dim: string;
-  rating: number;
-  share: number;
-  count: number;
-  n: number;
-  x1: number;
-  x2: number;
-};
-
 function InnovationPanel({
-  innovation,
+  name,
+  items,
   records,
-  dimLabels,
+  codebook,
   invertedDims,
   left,
   right,
 }: {
-  innovation: Innovation;
+  name: string;
+  items: { source: string; label: string }[];
   records: Dataset["records"];
-  dimLabels: string[];
+  codebook: Codebook;
   invertedDims: number[];
   left: string;
   right: string;
 }) {
-  const inverted = useMemo(() => new Set(invertedDims), [invertedDims]);
-
-  // The per-dim distribution here is computed inline because we need to invert
-  // some dimensions on the fly — `distributionOnScale` reads raw values only.
-  const rows: Row[] = useMemo(() => {
-    const out: Row[] = [];
-    innovation.sources.forEach((src, di) => {
-      const counts = new Map<number, number>(SCALE.map((k) => [k, 0]));
-      let n = 0;
-      for (const r of records) {
-        const raw = asScalar(r[src]);
-        if (raw === null) continue;
-        const v = inverted.has(di) ? 6 - raw : raw;
-        if (!counts.has(v)) continue;
-        n++;
-        counts.set(v, counts.get(v)! + 1);
-      }
-      const shares = SCALE.map((k) => (n === 0 ? 0 : counts.get(k)! / n));
-      const segs = divergingStack(shares, { negative: [1, 0], center: 2, positive: [3, 4] });
-      const dim = dimLabels[di] ?? `Dim ${di + 1}`;
-      segs.forEach((seg) => {
-        const rating = SCALE[seg.idx];
-        out.push({
-          dim,
-          rating,
-          share: shares[seg.idx],
-          count: counts.get(rating)!,
-          n,
-          x1: seg.x1,
-          x2: seg.x2,
-        });
-      });
-    });
-    return out;
-  }, [innovation, records, dimLabels, inverted]);
-
-  const isMobile = useIsMobile();
-  const dimOrder = useMemo(
-    () => innovation.sources.map((_, di) => dimLabels[di] ?? `Dim ${di + 1}`).reverse(),
-    [innovation.sources, dimLabels],
-  );
-
-  const marginLeft = isMobile ? 100 : 160;
-  const fontPx = isMobile ? 10 : 12;
-
-  const extent = useMemo(() => {
-    const m = rows.reduce((a, r) => Math.max(a, Math.abs(r.x1), Math.abs(r.x2)), 0);
-    return Math.max(0.5, Math.ceil(m * 10) / 10);
-  }, [rows]);
-
-  const options: Plot.PlotOptions = useMemo(
-    () => ({
-      height: dimOrder.length * 28 + 60,
-      marginLeft,
-      marginRight: 16,
-      marginTop: 32,
-      marginBottom: 24,
-      x: {
-        domain: [-extent, extent],
-        axis: "top",
-        label: null,
-        grid: true,
-        ticks: isMobile ? 4 : 5,
-        tickFormat: (v: number) => `${Math.abs(Math.round(v * 100))}%`,
-      },
-      y: { domain: dimOrder, label: null, tickSize: 0 },
-      color: {
-        type: "ordinal",
-        domain: SCALE,
-        range: LIKERT5_RAMP,
-        legend: true,
-        label: "1 = stimme gar nicht zu  ·  5 = stimme voll zu",
-      },
-      style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
-        fontSize: `${fontPx}px`,
-        color: INK,
-      },
-      marks: [
-        Plot.barX(rows, {
-          x1: "x1",
-          x2: "x2",
-          y: "dim",
-          fill: "rating",
-          insetTop: 3,
-          insetBottom: 3,
-          rx: RADIUS.bar,
-          tip: true,
-          title: (d: Row) =>
-            `${d.dim}\nBewertung ${d.rating}\n${fmtInt(d.count)} von ${fmtInt(d.n)}\n${fmtPct(d.share)}`,
-        }),
-        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
-      ],
-    }),
-    [rows, dimOrder, marginLeft, extent, isMobile, fontPx],
-  );
+  const invertedSet = useMemo(() => new Set(invertedDims), [invertedDims]);
+  const invertItem = useMemo(() => (i: number) => invertedSet.has(i), [invertedSet]);
 
   return (
     <figure className="rounded-lg border border-ink-line bg-cream/40 p-3">
-      <figcaption className="font-semibold text-ink mb-2 text-sm sm:text-base">
-        {innovation.name}
-      </figcaption>
-      <PlotFigure options={options} />
-      <ScaleCaption left={left} right={right} />
+      <figcaption className="font-semibold text-ink mb-2 text-sm sm:text-base">{name}</figcaption>
+      <DivergingLikert
+        records={records}
+        codebook={codebook}
+        items={items}
+        scale={5}
+        tone="evaluative"
+        density="compact"
+        endpoints={{ left, right }}
+        invertItem={invertItem}
+      />
     </figure>
   );
 }
