@@ -1,16 +1,24 @@
+import { lazy, Suspense } from "react";
 import type { ChartSpec, Codebook, Dataset } from "@/lib/data";
-import { BarH } from "./BarH";
-import { BarV } from "./BarV";
-import { Likert6 } from "./Likert6";
-import { Likert5 } from "./Likert5";
-import { Price } from "./Price";
-import { Diverging3 } from "./Diverging3";
-import { Pie } from "./Pie";
-import { Likert5Group } from "./Likert5Group";
-import { Radar } from "./Radar";
-import { Correlation } from "./Correlation";
-import { Venn2 } from "./Venn2";
-import { Venn3 } from "./Venn3";
+
+// Each chart is lazy-loaded so a dataset page only pulls in the chart code it
+// actually uses. Observable Plot + the diverging/SVG components together are
+// ~300 KB; visiting Christkindlmarkt no longer downloads Radar/Venn3, etc.
+//
+// The `.then(m => ({default: m.X}))` shim is because our chart modules export
+// named (not default) components — React.lazy requires a `default` export.
+const BarH        = lazy(() => import("./BarH").then((m)        => ({ default: m.BarH })));
+const BarV        = lazy(() => import("./BarV").then((m)        => ({ default: m.BarV })));
+const Likert6     = lazy(() => import("./Likert6").then((m)     => ({ default: m.Likert6 })));
+const Likert5     = lazy(() => import("./Likert5").then((m)     => ({ default: m.Likert5 })));
+const Price       = lazy(() => import("./Price").then((m)       => ({ default: m.Price })));
+const Diverging3  = lazy(() => import("./Diverging3").then((m)  => ({ default: m.Diverging3 })));
+const Pie         = lazy(() => import("./Pie").then((m)         => ({ default: m.Pie })));
+const Likert5Group = lazy(() => import("./Likert5Group").then((m) => ({ default: m.Likert5Group })));
+const Radar       = lazy(() => import("./Radar").then((m)       => ({ default: m.Radar })));
+const Correlation = lazy(() => import("./Correlation").then((m) => ({ default: m.Correlation })));
+const Venn2       = lazy(() => import("./Venn2").then((m)       => ({ default: m.Venn2 })));
+const Venn3       = lazy(() => import("./Venn3").then((m)       => ({ default: m.Venn3 })));
 
 type Props = {
   spec: ChartSpec;
@@ -20,8 +28,28 @@ type Props = {
   suppressTitle?: boolean;
 };
 
+/** Skeleton shown while a chart bundle is being fetched. Sized so the
+ *  surrounding card height doesn't snap when the chart resolves. */
+function ChartFallback() {
+  return (
+    <div
+      className="h-48 sm:h-56 rounded-md bg-cream-dark/60 animate-pulse"
+      aria-busy="true"
+      aria-label="Diagramm wird geladen"
+    />
+  );
+}
+
 export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props) {
-  void suppressTitle; // each chart now omits its own caption — kept for future use
+  void suppressTitle;
+  return (
+    <Suspense fallback={<ChartFallback />}>
+      {render(spec, records, codebook)}
+    </Suspense>
+  );
+}
+
+function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook) {
   switch (spec.type) {
     case "bar_h":
       return (
@@ -151,7 +179,6 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
         />
       );
     case "venn2": {
-      // Default to high-contrast red + blue.
       const colors = spec.colors ?? ["#c8102e", "#1f77b4"];
       return (
         <Venn2
@@ -165,7 +192,6 @@ export function ChartRenderer({ spec, records, codebook, suppressTitle }: Props)
       );
     }
     case "venn3": {
-      // Default: yellow + blue + red (high pairwise contrast on cream).
       const colors = spec.colors ?? ["#e2a900", "#1f77b4", "#c8102e"];
       return (
         <Venn3

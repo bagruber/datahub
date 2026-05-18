@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
+import { asScalar } from "@/lib/record";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, LIKERT5_RAMP, RADIUS, STROKE } from "@/lib/palette";
@@ -68,21 +69,22 @@ function InnovationPanel({
 }) {
   const inverted = useMemo(() => new Set(invertedDims), [invertedDims]);
 
+  // The per-dim distribution here is computed inline because we need to invert
+  // some dimensions on the fly — `distributionOnScale` reads raw values only.
   const rows: Row[] = useMemo(() => {
     const out: Row[] = [];
     innovation.sources.forEach((src, di) => {
       const counts = new Map<number, number>(SCALE.map((k) => [k, 0]));
       let n = 0;
       for (const r of records) {
-        const raw = r[src];
-        if (typeof raw !== "number") continue;
+        const raw = asScalar(r[src]);
+        if (raw === null) continue;
         const v = inverted.has(di) ? 6 - raw : raw;
         if (!counts.has(v)) continue;
         n++;
         counts.set(v, counts.get(v)! + 1);
       }
       const shares = SCALE.map((k) => (n === 0 ? 0 : counts.get(k)! / n));
-      // 5-point with neutral at index 2 (rating 3).
       const segs = divergingStack(shares, { negative: [1, 0], center: 2, positive: [3, 4] });
       const dim = dimLabels[di] ?? `Dim ${di + 1}`;
       segs.forEach((seg) => {
@@ -101,13 +103,12 @@ function InnovationPanel({
     return out;
   }, [innovation, records, dimLabels, inverted]);
 
+  const isMobile = useIsMobile();
   const dimOrder = useMemo(
-    () =>
-      innovation.sources.map((_, di) => dimLabels[di] ?? `Dim ${di + 1}`).reverse(),
+    () => innovation.sources.map((_, di) => dimLabels[di] ?? `Dim ${di + 1}`).reverse(),
     [innovation.sources, dimLabels],
   );
 
-  const isMobile = useIsMobile();
   const marginLeft = isMobile ? 100 : 160;
   const fontPx = isMobile ? 10 : 12;
 
@@ -142,7 +143,7 @@ function InnovationPanel({
       style: {
         fontFamily: "Inter Variable, Inter, sans-serif",
         fontSize: `${fontPx}px`,
-        color: "#1c1c1c",
+        color: INK,
       },
       marks: [
         Plot.barX(rows, {
@@ -160,7 +161,7 @@ function InnovationPanel({
         Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
       ],
     }),
-    [rows, dimOrder, marginLeft, extent],
+    [rows, dimOrder, marginLeft, extent, isMobile, fontPx],
   );
 
   return (
