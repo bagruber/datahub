@@ -91,7 +91,7 @@ export function Dataset() {
       {/* Hero */}
       <header className="py-10 sm:py-14">
         <Link to="/" className="eyebrow text-ink-muted hover:text-ink">
-          ← Datenhub
+          ← Data Hub
         </Link>
         <h1 className="headline text-display-2 sm:text-display-1 mt-3">
           {dataset.meta.title}
@@ -198,7 +198,10 @@ export function Dataset() {
                   )}
                   {HELP[c.type] && <HelpIcon explanation={HELP[c.type]} />}
                 </div>
-                {filteredRecords.length === 0 ? (
+                {/* Survey charts read from records and need the "no matches"
+                    guard. Statistik charts carry their data inline, so an
+                    empty records[] is the normal case and not an error. */}
+                {dataset.kind !== "statistik" && filteredRecords.length === 0 ? (
                   <p className="text-ink-muted text-sm py-8 text-center">
                     Keine Antworten passen zum aktuellen Filter.
                   </p>

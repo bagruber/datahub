@@ -14,7 +14,7 @@ export function Header() {
             className="w-9 h-9"
           />
           <span className="leading-tight">
-            <span className="block headline text-[1.05rem] sm:text-[1.2rem]">Datenhub</span>
+            <span className="block headline text-[1.05rem] sm:text-[1.2rem]">Data Hub</span>
             <span className="block eyebrow text-[0.65rem]">Moosburg an der Isar</span>
           </span>
         </Link>
