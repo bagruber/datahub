@@ -113,4 +113,38 @@ export type ChartSpec =
       values: number[]; // [codeA, codeB, codeC]
       labels: string[]; // 3 entries
       colors?: string[]; // 3 entries
+    }
+  // ── Pre-aggregated chart types (used by Statistik kommunal) ─────────
+  // These charts carry their data inline because the underlying dataset
+  // doesn't have raw records — it's tabular time-series and snapshots
+  // from official statistics.
+  | {
+      type: "line_series";
+      id: string;
+      title: string;
+      series: { label: string; color?: string; data: { x: number; y: number }[] }[];
+      xLabel?: string;
+      yLabel?: string;
+      /** When true, draws line markers (Plot.dot) at each data point. */
+      markers?: boolean;
+    }
+  | {
+      type: "stacked_column";
+      id: string;
+      title: string;
+      /** Sub-categories that sum to a meaningful total. */
+      series: { label: string; color?: string; data: { x: number; y: number }[] }[];
+      xLabel?: string;
+      yLabel?: string;
+    }
+  | {
+      type: "pyramid";
+      id: string;
+      title: string;
+      /** Bottom-to-top ordering: first entry sits at the bottom of the pyramid. */
+      groups: { label: string; left: number; right: number }[];
+      leftLabel: string;
+      rightLabel: string;
+      leftColor?: string;
+      rightColor?: string;
     };

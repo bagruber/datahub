@@ -19,6 +19,9 @@ const Radar       = lazy(() => import("./Radar").then((m)       => ({ default: m
 const Correlation = lazy(() => import("./Correlation").then((m) => ({ default: m.Correlation })));
 const Venn2       = lazy(() => import("./Venn2").then((m)       => ({ default: m.Venn2 })));
 const Venn3       = lazy(() => import("./Venn3").then((m)       => ({ default: m.Venn3 })));
+const LineSeries    = lazy(() => import("./LineSeries").then((m)    => ({ default: m.LineSeries })));
+const StackedColumn = lazy(() => import("./StackedColumn").then((m) => ({ default: m.StackedColumn })));
+const Pyramid       = lazy(() => import("./Pyramid").then((m)       => ({ default: m.Pyramid })));
 
 type Props = {
   spec: ChartSpec;
@@ -207,6 +210,36 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
         />
       );
     }
+    case "line_series":
+      return (
+        <LineSeries
+          series={spec.series}
+          xLabel={spec.xLabel}
+          yLabel={spec.yLabel}
+          markers={spec.markers}
+          title={spec.title}
+        />
+      );
+    case "stacked_column":
+      return (
+        <StackedColumn
+          series={spec.series}
+          xLabel={spec.xLabel}
+          yLabel={spec.yLabel}
+          title={spec.title}
+        />
+      );
+    case "pyramid":
+      return (
+        <Pyramid
+          groups={spec.groups}
+          leftLabel={spec.leftLabel}
+          rightLabel={spec.rightLabel}
+          leftColor={spec.leftColor}
+          rightColor={spec.rightColor}
+          title={spec.title}
+        />
+      );
     default:
       return <UnsupportedChart type={(spec as { type: string }).type} />;
   }

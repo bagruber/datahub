@@ -52,12 +52,20 @@ export type Section = {
   charts: ChartSpec[];
 };
 
+/** Kind of dataset.
+ *  - "survey":    citizen survey with raw records, demographic filters, etc.
+ *  - "statistik": pre-aggregated official data (e.g. Bayerisches Landesamt
+ *                 für Statistik). No records, no filters; chart data inline. */
+export type DatasetKind = "survey" | "statistik";
+
 export type DatasetMeta = {
   id: string;
   title: string;
   year: number;
   n: number;
   description?: string;
+  /** Source attribution shown on the dataset page (statistik kind). */
+  source?: string;
 };
 
 export type PressOutlet = "sz" | "merkur" | "mz" | "idowa";
@@ -74,6 +82,8 @@ export type PressLink = {
 
 export type Dataset = {
   meta: DatasetMeta;
+  /** Defaults to "survey" when absent (backwards compat). */
+  kind?: DatasetKind;
   codebook: Codebook;
   filters: FilterSpec[];
   sections: Section[];
@@ -87,7 +97,15 @@ export type Dataset = {
 };
 
 // ── Manifest + loaders ────────────────────────────────────────────────
-export type ManifestEntry = { id: string; file: string; title: string; year: number; n: number };
+export type ManifestEntry = {
+  id: string;
+  file: string;
+  title: string;
+  year: number;
+  n: number;
+  /** "survey" (default) or "statistik" — controls home-card styling. */
+  kind?: DatasetKind;
+};
 export type Manifest = { datasets: ManifestEntry[] };
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data/`;

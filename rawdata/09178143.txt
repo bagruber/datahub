@@ -1,0 +1,2157 @@
+Statistik kommunal 2022
+
+Stadt
+Moosburg a.d.Isar
+09 178 143
+
+Eine Auswahl wichtiger statistischer Daten
+
+   Herausgegeben im März 2023
+HeBraeussteglelnguembemneirmZ5Ju0n0i221021052200
+Bestellnummer Z50021 201400
+
+                                                  www.statistik.bayern.de
+Zeichenerklärung                                               Auf- und Abrundungen
+
+0 mehr als nichts, aber weniger als die Hälfte der kleinsten Im Allgemeinen ist ohne Rücksicht auf die Endsummen auf-
+
+   in der Tabelle nachgewiesenen Einheit                       bzw. abgerundet worden. Deshalb können sich bei der Sum-
+
+­ nichts vorhanden oder keine Veränderung                      mierung von Einzelangaben geringfügige Abweichungen zu
+                                                               den ausgewiesenen Endsummen ergeben. Bei der Aufglie-
+/  keine Angabe, da Zahl nicht sicher genug                    derung der Gesamtheit in Prozent kann die Summe der
+
+· Zahlenwert unbekannt, geheimzuhalten oder nicht              Einzelwerte wegen Rundens vom Wert 100 % abweichen.
+
+   rechenbar                                                   Eine Abstimmung auf 100 % erfolgt im Allgemeinen nicht.
+
+... Angabe fällt später an
+
+x Aussage nicht sinnvoll; bei Wahlen: Partei nicht
+         angetreten oder noch nicht bzw. nicht mehr existent
+
+( ) Nachweis unter dem Vorbehalt, dass der Zahlenwert
+         erhebliche Fehler aufweisen kann
+
+p vorläufiges Ergebnis
+
+r  berichtigtes Ergebnis
+
+s geschätztes Ergebnis
+
+D Durchschnitt
+
+ entspricht
+
+Publikationsservice
+
+Das Bayerische Landesamt für Statistik veröffentlicht jährlich über 400 Publikationen. Das aktuelle Veröffentlichungsverzeich-
+nis ist im Internet als Datei verfügbar und kann auch als Druckversion kostenlos zugesandt werden.
+
+Kostenlos                                                      Newsletter Veröffentlichungen
+ist der Download der meisten Veröffentlichungen, z.B. von      Die Themenbereiche können individuell ausgewählt werden.
+Statistischen Berichten (PDF- oder Excel-Format).              Über Neuerscheinungen wird aktuell informiert.
+
+Kostenpflichtig                                                Webshop
+
+sind alle Printversionen (auch von Statistischen Berichten),                Alle Veröffentlichungen sind im Internet
+Datenträger und ausgewählte Dateien (z.B. von Verzeichnissen,               verfügbar unter
+von Beiträgen, vom Jahrbuch).                                                www.statistik.bayern.de/veroeffentlichungen
+
+Impressum
+
+Statistik kommunal 2022                                        Vertrieb  vertrieb@statistik.bayern.de
+                                                               E-Mail    0911 98208-6311
+Eine Auswahl wichtiger statistischer Daten                     Telefon   0911 98208-96638
+für die jeweilige Regionaleinheit,
+dargestellt in Tabellen und Graphiken                          Telefax
+
+Erscheinungsweise                                              Auskunftsdienst
+jährlich
+                                                               E-Mail    info@statistik.bayern.de
+Redaktionsschluss                                              Telefon   0911 98208-6563
+28. Februar 2023
+                                                               Telefax   0911 98208-96563
+Herausgeber, Druck und Vertrieb
+Bayerisches Landesamt für Statistik                            © Bayerisches Landesamt für Statistik, Fürth 2023
+Nürnberger Str. 95                                                Vervielfältigung und Verbreitung, auch auszugsweise,
+90762 Fürth                                                       mit Quellenangabe gestattet.
+
+Preise
+
+Heft 8,00 
+DVD (PDF- und CSV-Format) komplett für alle Regionaleinheiten
+(bis auf Gemeindeebene) 128,00 
+Abonnement mit mind. 2 Jahren Laufzeit 64,00 
+09 178 143 Moosburg a.d.Isar
+
+Statistik kommunal 2022
+Stadt
+Moosburg a.d.Isar
+
+Regionalschlüssel............................................ 09 178 143
+Landkreis.......................................................... Freising
+Regierungsbezirk............................................. Oberbayern
+Verwaltungsgemeinschaft................................
+Region.............................................................. München
+
+Gauß-Krüger-Koordinaten: Rechtswert............ 4495344
+Gauß-Krüger-Koordinaten: Hochwert.............. 5369967
+
+Breitengrad.................... N                 Grad  Minuten  Sekunden
+Längengrad................... O                    48      28         6
+                                                   11      56         13
+
+Anmerkung zu den Gauß-Krüger-Koordinaten/Längen- und Breitengraden:
+Die Koordinaten (Stand: 2022) stellen einen zentralen Punkt der Gemeinde dar.
+Quelle: Landesamt für Digitalisierung, Breitband und Vermessung Bayern
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                               Bayerisches Landesamt für
+                                                                                                        Statistik
+Statistik kommunal 2022                                          3
+09 178 143 Moosburg a.d.Isar
+
+STATISTIK kommunal
+führt den bis 1998 im zweijährigen Abstand erschienenen statistischen Informationsdienst des Landesamts seit dem
+Jahr 2000 jährlich fort. Die Veröffentlichung bietet in 33 Tabellen und 21 Diagrammen mit rund 2300 Daten die
+wichtigsten statistischen Informationen für jede Regionaleinheit Bayerns (ab Gemeindeebene). Die Angaben basieren
+im Wesentlichen auf der Statistischen Datenbank des Landesamts und werden, auch bei unterjährigen Statistiken, nur
+mit ihrem Jahresergebnis nachgewiesen. Da manche Erhebungen nur in mehrjährigem Turnus stattfinden, können
+diese ­ je nach Turnus ­ als aktuellstes Ergebnis nur ein früheres Jahr als die jährlich durchgeführten Statistiken
+nachweisen.
+
+Allgemeine Hinweise zum Gebietsstand
+Ergebnisse für Berichtsjahre bzw. -zeiträume nach dem 1. Januar 1994 haben den Gebietsstand der jeweiligen
+Erhebung. Ergebnisse aus Erhebungen, die vor dem 1. Januar 1994 durchgeführt wurden, sind auf den
+Gebietsstand 1. Januar 1994 umgerechnet. Mit diesem Stichtag hat sich die Zahl der Gemeinden in Bayern durch
+Wiederherstellungen von 2051 auf 2056 erhöht und seitdem nicht mehr verändert. Bei den Gebietsänderungen ab dem
+2. Januar 1994 handelt es sich nur um geringfügige Teilausgliederungen, die jeweils ab dem Zeitpunkt der
+Rechtswirksamkeit berücksichtigt sind. Auf die einzelnen Erhebungen haben diese zum Großteil keine Auswirkungen,
+da lediglich einige wenige Einwohner und geringe Flächen (Grundstücke) von der Umgliederung in eine andere
+Gemeinde betroffen waren.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­     Bayerisches Landesamt für
+                                                                              Statistik
+Statistik kommunal 2022                           4
+09 178 143 Moosburg a.d.Isar
+
+Inhaltsverzeichnis
+
+                                                                                                                                              Seite
+
+Bevölkerung ............................................................................................................................. 6, 7, 8
+
+Sozialversicherungspflichtig beschäftigte Arbeitnehmer ..........................................................                             8
+
+Arbeitslosenzahlen ...................................................................................................................        8
+
+Wahlen ..................................................................................................................................... 9, 10
+
+Gemeindefinanzen ................................................................................................................... 10
+
+Bauland .................................................................................................................................... 10
+
+Steuern ..................................................................................................................................... 11
+
+Wohnungsbestand, Wohnungsbau .......................................................................................... 12
+
+Flächenerhebungen, Bodennutzung ........................................................................................ 13
+
+Landwirtschaft .......................................................................................................................... 14
+
+Verarbeitendes Gewerbe, Gewerbeanzeigen, Bauhauptgewerbe ...........................................                                          15
+
+Straßenverkehrsunfälle ............................................................................................................ 15
+
+Kraftfahrzeugbestand .............................................................................................................. 16
+
+Tourismus ................................................................................................................................    16
+
+Kindertageseinrichtungen ......................................................................................................... 16
+
+Schulen ....................................................................................................................................  17
+
+Einrichtungen für ältere Menschen ........................................................................................... 17
+
+Sozialhilfe ................................................................................................................................. 18
+
+Öffentliche Wasserversorgung und Abwasserentsorgung .......................................................                                   18
+
+Erläuterungen ........................................................................................................................... 19
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­     Bayerisches Landesamt für
+                                                                              Statistik
+Statistik kommunal 2022                           5
+09 178 143 Moosburg a.d.Isar
+
+                                                          1. Bevölkerungsentwicklung seit 1840
+
+Volkszählung                        Bevölkerung                                                                                       Bevölkerung am 31. Dezember
+    bzw.
+                         insgesamt             Veränderung              Einwohner                      Jahr                                         Veränderung zum Vorjahr 1)
+   Zensus                                       31.12.2021                je km²                                           insgesamt
+                                            gegenüber ... in %
+                                                                                                                                                    Anzahl                      %
+
+01.12.1840                2 643                           630,6                    60                  2012                       16 971                           119                                 0,7
+01.12.1871                3 459                                                                                                   17 363
+01.12.1900                3 970                           458,2                    79                  2013                       17 654                           392                                 2,3
+16.06.1925                5 093                                                                                                   17 847
+17.05.1939                6 169                           386,4                    90                  2014                       18 181                           291                                 1,7
+13.09.1950               10 023                                                                                                   18 487
+06.06.1961               11 310                           279,1                  116                   2015                       18 510                           193                                 1,1
+27.05.1970               13 050                                                                                                   18 656
+25.05.1987               14 251                           213,0                  140                   2016                       18 893                           334                                 1,9
+09.05.2011               16 662                                                                                                   19 309
+                                                             92,6                228                   2017                                                        306                                 1,7
+
+                                                             70,7                257                   2018                                                        23                                  0,1
+
+                                                             48,0                297                   2019                                                        146                                 0,8
+
+                                                             35,5                324                   2020                                                        237                                 1,3
+
+                                                             15,9                379                   2021                                                        416                                 2,2
+
+1) Einschließlich bestandsrelevanter Korrekturen.                       Bevölkerungsentwicklung
+
+              25 000
+              20 000
+              15 000
+              10 000
+
+               5 000
+                     0
+
+                         1840
+                                                     1871
+                                                                                 1900
+                                                                                                          1925
+                                                                                                                       1939
+                                                                                                                                1950
+                                                                                                                                          1961
+                                                                                                                                                   1970
+                                                                                                                                                                    1987
+                                                                                                                                                                                         2011
+                                                                                                                                                                                                 2021
+
+                                    2. Volkszählung am 25. Mai 1987 und Zensus am 9. Mai 2011
+
+                                                                                               und zwar                                                              darunter
+                                                                                                                                                                   Einpersonen-
+Volkszählung bzw. Zensus                    Bevölkerung         römisch-katholisch             evangelisch-lutherisch             Ausländer              Privat-
+                                                                                                                                                        haushalte    haushalte
+
+                                                                Anzahl             %           Anzahl               %          Anzahl        %
+
+25. Mai 1987                                      14 251           11 097             77,9             1 487           10,4           1 401 9,8             5 549                1 445
+9. Mai 2011                                       16 662                                                                                                    7 328                2 417
+Veränderung 2011 zu 1987 in %                                      9 489              56,9             1 465           8,8            1 962 11,8            32,1                 67,3
+                                                    16,9
+                                                                   - 14,5              x               - 1,5                x         40,0      x
+
+                         3. Bevölkerung 1987, 2011 und 2021 nach Altersgruppen und Geschlecht
+
+                                                                                                         Bevölkerung
+
+Alter von...Jahren                             25. Mai 1987                                            9. Mai 2011                                  31. Dezember 2021
+
+                                    insgesamt                   weiblich                    insgesamt               weiblich                 insgesamt                 weiblich
+
+                                    Anzahl         %      Anzahl           %           Anzahl          %            Anzahl     %            Anzahl      %          Anzahl          %
+
+       unter 6                         956          6,7           461       6,3                901       5,4          455        5,4             1 311    6,8            625       6,5
+ 6 bis unter 15                      1 397          9,8           666       9,2              1 603       9,6          741        8,7             1 664    8,6            790       8,2
+15 bis unter 18                                     3,8           249       3,4                          3,2          240        2,8                      2,8            282       2,9
+18 bis unter 25                        545         12,4           841      11,6                534       8,9          716        8,4               544    7,7            677       7,0
+25 bis unter 30                      1 766          8,4           591       8,1              1 475       5,6          498        5,9             1 490    6,3            565       5,9
+30 bis unter 40                      1 199         14,2         1 056      14,5                         11,9        1 024       12,1             1 225   14,9          1 362      14,2
+40 bis unter 50                      2 019         14,7           960      13,2                929      17,5        1 438       16,9             2 879   12,8          1 226      12,7
+50 bis unter 65                      2 092         16,7         1 239      17,0              1 975      19,1        1 642       19,3             2 473   21,6          2 045      21,3
+                                     2 374         13,4         1 213      16,7              2 918      18,8        1 742       20,5             4 176   18,4          2 045      21,3
+    65 oder mehr                     1 903        100,0         7 276     100,0              3 190     100,0        8 496      100,0             3 547  100,0          9 617     100,0
+     insgesamt                      14 251                                                   3 137                                              19 309
+                                                                                            16 662
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                        Bayerisches Landesamt für
+                                                                                                                                                                                 Statistik
+Statistik kommunal 2022                                                                6
+09 178 143 Moosburg a.d.Isar
+
+                                                  Altersstruktur der Bevölkerung
+
+4 500
+4 000
+3 500
+3 000
+2 500
+2 000
+1 500
+1 000
+
+  500
+     0
+
+                         unter 6       6-15       15-18              18-25         25-30       30-40        40-50         50-65 65 oder mehr
+                                                                                                            1987
+                                                                     Alter von ... bis unter ... Jahren                   2011       2021
+
+                                                  4. Bevölkerungsbewegung seit 1960
+
+                                    Natürliche Bevölkerungsbewegung                            Wanderungen
+
+Jahr                     Lebendgeborene           Gestorbene                       Zugezogene               Fortgezogene             Bevölkerungs-
+                                                                                                                                     zunahme bzw.
+                         insgesamt   je 1 000     insgesamt           je 1 000  insgesamt   je 1 000     insgesamt         je 1 000  -abnahme (-)1)
+                                    Einwohner                        Einwohner             Einwohner                      Einwohner
+                                                                                                                                                          331
+1960                     214             19,0     114                10,1          858         76,3                  627  55,8                            212
+                                                                                                                                                           80
+1970                     176             13,4     153                11,7          916         69,9                  727  55,5                            416
+                                                                                                                                                           77
+1980                     152             11,5     154                11,6          589         44,5                  507  38,3                             68
+                                                                                                                                                           28
+1990                     192             12,6     168                11,0          1 089       71,4                  697  45,7                            149
+                                                                                                                                                          251
+2000                     158             9,5      142                8,6           956         57,6                  895  53,9                            417
+
+2010                     134             7,6      139                7,9           912         52,0                  839  47,8
+
+2018                     208             11,2     191                10,3          1 319       71,3         1 308         70,7
+
+2019                     165             8,8      195                10,5          1 539       82,5         1 360         72,9
+
+2020                     197             10,4     169                8,9           1 605       85,0         1 382         73,1
+
+2021                     242             12,5     210                10,9          1 720       89,1         1 335         69,1
+
+1) ohne bestandsrelevante Korrekturen
+
+         Natürliche Bevölkerungsbewegung                                                                      Wanderungen
+300
+                                                                                   2 000
+250                                                                                1 800
+                                                                                   1 600
+200                                                                                1 400
+                                                                                   1 200
+150                                                                                1 000
+
+100                                                                                  800
+                                                                                     600
+50                                                                                   400
+                                                                                     200
+0
+ 1960 1965 1970 1975 1980 1985 1990 1995 2000 2005 2010 2015 2021                       0
+                                                                                          1960 1965 1970 1975 1980 1985 1990 1995 2000 2005 2010 2015 2021
+
+                         Lebendgeborene           Gestorbene                                             Zugezogene       Fortgezogene
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                     Bayerisches Landesamt für
+                                                                                                                                                              Statistik
+Statistik kommunal 2022                                                         7
+09 178 143 Moosburg a.d.Isar
+
+                       5. Durchschnittsalter, Jugend- und Altenquotient der Bevölkerung seit 2012
+
+       Jahr             Durchschnittsalter                Jugend-      Alten-                         Durchschnittsalter der Bevölkerung
+             insgesamt männlich weiblich                  quotient    quotient
+
+2012                     42,6        41,4           43,7        33,4        31,5        45,0
+
+2013                     42,7        41,5           43,8        32,9        31,5        44,0
+
+2014                     42,7        41,6           43,8        32,9        31,1        43,0
+
+2015                     42,6        41,4           43,7        32,9        30,8        42,0
+
+2016                     42,4        41,1           43,7        32,2        29,8        41,0
+
+2017                     42,5        41,0           43,9        31,5        29,7
+
+2018                     42,6        41,3           43,9        31,2        29,9        40,0
+
+2019                     42,7        41,4           44,1        30,9        30,0        39,0
+
+2020                     42,7        41,3           44,0        31,3        29,9            2012 2013 2014 2015 2016 2017 2018 2019 2020 2021
+
+2021                     42,3        40,8           43,8        32,7        29,9                      insgesamt         männlich                              weiblich
+
+                               6. Sozialversicherungspflichtig beschäftigte Arbeitnehmer seit 2016
+
+             Gegenstand der Nachweisung                                                Sozialversicherungspflichtig beschäftigte Arbeitnehmer am 30. Juni 2)
+
+                                                                      2016              2017          2018              2019                 2020             2021
+
+Beschäftigte am Arbeitsort                                                  5 312             5 572              5 619        5 680                5 723            5 922
+                                                                            3 219             3 428              3 514        3 535                3 570            3 632
+davon        männlich                                                       2 093             2 144              2 105        2 145                2 153            2 290
+
+             weiblich                                                            .                 .                58           63                   59               60
+                                                                            2 673             2 798              2 853        2 861                2 859            2 793
+darunter 1) Land- und Forstwirtschaft, Fischerei                            1 134             1 183              1 213        1 259                1 327            1 504
+
+             Produzierendes Gewerbe                                              .              674                621          625                  578              610
+                                                                              837                  .               874          872                  900              955
+             Handel, Verkehr, Gastgewerbe                                   7 906                                8 303        8 452                8 531            8 647
+                                                                                              8 131
+             Unternehmensdienstleister
+
+             Öffentliche und private Dienstleister
+
+Beschäftigte am Wohnort
+
+1) Klassifikation der Wirtschaftszweige, Ausgabe 2008 (WZ 2008).
+2) Bei den Ergebnissen des Jahres 2016 handelt es sich um revidierte Werte der Bundesagentur für Arbeit; 2020 ­ 2021 vorläufige Ergebnisse.
+
+                                                          7. Arbeitslosenzahlen seit 2015
+
+       Jahr       Arbeitslose              Langzeitarbeitslose        Schwerbehinderte                und zwar          15- bis unter 25-Jährige 55- bis unter 65-Jährige
+             (Jahresdurchschnitt)                                                                     Ausländer
+
+2015                           258                              38                      24                       75                          31                         58
+
+2016                           265                              49                      28                       80                          32                         64
+
+2017                           259                              51                      32                       81                          31                         68
+
+2018                           262                              53                      32                       86                          28                         63
+
+2019                           283                              53                      27                       104                         33                         74
+
+2020                           393                              59                      34                       151                         54                         92
+
+2021                           396                              96                      39                       154                         44                         115
+
+             Entwicklung der Arbeitslosenzahlen insgesamt                              Arbeitslosenzahlen von ausgewählten Personengruppen
+
+       450                                                                              180           2016       2017   2018                 2019 2020 2021
+       400                                                                              160
+       350                                                                              140                                                  Schwerbehinderte
+       300                                                                              120                                                  15- bis unter 25-Jährige
+       250                                                                              100
+       200
+       150                                                                               80
+       100                                                                               60
+                                                                                         40
+         50                                                                              20
+          0
+                 2015 2016 2017 2018 2019 2020 2021                                        0
+                                                                                            2015
+Querschnittsveröffentlichungen ­ Z50021 202200 ­
+Statistik kommunal 2022                                                                       Langzeitarbeitslose
+                                                                                              Ausländer
+                                                                                              55- bis unter 65-Jährige
+
+                                                                                                                                                 Bayerisches Landesamt für
+
+                                                                                    8                                                                                   Statistik
+09 178 143 Moosburg a.d.Isar
+
+                                                             8. Landtagswahlen seit 1990
+
+                                                         Wahl-      Abgegebene                Von den gültigen Gesamtstimmen entfielen auf
+                                                         beteili-  Gesamtstimmen
+                           Stimm-
+    Wahltag              berechtigte     Wähler          gung                           CSU   GRÜNE                           FW            AfD       SPD FDP Sonstige
+                                                         in % insgesamt
+                                                                           darunter                                                      %
+                                                                           gültige
+
+    14.10.1990                10 787              6 936 64,3       13 872      13 635   49,4  13,2                                   X           X 25,7 3,4 8,2
+    25.09.1994                10 911
+    13.09.1998                10 947              7 249 66,4       14 498      14 309   46,8       9,6                               X           X 32,9 1,5 9,1
+    21.09.2003                11 626
+    28.09.2008                12 022              7 658 70,0       15 316      15 121   52,7       8,0                             9,1           X 21,8         ­         ­
+    22.09.2013                12 269
+    14.10.2018                12 563              6 487 55,8       12 974      12 821   61,3  11,5                                 4,4           X 15,1 1,6 6,2
+
+                                                  7 022 58,4       14 044      13 815   35,6  20,9                                 12,9          X 14,0 5,7 10,9
+
+                                                  8 112 66,1       16 224      16 012   44,1  15,0                                 10,1          X 16,9 2,0 11,9
+
+                                                  9 342 74,4       18 684      18 485   30,8  25,8                                 13,0     11,2 6,9 4,0 8,4
+
+                                                         9. Bundestagswahlen seit 1998
+
+                                                         Wahl- Ungültige Gültige              Von den gültigen Zweitstimmen entfielen auf
+
+    Wahltag                Wahl-         Wähler          beteili-                       CSU   SPD                             GRÜNE         FDP       AfD       Sonstige
+                         berechtigte                     gung
+
+                                                         in %      Zweitstimmen                                                          %
+
+    27.09.1998                10 989               8 614 78,4      60            8 554  46,7  35,0                                 5,9           4,2       X       8,2
+    22.09.2002                11 446               9 432 82,4
+    18.09.2005                11 726               9 312 79,4      61            9 371  61,1  24,4                                 7,1           3,7       X       3,7
+    27.09.2009                12 090               8 586 71,0
+    22.09.2013                12 314               8 684 70,5      92            9 220  49,0  24,7                                 8,0           8,8       X       9,6
+    24.09.2017                12 600               9 980 79,2
+    26.09.2021                12 688              10 155 80,0      75            8 511  42,6  15,7                                 12,2     12,9           X       16,5
+
+                                                                   59            8 625  46,8  18,9                                 9,6           3,7       5,2     15,8
+
+                                                                   62            9 918  36,0  15,0                                 10,5          8,9     13,8      15,8
+
+                                                                   37          10 118   29,5  18,5                                 15,8          9,7       8,8     17,8
+
+                                                             10. Europawahlen seit 1994
+
+                                                         Wahl- Ungültige Gültige              Von den gültigen Stimmen entfielen auf
+
+     Wahltag               Wahl-         Wähler          beteili-                       CSU   SPD                             GRÜNE         AfD       FW        Sonstige
+                         berechtigte                     gung
+    12.06.1994
+    13.06.1999                   10 920                  in %      Stimmen                                                               %
+    13.06.2004                   11 014
+    07.06.2009                   11 666           6 112 56,0       53            6 059  44,7  24,3                                 10,2          X         X       20,8
+    25.05.2014                   12 104           4 864 44,2
+    26.05.2019                   12 384           4 646 39,8       15            4 849  66,8  19,0                                 5,4           X         X       8,8
+                                 12 585           5 279 43,6
+                                                  5 129 41,4       41            4 605  56,2  13,7                                 12,1          X         X       17,9
+                                                  7 765 61,7
+                                                                   29            5 250  47,7  10,6                                 14,5          X         6,3     20,8
+
+                                                                   16            5 113  36,7  17,3                                 14,2     10,3           6,1     15,4
+
+                                                                   21            7 744  37,7       8,5                             20,2          9,4       6,0     18,1
+
+                   Landtagswahlen                                     Bundestagswahlen                       Europawahlen
+          Gültige Gesamtstimmen in %                             Gültige Zweitstimmen in %              Gültige Stimmen in %
+70                                                       70                                   80
+
+60                                                       60                                   70
+
+50                                                       50                                   60
+
+                                                                                              50
+
+40                                                       40
+
+                                                                                              40
+
+30                                                       30
+
+                                                                                              30
+
+20                                                       20
+                                                                                                                          20
+
+10                                                       10                                   10
+
+0                                                        0                                         0
+1990 1994 1998 2003 2008 2013 2018
+                                                         1998 2002 2005 2009 2013 2017 2021 1994 1999 2004 2009 2014 2019
+
+                         CSU                      Grüne            FW                   AfD                                   SPD                FDP
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                      Bayerisches Landesamt für
+                                                                                                                                                                               Statistik
+Statistik kommunal 2022                                                     9
+09 178 143 Moosburg a.d.Isar
+
+                         11. Wahl der Stadt- bzw. Gemeinderäte am 15. März 2020
+
+Gegenstand               Einheit                          Wert                      Wahlvorschlag             Gewichtete Stimmen                                 Sitze
+     der
+                                                                                                              Anzahl                  %           insgesamt             dar. Frauen
+Nachweisung
+
+Stimmberechtigte         Anzahl                           13 713           CSU                                           2 058           25,6                    6                   1
+Wähler                   Anzahl                            8 234           GRÜNE
+Wahlbeteiligung                                             60,0           FREIE WÄHLER                                  1 901           23,7                    6                   3
+Abgegebene Stimmzettel     %                               8 234           AFD
+dav. ungültig            Anzahl                                            SPD                                               ­               ­                   ­                   ­
+                         Anzahl                              210           FDP
+          gültig         Anzahl                            8 024           gemeinsame Wahlvorschläge                         456             5,7                 1                   ­
+                                                                           Wählergruppen
+                                                                           Sonstige                                          793             9,9                 2                   ­
+
+                                                                                                                             207             2,6                 1                   ­
+
+                                                                                                                         1 552           19,3                    4                   ­
+
+                                                                                                                             557             6,9                 2                   1
+
+                                                                                                                             500             6,2                 2                   ­
+
+Bürgermeister.................................... Dollinger, Josef, FREIE WÄHLER/Der Freie Wähler Moosburg e.V., gewählt am: 29.03.2020
+
+Landrat.............................................. Petz, Helmut, FREIE WÄHLER/Freie Wähler - Kreis Freising e.V., gewählt am: 29.03.2020
+
+                                                          12. Gemeindefinanzen seit 2017
+
+                                                                     2017                 2018                         2019                       2020                  2021
+
+Gegenstand der Nachweisung
+
+                                                                                                              1 000 
+
+Bruttoausgaben                                                             42 145                    55 076                  64 783                     96 599                99 979
+darunter Personalausgaben                                                   9 166                     9 333                  10 261                     10 825                11 182
+                                                                            6 252                     6 067                   6 163                      7 091                 7 515
+               laufender Sachaufwand                                        2 528                     4 568                   4 984                     11 222                12 967
+               Sachinvestitionen                                           22 487                    24 954                  25 320                     21 994                24 374
+Gemeindesteuereinnahmen
+darunter Grundsteuer A                                                         70                        70                      71                         74                    76
+               Grundsteuer B                                                2 304                     2 216                   2 257                      2 298                 2 383
+               Gewerbesteuer (netto)                                        7 976                     9 462                   9 051                      6 122                 7 663
+               Gemeindeanteil an der Einkommensteuer                       10 995                    11 911                  12 513                     11 943                12 672
+               Gemeindeanteil an der Umsatzsteuer                           1 116                     1 267                   1 400                      1 529                 1 551
+Gewerbesteuerumlage                                                         1 572                     2 355                   1 736
+Steuereinnahmekraft                                                        22 256                    24 733                  25 137                        745                   712
+Steuerkraftmesszahl                                                        14 783                    16 520                  19 343                     21 692                24 241
+Gemeindeschlüsselzuweisungen                                                3 247                     3 228                   2 522                     21 409                21 382
+Verschuldung                                                               23 036                    21 592                  20 088                      1 988                 2 366
+Verschuldung je Einwohner 1)                                               1,256                     1,166                   1,080                      20 251                14 482
+Planmäßig geleisteter Schuldendienst 2)                                                                                                                 1,081                 0,762
+Finanzkraft                                                                      ­                         ­                       ­
+                                                                           10 629                    10 590                  11 363                           ­                     ­
+                                                                                                                                                        12 176                12 745
+
+1) Bevölkerungsstand jeweils zum 30.06.
+2) Der Schuldendienst wird seit 2017 nicht mehr im Rahmen der Schuldenstatistik erhoben.
+
+                                                                     13. Bauland seit 2017
+
+                         Veräußerungsfälle                           Veräußerte Fläche                        Verkaufspreis                       Durchschnittlicher Kaufwert von
+                                                                                                                                                              Bauland
+
+Jahr
+
+                         Bauland                      baureifes      Bauland              baureifes           Bauland             baureifes        Bauland              baureifes
+                                                                                                                                                  insgesamt               Land
+                         insgesamt                        Land       insgesamt            Land                insgesamt           Land
+
+                                                  Anzahl                        1000 m²                                Tsd. Euro                                 /m²
+
+2017                              17                             10             55                   6        11 797                    3 999                    216          696
+
+2018                              32                             23             81                   48       29 173                  23 771                     358          495
+
+2019                              56                             52             47                   37       30 580                  29 784                     656          806
+
+2020                              40                             37             44                   36       15 346                  14 975                     352          412
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                        Bayerisches Landesamt für
+                                                                                                                                                                                 Statistik
+Statistik kommunal 2022                                                         10
+09 178 143 Moosburg a.d.Isar
+
+                                     14. Lohn- und Einkommensteuerstatistik seit 2013
+
+            Jahr                   Lohn- und       Gesamtbetrag der      Lohn- und                      Gesamtbetrag der Einkünfte je Lohn- und
+              ­­                  Einkommen-           Einkünfte     Einkommensteuer                      Einkommensteuerpflichtigen in Euro
+Einkommensgrößenklassen          steuerpflichtige
+             in                                                    1 000                      44 000
+                                     Anzahl                                                   43 000
+                                                                                              42 000
+         2013                          9 340               348 134                    58 974  41 000
+                                                                                              40 000
+         2014                          9 542               355 477                    60 256  39 000
+                                                                                              38 000
+         2015                          9 592               380 043                    65 844  37 000
+                                                                                              36 000
+         2016                          9 898               392 703                    66 430  35 000
+                                                                                              34 000
+         2017                          10 056              413 892                    71 168
+                                                                                                      2013
+         2018                          10 274              437 998                    75 275
+
+                                 Einkommensgrößenklassen 2018                                                 2014  2015  2016                         2017  2018
+
+             unter 5 000               1 264                 1 919                        51                     Steuerbelastung 1) in Prozent
+ 5 000 bis unter 10 000                  592                 4 459                        95        18
+10 000 bis unter 15 000                  689                 8 587                       191
+15 000 bis unter 20 000                  659                11 575                       588        17
+20 000 bis unter 25 000                  749                16 796                     1 240
+25 000 bis unter 30 000                  793                21 874                     2 005        16        2014  2015  2016                         2017  2018
+30 000 bis unter 35 000                  804                25 994                     2 980          2013
+35 000 bis unter 50 000                                     74 078                     9 924
+50 000 oder mehr                       1 770               272 716                    58 200
+                                       2 954
+
+1) Anteil der Lohn- und Einkommensteuer am Gesamtbetrag der Einkünfte.
+
+                                               15. Umsatzsteuerstatistik 1) seit 2011
+
+Jahr        Umsatz-                    Lieferungen und Leistungen                                   Lieferungen und Leistungen
+         steuerpflichtige                                                                           je Steuerpflichtigen in 1000 Euro
+
+                         Anzahl                    1 000 
+
+2011                             638                       446 617         1 000
+                                                           466 456           900
+2012                             629                       458 778           800
+                                                           424 644           700
+2013                             640                       432 836           600
+                                                           442 828           500
+2014                             627                       468 686           400
+                                                           519 410           300
+2015                             655                       542 077           200
+                                                           564 305           100
+2016                             654                                            0
+
+2017                             653
+
+2018                             644
+
+2019                             650
+
+2020 2)                          620
+
+                                                                                      2011 2012 2013 2014 2015 2016 2017 2018 2019 2020
+
+1) Die regionale Zuordnung des gesamten Unternehmensumsatzes erfolgt an dem für den Sitz der Geschäftsleitung zuständigen Finanzamt des Unternehmens.
+2) Ab 2020: Anhebung der Kleinunternehmergrenze von 17 500 Euro auf 22 000 Euro.
+
+                                                          Lieferungen und Leistungen in Millionen Euro
+600
+
+500
+
+400
+
+300
+
+200
+
+100
+
+0
+
+         2011                    2012             2013     2014            2015               2016      2017        2018  2019                         2020
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                  11                                            Bayerisches Landesamt für
+
+Statistik kommunal 2022                                                                                                                                      Statistik
+09 178 143 Moosburg a.d.Isar
+
+                                     16. Bestand an Wohngebäuden und Wohnungen seit 2018
+
+                                                                                                              Bestand am 31. Dezember
+
+       Gegenstand der Nachweisung                                            2018                         2019                   2020                  2021
+
+                                                                     Anzahl            %      Anzahl             %            Anzahl      %            Anzahl      %
+
+Wohngebäude 1)                                                               4 430     100,0              4 502  100,0           4 543    100,0        4 650       100,0
+darunter mit 1 Wohnung                                                       2 948      66,5              2 983   66,3           3 012     66,3        3 073        66,1
+                                                                                        18,6                      18,5                     18,4                     18,2
+       2 Wohnungen                                                             825      14,8                831   15,2             835     15,3          847        15,6
+                                                                               654     100,0                685  100,0             693    100,0          727       100,0
+       3 oder mehr Wohnungen                                                 8 443                        8 669                  8 771                 9 168
+
+Wohnungen 2) in Wohngebäuden
+darunter in Wohngebäuden mit
+
+       2 Wohnungen                                                     1 650            19,5            1 662     19,2             1 670   19,0          1 694      18,5
+                                                                       3 725            44,1            3 904     45,0             3 969   45,3          4 281      46,7
+       3 oder mehr Wohnungen                                           8 762           100,0            8 988    100,0             9 091  100,0          9 487     100,0
+                                                                                         3,0                       3,0                      3,0                      3,2
+Wohnungen 2) in Wohn- und Nichtwohngebäuden                              265             9,0              269      9,4               270    9,4            301      10,1
+                                                                         790            19,0              841     19,4               856   19,5            960      19,8
+davon  1 Raum                                                          1 669            22,6            1 743     22,3             1 771   22,3          1 874      22,1
+                                                                       1 978            18,0            2 007     17,8             2 029   17,7          2 101      17,2
+       2 Räumen                                                        1 579            14,4            1 599     14,2             1 606   14,3          1 631      14,1
+                                                                       1 264            13,9            1 275     14,0             1 296   13,9          1 336      13,5
+       3 Räumen                                                        1 217                            1 254                      1 263                 1 284
+                                                                     851 555               X          873 397        X           884 625      X        920 273         X
+       4 Räumen                                                        97,2                X            97,2         X             97,3       X          97,0          X
+                                                                      40 092               X           40 988        X            41 422      X         42 783         X
+       5 Räumen                                                          4,6               X              4,6        X               4,6      X            4,5         X
+
+       6 Räumen
+
+       7 oder mehr Räumen
+
+Wohnfläche der Wohnungen in Wohn- und Nichtwohngebäuden in m²
+
+Durchschnittliche Wohnfläche je Wohnung in m²
+
+Räume der Wohnungen in Wohn- und Nichtwohngebäuden
+
+Durchschnittliche Raumzahl je Wohnung
+
+                                                             17. Baugenehmigungen3) seit 2014
+
+                                          davon mit ... Wohnung(en)                                                              davon mit ... Räumen
+
+         Errichtung                                                                       Wohnungen in
+            neuer
+                                                                                              Wohn- und
+Jahr Wohn-
+         gebäude 1)              1                        2          3 oder mehr 1)           Nichtwohn-         1 oder 2              3 oder 4        5 oder mehr
+
+                                                                                          gebäuden 2) 4)
+
+                         Anzahl        %          Anzahl     %       Anzahl        %          Anzahl            Anzahl     %     Anzahl          %     Anzahl      %
+
+2014   106                       75    70,8               18 17,0            13 12,3                  224               43 19,2            83 37,1                 98 43,8
+                                 26                                                                                                        70 32,4                 35 16,2
+2015   43                        41    60,5               8 18,6             9 20,9                   216        111 51,4                 101 56,1                 46 25,6
+                                 22                                                                                                        71 50,7                 37 26,4
+2016   58                        55    70,7               5 8,6              12 20,7                  180               33 18,3           106 44,7                 77 32,5
+                                 46                                                                                                       124 44,9                 60 21,7
+2017   40                        51    55,0               7 17,5             11 27,5                  140               32 22,9           102 45,9                 63 28,4
+                                 25                                                                                                        55 38,2                 49 34,0
+2018   86                              64,0               5 5,8              26 30,2                  237               54 22,8
+                                 1
+2019   72                              63,9               10 13,9            16 22,2                  276               92 33,3
+                         Anzahl
+2020   79                              64,6               14 17,7            14 17,7                  222               57 25,7
+
+2021   51                              49,0               11 21,6            15 29,4                  144               40 27,8
+
+                                                             18. Baufertigstellungen3) seit 2014
+
+                                          davon mit ... Wohnung(en)                                                              davon mit ... Räumen
+
+         Errichtung                                       2          3 oder mehr 1)       Wohnungen in           1 oder 2              3 oder 4        5 oder mehr
+            neuer                                                                          Wohn- und
+                                                                                           Nichtwohn-
+Jahr Wohn-
+         gebäude 1)                                                                       gebäuden 2) 4)
+
+                                       %          Anzahl     %       Anzahl        %          Anzahl            Anzahl     %     Anzahl          %     Anzahl      %
+
+2014   69                        59 85,5                  9 13,0             1 1,4                        86            3 3,5              14 16,3              69 80,2
+                                                                                                                                           87 60,8              46 32,2
+2015   50                        29 58,0                  9 18,0             12 24,0                  143               10 7,0             94 48,7              48 24,9
+                                                                                                                                           36 22,9              21 13,4
+2016   47                        25 53,2                  10 21,3            12 25,5                  193               51 26,4            66 47,5              28 20,1
+                                                                                                                                          108 46,2              71 30,3
+2017   37                        26 70,3                  6 16,2             5 13,5                   157        100 63,7                  50 48,5              37 35,9
+                                                                                                                                          183 43,7             101 24,1
+2018   32                        23 71,9                  3 9,4              6 18,8                   139               45 32,4
+
+2019   78                        42 53,8                  8 10,3             28 35,9                  234               55 23,5
+
+2020   41                        29 70,7                  5 12,2             7 17,1                   103               16 15,5
+
+2021   122                       80 65,6                  14 11,5            28 23,0                  419        135 32,2
+
+1) Einschl. Wohnheime. - 2) Einschl. Wohnungen in Wohnheimen. 3) Einschl. Genehmigungsfreistellungsverfahren. - 4) Einschl. Baumaßnahmen an bestehenden Gebäuden.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                 Bayerisches Landesamt für
+                                                                                                                                                                          Statistik
+Statistik kommunal 2022                                                            12
+09 178 143 Moosburg a.d.Isar
+
+                               19. Flächenerhebungen zum 31. Dezember 2020 und 2021
+
+                                                                                                          Fläche am 31. Dezember
+
+                         Bodenfläche nach Nutzungsart                                        2020                                                    2021
+                                     (ALKIS)                                           ha
+
+                                                                                                             %                               ha                   %
+
+Siedlung                                                                                             609      13,9                                           609    13,9
+          dar.: Wohnbaufläche                                                                        281       6,4                                           282      6,4
+                    Industrie- und Gewerbefläche                                                     130       3,0                                           130      3,0
+                                                                                                     256       5,8                                           257      5,9
+Verkehr                                                                                            3 287      75,0                                         3 286    74,9
+Vegetation                                                                                         2 229      50,8                                         2 237    51,0
+                                                                                                     804      18,3                                           803    18,3
+          dar.: Landwirtschaft                                                                       234       5,3                                           234      5,3
+                    Wald                                                                           4 385     100,0                                         4 385   100,0
+                                                                                                     826      18,8                                           827    18,9
+Gewässer
+Bodenfläche insgesamt
+
+          dar.: Siedlungs- und Verkehrsfläche
+
+                                                              Anteile ausgewählter Flächen in Prozent
+80
+
+                                                                Anteile ausgewählter Flächen in Prozent
+60
+
+40
+
+20
+
+0                                                      Verkehr                         Vegetation                                            Gewässer
+                     Siedlung                                                                  2020
+
+                                                                                                                2021
+
+                                                  20. Bodennutzung1) 2007, 2010, 2016 und 2020
+
+                         Nutzungsart                                                                 Fläche in ha
+
+                                                                     2007              2010                           2016                                 2020
+
+Landwirtschaftlich genutzte Fläche (LF)                                        2 515                 2 665                                   2 497                    2 400
+darunter Dauergrünland                                                           359                   365                                     335                      332
+                                                                                 340                   363                                     329                      324
+          darunter Wiesen und Weiden 2)
+          Ackerland                                                            2 151                 2 291                                   2 159                    2 064
+          darunter Getreide                                                    1 359                 1 572                                   1 490                    1 432
+
+                          darunter Weizen insgesamt                              736                   837                                     783                      727
+                                         Roggen 3)                                  .                     .                                       .                         .
+                                         Wintergerste
+                                         Sommergerste                            161                   218                                     254                      180
+                                                                                 130                    76                                      56                       66
+                          Hülsenfrüchte                                                                 41                                      43                       96
+                          Hackfrüchte                                               .                   84                                                               75
+                          darunter Kartoffeln                                     58                     5                                        .
+                          Gartengewächse                                                                 5                                        .                         .
+                          Handelsgewächse                                           .                  284                                       5                         7
+                          darunter Winterraps                                       .                  256                                     271                          .
+                          Pflanzen zur Grünernte                                 354                   212                                     260                      181
+                          darunter Silomais einschließlich Grünmais              327                   174                                     208                      171
+                                                                                 212                                                           174                      132
+                                                                                 167
+
+1) Änderungen im Erfassungs- und Darstellungsbereich schränken die Vergleichbarkeit der Ergebnisse ab 2010 gegenüber den Vorerhebungen ein.
+2) Ohne ertragsarmes Dauergrünland / Weiden ohne Hutung.
+3) Ab 2010 auch Wintermenggetreide enthalten.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                     Bayerisches Landesamt für
+                                                                                                                                                                              Statistik
+Statistik kommunal 2022                                                    13
+09 178 143 Moosburg a.d.Isar
+
+                                              21. Viehhalter und Viehbestand 2007, 2016 und 2020
+
+                                                                                                             Viehhalter und Viehbestand 1)
+
+                                                                2007                                             2016 2)                                    2020 2)
+                                                                                                                                                             Tiere
+                         Tierart
+
+                                                  Halter        Tiere        Tiere je      Halter                Tiere         Tiere je         Halter                    Tiere je
+                                                                            Tierhalter                                        Tierhalter                                 Tierhalter
+
+Rinder                                                    25    1 533           61                           18  1 064                      59          13      628            48
+darunter Milchkühe
+Schweine                                                  13           277      21                           5          159                 32          4            95        24
+darunter Zuchtsauen
+                                                          4     1 046           262                          2            .                 .           1            .               .
+  andere Schweine
+Schafe                                                    2            .                .                    1            .                 .           1            .               .
+Pferde 3)
+Hühner                                                    X            X        X                            2            .                 .           1            .               .
+darunter Legehennen (1/2 Jahr oder älter)
+                                                          4            143      36                           6            57                10          2            .               .
+         Masthühner-/hähne
+                                                          13           100              8                    10         172                 17          8       114            14
+
+                                                          17           495      29                           15         488                 33          10      979            98
+
+                                                          17           .                .                    15         488                 33          10           .               .
+
+                                                          1            .                .                    ­            ­                 ­           1            .               .
+
+                                  Viehhalter 1) nach Tierarten                                                                Viehbestand 1)
+
+30                                                                                      1 800
+
+                                                                                                     1 600
+
+25
+                                                                                                     1 400
+
+20                                                                                      1 200
+
+                                                                                                     1 000
+15
+
+                                                                                                        800
+
+10                                                                                         600
+
+5                                                                                          400                                                                       Hühner
+
+0                                                                                          200
+       Rinder Schweine Schafe Pferde Hühner
+                           2007 2016 2020                                                     0
+                                                                                                     Rinder Schweine Schafe Pferde
+                                                                                                                    2007 2016 2020
+
+1) Stichtag: 2007 am 3. Mai, ab 2010 am 1. März.
+2) Änderungen im Erfassungs- und Darstellungsbereich schränken die Vergleichbarkeit der Ergebnisse ab 2010 gegenüber den Vorerhebungen ein.
+3) Ab 2010 alle Einhufer (Pferde, Esel, Maultiere).
+
+    22. Betriebsgrößenstruktur in der Landwirtschaft 2005, 2007, 2010, 2016 und 2020
+
+    Gegenstand der Nachweisung                                  2005                       2007                  2010 1)                        2016                     2020
+
+Landwirtschaftliche Betriebe insgesamt                                      78                               73               62                            56                 56
+
+davon mit einer LF von ... ha
+
+                               unter       5                                18                               14               5                             5                        3
+
+                         5 bis unter 10                                     10                               13               8                             10                 11
+
+    10 bis unter 20                                                         15                               12               15                            10                 10
+
+    20 bis unter 50                                                         18                               17               17                            15                 17
+
+    50 oder mehr                                                            17                               17               17                            16                 15
+
+1) Seit 2010 schränken Änderungen im Erfassungs- und Darstellungsbereich Vergleichbarkeit der Ergebnisse ein (v. a. in der Größenklasse unter 5 ha).
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                            Bayerisches Landesamt für
+                                                                                                                                                                                     Statistik
+Statistik kommunal 2022                                                     14
+09 178 143 Moosburg a.d.Isar
+
+           23. Verarbeitendes Gewerbe sowie Bergbau und Gewinnung von Steinen und Erden
+                                                       sowie Gewerbeanzeigen seit 2015
+
+                         Betriebe von rechtlichen Einheiten mit im Allgemeinen 20 oder mehr Beschäftigten 1)                                Gewerbeanzeigen 2)
+
+     Jahr                Betriebe 3)              Beschäftigte 3)               Bruttoentgelte                             Gewerbeanmeldungen          Gewerbeabmeldungen
+                                                                                  in 1 000 
+
+2015                                   11                          2 133                                          111 028                        161                          152
+                                                                                                                                                                              179
+2016                                   12                          2 265                                          121 388                        169                          192
+                                                                                                                                                                              172
+2017                                   12                          2 346                                          127 406                        176                          146
+                                                                                                                                                                              117
+2018                                   12                          2 360                                          131 245                        146                          160
+
+2019                                   12                          2 321                                          131 448                        197                2021
+                                                                                                                                                                                12
+2020                                   11                          2 226                                          123 811                        195                            46
+
+2021                                   11                          2 150                                          124 724                        224                        5 929
+
+1) Klassifikation der Wirtschaftszweige, Ausgabe 2008 (WZ 2008).
+2) Bis 2016 ohne Automatenaufsteller und Reisegewerbe, ab 2017 ohne Reisegewerbe. - 3) Stand 30.09.
+
+                                                  24. Bauhauptgewerbe seit 2017
+
+           Gegenstand der Nachweisung                                     Bauhauptgewerbe 1) (Vorbereitende Baustellenarbeiten, Hoch- und Tiefbau)
+
+                                                                  2017          2018                                       2019                  2020
+
+Betriebe Ende Juni                                                          11                                  11                  14                    15
+Tätige Personen Ende Juni                                                   30                                  36                  42                    51
+Baugewerblicher Umsatz des Vorjahres in 1000                             3 375                               3 808               4 777                 5 413
+
+1) Klassifikation der Wirtschaftszweige, Ausgabe 2008 (WZ 2008).
+
+                                                  25. Straßenverkehrsunfälle seit 2016
+
+           Gegenstand der Nachweisung                                                                               Straßenverkehrsunfälle
+
+                                                                   2016         2017                                2018         2019                  2020         2021
+
+Straßenverkehrsunfälle 1)                                                 107                                94            96               107                 93         87
+Straßenverkehrsunfälle mit Personenschaden
+darunter innerhalb von Ortschaften                                        87                                 82            74               91                  79         79
+
+             außerhalb von Ortschaften                                    61                                 54            40               47                  57         58
+Verunglückte
+davon Getötete                                                            26                                 28            34               44                  22         21
+
+        Verletzte                                                         116                                121           97               119               101          105
+Schwerwiegende Unfälle mit Sachschaden
+                                                                          ­                                  ­             ­                1                   1          ­
+1) Ohne übrige Sachschadensunfälle.
+                     Straßenverkehrsunfälle                               116                                121           97               118               100          105
+
+ 120                                                                      20                                 12            22               16                  14         8
+
+                                                                                 Straßenverkehrsunfälle mit Personenschaden
+                                                                                70
+
+100                                                                             60
+
+                                                                                                         50
+80
+
+                                                                                                         40
+
+60
+                                                                                                         30
+
+40                                                                              20
+
+20                                                                              10
+
+0          2017          2018          2019       2020             2021         0                                   2017         2018       2019             2020   2021
+2016                                                                            2016
+
+                                                                                innerhalb von Ortschaften                                   außerhalb von Ortschaften
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                       Bayerisches Landesamt für
+                                                                                                                                                                                Statistik
+Statistik kommunal 2022                                                   15
+09 178 143 Moosburg a.d.Isar
+
+                                                         26. Kraftfahrzeugbestand seit 2017
+
+                Fahrzeugart                                                                     Kraftfahrzeugbestand
+
+Kraftfahrzeugbestand insgesamt                    2017           2018                    2019                      2020                          2021              2022
+darunter Pkw insgesamt                                                                                                                                                    13 299
+                                                         11 896         12 248                     12 550                12 711                         13 000            10 785
+          Krafträder insgesamt                            9 809         10 075                     10 300                10 418                         10 617              1 366
+                                                          1 098          1 165                      1 214                 1 228                          1 273
+                                                                                                                                                                      2021
+                                                                 27. Tourismus seit 2016
+                                                                                                                                                                                 8
+      Gegenstand der Nachweisung                                                                                   Tourismus                                                  239
+                                                                                                                                                                            5 852
+                                                                 2016                    2017              2018               2019               2020                       5 091
+                                                                                                                                                                              761
+                                                         Beherbergungsbetriebe mit zehn1) oder mehr Gästebetten 2)                                                        19 292
+                                                                                                                                                                          15 343
+Geöffnete Beherbergungsbetriebe im Juni                                      6                 5                 6                            8        8                    3 949
+Angebotene Gästebetten im Juni                                            182               166               184                          235      245                       3,3
+Gästeankünfte                                                           6 902             6 789             7 335                       11 679    7 216                       3,0
+davon von Gästen aus dem Inland                                         6 347             6 025             6 142                       10 065    6 484                       5,2
+                                                                          555               764             1 193                        1 614      732
+         von Gästen aus dem Ausland                                    20 466            22 066            20 270                       30 664   23 131                          ­
+Gästeübernachtungen                                                    18 066            19 281            16 706                       24 679   19 189                          ­
+davon von Gästen aus dem Inland                                         2 400             2 785             3 564                        5 985    3 942                         ­
+                                                                          3,0               3,3               2,8                          2,6      3,2
+         von Gästen aus dem Ausland                                       2,8               3,2               2,7                          2,5      3,0
+Durchschnittliche Aufenthaltsdauer in Tagen                               4,3               3,6               3,0                          3,7      5,4
+hiervon von Gästen aus dem Inland
+
+         von Gästen aus dem Ausland
+
+                                             Beherbergungsbetriebe mit weniger als zehn Gästebetten in Prädikatsgemeinden 3)4)5)
+
+Gästeankünfte                                                                     ­                ­                  ­                 ­                       ­
+Gästeübernachtungen
+Durchschnittliche Aufenthaltsdauer in Tagen                                       ­                ­                  ­                 ­                       ­
+
+                                                                                  ­                ­                  ­                 ­                       ­
+
+              Durchschnittliche Auslastung                       2021                    Übernachtungen von Gästen aus dem In- und Ausland
+          der angebotenen Betten in Prozent                                                 in Betrieben mit neun oder mehr Gästebetten 1)2)
+
+45                                                                                        35 000
+40                                                                                        30 000
+35                                                                                        25 000
+30                                                                                        20 000
+25                                                                                        15 000
+20                                                                                        10 000
+15
+10                                                                                         5 000
+                                                                                                 0
+ 5                                                                                                   2007 2009 2011 2013 2015 2017 2019 2021
+ 0
+
+     2007 2009 2011 2013 2015 2017 2019
+
+                                                                                                                  Gäste aus dem Inland  Gäste aus dem Ausland
+
+1) Bis einschließlich 2010 Beherbergungsbetriebe mit neun oder mehr Gästebetten und Campingplätze mit drei oder mehr Stellplätzen.
+2) Ab 2006 einschließlich Campingplätze. - 3) Einschließlich Privatquartiere.
+4) Mineral- und Moorbäder, Heilklimatische Kurorte, Kneippheilbäder, Kneippkurorte, Luftkurorte und Erholungsorte.
+5) Meldungen vereinzelter, nicht prädikatisierter Gemeinden werden ab 2017 ebenfalls ausgewiesen.
+
+                                             28. Kindertageseinrichtungen seit 2017
+
+                                                                                                       Betreute Kinder nach Altersgruppen
+
+Jahr                      Anzahl der         Genehmigte          Betreute Kinder                                                                                   Tätige Personen
+                         Einrichtungen          Plätze              insgesamt
+                                                                                         unter         3 bis unter 6 6 bis unter 11 11 bis unter 14 insgesamt
+
+                                                                                         3 Jahren          Jahren             Jahren             Jahren
+
+2017                                    11               760           698                         88              475                  133                     2  143
+
+2018                                    11               756           723                         86              480                  155                     2  146
+
+2019                                    11               756           724                         82              491                  148                     3  149
+
+2020                                    12               853           716                         81              480                  154                     1  163
+
+2021                                    12               853           710                         82              447                  177                     4  172
+
+2022                                    13               891           769                         91              485                  187                     6  178
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                 Bayerisches Landesamt für
+                                                                                                                                                                          Statistik
+Statistik kommunal 2022                                                              16
+09 178 143 Moosburg a.d.Isar
+
+                                   29. Allgemeinbildende Schulen und Wirtschaftsschulen 2021/22
+
+                                                                             davon               Voll-                                               und zwar
+                                                                    öffentlich privat        und teilzeit-
+                         Schulart                 Schulen                                    beschäftigte   darunter         Klassen     Schüler     männlich     Aus-
+                                                                                              Lehrkräfte    männlich                                              länder
+
+Grund- sowie Mittel-/Hauptschulen                                3            3           ­         90      20               62          1 331       713          317
+Förderzentren
+Realschulen                                                      ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Realschulen zur sonderpädagogischen Förderung
+Wirtschaftsschulen                                               1            1           ­         54      18               31          812         419                  62
+Gymnasien
+Gesamtschulen                                                    ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Freie Waldorfschulen
+Schulartunabhängige Orientierungsstufe                           ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Sonstige allgemeinbildende Schulen 1)
+Schulen des zweiten Bildungswegs 2)                              1            1           ­         49      22               20          663         308                  52
+Allgemeinbildende Schulen insgesamt
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 5            5           ­         193     60               113         2 806       1 440        431
+
+1) Ausländische und internationale Schulen.          30. Berufliche Schulen 2021/22
+2) Abendrealschulen, Abendgymnasien, Kollegs.
+                                                                             davon               Voll-                                               und zwar
+                          Schulart                                  öffentlich privat        und teilzeit-
+                                                  Schulen                                    beschäftigte   darunter         Klassen     Schüler     männlich     Aus-
+Berufsschulen                                                                                 Lehrkräfte    männlich                                              länder
+Berufsschulen zur sonderpädagogischen Förderung
+Berufsfachschulen 1)                                             ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Berufsfachschulen des Gesundheitswesen
+Landwirtschaftsschulen                                           ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Fachschulen (ohne Landwirtschaftsschulen)
+Fachoberschulen                                                  ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Berufsoberschulen
+Fachakademien                                                    ­            ­           ­         ­                 ­               ­           ­            ­              ­
+Berufliche Schulen insgesamt
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                 ­            ­           ­         ­                 ­               ­           ­            ­              ­
+
+                                                                                                                                                                          
+
+1) Ohne Wirtschaftsschulen und ohne Berufsfachschulen des Gesundheitswesens.
+
+                                                  31. Einrichtungen für ältere Menschen seit 2010
+
+       Stichtag                                   Einrichtungen                  Verfügbare Plätze          Bewohner/innen               Personal i.Einrichtungen für ältere
+jeweils 15. Dezember                                                                                                                                  Menschen
+
+2010                                              3                                  199                              198                            151
+
+2012                                              3                                  199                              189                            142
+
+2014                                              3                                  197                              195                            154
+
+2016                                              2                                  167                              156                            163
+
+2018                                              2                                  166                              159                            145
+
+2020                                              2                                  97                                  87                          79
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                     Bayerisches Landesamt für
+                                                                                                                                                                              Statistik
+Statistik kommunal 2022                                                          17
+                                                                  09 178 143 Moosburg a.d.Isar
+
+          32. Bedarfsgemeinschaften und Empfänger/-innen nach dem neunten und zwölften Buch
+                      Sozialgesetzbuch SGB IX bzw. SGB XII (Sozialhilfe) seit 2014 nach Wohnort 1)
+
+                                  3. Kapitel                                  4. Kapitel                          5. bis 9. Kapitel
+                         Hilfe zum Lebensunterhalt                  Grundsicherung im Alter und                   Sonstige Hilfen 3)
+
+                                                                      bei Erwerbsminderung 2)
+
+Stichtag                                                                                                                        Von den Empfänger/-innen
+                                                                                                                                 erhielten Hilfen nach dem
+jeweils                                                                                                                                                           Empfänger
+                                                                                                                                6. Kapitel 4) 7. Kapitel 5)           von
+31.
+                                                                                                                                                                Eingliederungs-
+Dezember /                      Empfänger/-                         Empfänger/-                   Empfänger/-                                                   hilfe (SGB IX) 6)
+                                   innen                               innen                         innen
+Ende des    Bedarfs-                                darunter                     darunter                      darunter
+                                 insgesamt          weiblich         insgesamt   weiblich          insgesamt   weiblich
+4. Quartals gemeinschaften                                                                                                      Eingliederungs-      Hilfe
+                                                                                                                                    hilfe für        zur
+                                                                                                                                                    Pflege
+                                                                                                                                  behinderte
+                                                                                                                                  Menschen
+
+2014                        86  86                            48    133                       70  187                       96          134                 53                ­
+
+2015                        86  86                            49    139                       78  198                 101               146                 51                ­
+
+2016                        67  67                            35    136                       67  187                       97          136                 51                ­
+
+2017                        85  85                            42    153                       74  240                 123               176                 60                ­
+
+2018                        84  84                            53    157                       78  267                 127               211                 55                ­
+
+2019                        77  77                            49    174                       87  234                 125               173                 61                ­
+
+2020                        35  35                            20    165                       85          75                55          ­                   70             225
+
+2021                        35  35                            25    165                       90          70                50          ­                   65             235
+
+1) Die Veröffentlichung der Ergebnisse erfolgt ab dem Berichtsjahr 2020 unter Einsatz des Geheimhaltungsverfahrens der 5er-Rundung. Dabei werden die Ergebnisse auf
+den nächsten durch 5 teilbaren Wert gerundet. Die maximale Abweichung zum Originalwert beträgt somit 2. Dadurch ist keine grundsätzliche Additivität mehr gegeben.
+2) Ab dem Berichtsjahr 2018 werden beim Wohnsitzprinzip alle Empfängerinnen und Empfänger, deren Hauptwohnsitz in Bayern ist nachgewiesen. Bis einschließlich 2017
+waren dies nur die Empfängerinnen und Empfänger, die von einem bayerischen Träger Leistungen erhielten und Ihren Hauptwohnsitz in Bayern hatten.
+3) 5. Kapitel: Hilfen zur Gesundheit. - 6. Kapitel: Eingliederungshilfe für behinderte Menschen (bis einschließlich Berichtsjahr 2019). - 7. Kapitel: Hilfe zur Pflege. -
+8. Kapitel: Hilfe zur Überwindung besonderer sozialer Schwierigkeiten. - 9. Kapitel: Hilfe in anderen Lebenslagen.
+4) bis einschließlich Berichtsjahr 2019
+5) 2017/2018: Ohne Empfänger/-innen für die kein abgeschlossenes Verfahren zur Ermittlung und Feststellung des Pflegegrades vorliegt.
+6) Die Leistungen der Eingliederungshilfe für behinderte Menschen werden seit Überführung ins SGB IX (Berichtsjahr 2020) eigenständig erhoben und sind nur eingeschränkt
+mit der Eingliederungshilfe für behinderte Menschen bis 2019 nach dem 6. Kapitel SGB XII vergleichbar.
+
+            33. Anschlussgrad an die öffentliche Wasserversorgung und Abwasserentsorgung
+                                          am 31. Dezember 2007, 2010, 2013, 2016 und 2019
+
+                                                                                                  Angeschlossene Einwohner
+
+            Versorgungsart                          2007                         2010             2013                          2016                            2019
+
+                                             Anzahl           %     Anzahl                 %      Anzahl       %                Anzahl           %           Anzahl        %
+
+Wasserversorgung                             17 434           99,9  17 543             100,0      17 058       100,0            18 075           100,0       18 606        100,0
+Kanalisation                                                        17 009             97,0       16 688       97,8             16 982           94,0        17 903        96,2
+Kläranlagen                                  16 126           92,4  17 009             97,0       16 688       97,8             16 982           94,0        17 903        96,2
+
+                                             16 126           92,4
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                                                                                                        Bayerisches Landesamt für
+                                                                                                                                                                                 Statistik
+Statistik kommunal 2022                                                                18
+       1. Bevölkerungsentwicklung seit 1840                                                                          Erläuterungen
+
+        Bei den von 1840 bis einschließlich 2011 nachgewiese-        Zur römisch-katholischen Bevölkerung zählen die
+        nen Ergebnissen handelt es sich um die bei der jeweili-      Mitglieder der römisch-katholischen Kirche, nicht aber
+        gen Volkszählung festgestellte Einwohnerzahl. Den            der Altkatholiken und verwandter Gruppen.
+        verschiedenen Volkszählungen und der Fortschreibung
+        des Bevölkerungsstandes liegen seit 1840 unterschied-        Zur evangelischen Bevölkerung zählen die Mitglieder
+        liche Bevölkerungsbegriffe zugrunde. Wegen der me-           der Evangelischen Kirche in Deutschland (EKD), die
+        thodischen Änderungen wird hier der allgemeinere             dem Zusammenschluss der zwanzig selbständigen
+        Ausdruck ,,Bevölkerung" gebraucht.                           lutherischen, reformierten und unierten Landeskirchen
+                                                                     in der Bundesrepublik Deutschland entspricht. Es han-
+        Für das Jahr 1840 stellen die veröffentlichten Einwoh-       delt sich somit um folgende Religionsgesellschaften:
+        nerzahlen die sogenannte Zollabrechnungsbevölkerung          Evangelische Kirche, Evangelisch-lutherische Kirche,
+        dar, bei der die am Zählungsstichtag vorübergehend           Evangelisch-reformierte Kirche, französisch-reformierte
+        abwesenden Personen einbezogen, die vorübergehend            Kirche, evangelisch-lutherische Kirche in Baden und
+        anwesenden Personen dagegen (ausgenommen Wan-                evangelisch-reformierte Gemeinden. Die Mitglieder der
+        dergewerbetreibende ohne festen Wohnsitz) nicht ge-          Evangelischen Freikirchen sind nur 1987 enthalten.
+        zählt worden sind. Die Zollabrechnungsbevölkerung
+        entspricht daher hinsichtlich der Erfassungs- und Zu-        Ausländer ist jeder, der nicht Deutscher im Sinne des
+        ordnungsmethode weitgehend dem Wohnbevölke-                  Artikels 116 Absatz 1 des Grundgesetzes ist. Dazu
+        rungsbegriff neuerer Erhebungen.                             zählen auch Staatenlose und Personen mit ungeklärter
+                                                                     Staatsangehörigkeit. Personen, die sowohl die deut-
+        Die Zählungen von 1871 und 1900 weisen die zum               sche als auch eine andere Staatsangehörigkeit haben,
+        Erhebungszeitpunkt jeweils ortsanwesende Bevölke-            gelten als deutsche Staatsangehörige. Die Mitglieder
+        rung aus, die neben der ständigen Bevölkerung in der         der Stationierungsstreitkräfte sowie der ausländischen
+        Gemeinde auch die vorübergehend anwesenden Per-              diplomatischen und konsularischen Vertretungen unter-
+        sonen umfasste, nicht jedoch die vorübergehend abwe-         liegen mit ihren Familienangehörigen nicht den Be-
+        senden Personen, auch dann nicht, wenn diese ihren           stimmungen des Ausländergesetzes und werden somit
+        ständigen Wohnsitz im Erhebungsgebiet hatten.                nicht ausgewiesen.
+
+        Bei den Volkszählungen von 1925 bis einschließlich           Als Privathaushalte wurden 1987 grundsätzlich alle
+        1970 wurde die Wohnbevölkerung ausgewiesen. Zur              Haushalte an jedem Wohnort gezählt, d. h. solche mit
+        Wohnbevölkerung einer Gemeinde zählten alle Perso-           mehreren Wohnsitzen entsprechend auch mehrfach.
+        nen, die am Zählungsstichtag in der Gemeinde ihre            Wohnberechtigte Haushalte galten an einem Ort jedoch
+        Wohnung hatten. Personen mit einer weiteren Woh-             dann nicht als Privathaushalte, wenn alle Haushaltsmit-
+        nung oder Unterkunft in einer anderen Gemeinde wur-          glieder dort nicht zur Wohnbevölkerung (z. B. bei Fe-
+        den der Wohnbevölkerung derjenigen Gemeinde zuge-            rienwohneinheiten, Ferienwohnungen) rechneten.
+        ordnet, von der aus sie zur Arbeit oder Ausbildung
+        gingen oder in der sie sich aus anderen Gründen über-        Einen Haushalt bildeten alle Personen, die gemeinsam
+        wiegend aufhielten.                                          wohnten und wirtschafteten, insbesondere ihren Le-
+                                                                     bensunterhalt gemeinsam finanzierten (Mehrpersonen-
+        Bei der Volkszählung 1987 und dem Zensus 2011 wur-           haushalte). Wer allein wirtschaftete, bildete einen
+        de die Bevölkerung am Ort der Hauptwohnung nach-             eigenen Haushalt (Einpersonenhaushalt) und zwar
+        gewiesen.                                                    auch dann, wenn er mit einer anderen Person eine
+                                                                     gemeinsame Wohnung hatte.
+        Seit 1. Februar 1984 erfolgt auch die Fortschreibung
+        des Bevölkerungsstandes nach den Merkmalen der               Beim Zensus 2011 wurde ­ anders als 1987 ­ von
+        Bevölkerung am Ort der Hauptwohnung. Die fortge-             Wohnhaushalten und nicht von Wirtschaftshaushalten
+        schriebene Bevölkerung setzt sich aus dem alten Be-          ausgegangen. Einen Haushalt bildeten daher alle Per-
+        völkerungsstand zusammen, vermehrt um die in der             sonen, die gemeinsam in einer Wohnung lebten, so-
+        Zwischenzeit Geborenen und von jenseits der Gebiets-         dass es einen privaten Haushalt pro belegter Wohnung
+        grenzen Zugezogenen, vermindert um die Gestorbenen           gab. Zu den Privathaushalten zählten alle Haushalte an
+        und die über die Gebietsgrenzen Fortgezogenen. Die           jedem Wohnort, auch dann, wenn alle Mitglieder des
+        für die Zeit nach dem Zensus am 9. Mai 2011 ausge-           Haushalts mit Nebenwohnsitz gemeldet waren.
+        wiesenen Zahlen der fortgeschriebenen Bevölkerung
+        basieren auf den bei diesem Zensus festgestellten            3. Bevölkerung 1987, 2011 und 2021
+        Einwohnerzahlen.                                                  nach Altersgruppen und Geschlecht
+
+       2. Volkszählung am 25. Mai 1987                               Bei der Volkszählung 1987 und dem Zensus 2011 so-
+            und Zensus am 9. Mai 2011                                wie der Fortschreibung des Bevölkerungsstandes am
+                                                                     31. Dezember 2020 wird die ,,Bevölkerung am Ort der
+        Die Religionszugehörigkeit der Bevölkerung ist Grund-        Hauptwohnung" ausgewiesen. Das Merkmal Ge-
+        lage für die Bestimmung, ob in einer Gemeinde ,,Mariä        schlecht kann Fälle mit der Ausprägung 'unbestimmt'
+        Himmelfahrt" ein gesetzlicher Feiertag ist oder nicht        bzw. ab dem Berichtsjahr 2019 'divers' beinhalten.
+        (Feiertagsgesetz - FTG). Die Feststellung obliegt dem        Diese werden nicht gesondert fortgeschrieben, sondern
+        Bayerischen Landesamt für Statistik, das auf Grund der       durch ein definiertes Umschlüsselungsverfahren auf
+        Ergebnisse der letzten Volkszählung ermittelt, in wel-       männlich und weiblich verteilt.
+        chen Gemeinden entweder mehr katholische oder
+        mehr evangelische Einwohner ihren Wohnsitz hatten.           4. Bevölkerungsbewegung seit 1960
+        Die Religionszugehörigkeit der Bevölkerung wurde
+        letztmals beim Zensus 2011 ermittelt.                        Lebendgeborene sind Kinder, bei denen nach der
+                                                                     Trennung vom Mutterleib entweder das Herz geschla-
+Querschnittsveröffentlichungen ­ Z50021 202200 ­
+Statistik kommunal 2022                                              Bayerisches Landesamt für
+
+                                                                 19                                                                 Statistik
+                                                              Erläuterungen
+
+gen, die Nabelschnur pulsiert oder die natürliche Lun-        rung setzen. Dazu wird die Bevölkerung in drei Grup-
+genatmung eingesetzt hat.                                     pen unterteilt: Die Jüngeren im Alter von 0 bis 19 Jah-
+                                                              ren, die Erwerbsfähigen im Alter von 20 bis 64 Jahren
+In der Zahl der Gestorbenen sind die Totgeborenen,            und die Älteren mit 65 und mehr Jahren.
+die nachträglich beurkundeten Kriegssterbefälle und die
+gerichtlichen Todeserklärungen nicht enthalten.               Der Jugendquotient ist dabei definiert als Anzahl der
+                                                              jüngeren, noch nicht erwerbsfähigen Personen je 100
+Als Wanderung gilt jedes Beziehen einer Hauptwoh-             Personen im erwerbsfähigen Alter. Die Anzahl der
+nung und jeder Auszug aus einer Hauptwohnung                  Senioren je 100 erwerbsfähige Personen wird als
+(Wohnungswechsel). Die Wanderungen werden auf                 Altenquotient bezeichnet. Jugend- und Altenquotient
+Grund der gesetzlichen Bestimmungen über die Melde-           vermitteln insbesondere in der Zusammenschau ein
+pflicht bei einem Wohnungswechsel oder Umzug von              Bild des Altersaufbaus einer Bevölkerung. Sie sind wie
+einer Gemeinde zu einer anderen mittels der An- und           folgt zu interpretieren: Ein Jugendquotient von 25 be-
+Abmeldescheine erfasst. Innerhalb des Bundesgebiets           deutet, dass zum ausgewiesenen Stichtag 25 Jüngere
+wird jeder Bezug einer Hauptwohnung in einer neuen            auf 100 Personen der mittleren, erwerbsfähigen Alters-
+Gemeinde gleichzeitig als Fortzug aus der bisherigen          gruppe kommen. Ein Altenquotient von beispielsweise
+Gemeinde gezählt. Nur Fortzüge in Gebiete außerhalb           35 bedeutet indes, dass 35 Ältere auf 100 Personen der
+des Bundesgebiets werden mittels der Abmeldescheine           mittleren Altersgruppe vorhanden sind.
+festgestellt. Als Zuzug gilt, wenn jemand in einer Ge-
+meinde, in der er nicht bereits mit einer Hauptwohnung        Das Merkmal Geschlecht kann Fälle mit der Ausprä-
+angemeldet ist, eine Hauptwohnung bezieht und sich            gung 'unbestimmt' bzw. ab dem Berichtsjahr 2019
+dort anmeldet. Als Fortzug gilt, wenn jemand innerhalb        'divers' beinhalten. Diese werden nicht gesondert fort-
+des Bundesgebiets umzieht und dieser Umzug in der             geschrieben, sondern durch ein definiertes Umschlüs-
+Gemeinde, in der er sich anmeldet, als Zuzug gilt oder        selungsverfahren auf männlich und weiblich verteilt.
+wenn sich jemand aus einer Gemeinde im Bundesge-
+biet ins Ausland abmeldet, ohne noch mit einer weite-         6. Sozialversicherungspflichtig
+ren Wohnung in der Bundesrepublik angemeldet zu                    beschäftigte Arbeitnehmer seit 2016
+sein.
+                                                              Diese Daten stammen aus Online-Auswertungen der
+Gäste in Beherbergungsstätten, Anstaltsinsassen und           Ergebnisdatenbank der Beschäftigungsstatistik der
+Besucher bei Verwandten oder Bekannten werden nur             Bundesagentur für Arbeit. Die Ergebnisse der Beschäf-
+erfasst, wenn ihr Aufenthalt gemäß der Meldepflicht von       tigungsstatistik haben grundsätzlich bis drei Jahre nach
+längerer Dauer ist. Die Einberufungen und Entlassun-          dem Stichtag vorläufigen Charakter. Die Bundesagentur
+gen von Wehrpflichtigen gelten nicht als Wanderungen.         für Arbeit behält sich vor, diese in begründeten Fällen
+Ebenfalls findet bei Vollzug von Straf- oder Untersu-         innerhalb dieses Zeitraums zu ändern.
+chungshaft und Sicherungsverwahrung keine An- oder
+Abmeldung statt, soweit eine weitere Wohnung im               Die Bundesagentur für Arbeit führte im August 2014
+Bereich des Melderechtsrahmengesetzes (MRRG)                  eine Revision der Beschäftigungsstatistik durch, bei
+vorhanden ist, wie dies auch für Personen in Polizei-         der die Beschäftigtenzahlen rückwirkend bis zum Jahr
+gewahrsam der Fall ist. Mit berücksichtigt werden bei         1999 revidiert wurden. Im Rahmen dieser Revision
+den Zu- und Fortzügen auch die im Hinblick auf das            wurde unter anderem der Kreis der sozialversiche-
+Herkunfts- bzw. Zielgebiet ,,ungeklärten Fälle" und           rungspflichtig Beschäftigten definitorisch erweitert. Die
+,,Fälle ohne Angabe".                                         bedeutendsten neu hinzugekommenen Gruppen sind
+                                                              die behinderten Menschen in anerkannten Werkstätten
+Den Berechnungen der Lebendgeborenen und Gestor-              sowie Personen, die ein freiwilliges soziales, ökologi-
+benen je 1 000 Einwohner sowie der Zugezogenen und            sches Jahr oder einen Bundesfreiwilligendienst leisten.
+Fortgezogenen je 1 000 Einwohner liegt der Bevölke-
+rungsstand zum 31.12. des jeweiligen Berichtsjahres           Als sozialversicherungspflichtig beschäftigte Per-
+zugrunde.                                                     sonen gelten Personen, für die eine Arbeitgebermel-
+                                                              dung zur Sozialversicherung vorliegt, wenn die Be-
+Für Fälle des Dritten Geschlechts, die zur Wahrung der        schäftigung in mindestens einem der Zweige der Sozi-
+Geheimhaltung nicht explizit veröffentlicht werden kön-       alversicherung (Rentenversicherung, Krankenversiche-
+nen, erfolgt für die Veröffentlichung eine Zuordnung der      rung/Pflegeversicherung, Arbeitslosenversicherung)
+Merkmalsausprägungen ,,divers" und ,,ohne Angabe" zu          versicherungspflichtig ist, es sich darüber hinaus um
+den Kategorien ,,männlich" und ,,weiblich" nach einem         eine abhängige Beschäftigung bzw. Arbeit handelt, die
+fest definierten Umschlüsselungsverfahren.                    im Allgemeinen gegen Entgelt entrichtet wird und min-
+                                                              destens eine Stunde pro Woche gearbeitet wird (soweit
+5. Durchschnittsalter, Jugend- und Alten-                     dies aus der Personengruppendefinition erkennbar ist).
+     quotient der Bevölkerung seit 2012                       Aus dieser Abgrenzung ergibt sich, dass in der Regel
+                                                              alle Arbeiter und Angestellten von der Sozialversiche-
+Das Durchschnittsalter sowie der Alten- und Jugend-           rungspflicht erfasst werden. In wenigen Fällen besteht
+quotient sind Maße zur Veranschaulichung der Alters-          auch für Selbständige eine Versicherungspflicht. Unbe-
+struktur einer Bevölkerung. Datenbasis ist die Bevölke-       zahlt mithelfende Familienangehörige und Beamte
+rungsfortschreibung, die auf der Volkszählung 1987 und        zählen grundsätzlich nicht zu dieser Gruppe.
+ab dem 30.06.2011 auf dem Zensus 2011 aufsetzt. Das
+Durchschnittsalter einer Bevölkerung wird als arithme-        Der Nachweis der sozialversicherungspflichtig Be-
+tisches Mittel des Alters ihrer Mitglieder berechnet.         schäftigten erfolgt nach dem Arbeitsortprinzip. Dabei
+Zur Veranschaulichung des Altersaufbaus sind zudem            werden die Beschäftigten regional am Sitz des Betrie-
+Verhältniszahlen gebräuchlich, welche die abhängige           bes (örtliche Einheit) nachgewiesen. Neben den ar-
+Bevölkerung in Relation zur erwerbsfähigen Bevölke-           beitsortbezogenen Regionalangaben stehen seit 1996
+                                                              auch Angaben zum (vom Arbeitgeber mitgeteilten)
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­              Bayerisches Landesamt für
+                                                                                        Statistik
+Statistik kommunal 2022                                   20
+        Wohnort der Beschäftigten zur Verfügung. Personen                                                              Erläuterungen
+        des Dritten Geschlechts werden, aufgrund des Melde-
+        verfahrens der Sozialversicherungsträger, der Merk-            Im Einzelnen ergibt sich die Stimmberechtigung aus
+        malsausprägung ,,weiblich" zugeordnet.                         Art. 1 und 2 LWG.
+
+        Die wirtschaftssystematische Zuordnung der Beschäf-            Als Wähler gelten alle Stimmberechtigten, die von
+        tigten erfolgt entsprechend der Klassifikation der Wirt-       ihrem Wahlrecht Gebrauch gemacht haben, also im
+        schaftszweige, Ausgabe 2008 (WZ 2008). Die Ergeb-              Wahllokal oder per Brief gewählt haben. Die Wahl-
+        nisse der WZ 2008 sind größtenteils mit denen aus der          beteiligung gibt den prozentualen Anteil der Wähler an
+        Vorgängerversion WZ 2003 nicht vergleichbar. Beim              den Stimmberechtigten wieder.
+        Übergang auf die WZ 2008 wurde nicht nur die Gliede-
+        rungsstruktur der Wirtschaftszweigklassifikation in eini-      9. Bundestagswahlen seit 1998
+        gen Bereichen umfassend geändert, es wurde auch der
+        Abdeckungsbereich der Klassifikation erweitert. Um             Bei der Bundestagswahl handelt es sich um eine mit
+        geänderte Produktionsformen und neue Tätigkeiten zu            der Mehrheitswahl verbundene Verhältniswahl, wobei
+        berücksichtigen, wurden auf der obersten Klassifika-           jeder Wähler zwei Stimmen hat ­ eine Erststimme für
+        tionsebene konzeptionell neue Gliederungspositionen            die Wahl eines Wahlkreisabgeordneten und eine Zweit-
+        geschaffen und neue Unterteilungen eingeführt. Die             stimme für die Wahl einer Landesliste. Die Verteilung
+        WZ 2008 ist in einigen Bereichen tiefer gegliedert als         der Gesamtzahl der Sitze des Bundestags auf die Par-
+        ihre Vorgängerversion, vor allem im Bereich der Erbrin-        teien erfolgt nach den Grundsätzen der Verhältniswahl
+        gung von Dienstleistungen sind alle Hierarchiestufen           anhand der Zweitstimmen, wobei seit 2009 das Verfah-
+        betroffen.                                                     ren nach Sainte-Laguë/Schepers (zuvor Niemeyer)
+                                                                       angewandt wird. Innerhalb dieser Verhältniswahl wird
+       7. Arbeitslosenzahlen seit 2015                                 die Hälfte der Abgeordneten in Wahlkreisen über die
+                                                                       Erststimme in relativer Mehrheitswahl gewählt, die
+        Die Arbeitslosenzahlen wurden aus dem Datenangebot             andere Hälfte auf den Parteien vorbehaltenen Landes-
+        der Bundesagentur für Arbeit entnommen. Als Arbeits-           listen über die Zweitstimme in einer sog. Listenwahl.
+        lose zählen alle Personen, die vorübergehend nicht in
+        einem Beschäftigungsverhältnis stehen oder nur eine            Bei der Verteilung der Sitze auf die Landeslisten wer-
+        weniger als 15 Stunden wöchentlich umfassende Be-              den nur Parteien berücksichtigt, die mindestens 5% der
+        schäftigung ausüben (Beschäftigungslosigkeit), eine            bundesweit abgegebenen gültigen Zweitstimmen erhal-
+        versicherungspflichtige, mindestens 15 Stunden wö-             ten oder in mindestens drei Wahlkreisen einen Sitz
+        chentlich umfassende Beschäftigung suchen (Eigen-              errungen haben, es sei denn, es handelt sich um Par-
+        bemühungen), den Vermittlungsbemühungen der Agen-              teien nationaler Minderheiten.
+        tur für Arbeit oder des Jobcenters zur Verfügung ste-
+        hen, also arbeiten dürfen, arbeitsfähig und -bereit sind       Wahlberechtigt sind alle Deutschen im Sinne des
+        (Verfügbarkeit), in der Bundesrepublik Deutschland             Art. 116 Abs. 1 des Grundgesetzes, die am Wahltag
+        wohnen, nicht jünger als 15 Jahre sind und die Alters-
+        grenze für den Renteneintritt noch nicht erreicht haben          1. das 18. Lebensjahr vollendet haben,
+        und sich persönlich bei einer Agentur für Arbeit oder            2. seit mindestens drei Monaten in der Bundesrepub-
+        einem Jobcenter arbeitslos gemeldet haben.
+                                                                              lik Deutschland eine Wohnung innehaben oder
+       8. Landtagswahlen seit 1990                                            sich sonst gewöhnlich aufhalten,
+                                                                         3. nicht nach § 13 Bundeswahlgesetz (BWG) vom
+        Die Landtagswahl erfolgt nach den Grundsätzen einer                   Wahlrecht ausgeschlossen sind,
+        ,,verbesserten" Verhältniswahl. Jeder Wähler hat zwei
+        Stimmen. Mit der Erststimme wird ein Stimmkreisabge-           Darüber hinaus sind auch Deutsche, die außerhalb des
+        ordneter gewählt (Mehrheitswahl), mit der Zweitstimme          Wahlgebietes leben, wahlberechtigt, wenn bei ihnen
+        ein Listenabgeordneter. Beide Stimmen zusammen                 neben den Voraussetzungen unter 1. und 3. noch be-
+        sind für die Sitzeverteilung, die seit 1994 nach dem           stimmte weitere Voraussetzungen erfüllt sind (Aus-
+        Niemeyer-Verfahren (zuvor d'Hondt) durchgeführt wird,          landsdeutsche). Im Einzelnen ergibt sich die Wahlbe-
+        sowie für die Reihenfolge der Gewählten und der Lis-           rechtigung aus den §§ 12 und 13 BWG.
+        tennachfolger innerhalb einer Wahlkreisliste maßge-
+        bend. Daher sind hier die Gesamtstimmen als Summen             Als Wähler gelten alle Wahlberechtigten, die von ihrem
+        von Erst- und Zweitstimmen dargestellt.                        Wahlrecht Gebrauch gemacht haben, also im Wahllokal
+                                                                       oder per Brief gewählt haben. Die Wahlbeteiligung gibt
+        Wahlvorschläge, auf die landesweit nicht mindestens            den prozentualen Anteil der Wähler an den Wahlbe-
+        5% der gültigen Gesamtstimmen entfallen, erhalten              rechtigten wieder.
+        keinen Sitz (Sperrklausel).
+                                                                       10. Europawahlen seit 1994
+        Stimmberechtigt sind alle Deutschen im Sinne des
+        Art. 116 Abs. 1 des Grundgesetzes, die am Tag der              Die Wahl erfolgt in der Bundesrepublik Deutschland
+        Abstimmung                                                     nach den Grundsätzen der Verhältniswahl mit Listen-
+                                                                       wahlvorschlägen. Jeder Wähler hat eine Stimme. Für
+           1. das 18. Lebensjahr vollendet haben,                      die Verteilung der Sitze wird seit 2009 das Verfahren
+           2. seit mindestens drei Monaten in Bayern ihre Woh-         nach Sainte-Laguë/Schepers (zuvor Niemeyer) ange-
+                                                                       wandt.
+                nung, bei mehreren Wohnungen ihre Hauptwoh-
+                nung haben oder sich sonst in Bayern gewöhnlich        Bis einschl. der Europawahl 2009 galt bei der Wahl der
+                aufhalten und                                          Abgeordneten aus Deutschland eine Sperrklausel,
+           3. nicht nach Art. 2 Landeswahlgesetz (LWG) vom             wonach Wahlvorschläge, auf die weniger als 5% der
+                Stimmrecht ausgeschlossen sind.                        gültigen Stimmen entfielen, bei der Sitzeverteilung
+                                                                       unberücksichtigt blieben. Seit der Europawahl 2014
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                       kommt in Deutschland keine Sperrklausel zur Anwen-
+Statistik kommunal 2022                                                dung.
+
+                                                                       Bayerisches Landesamt für
+
+                                                                   21                                                                 Statistik
+        Wahlberechtigt sind alle Deutschen im Sinne des                                                                Erläuterungen
+        Art. 116 Abs. 1 des Grundgesetzes sowie alle Unions-
+        bürger (seit der Europawahl 1994) mit einer Wohnung            ler doppelt so viele Stimmen, wie Mandatsträger zu
+        oder mit gewöhnlichem Aufenthalt in der Bundesrepub-           wählen sind. Dadurch variiert die Stimmenzahl je Wäh-
+        lik Deutschland, die am Wahltag                                ler in der Praxis zwischen 8 und 80. Um die absoluten
+                                                                       Ergebnisse vergleichbar zu machen und zur Zusam-
+           1. das 18. Lebensjahr vollendet haben,                      menfassung der Einzelergebnisse für größere regionale
+           2. seit mindestens drei Monaten in der Bundesrepub-         Einheiten wie z. B. Landkreise, Regierungsbezirke und
+                                                                       das Land wird ein gewichtetes Stimmenergebnis
+                lik Deutschland oder in den übrigen Mitgliedstaa-      errechnet. Dabei werden die gültigen Stimmzettel im
+                ten der Europäischen Union eine Wohnung inne-          Verhältnis der Stimmen für die einzelnen Wahlvor-
+                haben oder sich sonst gewöhnlich aufhalten und         schläge aufgeteilt. Hierdurch wird ein Ergebnis erstellt,
+           3. nicht nach § 6a Europawahlgesetz (EuWG) vom              als hätte jede abstimmende Person nur eine Stimme zu
+                Wahlrecht ausgeschlossen sind.                         vergeben gehabt, wobei die Prozentanteile der einzel-
+                                                                       nen Wahlvorschläge erhalten bleiben.
+        Außerdem sind auch die nach § 12 Abs. 2 des Bun-
+        deswahlgesetzes zum Deutschen Bundestag wahlbe-                Die gewichteten Stimmenergebnisse werden wie folgt
+        rechtigten Deutschen wahlberechtigt (Auslandsdeut-             berechnet:
+        sche).
+        Im Einzelnen ergibt sich die Wahlberechtigung aus den          Gültige Stimmzettel insgesamt x Stimmen je Wahlvorschlag
+        §§ 6 und 6a EuWG.                                                                   Gültige Stimmen insgesamt
+
+        Als Wähler gelten alle Wahlberechtigten, die von ihrem         Die Anzahl der Sitze im Gemeinde- bzw. Stadtrat be-
+        Wahlrecht Gebrauch gemacht haben, also im Wahllokal            trägt in Gemeinden mit
+        oder per Brief gewählt haben. Die Wahlbeteiligung gibt
+        den prozentualen Anteil der Wähler an den Wahlbe-                                     bis zu 1 000 Einwohnern 8
+        rechtigten wieder.
+                                                                       mehr als  1 000 bis zu 2 000 Einwohnern 12
+       11. Wahl der Stadt- bzw. Gemeinderäte am
+            15. März 2020                                              mehr als  2 000 bis zu 3 000 Einwohnern 14
+
+        Die Wahl der ehrenamtlichen Stadt- und Gemeinde-               mehr als  3 000 bis zu 5 000 Einwohnern 16
+        ratsmitglieder erfolgt nach den Grundsätzen einer ver-
+        besserten Verhältniswahl, sofern mindestens zwei               mehr als  5 000 bis zu 10 000 Einwohnern 20
+        gültige Wahlvorschläge (Listen) vorliegen. Verbessert
+        ist das Verhältniswahlrecht durch die Möglichkeit, die         mehr als 10 000 bis zu 20 000 Einwohnern 24
+        Stimmen auf Bewerber verschiedener Wahlvorschläge
+        zu verteilen (Panaschieren) sowie einem Bewerber bis           mehr als 20 000 bis zu 30 000 Einwohnern 30
+        zu drei Stimmen zu geben (Kumulieren). Wird in einer
+        Gemeinde kein oder nur ein Wahlvorschlag zugelassen,           mehr als 30 000 bis zu 50 000 Einwohnern 40
+        findet Mehrheitswahl statt.
+                                                                       mehr als 50 000 bis zu 100 000 Einwohnern 44
+        Die Sitzeverteilung auf die Wahlvorschläge bei der
+        Verhältniswahl erfolgte bis zu den Wahlen 2008 nach            mehr als 100 000 bis zu 200 000 Einwohnern 50
+        dem d'Hondt'schen Höchstzahlverfahren. Mit den all-
+        gemeinen Gemeinde- und Landkreiswahlen wurde auf               mehr als 200 000 bis zu 500 000 Einwohnern 60
+        das Proporzverfahren nach Niemeyer umgestellt. Zu
+        den aktuellen Wahlen am 15.März 2020 wurde es durch            in der Stadt Nürnberg            70
+        das Sainte-Laguë/Schepers-Verfahren abgelöst. Wel-
+        che Bewerber innerhalb eines Wahlvorschlags gewählt            in der Landeshauptstadt München  80
+        sind, richtet sich nach der Anzahl der persönlichen
+        Stimmen der einzelnen Bewerber.                                12. Gemeindefinanzen seit 2017
+
+        Wahlberechtigt sind alle Personen, die am Wahltag              Bei der Gewerbesteuer (netto) ist die an Land und
+           1. Unionsbürger sind,                                       Bund abzuführende Gewerbesteuerumlage abgesetzt.
+           2. das 18. Lebensjahr vollendet haben,
+           3. sich seit mindestens zwei Monaten in der Ge-             Die Steuereinnahmekraft der Gemeinden ergibt sich
+                meinde mit dem Schwerpunkt ihrer Lebensbezie-          aus der Realsteueraufbringungskraft abzüglich der
+                hungen aufhalten,                                      Gewerbesteuerumlage zuzüglich der Gemeindeanteile
+           4. nicht nach Art. 2 Gemeinde- und Landkreiswahl-           an der Einkommen- und Umsatzsteuer. Bei der Be-
+                gesetz (GLKrWG) vom Wahlrecht ausgeschlos-             rechnung sind die landesdurchschnittlichen Hebesätze
+                sen sind.                                              zugrunde gelegt.
+
+        Als Wähler gelten alle Wahlberechtigten, die von ihrem         Die Steuerkraftmesszahl ergibt sich aus der Summe
+        Wahlrecht Gebrauch gemacht haben, also im Wahllokal            der Steuerkraftzahlen der Grundsteuer A und B, der
+        oder per Brief gewählt haben. Die Wahlbeteiligung gibt         Gewerbesteuer sowie der Gemeindeanteile an der
+        den prozentualen Anteil der Wähler an den Wahl-                Einkommen- und Umsatzsteuer. Bei der Berechnung
+        berechtigten wieder.                                           der Steuerkraftzahlen werden sog. Nivellierungshebe-
+                                                                       sätze entsprechend Art. 4 Finanzausgleichsgesetz
+        Gewichtete Stimmen                                             (BayFAG) zugrunde gelegt. Ausgehend von den Steu-
+        Bei der Verhältniswahl verfügt jeder Wähler über so            erkraftmesszahlen als Maß für die eigene Leis-
+        viele Stimmen, wie in seiner Gemeinde Mandatsträger            tungsfähigkeit werden die Schlüsselzuweisungen an die
+        zu wählen sind (Ausnahmen möglich bei Gemeinden                Gemeinden nach Art. 2 und 3 BayFAG errechnet.
+        bis 3000 Einwohnern). Bei Mehrheitswahl hat der Wäh-
+                                                                       Die Verschuldung umfasst die Schulden beim nichtöf-
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                       fentlichen und beim öffentlichen Bereich einschließlich
+Statistik kommunal 2022                                                Kassenkredite. Im planmäßigen, selbst geleisteten
+                                                                       Schuldendienst ist nur der Teil der Zins- und Tilgungs-
+                                                                       verpflichtungen berücksichtigt, der entsprechend den
+                                                                       Darlehensbedingungen (planmäßig) von der Gemeinde
+                                                                       selbst geleistet werden musste.
+
+                                                                       Die Finanzkraft errechnet sich aus der Steuerkraft-
+                                                                       messzahl gemäß Art. 4 BayFAG, vermehrt um die
+
+                                                                                                        Bayerisches Landesamt für
+
+                                                                   22                                                                 Statistik
+Schlüsselzuweisungen gemäß Art. 2 und 3 BayFAG,                                                                 Erläuterungen
+abzüglich der Umlageausgaben (Kreis- bzw. Bezirks-
+umlage und Krankenhausumlage).                                  schaftliche und regionale Zuordnung der Umsätze er-
+                                                                folgt nach dem Unternehmenskonzept. Bei Unterneh-
+13. Bauland seit 2017                                           men, die in mehreren wirtschaftlichen Bereichen tätig
+                                                                sind, erfolgt die wirtschaftssystematische Zuordnung
+Im Rahmen der Statistik der Kaufwerte für Bauland               des Gesamtumsatzes entsprechend dem Schwerpunkt
+werden sämtliche Kauffälle unbebauter und nicht land-           der wirtschaftlichen Tätigkeit. Die regionale Zuordnung
+wirtschaftlich genutzter Grundstücke mit einer Fläche           des gesamten Unternehmensumsatzes einschließlich
+von 100 Quadratmetern oder mehr erfasst. Auskunfts-             der Umsätze von Filialen, Zweigstellen und Tochterun-
+pflichtig sind die Gutachterausschüsse. Es gehen somit          ternehmen erfolgt an dem für den Sitz der Geschäftslei-
+in die Statistik die Flächen ein, die in einem Jahr veräu-      tung zuständigen Finanzamt des Unternehmens. Bei
+ßert wurden. Die Preise für Bauland beziehen sich               der Erfassung von Organschaften meldet ein Unter-
+folglich auch nur auf die im Jahr veräußerten Grundstü-         nehmen (Organträger) für alle Organgesellschaften
+cke und nicht auf alle Grundstücke. Schwankungen von            bzw. den gesamten Organkreis, weshalb nur die Merk-
+Jahr zu Jahr sind daher möglich.                                male des Organträgers (u.a. auch nur dessen regionale
+                                                                Zuordnung) in die statistische Aufbereitung einfließen.
+14. Lohn- und Einkommensteuerstatistik                          Steuerbar sind nur die Außenumsätze des Organkrei-
+     seit 2013                                                  ses, die vom Organträger zu versteuern sind.
+                                                                In regionaler Hinsicht ergeben sich zudem Besonder-
+Als Lohn- und Einkommensteuerpflichtige werden                  heiten durch Steuerpflichtige/Unternehmen mit Sitz im
+alle unbeschränkt steuerpflichtigen natürlichen Perso-          Ausland. Die Umsatzsteuerzuständigkeitsverordnung
+nen mit Wohnsitz in Bayern erfasst, die Einnahmen aus           regelt die örtliche Zuständigkeit der Finanzämter für
+mindestens einer der steuerrechtlich unterschiedenen            Unternehmen im Sinne des § 21 Abs. 1 Satz 2 der
+sieben Einkunftsarten (Einkünfte aus Land- und Forst-           Abgabenordnung. Demnach sind die dort genannten
+wirtschaft, Gewerbebetrieb, selbständiger Arbeit, nicht-        Finanzämter jeweils zentral für alle Unternehmen mit
+selbständiger Arbeit, Kapitalvermögen, Vermietung und           Sitz in einem bestimmten Land zuständig. Da die nicht
+Verpachtung, sonstige Einkünfte i.S.d. § 22 EStG)               im Inland ansässigen Unternehmen von der amtlichen
+haben. Berücksichtigt werden deren Einkommensteuer-             Statistik nicht zweifelsfrei als solche identifiziert werden
+veranlagungen sowie Lohnsteuerbescheinigungen der               können, erfolgt der Nachweis am Sitz des zuständigen
+nicht zur Einkommensteuer veranlagten Steuerpflichti-           Finanzamtes. Somit werden in diesen Gemeinden An-
+gen. Seit 2004 liefern die Arbeitgeber die Lohnsteuer-          gaben für dort nicht ansässige, jedoch vom dortigen
+karten elektronisch an die Finanzverwaltung, wodurch            zuständigen Finanzamt erfasste, Unternehmen mit
+die Zahl der Nichtveranlagten nahezu vollständig nach-          ausgewiesen und können dadurch die regionalen Er-
+gewiesen werden kann. Neben der Gesamtzahl der                  gebnisse verzerren.
+Steuerpflichtigen hat sich dadurch im Vergleich zu den
+Statistik-vorjahren auch die Einkommensstruktur erheb-          Grundsätzlich können die in den Tabellen angegebenen
+lich geändert, da die Nichtveranlagten nur Einkünfte            Werte aufgrund von Rundungsdifferenzen bei der Ag-
+aus nichtselbständiger Arbeit und im Durchschnitt ge-           gregation der örtlichen Werte auf die Kreis-, Regie-
+ringere Einkommen aufweisen. Zusammen veranlagte                rungsbezirks- und Landesebene von der tatsächlichen
+Ehepaare und Personen in eingetragenen Lebenspart-              Summe der Einzelwerte abweichen.
+nerschaften werden als ein Steuerpflichtiger gezählt.
+                                                                16. Bestand an Wohngebäuden
+Der Gesamtbetrag der Einkünfte ergibt sich als Saldo                 und Wohnungen seit 2018
+der positiven und negativen Einkünfte aus den gesetz-
+lich vorgegebenen sieben Einkunftsarten unter Berück-           Wohngebäude sind Gebäude, die mindestens zur
+sichtigung bestimmter Hinzurechnungs- und Abzugs-               Hälfte (gemessen am Anteil der Wohnfläche an der
+posten. Bei den Lohnsteuerpflichtigen, die ausschließ-          Nutzfläche nach DIN 277) Wohnzwecken dienen.
+lich Lohneinkünfte bezogen, entspricht dies in den              Ferien-, Sommer- und Wochenendhäuser mit einer
+meisten Fällen den Einkünften aus nichtselbständiger            Mindestgröße von 50 m2 Wohnfläche rechnen ebenfalls
+Arbeit. Eine Änderung des Gesamtbetrags der Einkünf-            dazu. Als Gebäude ist jedes freistehende oder durch
+te kann nicht nur durch veränderte Einkünfte, sondern           eine Brandmauer von einem anderen Gebäude ge-
+auch durch Änderungen des Steuerrechts bedingt sein.            trennte Bauwerk anzusehen. Bei Doppel- und Reihen-
+                                                                häusern wird jedes Bauwerk, das von dem anderen
+Bei der Lohn- und Einkommensteuer handelt es sich               durch eine vom Keller bis zum Dach reichende Trenn-
+um die Jahreslohnsteuer (bei nichtveranlagten Lohn-             wand geschieden ist, als selbstständiges Gebäude
+steuerpflichtigen) bzw. um die festgesetzte Einkom-             gezählt.
+mensteuer (bei veranlagten Lohn- und Einkommen-
+steuerpflichtigen).                                             Wohnungen sind zu Wohnzwecken bestimmte, einzel-
+                                                                ne oder zusammenliegende Räume in Wohn- und
+15. Umsatzsteuerstatistik seit 2011                             Nichtwohngebäuden, die die Führung eines eigenen
+                                                                Haushalts ermöglichen und einen eigenen Eingang
+Die Umsatzsteuerstatistik der Voranmeldungen wird               aufweisen.
+jährlich durchgeführt. Diese weist alle Unternehmen
+nach, die monatlich oder vierteljährlich Umsatzsteuer-          Räume sind alle zu Wohnzwecken bestimmte Zimmer
+Voranmeldungen in Bayern abgaben und deren Liefe-               wie Wohn-, Ess- und Schlafzimmer sowie andere sepa-
+rungen und Leistungen (ohne Umsatzsteuer) über 17               rate Räume (z. B. bewohnbare Keller- und Bodenräu-
+500 Euro (ab 2020: über 22 000 Euro) lagen. Die wirt-           me) von mindestens 6 m2 Wohnfläche sowie abge-
+                                                                schlossene Küchen unabhängig von deren Größe. Bad,
+                                                                Toilette, Flur und Wirtschaftsräume werden grundsätz-
+                                                                lich nicht mitgezählt.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                Bayerisches Landesamt für
+                                                                                          Statistik
+Statistik kommunal 2022                                     23
+        Der Wohngebäude- und Wohnungsbestand wird immer                                                             Erläuterungen
+        zum Jahresende (31.12.) durch Fortschreibung der
+        Ergebnisse der jeweils letzten Gebäude- und Woh-            gesamte Flächendatenbestand neu erfasst, sondern
+        nungszählung (GWZ) mittels der jährlichen Ergebnisse        z. T. wurde auch die Nutzungsartenzuordnung geän-
+        der Baufertigstellungs- und der Bauabgangsstatistik         dert. Der Vergleich mit den Ergebnissen vorangegan-
+        ermittelt. Dementsprechend basieren die hier nachge-        gener Jahre auf Basis des Automatisierten Liegen-
+        wiesenen Bestandsergebnisse auf den endgültigen             schaftsbuchs (ALB) ist deshalb erheblich einge-
+        Ergebnissen der GWZ 2011. Wohnheime und darin               schränkt. So werden nach der neuen ALKIS-
+        befindliche Wohnungen sind seit 2011 wieder in die          Nomenklatur unbebaute Bauplätze mit der zum Zeit-
+        Fortschreibung einbezogen.                                  punkt der Erfassung vorherrschenden Nutzung, z. B.
+                                                                    Landwirtschaftsfläche, Unkultivierte Fläche/Unland, etc.
+       17. und 18. Baugenehmigungen und                             erfasst. Auch Uferstreifen oder Wegbegleitflächen wer-
+            Baufertigstellungen seit 2014                           den diesbezüglich ab einer im Kartenmaßstab erkenn-
+                                                                    baren Breite mit ihrer jeweiligen Nutzung, wie z. B.
+        Unter Baugenehmigungen werden genehmigungs-                 Gehölz oder Unkultivierte Fläche/Unland erfasst.
+        oder zustimmungsbedürftige sowie kenntnisgabe- oder
+        anzeigepflichtige oder einem Genehmigungsfreistel-          Nachstehend werden die nachgewiesenen Kategorien
+        lungsverfahren unterliegende Baumaßnahmen verstan-          von Nutzungsarten kurz erläutert:
+        den, bei denen Wohnraum oder sonstiger Nutzraum
+        geschaffen oder verändert wird.                             Der Nutzungsartenbereich Siedlung beinhaltet die
+                                                                    bebauten und nicht bebauten Flächen, die durch die
+        Unter Baufertigstellungen werden die Fertigstellungen       Ansiedlung von Menschen geprägt sind oder zur An-
+        von genehmigungs- oder zustimmungsbedürftigen               siedlung beitragen.
+        sowie kenntnisgabe- oder anzeigepflichtigen oder ei-
+        nem Genehmigungsfreistellungsverfahren unterliegen-         Wohnbaufläche ist eine baulich geprägte Fläche ein-
+        den Baumaßnahmen verstanden, bei denen Wohnraum             schließlich der mit ihr im Zusammenhang stehenden
+        oder sonstiger Nutzraum geschaffen oder verändert           Freiflächen (z. B. Vorgärten, Ziergärten, Zufahrten,
+        wird.                                                       Stellplätze), die ausschließlich oder vorwiegend dem
+                                                                    Wohnen dient.
+        Wohngebäude (vgl. Nr. 16). Bei den Baufertigstellun-
+        gen und den Baugenehmigungen zu den Wohngebäu-              Industrie- und Gewerbefläche ist eine Fläche, die
+        den sind die Wohnheime ausnahmslos einbezogen.              vorwiegend industriellen oder gewerblichen Zwecken
+                                                                    dient.
+        Nichtwohngebäude sind Gebäude, die überwiegend
+        (mindestens zu mehr als der Hälfte der Nutzfläche)          Der Nutzungsartenbereich Verkehr enthält die bebau-
+        Nichtwohnzwecken dienen. Dazu zählen Anstaltsge-            ten und nicht bebauten Flächen, die dem Verkehr die-
+        bäude, Büro- und Verwaltungsgebäude, landwirtschaft-        nen.
+        liche und nichtlandwirtschaftliche Betriebsgebäude
+        (z. B. Fabrikgebäude, Hotels) sowie sonstige Nicht-         Der Nutzungsartenbereich Vegetation umfasst die
+        wohngebäude (bspw. Schulgebäude, Kindertagesstät-           Flächen außerhalb der Ansiedlungen, die durch land-
+        ten, Sporthallen).                                          oder forstwirtschaftliche Nutzung, durch natürlichen
+                                                                    Bewuchs oder dessen Fehlen geprägt werden.
+        Wohnungen (vgl. Nr. 16). In die Anzahl genehmigter
+        Wohnungen gehen alle Baumaßnahmen an bestehen-              Landwirtschaft ist eine Fläche für den Anbau von
+        den Gebäuden ein. Deswegen können bei der Anzahl            Feldfrüchten sowie eine Fläche, die beweidet und ge-
+        an genehmigten Wohnungen auch negative Werte                mäht werden kann, einschließlich der mit besonderen
+        auftreten, etwa wenn fünf Einzimmerwohnungen (=             Pflanzen angebauten Flächen.
+        Abgang in dieser Wohngröße) zu einer Fünfzimmer-
+        wohnung umgebaut werden, desgleichen bei Ausbau-            Wald ist eine Fläche, die mit Forstpflanzen (Waldbäu-
+        oder Erweiterungsmaßnahmen sowie bei Nutzungsän-            me und Waldsträucher) bestockt ist.
+        derungen. Ab Berichtsjahr 2012 werden die ,,Sonstigen
+        Wohneinheiten" als Wohnungen erfasst.                       Gewässer sind Flächen, die ständig oder während des
+                                                                    größeren Teils des Jahres mit Wasser bedeckt sind,
+        Räume (vgl. Nr. 16).                                        gleichgültig, ob das Wasser in natürlichen oder künstli-
+                                                                    chen Betten abfließt oder steht. In die Wasserfläche
+       19. Flächenerhebungen                                        werden auch zugehörige Böschungen, kleine Inseln
+            zum 31. Dezember 2020 und 2021                          und dgl. einbezogen, nicht jedoch kleine Weiher, Quel-
+                                                                    len oder kleine Bäche.
+        Die Flächenerhebungen werden jeweils zum Stichtag
+        31. Dezember durchgeführt. Die Ergebnisse basieren          Die Siedlungs- und Verkehrsfläche ist die Summen-
+        auf den Daten des amtlichen Liegenschaftskatasters          position der Nutzungsarten Verkehr und Siedlung ohne
+        bei den Ämtern für Digitalisierung, Breitband und           die Nutzungsarten Bergbaubetrieb und Tagebau, Gru-
+        Vermessung. Die Aufgliederung der Bodenfläche nach          be, Steinbruch.
+        Nutzungsarten erfolgt bundeseinheitlich auf der Grund-
+        lage des ,,Nutzungsartenkatalogs der Arbeitsgemein-         20. Bodennutzung
+        schaft der Vermessungsverwaltungen der Länder der                2007, 2010, 2016 und 2020
+        Bundesrepublik Deutschland" (AdV-Nutzungsarten-
+        katalog). Die Daten basieren auf dem Amtlichen Lie-         Seit der Landwirtschaftszählung 2010 werden Betriebe
+        genschaftskataster-Informationssystem (ALKIS). Im           mit einer landwirtschaftlich genutzten Fläche (LF) von
+        Rahmen der Umstellung auf ALKIS wurde nicht nur der         5 ha und mehr sowie Betriebe mit einer entsprechen-
+                                                                    den marktrelevanten Produktion (Anbauflächen oder
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                    Tierbestände über gesetzlich vorgegebenen Grenzen)
+Statistik kommunal 2022                                             einbezogen. Wegen der Anhebung der Erfassungs-
+                                                                    grenze sind die Daten nur eingeschränkt mit den Vor-
+
+                                                                    Bayerisches Landesamt für
+
+                                                                24                                                                 Statistik
+                                                              Erläuterungen
+
+jahren vergleichbar. Bei den Agrarstatistiken wurden          halb landwirtschaftlicher Betriebe in ,,Einheiten ohne
+von 1999 bis 2007 die Flächen von landwirtschaftlichen        Betriebseigenschaft" (z. B. Alm-/Alpgenossenschaften,
+Betrieben mit einer LF von mindestens 2 ha bzw. mit           Gemeinde-/Genossenschaftsweiden, Schlachthöfe und
+einer LF unterhalb dieser Grenze, aber mit festgelegten       Viehhändler) nicht mehr enthalten.
+Mindestanbauflächen oder Mindesttierbeständen nach-
+gewiesen (vgl. auch Erläuterungen zu Tabellen 18 und          Die Betriebe und die von ihnen gehaltenen Tiere wer-
+19). Sämtliche zu einem Betrieb gehörenden Flächen            den nach dem ,,Betriebsprinzip" ausgewiesen, d. h. in
+werden in derjenigen Gemeinde nachgewiesen, in der            derjenigen Regionaleinheit, in der sich der Betriebssitz
+sich der Betriebssitz befindet (Betriebsprinzip).             befindet.
+
+Die landwirtschaftlich genutzte Fläche (LF) umfasst           22. Betriebsgrößenstruktur in der
+alle landwirtschaftlich oder gärtnerisch genutzten Flä-            Landwirtschaft 2005, 2007, 2010, 2016
+chen einschließlich der stillgelegten Flächen. Hierzu              und 2020
+zählen das Ackerland, die Dauerkulturen (z. B. Baum-
+und Beerenobstanlagen), das Dauergrünland (z. B.              Als landwirtschaftlicher Betrieb wird eine technisch-
+Wiesen und Weiden), Haus- und Nutzgärten sowie                wirtschaftliche Einheit verstanden, die einer einheitli-
+Brachen.                                                      chen Betriebsführung unterliegt und landwirtschaftliche
+                                                              Erzeugnisse oder zusätzlich auch Dienstleistungen und
+Zum Dauergrünland gehören Grünlandflächen, die fünf           andere Erzeugnisse hervorbringt. Für den Erfas-
+Jahre oder länger zur Futter- oder Heugewinnung oder          sungsbereich gelten seit 2010 als Grenzen mindestens
+zum Abweiden sowie zur Erzeugung erneuerbarer                 5 ha landwirtschaftlich genutzter Fläche (LF) oder min-
+Energien bestimmt sind. Hierzu zählen Wiesen (haupt-          destens 10 ha Waldfläche (WF). Bei Betrieben mit
+sächlich Schnittnutzung) und Weiden (einschließlich           weniger als 5 ha LF müssen die im Agrarstatistikgesetz
+Mähweiden und Almen), ertragsarmes und aus der                festgelegten Grenzen für Spezialkulturen und Tierbe-
+Erzeugung genommenes Dauergrünland. Bei Mähwei-               stände erfüllt sein. In den vorausgegangenen Jahren
+den wechseln Schnitt und Beweidung in kürzeren oder           seit 1999 lagen die Erfassungsgrenzen bei 2 ha land-
+längeren Zeiträumen regelmäßig. Ertragsarmes Dauer-           wirtschaftlich genutzter Fläche bzw. 10 ha Waldfläche.
+grünland ist die nur gelegentlich durch Beweidung oder        Betriebe, die weniger als 2 ha landwirtschaftlich genutz-
+Mähen genutzte Fläche (Nutzung ohne nennenswerten             ter Fläche bewirtschaften, wurden bei Überschreiten
+Aufwand an Düngung und Pflege). Zum Dauergrünland             gesetzlich festgelegter Grenzen der Spezialkulturen
+zählen auch Grünlandflächen mit Obstbäumen, sofern            und Tierbeständen erfasst.
+das Obst nur die Nebennutzung, die Gras- oder Heu-
+gewinnung aber die Hauptnutzung darstellt.                    23. Verarbeitendes Gewerbe sowie
+                                                                   Bergbau und Gewinnung von Steinen
+Zum Ackerland gehören alle Flächen, auf denen Ge-                  und Erden sowie Gewerbeanzeigen
+treidearten, Futterfrüchte/Pflanzen zur Grünernte, Hack-           seit 2015
+früchte, Hülsenfrüchte (zur Körnergewinnung), Ölfrüch-
+te, weitere Handelsgewächse, Gartenbauerzeugnisse,            Nachgewiesen sind "Betriebe des Verarbeitenden Ge-
+Saat- und Pflanzguterzeugung für Gräser sowie sonsti-         werbes sowie des Bergbaus und der Gewinnung von
+ge Kulturen auf dem Ackerland angebaut werden und             Steinen und Erden von rechtlichen Einheiten des Ver-
+Brache.                                                       arbeitenden Gewerbes sowie des Bergbaus und der
+                                                              Gewinnung von Steinen und Erden mit im Allgemeinen
+Zu den Handelsgewächsen zählen Ölfrüchte zur Kör-             20 oder mehr Beschäftigten und die Betriebe des Ver-
+nergewinnung (z. B. Winterraps, Sonnenblumen) und             arbeitenden Gewerbes sowie des Bergbaus und der
+weitere Handelsgewächse (z. B. Hopfen, Tabak).                Gewinnung von Steinen und Erden mit im Allgemeinen
+                                                              20 oder mehr Beschäftigten von rechtlichen Einheiten
+21. Viehhalter und Viehbestand                                der übrigen Wirtschaftszweige". Als rechtliche Einheit
+     2007, 2016 und 2020                                      gilt die kleinste Einheit, die aus handels- und/oder steu-
+                                                              errechtlichen Gründen Bücher führt. Maßgebend für die
+Ein Nachweis erfolgt seit 1999 für landwirtschaftliche        Zuordnung zum Verarbeitenden Gewerbe sowie dem
+Betriebe (vgl. auch Erläuterungen zu den Tabellen 20          Bergbau und der Gewinnung von Steinen und Erden ist
+und 22). Bei den Viehzählungen 2010 und 2016, die im          die ,,Klassifikation der Wirtschaftszweige, Ausgabe
+Rahmen der Landwirtschaftszählung 2010 bzw. der               2008 (WZ 2008)" - Abschnitte B und C -, die auf der
+Agrarstrukturerhebung 2016 durchgeführt wurden,               Systematik der Wirtschaftszweige in der Europäischen
+gelten die unter Erläuterung 17 angesprochenen Erfas-         Gemeinschaft (NACE Rev. 2) basiert. Als Beschäftigte
+sungsgrenzen. Neben den Mindestanbauflächen sind              gelten Personen, die in einem Arbeitsverhältnis zum
+hierbei folgende Mindesttierbestände zu nennen:               Betrieb stehen sowie tätige Inhaber und Mitinhaber,
+10 Rinder, 50 Schweine, 10 Zuchtsauen, 20 Schafe,             ferner unbezahlt mithelfende Familienangehörige, so-
+20 Ziegen oder 1 000 Stück Geflügel (ab 2016: 1 000           weit sie mindestens ein Drittel der üblichen Arbeitszeit
+Haltungsplätze für Geflügel). Seit der Landwirtschafts-       im Betrieb tätig sind.
+zählung 2010 wird der Viehbestand zum 1. März er-
+fasst. Ab dem Berichtsjahr 2010 werden Einhufer (Esel,        Bruttoentgelte sind die Bruttobezüge der Arbeiter und
+Maultiere sowie Pferde) erhoben. In den Vorjahren             Angestellten einschließlich aller Arten von Zuschlägen,
+wurden Pferde erfasst.                                        Vergütungen und Gratifikationen, jedoch ohne die
+                                                              Pflichtbeiträge des Arbeitgebers zur Sozialversicherung
+In den Jahren 1999 und 2007 wurde der Viehbestand             sowie andere Aufwendungen, die kein Arbeitseinkom-
+am 3. Mai erhoben. Die Mindesterfassungsgrenzen der           men darstellen.
+Tierbestände lagen in diesen Jahren bei 8 Rindern,
+8 Schweinen, 20 Schafen, 200 Legehennen, 200 Jung-
+hennen oder 200 Schlacht-, Masthähnen, -hühnern und
+sonstigen Hähnen. Seit 1999 sind Tierbestände außer-
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­              Bayerisches Landesamt für
+                                                                                        Statistik
+Statistik kommunal 2022                                   25
+        Nachgewiesen sind bei den Betrieben und Beschäftig-                                                            Erläuterungen
+        ten der Stand am 30.9., bei Bruttoentgelten die Jahres-
+        summen.                                                        zungen keinen bzw. einen Krankenhausaufenthalt von
+                                                                       weniger als 24 Stunden erforderten (Leichtverletzte).
+        Nach der Gewerbeordnung ist über den Beginn, die
+        Veränderung oder die Aufgabe einer gewerblichen                Zu den Unfällen mit Sachschaden zählen "schwer-
+        Tätigkeit eine Anzeige zu erstatten. Die Anzeigepflicht        wiegende Unfälle mit Sachschaden (im engeren Sin-
+        erstreckt sich auf Hauptniederlassungen, Zweignieder-          ne)", bei denen als Unfallursache ein Straftatbestand
+        lassungen und unselbständige Zweigstellen. Ausge-              oder eine Ordnungswidrigkeit (Bußgeld) im Zusam-
+        nommen von der Anzeigepflicht sind insbesondere die            menhang mit der Teilnahme am Straßenverkehr vorlag
+        Urproduktion und die freien Berufe. Gewerbeanmel-              und bei denen gleichzeitig mindestens ein Kfz aufgrund
+        dungen sind abzugeben bei der Neuerrichtung eines              eines Unfallschadens von der Unfallstelle abgeschleppt
+        Gewerbebetriebes, der Wiedereröffnung nach Verle-              werden musste (nicht fahrbereit), sowie "sonstige
+        gung (Zuzug) und der sonstigen Anmeldung eines                 Sachschadensunfälle unter dem Einfluss berauschen-
+        bestehenden Betriebes. Gewerbeabmeldungen sind                 der Mittel" (ein Unfallbeteiligter stand unter Einwirkung
+        abzugeben bei der Aufgabe eines Gewerbebetriebes,              von Alkohol oder anderen berauschenden Mitteln und
+        der Verlegung in einen anderen Meldebezirk (Fortzug)           alle beteiligten Kfz waren fahrbereit). Nicht enthalten
+        und der sonstigen Abmeldung eines bestehenden Be-              sind alle übrigen Sachschadensunfälle.
+        triebes.
+                                                                       26. Kraftfahrzeugbestand seit 2017
+       24. Bauhauptgewerbe seit 2017
+                                                                       Die jährliche Zählung des Kraftfahrzeugbestandes wird
+        Betriebe sind örtlich getrennte Niederlassungen von            vom Kraftfahrt-Bundesamt in Flensburg durchgeführt.
+        rechtlichen Einheiten. Dazu zählen Haupt- und selbst-          Die hier ausgewiesenen Daten umfassen alle Kraftfahr-
+        ständige Zweigniederlassungen sowie rechtliche Ein-            zeuge mit amtlichen Kennzeichen, die am 1. Januar
+        heiten mit nur einem Betrieb.                                  eines Jahres im Zentralen Fahrzeugregister gespeichert
+                                                                       sind. Außer Betrieb gesetzte Fahrzeuge sind nicht
+        Die Zuordnung der Betriebe zum Bauhauptgewerbe                 enthalten, Fahrzeuge mit Saisonkennzeichen dagegen
+        erfolgt nach dem Schwerpunkt der wirtschaftlichen              schon. Die statistischen Auswertungen stellen also die
+        Tätigkeit anhand der Klassifikation der Wirtschaftszwei-       im jeweiligen Gebiet tatsächlich zugelassenen bzw.
+        ge, Ausgabe 2008 (WZ 2008), die zum Bauhauptge-                angemeldeten Kraftfahrzeuge dar.
+        werbe 17 Wirtschaftszweige umfasst.
+                                                                       Personenkraftwagen (M1) sind Kfz zur Personenbe-
+        Zu den tätigen Personen zählen tätige Inhaberinnen             förderung mit mindestens vier Rädern und mit höchs-
+        und Inhaber und tätige Mitinhaberinnen und Mitinhaber,         tens acht Sitzplätzen außer dem Fahrersitz.
+        unbezahlt mithelfende Familienangehörige, soweit
+        diese mindestens 55 Stunden im Monat im Betrieb tätig          Sie gliedern sich nach dem Aufbautyp in Pkw und Fahr-
+        sind, Personen, die in einem Arbeitsverhältnis zum             zeuge mit besonderer Zweckbestimmung (z. B. Wohn-
+        Betrieb stehen, sowie Personen mit Altersteilzeitrege-         mobile, Krankenwagen, Leichenwagen, beschussge-
+        lung.                                                          schützte Fahrzeuge).
+
+        Als baugewerblicher Umsatz gelten die dem Finanz-              Zu den Krafträdern mit amtlichen Kennzeichen gehö-
+        amt für die Umsatzsteuer zu meldenden steuerbaren              ren zwei- und dreirädrige sowie leichte vierrädrige Kfz.
+        Beträge im Bundesgebiet einschl. Umsatz aus Subun-
+        ternehmertätigkeit und der einbehaltenen Teilleistungen        Vgl. Kraftfahrt-Bundesamt, http://www.kba.de, Themen-
+        aus der Vergabe an Subunternehmer. Zum Umsatz                  bereich Fahrzeugstatistik (Veröffentlichung FZ 3).
+        zählen auch Anzahlungen für Teilleistungen oder Vo-
+        rauszahlungen vor Ausführung der entsprechenden                27. Tourismus seit 2016
+        Lieferungen oder Leistungen ab 5 000 Euro.
+                                                                       Auskunftspflichtig sind Beherbergungsbetriebe, die
+       25. Straßenverkehrsunfälle seit 2016                            mehr als neun Gäste im Reiseverkehr gleichzeitig be-
+                                                                       herbergen können. Hierzu zählen auch Unterkunftsstät-
+        Nachgewiesen werden alle von der Polizei erfassten             ten, die die Gästebeherbergung nicht gewerblich
+        Unfälle, bei denen infolge des Fahrverkehrs auf öffentli-      und/oder nur als Nebentätigkeit betreiben. Zu den Be-
+        chen Wegen und Plätzen Personen getötet oder ver-              herbergungsbetrieben zählen Hotels, Hotels garnis,
+        letzt wurden bzw. Sachschaden entstanden ist.                  Gasthöfe, Pensionen, ferner Vorsorge- und Reha-
+                                                                       Kliniken, Erholungs- und Ferienheime, Schulungshei-
+        Straßenverkehrsunfälle mit Personenschaden sind                me, Ferienhäuser und Ferienwohnungen, Ferienzen-
+        Unfälle, bei denen infolge des Fahrverkehrs auf öffentli-      tren, Hütten, Schullandheime, Jugendherbergen und
+        chen Wegen und Plätzen Personen getötet oder ver-              jugendherbergsähnliche Einrichtungen, sowie Cam-
+        letzt wurden.                                                  pingplätze mit mehr als neun Stellplätzen.
+
+        Als getötet bei Straßenverkehrsunfällen gelten Perso-          Gäste aus dem Inland sind alle Gäste, deren ständiger
+        nen, die auf der Stelle getötet wurden oder innerhalb          Wohnsitz sich im Bundesgebiet befindet.
+        von 30 Tagen nach dem Unfall an den Unfallfolgen
+        starben.                                                       Gäste aus dem Ausland sind alle Gäste, deren stän-
+                                                                       diger Wohnsitz sich im Ausland befindet.
+        Als verletzt bei Straßenverkehrsunfällen gelten Perso-
+        nen, die unmittelbar in ein Krankenhaus für mindestens         Die durchschnittliche Aufenthaltsdauer der Gäste
+        24 Stunden zur stationären Behandlung eingeliefert             errechnet sich aus der Zahl der Gästeübernachtungen
+        werden (Schwerverletzte) oder Personen, deren Verlet-          dividiert durch die Zahl der Gästeankünfte.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                       Als Gästebetten wird die Anzahl der angebotenen
+Statistik kommunal 2022                                                Betten und sonstigen Schlafgelegenheiten in den geöff-
+
+                                                                       Bayerisches Landesamt für
+
+                                                                   26                                                                 Statistik
+                                                                     Erläuterungen
+
+        neten Beherbergungsbetrieben (ohne Campingplätze)            29. Allgemeinbildende Schulen und
+        ausgewiesen.                                                      Wirtschaftsschulen 2021/22
+
+        Bei Gästeankünften handelt es sich um die Zahl der           Nach Beschluss des ALG FS werden Fälle des Dritten
+        Gäste, die während des Kalenderjahres in Beherber-           Geschlechts (Merkmalsausprägungen ,,divers" und
+        gungsbetrieben ankamen und zum vorübergehenden               ,,ohne Angabe"), die zur Wahrung der Geheimhaltung
+        Aufenthalt ein Gästebett belegten.                           nicht explizit veröffentlicht werden können, in den Veröf-
+                                                                     fentlichungen in der Amtlichen Statistik einheitlich per
+        Bei Gästeübernachtungen handelt es sich um die Zahl          Zufallsprinzip den Kategorien ,,männlich" oder ,,weiblich"
+        der Übernachtungen von Personen, die während des             zugeordnet. Die Zuordnung erfolgt mit einem Erwar-
+        Kalenderjahres in Beherbergungsbetrieben übernachte-         tungswert von 0,5.
+        ten, d. h. zum vorübergehenden Aufenthalt ein Gäste-
+        bett belegten.                                               Die Volksschule besteht aus der Grundschule (Jahr-
+                                                                     gangsstufen 1 mit 4) und der Mittel-/ Hauptschule
+        Die durchschnittliche Auslastung der angebotenen             (Jahrgangsstufen 5 mit 9 und, soweit Mittlere-Reife-
+        Betten ist der rechnerische Wert, der die prozentuale        Klassen in der Jahrgangsstufe 10 angeboten werden,
+        Inanspruchnahme der Übernachtungsmöglichkeiten               auch Jahrgangsstufe 10). Die Grundschule ist die ge-
+        (Bettentage) im Berichtszeitraum ausdrückt (Übernach-        meinsame erste Bildungsstufe für Sechs- bis Zehnjähri-
+        tungen x 100 : Bettentage). Die Zahl der Bettentage          ge. Die Mittel-/ Hauptschule vermittelt eine grundlegen-
+        wird bei der Auslastung des Angebots durch Multiplika-       de Allgemeinbildung. Sie schafft Voraussetzungen für
+        tion der angebotenen Betten mit der Zahl der betriebli-      eine qualifizierte berufliche Bildung und die schulischen
+        chen Öffnungstage im Berichtszeitraum ermittelt.             Voraussetzungen für den Übertritt in weitere schulische
+                                                                     Bildungsgänge bis zur Hochschulreife. Im Rahmen der
+        In Bayern wird auf landesrechtlicher Grundlage auch          Weiterentwicklung der Hauptschulen zu Mittelschulen
+        die Gesamtzahl der Ankünfte und Übernachtungen in            wurden viele der Hauptschulen alleine oder im Schul-
+        den gewerblichen Beherbergungsstätten mit weniger            verband zu Mittelschulen (ernannt) und erhielten neue
+        als zehn Betten und in den Privatquartieren erhoben.         Schulnummern. Hierdurch erhöhte sich die Anzahl der
+        Diese Erhebung wird auf freiwilliger Basis durchgeführt      Schulen.
+        und bezieht sich größtenteils auf die so genannten
+        prädikatisierten Gemeinden (Mineral- und Moorbäder,          Förderzentren diagnostizieren, erziehen, unterrichten,
+        Heilklimatische Kurorte, Kneippheilbäder, Kneippkuror-       beraten und fördern schulpflichtige Kinder und Jugend-
+        te, Luftkurorte und Erholungsorte). Meldungen verein-        liche der Jahrgangsstufen 1 bis 9 und höher, die der
+        zelter, nicht prädikatisierter Gemeinden werden ab           sonderpädagogischen Förderung bedürfen. Die ausge-
+        2017 ebenfalls ausgewiesen.                                  wiesenen Daten beinhalten auch die Angaben der
+                                                                     Schulen für Kranke, in denen Schüler unterrichtet wer-
+        Die Beherbergungsstatistik führt in Folge nachträglich       den, die sich in Krankenhäusern oder vergleichbaren
+        eingegangener Meldungen Rückkorrekturen durch;               Einrichtungen aufhalten müssen.
+        dadurch kann es zu geringfügigen Abweichungen mit
+        anderen Veröffentlichungen kommen. Ab 2017 sind die          Realschulen vermitteln eine breite allgemeine und
+        Ergebnisse nach Abschluss eines Berichtsjahres end-          berufsvorbereitende Bildung. Sie umfassen die Jahr-
+        gültig.                                                      gangsstufen 5 mit 10 und führen zu einem mittleren
+                                                                     Schulabschluss. Sie legen den Grund für eine Berufs-
+       28. Kindertageseinrichtungen seit 2017                        ausbildung und schaffen die schulischen Vorausset-
+                                                                     zungen für den Übertritt vorwiegend in weitere schuli-
+        Kindertageseinrichtungen sind Einrichtungen, in denen        sche Bildungsgänge bis zur Hochschulreife.
+        Kinder ganztägig oder für einen Teil des Tages aufge-
+        nommen sowie pflegerisch und erzieherisch regelmäßig         Die Wirtschaftsschulen bauen auf den Jahrgangsstu-
+        betreut werden, die über entsprechendes Personal             fen 5, 6 oder 7 der Hauptschule oder auf dem qualifizie-
+        verfügen und für die eine Betriebserlaubnis nach § 45        renden Abschluss der Mittelschule auf und führen in
+        SGB VIII oder eine vergleichbare Genehmigung vor-            zwei, drei oder vier Jahren bzw. im Fall des Besuchs
+        liegt.                                                       der Vorklasse in fünf Jahren zum mittleren Schulab-
+                                                                     schluss. Sie vermitteln neben der allgemeinen Bildung
+        In die Erhebung fließen somit die Daten von Kinderkrip-      eine berufliche Grundbildung im Berufsfeld Wirtschaft
+        pen, Kindergärten und Kinderhorten, sowie von alters-        und Verwaltung.
+        gemischten Einrichtungen ein.
+                                                                     Gymnasien vermitteln die vertiefte allgemeine Bildung,
+        Die statistischen Ergebnisse bieten einen Überblick          die für ein Hochschulstudium, vorausgesetzt wird; sie
+        über das Angebot verschiedener Formen der Betreuung          schaffen auch zusätzliche Voraussetzungen für eine
+        in Tageseinrichtungen für Kinder und dienen als Basis        berufliche Ausbildung außerhalb der Hochschule. Sie
+        für die Planung und Weiterentwicklung eines bedarfsge-       schließen in der Regel an die Jahrgangsstufe 4 der
+        rechten Ausbaus des Betreuungsangebotes.                     Grundschulen an und umfassen die Jahrgangsstufen 5
+                                                                     mit 12. Sie verleihen nach erfolgreicher Abiturprüfung
+        Erfasst werden die Kindertageseinrichtungen, die Zahl        die allgemeine Hochschulreife.
+        der genehmigten Plätze sowie die dort betreuten Kinder
+        und tätigen Personen. Die Erhebung wird jährlich als         Freie Waldorfschulen fassen unterschiedliche Bil-
+        Totalerhebung bei den Trägern der Jugendhilfe und den        dungsgänge im Sinne der Pädagogik Rudolf Steiners
+        Einrichtungen zum Stichtag 01. März durchgeführt.            zusammen.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­                     Einrichtungen des Zweiten Bildungswegs: Die
+Statistik kommunal 2022                                              Abendrealschulen, Abendgymnasien und Kollegs füh-
+                                                                     ren Berufstätige bzw. Erwachsene mit Bewährung im
+                                                                     Berufsleben zu einem mittleren Schulabschluss bzw.
+                                                                     zur allgemeinen Hochschulreife.
+
+                                                                     Bayerisches Landesamt für
+
+                                                                 27                                                              Statistik
+       30. Berufliche Schulen 2021/22                                                                                   Erläuterungen
+
+        Nach Beschluss des ALG FS werden Fälle des Dritten              Fachakademien bereiten durch eine vertiefte berufliche
+        Geschlechts (Merkmalsausprägungen ,,divers" und                 und allgemeine Bildung auf den Eintritt in eine gehobe-
+        ,,ohne Angabe"), die zur Wahrung der Geheimhaltung              ne Berufslaufbahn vor. Sie setzen einen mittleren
+        nicht explizit veröffentlicht werden können, in den Veröf-      Schulabschluss und eine dem Ausbildungsziel dienen-
+        fentlichungen in der Amtlichen Statistik einheitlich per        de berufliche Ausbildung oder praktische Tätigkeit vo-
+        Zufallsprinzip den Kategorien ,,männlich" oder ,,weiblich"      raus. Die Ausbildung dauert mindestens vier Halbjahre
+        zugeordnet. Die Zuordnung erfolgt mit einem Erwar-              und schließt mit einer staatlichen Prüfung ab. Durch
+        tungswert von 0,5.                                              eine staatliche Ergänzungsprüfung kann die Fachhoch-
+                                                                        schulreife erworben werden, von sehr guten Absolven-
+        Berufsschulen haben die Aufgabe, in Abstimmung mit              ten die fachgebundene Hochschulreife.
+        der betrieblichen Berufsausbildung die erforderlichen
+        fachtheoretischen Kenntnisse zu vermitteln und die              31. Einrichtungen für ältere Menschen
+        fachpraktischen Fertigkeiten zu vertiefen. Sie werden in             seit 2010
+        der Regel drei Jahre besucht. Neben wöchentlichem
+        bzw. blockweisem Teilzeitunterricht wird auch Vollzeit-         Zweijährig zum Stichtag 15. Dezember werden Daten
+        unterricht im Berufsgrundschuljahr und Berufsvorberei-          zu den Einrichtungen für ältere Menschen erhoben.
+        tungsjahr erteilt. An Berufsschulen kann der mittlere           Nachgewiesen werden hier die wichtigsten Eckdaten.
+        Schulabschluss verliehen werden. Im Rahmen der                  Da es sich um eine freiwillige Erhebung handelt, erhe-
+        Doppelqualifizierung "Berufsschule Plus ­ BS+" kann             ben die Daten ab 2012 keinen Anspruch auf Vollstän-
+        auch die Fachhochschulreife erworben werden.                    digkeit.
+
+        Berufsfachschulen bereiten auf eine Berufstätigkeit             32. Bedarfsgemeinschaften und
+        vor oder führen zu einer abgeschlossenen Berufsaus-                  Empfänger/-innen nach dem zwölften
+        bildung. Sie setzen in der Regel den erfolgreichen Ab-               Buch Sozialgesetzbuch SGB XII (Sozi-
+        schluss der Mittelschule, in einigen Fällen den mittleren            alhilfe) seit 2014 nach Wohnort
+        Schulabschluss voraus. Der fachpraktische und theore-
+        tische Unterricht dauert ein bis fünf Jahre. An mindes-         Für Kapitel 3 SGB XII werden die Bedarfsgemeinschaf-
+        tens zweijährigen Berufsfachschulen kann der mittlere           ten und die Empfänger/-innen, für Kapitel 4 sowie für
+        Schulabschluss erworben werden, in besonders gere-              Kapitel 5 bis 9 werden die Empfänger/-innen jeweils
+        gelten Ausnahmefällen auch die Fachhochschulreife.              zum Stichtag 31.12. / Ende des 4. Quartals ausgewie-
+                                                                        sen.
+        Fachschulen setzen eine Berufsausbildung voraus. Sie
+        dienen der vertieften Fortbildung oder Umschulung in            Ab dem Berichtsjahr 2020 wird der Bayernwert nach
+        gewerblich-technischen, landwirtschaftlichen sowie              Träger, die tieferen regionalen Ebenen nach Wohnort
+        sozialpflegerischen oder sozialpädagogischen Berufen.           ausgewiesen.
+        An mindestens einjährigen Fachschulen kann die Fach-
+        schulreife verliehen werden. Über eine besondere                Bis einschließlich 2019 werden alle Werte in der Tabel-
+        staatliche Prüfung kann zusätzlich die Fachhochschul-           le nach Wohnort ausgewiesen.
+        reife erworben werden.
+                                                                        Von 2017 bis einschließlich 2019 werden die Personen
+        Die Fachoberschule (FOS) wird zusammen mit der                  'ohne Angabe' beim Merkmal Geschlecht tabellarisch
+        Berufsoberschule (BOS) seit dem Schuljahr 2008/09               dem männlichen Geschlecht zugeordnet.
+        unter dem Dach der Beruflichen Oberschule Bayern
+        (BOB) zusammengefasst.                                          Ab 2020 werden die Personen mit den Geschlechtsan-
+                                                                        gaben ,divers` und ,ohne Angabe` (nach § 22 Absatz 3
+        Fachoberschulen vermitteln eine allgemeine, fach-               PStG) per Zufallsprinzip dem männlichen oder weibli-
+        theoretische und fachpraktische Bildung. Sie richten            chen Geschlecht zugeordnet.
+        sich an Schüler mit mittlerem Schulabschluss, aber
+        noch ohne Berufsausbildung, umfassen die Jahrgangs-             33. Anschlussgrad an die öffentliche
+        stufen 11 und 12 und führen zur Fachhochschulreife.                  Wasserversorgung und Abwasser-
+        Für überdurchschnittlich qualifizierte Absolventen mit               entsorgung am 31. Dezember 2007,
+        Fachhochschulreife kann eine Jahrgangsstufe 13 ge-                   2010, 2013, 2016 und 2019
+        führt werden. Diese verleiht nach bestandener Abitur-
+        prüfung die fachgebundene Hochschulreife sowie bei              Als Betreiber einer öffentlichen Wasserversorgung
+        Nachweis der notwendigen Kenntnisse in einer zweiten            werden in Bayern Versorgungseinheiten mit 20 oder
+        Fremdsprache die allgemeine Hochschulreife.                     mehr angeschlossenen Einwohnern angesehen. Die
+                                                                        öffentliche Abwasserentsorgung definiert sich über den
+        Berufsoberschulen vermitteln eine allgemeine und                Anschluss an die Kanalisation. Als öffentliche Abwas-
+        fachtheoretische Bildung. Sie bauen auf einem mittleren         serbehandlungsanlagen gelten Anlagen ab einer Kapa-
+        Schulabschluss und einer einschlägigen Berufsausbil-            zität von 50 Einwohnerwerten.
+        dung oder entsprechenden mehrjährigen Berufserfah-
+        rung auf. Die Berufsoberschule verleiht nach bestande-          Bayerisches Landesamt für
+        ner Abschlussprüfung die fachgebundene Hochschul-
+        reife und beim Nachweis der notwendigen Kenntnisse          28                                                                 Statistik
+        in einer zweiten Fremdsprache die allgemeine Hoch-
+        schulreife. In der Vorklasse können Schüler mit erfolg-
+        reichem Abschluss einer Mittelschule und einer ent-
+        sprechenden, erfolgreich abgeschlossenen Berufsaus-
+        bildung den mittleren Schulabschluss erwerben. Schü-
+        ler der Jahrgangsstufe 12 können sich der Fachhoch-
+        schulreifeprüfung unterziehen.
+
+Querschnittsveröffentlichungen ­ Z50021 202200 ­
+Statistik kommunal 2022
+Querschnittsveröffentlichungen ­ Z50021 202200 ­      Bayerisches Landesamt für
+                                                                                Statistik
+Statistik kommunal 2022                           29
+AVketruöeflfleentlichungen
+ uqn.btearyern.de/produkte
+
+Statistisches Jahrbuch
+
+für Bayern
+
+Das Statistische Jahrbuch für Bayern    Statistiken ­ in Form von Tabellen,
+ist das Standardwerk der amtlichen      Graphiken oder Karten ­ zum Teil mit
+Statistik in Bayern seit 1894. Darin    langjährigen Vergleichsdaten und Zeit-
+zusammengestellt sind jährlich aktu-    reihen.
+elle Statistikdaten über Land, Leben,
+Leute, Politik, Wissenschaft und Wirt-  Ebenso enthalten sind ausgewählte
+schaft in Bayern.                       Strukturdaten für Regierungsbezirke,
+                                        kreisfreie Städte und Landkreise sowie
+Auf über 700 Seiten enthält es die      Regionen Bayerns, für Bund und Län-
+wichtigsten Ergebnisse aller amtlichen  der sowie die EU-Mitgliedstaaten.
+
+                                        Die bisherigen Auswir-
+                                        kungen der Corona-
+                                        Pandemie sind in aus-
+                                        gewählten Sonder-
+                                        statistiken dargestellt.
+
+                                        Preise
+                                        Buch 39,00 
+                                        Buch + DVD 46,00 
+                                        PDF (DVD oder Datei)
+                                        12,00 
+
+Bayern Daten
+
+Die Bayern Daten sind ein Auszug        Wirtschaft, Gesellschaft und Politik in
+aus dem Statistischen Jahrbuch und      Tabellen und Graphiken.
+enthalten auf über 30 Seiten die wich-
+tigsten bayerischen Strukturdaten aus   Heft und Datei kostenlos
+
+Bayerisches Landesamt für Statistik ­ Vertrieb, Nürnberger Straße 95, 90762 Fürth
+Telefon 0911 98208-6311  Telefax 0911 98208-96638  vertrieb@statistik.bayern.de
+
