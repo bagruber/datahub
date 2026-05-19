@@ -256,7 +256,7 @@ for (const s of sections) for (const c of s.charts) {
 const out = {
   meta: {
     id: "statistik_kommunal_2022",
-    title: "Statistik kommunal",
+    title: "Bevölkerungsstatistik",
     year: 2022,
     n: dataPoints,
     source: "Bayer. Landesamt für Statistik",

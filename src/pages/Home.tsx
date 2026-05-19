@@ -13,7 +13,7 @@ export function Home() {
   return (
     <div className="mx-auto max-w-screen-xl px-4 sm:px-6">
       <section className="py-10 sm:py-16 max-w-3xl">
-        <p className="eyebrow mb-3">Datenhub</p>
+        <p className="eyebrow mb-3">Data Hub</p>
         <h1 className="headline text-display-2 sm:text-display-1">
           Was Moosburg sagt, sichtbar gemacht.
         </h1>
