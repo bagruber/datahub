@@ -103,20 +103,33 @@ export function Dataset() {
         )}
       </header>
 
-      {/* Key facts — first, before filters */}
-      <div className="grid gap-4 sm:grid-cols-3 pb-6">
-        <Stat label="Erhebungsjahr" value={String(dataset.meta.year)} />
-        <Stat
-          label="Antworten"
-          value={fmtInt(filteredRecords.length)}
-          sub={
-            filteredRecords.length === dataset.records.length
-              ? "Stichprobengröße"
-              : `gefiltert von ${fmtInt(dataset.records.length)}`
-          }
-        />
-        <Stat label="Themenbereiche" value={String(sortedSections.length)} />
-      </div>
+      {/* Key facts — first, before filters. Layout differs by dataset kind:
+          surveys show respondents; statistik shows the source. */}
+      {dataset.kind === "statistik" ? (
+        <div className="grid gap-4 sm:grid-cols-3 pb-6">
+          <Stat label="Stand" value={String(dataset.meta.year)} />
+          <Stat
+            label="Quelle"
+            value={dataset.meta.source ?? "—"}
+            sub="Amtliche Statistik"
+          />
+          <Stat label="Themenbereiche" value={String(sortedSections.length)} />
+        </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-3 pb-6">
+          <Stat label="Erhebungsjahr" value={String(dataset.meta.year)} />
+          <Stat
+            label="Antworten"
+            value={fmtInt(filteredRecords.length)}
+            sub={
+              filteredRecords.length === dataset.records.length
+                ? "Stichprobengröße"
+                : `gefiltert von ${fmtInt(dataset.records.length)}`
+            }
+          />
+          <Stat label="Themenbereiche" value={String(sortedSections.length)} />
+        </div>
+      )}
 
       {/* Sticky filter strip — compact vertical bars, always reachable */}
       {dataset.filters.length > 0 && (

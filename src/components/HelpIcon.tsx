@@ -117,6 +117,12 @@ export const HELP: Record<string, string> = {
     "Divergierender Stapelbalken für Preisempfinden: günstige Bewertungen wachsen nach links, teure nach rechts. Anders als bei Qualitäts-Likerts gibt es hier kein gut/schlecht — deshalb ein neutraler Blau-Verlauf (hell = günstig, dunkel = teuer) statt Rot/Grün.",
   bar_v:
     "Senkrechte Balken — bewährt für zeitliche oder geordnete Reihen wie Wochentage oder Uhrzeiten. Die Reihenfolge entspricht dem Sachzusammenhang, nicht der Häufigkeit.",
+  line_series:
+    "Liniendiagramm mit einer oder mehreren Reihen über die Zeit. Jede Linie ist eine eigene Kategorie, gemeinsam aufgetragen über die Jahre. Hover zeigt den genauen Wert.",
+  stacked_column:
+    "Gestapelte Säulen — der Gesamtbalken pro Jahr besteht aus mehreren Teilen, die zusammen 100 % des Werts ergeben. Geeignet für Aufteilungen, bei denen sich die Teile zur Summe ergänzen (z. B. Beschäftigte nach Branche).",
+  pyramid:
+    "Bevölkerungspyramide. Links und rechts vom Mittelpunkt stehen die zwei Gruppen (etwa männlich und weiblich), nach oben hin steigt das Alter. Symmetrische Pyramiden sind ausgeglichen, einseitige zeigen Schieflagen.",
   diverging3:
     "Divergierender Balken: die linke und rechte Option streben nach außen, die unentschlossene Mitte überlagert die Null-Linie hälftig. Hängt der Balken stark nach einer Seite, dominiert diese Option.",
   radar:

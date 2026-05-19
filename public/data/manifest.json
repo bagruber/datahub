@@ -27,6 +27,14 @@
       "title": "Volksfest",
       "year": 2024,
       "n": 189
+    },
+    {
+      "id": "statistik_kommunal_2022",
+      "file": "statistik_kommunal_2022.json",
+      "title": "Statistik kommunal",
+      "year": 2022,
+      "n": 145,
+      "kind": "statistik"
     }
   ]
 }
