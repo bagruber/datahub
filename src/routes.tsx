@@ -16,5 +16,9 @@ export const router = createBrowserRouter(
       ],
     },
   ],
-  { basename: "/datahub" },
+  // Aus BASE_URL statt fest verdrahtet: die App läuft unter zwei Pfaden —
+  // /datahub/ auf GitHub Pages, /data/ auf moosburg.eu. Passt der basename
+  // nicht zur URL, greift keine Route und die Seite bleibt weiß.
+  // BASE_URL endet auf "/", basename erwartet es ohne.
+  { basename: import.meta.env.BASE_URL.replace(/\/$/, "") },
 );
