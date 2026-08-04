@@ -10,6 +10,10 @@ filterbare Visualisierungen — ohne PDF-Tabellen, ohne Excel-Klicki.
 > Wünsche, Bug-Reports und Datenanfragen gerne jederzeit als
 > [GitHub-Issue](https://github.com/bagruber/datahub/issues) oder per Mail.
 
+> **Hosting und Plattform-Regeln:** [PLATTFORM.md](PLATTFORM.md) — läuft
+> zweifach unter verschiedenen Basispfaden (`/datahub/` auf GitHub Pages,
+> `/data/` auf moosburg.eu), beides aus `main`.
+
 ## Stack
 
 - React 19 + React Router 7 + TypeScript
