@@ -63,6 +63,11 @@ jobs:
           RewriteBase /data/
           RewriteCond %{REQUEST_FILENAME} !-f
           RewriteCond %{REQUEST_FILENAME} !-d
+          # Anfragen mit Dateiendung nicht umschreiben. Sonst beantwortet der
+          # Server eine fehlende .json mit der SPA-Shell und HTTP 200 — und ein
+          # zurückgehaltener Datensatz sähe aus, als gäbe es ihn noch, bloß mit
+          # kaputtem JSON.
+          RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{2,5}$
           RewriteRule . /data/index.html [L]
           HTACCESS
           cat dist/.htaccess
