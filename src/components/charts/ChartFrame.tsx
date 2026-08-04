@@ -25,7 +25,12 @@ type Props = {
 export function ChartFrame({ children, caption, table, width = "normal", className }: Props) {
   return (
     <figure className={cn(WIDTH_CLASS[width], className)}>
-      {children}
+      {/* Nur der Diagrammkörper scrollt, nicht die ganze Seite. Manche Charts
+          setzen eine Mindestbreite (BarV: Kategorien × 36px + Ränder). Ohne
+          diesen Container schiebt die ein schmales Display auf — man kann dann
+          über den Inhalt hinaus nach rechts wischen und herauszoomen.
+          Bildunterschrift und Tabelle bleiben bewusst außerhalb. */}
+      <div className="overflow-x-auto">{children}</div>
       {caption && <ScaleCaption left={caption.left} right={caption.right} />}
       {table}
     </figure>
