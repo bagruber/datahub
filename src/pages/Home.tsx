@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { loadManifest, type Manifest } from "@/lib/data";
 import { DatasetCard } from "@/components/DatasetCard";
+import { CARD_KIND } from "@/lib/cardKind";
 
 export function Home() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
@@ -51,20 +52,40 @@ export function Home() {
 
       {/* Eigenständige Anwendung, kein Datensatz aus dem Manifest: eigener
           Build unter /data/baumkarte/, deshalb ein normaler Link statt einer
-          Route des Routers. */}
+          Route des Routers. Grundton wie die anderen „Eigene Auswertung". */}
       <section className="pb-16">
+        {/* Überschrift benennt die Form, der Kicker auf der Card die
+            Herkunft — sonst stünde zweimal dasselbe. */}
         <h2 className="eyebrow mb-4">Karten</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <a
             href={`${import.meta.env.BASE_URL}baumkarte/`}
-            className="group block rounded-xl border border-ink-line bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift"
+            className={`group block rounded-xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift ${CARD_KIND.eigen.surface}`}
           >
-            <p className="eyebrow text-ink-muted">Einzelbäume</p>
-            <h3 className="headline mt-1 mb-2 text-xl transition-colors group-hover:text-red-700 sm:text-2xl">
+            <p className={CARD_KIND.eigen.eyebrow}>{CARD_KIND.eigen.label}</p>
+            <h3
+              className={`headline mt-1 mb-2 flex items-center gap-1.5 text-xl transition-colors sm:text-2xl ${CARD_KIND.eigen.titleHover}`}
+            >
               Baumkarte
+              <svg
+                width="11"
+                height="11"
+                viewBox="0 0 11 11"
+                fill="none"
+                aria-hidden
+                className="mt-0.5 shrink-0 opacity-45"
+              >
+                <path
+                  d="M2.5 8.5 8.5 2.5M4 2.5h4.5V7"
+                  stroke="currentColor"
+                  strokeWidth="1.4"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </h3>
-            <p className="text-sm text-ink-muted">
-              2.868.813 Bäume zwischen Moosburg und Landshut
+            <p className={`text-sm ${CARD_KIND.eigen.meta}`}>
+              2.868.813 Einzelbäume zwischen Moosburg und Landshut
             </p>
           </a>
         </div>
