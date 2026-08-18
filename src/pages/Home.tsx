@@ -48,6 +48,27 @@ export function Home() {
           </div>
         )}
       </section>
+
+      {/* Eigenständige Anwendung, kein Datensatz aus dem Manifest: eigener
+          Build unter /data/baumkarte/, deshalb ein normaler Link statt einer
+          Route des Routers. */}
+      <section className="pb-16">
+        <h2 className="eyebrow mb-4">Karten</h2>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <a
+            href={`${import.meta.env.BASE_URL}baumkarte/`}
+            className="group block rounded-xl border border-ink-line bg-white p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift"
+          >
+            <p className="eyebrow text-ink-muted">Einzelbäume</p>
+            <h3 className="headline mt-1 mb-2 text-xl transition-colors group-hover:text-red-700 sm:text-2xl">
+              Baumkarte
+            </h3>
+            <p className="text-sm text-ink-muted">
+              2.868.813 Bäume zwischen Moosburg und Landshut
+            </p>
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
