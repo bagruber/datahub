@@ -55,8 +55,10 @@ export type Section = {
 /** Kind of dataset.
  *  - "survey":    citizen survey with raw records, demographic filters, etc.
  *  - "statistik": pre-aggregated official data (e.g. Bayerisches Landesamt
- *                 für Statistik). No records, no filters; chart data inline. */
-export type DatasetKind = "survey" | "statistik";
+ *                 für Statistik). No records, no filters; chart data inline.
+ *  - "eigen":     hier zusammengetragen und gerechnet, keine fremde Erhebung
+ *                 (z. B. aus offenen Geodaten abgeleitet). */
+export type DatasetKind = "survey" | "statistik" | "eigen";
 
 export type DatasetMeta = {
   id: string;
@@ -103,7 +105,7 @@ export type ManifestEntry = {
   title: string;
   year: number;
   n: number;
-  /** "survey" (default) or "statistik" — controls home-card styling. */
+  /** "survey" (default), "statistik" oder "eigen" — steuert die Card. */
   kind?: DatasetKind;
 };
 export type Manifest = { datasets: ManifestEntry[] };

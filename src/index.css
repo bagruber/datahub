@@ -103,6 +103,18 @@ body {
   line-height: 1.1;
 }
 
+/* Grund für „Eigene Auswertung": feine Schraffur als Zeichen des Gemachten.
+   Bewusst eine Textur statt einer dritten Farbe — die Palette bleibt eng,
+   und der Unterschied trägt auch in Graustufen und bei Farbenblindheit. */
+.card-hatch {
+  background-color: var(--color-cream);
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgb(28 28 28 / 0.045) 0 1px,
+    transparent 1px 7px
+  );
+}
+
 .eyebrow {
   font-family: var(--font-sans);
   text-transform: uppercase;
