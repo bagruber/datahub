@@ -85,7 +85,7 @@ export function Home() {
               </svg>
             </h3>
             <p className={`text-sm ${CARD_KIND.eigen.meta}`}>
-              2.868.813 Einzelbäume zwischen Moosburg und Landshut
+              2.868.813 Einzelbäume rund um Moosburg
             </p>
           </a>
         </div>
