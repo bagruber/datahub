@@ -25,7 +25,7 @@ export const CARD_KIND: Record<
     eyebrow: "eyebrow text-ink-muted",
     meta: "text-ink-muted",
     titleHover: "group-hover:text-red-700",
-    label: "Umfrage der Stadt",
+    label: "Umfrage",
   },
   statistik: {
     surface: "bg-gold-100 border-gold-200",
