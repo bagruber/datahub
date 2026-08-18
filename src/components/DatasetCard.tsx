@@ -10,7 +10,8 @@ export function DatasetCard({ entry }: { entry: ManifestEntry }) {
     entry.kind === "statistik" ? "statistik" : entry.kind === "eigen" ? "eigen" : "umfrage";
   const style = CARD_KIND[kind];
 
-  const eyebrowText = kind === "umfrage" ? String(entry.year) : style.label;
+  // Die Jahreszahl allein sagte nicht, was man vor sich hat
+  const eyebrowText = kind === "umfrage" ? `${style.label} ${entry.year}` : style.label;
   const countText =
     kind === "statistik"
       ? `${fmtInt(entry.n)} Datenpunkte`
