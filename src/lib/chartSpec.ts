@@ -10,17 +10,40 @@ export type ChartItemBin = { label: string; vals: number[] };
 // Umrisse, Beschriftungsanker, alles schon im Koordinatenraum der viewBox.
 // Der Browser projiziert also nichts mehr, er malt nur noch.
 
-/** Eine Liste mit ihrer Farbe und ihrem Gewicht im ganzen Gebiet. */
+/**
+ * Eine Zeile der Kreislegende. Das ist nicht zwingend ein einzelner
+ * Wahlvorschlag: örtliche Listen sind zu Gruppen zusammengefasst, weil sich
+ * neben den gesetzten Parteifarben nur vier weitere Farben unterbringen lassen,
+ * die sich zuverlässig unterscheiden — und im Landkreis Freising treten
+ * einunddreißig örtliche Listen an. Woraus eine Gruppe besteht, steht in `teile`.
+ */
 export type WahlListe = {
   id: string;
   name: string;
+  /** Ausgeschriebener Name, wo die Quelle ihn führt. */
+  lang?: string | null;
   farbe: string;
   sitze: number;
   /** In wie vielen Gemeinden sie angetreten ist. */
   gemeinden?: number;
-  /** Stimmenanteil in Prozent — bei einem einzelnen Gremium gesetzt. */
+  /** Stimmenanteil in Prozent. */
   anteil?: number | null;
   /** Gewinn oder Verlust in Prozentpunkten gegenüber der Wahl davor. */
+  veraenderung?: number;
+  /** Die einzelnen Wahlvorschläge hinter einer Gruppe, nach Gewicht. */
+  teile?: { name: string; sitze: number }[];
+  /** Sitze, die in der amtlichen Statistik keinen Listennamen tragen. */
+  unbenannt?: number;
+};
+
+/** Das Ergebnis eines Wahlvorschlags in einer Gemeinde. */
+export type WahlErgebnis = {
+  id: string;
+  /** Zeile der Kreislegende, zu der dieser Wahlvorschlag zählt. */
+  gruppe?: string;
+  farbe?: string;
+  sitze: number | null;
+  anteil: number | null;
   veraenderung?: number;
 };
 
@@ -31,11 +54,31 @@ export type WahlGebiet = {
   sitze: number | null;
   /** "sammel": nur amtliche Sammelkategorien, örtliche Listen nicht benannt. */
   genauigkeit: "listen" | "sammel";
-  ergebnis: { id: string; sitze: number | null; anteil: number | null; veraenderung?: number }[];
+  quelle?: string;
+  ergebnis: WahlErgebnis[];
+};
+
+/** Welche Angabe dieser Ebene aus welcher Quelle stammt. */
+export type WahlHerkunft = {
+  gemeinden: number;
+  /** Gemeinden, deren Wahlleitung die Listen beim Namen nennt. */
+  listen: number;
+  /** Die übrigen, namentlich. */
+  ohneListen: string[];
+  /** Gemeinden mit prüfbarem Vorwahlvergleich. */
+  veraenderung: number;
+  vergleichswahl: string | null;
 };
 
 /** Eine Wahl, über die dieselbe Geometrie gefärbt werden kann. */
-export type WahlEbene = { id: string; label: string; gebiete: WahlGebiet[]; listen: WahlListe[] };
+export type WahlEbene = {
+  id: string;
+  label: string;
+  gebiete: WahlGebiet[];
+  listen: WahlListe[];
+  herkunft?: WahlHerkunft;
+  vergleichswahl?: string | null;
+};
 
 export type WahlGeometrie = {
   viewBox: number[];
@@ -191,8 +234,12 @@ export type ChartSpec =
       geometrie: WahlGeometrie;
       /** Mindestens eine; mehrere machen die Vergleichsebene umschaltbar. */
       ebenen: WahlEbene[];
-      /** Vorbehalt zum Gezeigten, etwa unvollständig benannte örtliche Listen. */
-      hinweis?: string;
+      /**
+       * Vorbehalte zum Gezeigten — unvollständig benannte örtliche Listen, oder
+       * eine Zusammenfassung, die von der amtlichen Statistik abweicht. `ebene`
+       * und `liste` schränken ein, wo ein Hinweis gilt.
+       */
+      hinweise?: { text: string; ebene?: string; liste?: string }[];
     }
   | {
       type: "gremium";
