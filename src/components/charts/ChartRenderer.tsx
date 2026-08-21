@@ -22,6 +22,8 @@ const Venn3       = lazy(() => import("./Venn3").then((m)       => ({ default: m
 const LineSeries    = lazy(() => import("./LineSeries").then((m)    => ({ default: m.LineSeries })));
 const StackedColumn = lazy(() => import("./StackedColumn").then((m) => ({ default: m.StackedColumn })));
 const Pyramid       = lazy(() => import("./Pyramid").then((m)       => ({ default: m.Pyramid })));
+const Hexmap        = lazy(() => import("./Hexmap").then((m)        => ({ default: m.Hexmap })));
+const Gremium       = lazy(() => import("./Gremium").then((m)       => ({ default: m.Gremium })));
 
 type Props = {
   spec: ChartSpec;
@@ -226,6 +228,17 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           series={spec.series}
           xLabel={spec.xLabel}
           yLabel={spec.yLabel}
+          title={spec.title}
+        />
+      );
+    case "hexmap":
+      return <Hexmap geometrie={spec.geometrie} ebenen={spec.ebenen} hinweis={spec.hinweis} />;
+    case "gremium":
+      return (
+        <Gremium
+          geometrie={spec.geometrie}
+          sitze={spec.sitze}
+          listen={spec.listen}
           title={spec.title}
         />
       );
