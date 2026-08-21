@@ -1,6 +1,14 @@
 {
   "datasets": [
     {
+      "id": "kommunalwahl_2026",
+      "file": "kommunalwahl_2026.json",
+      "title": "Kommunalwahl",
+      "year": 2026,
+      "n": 440,
+      "kind": "statistik"
+    },
+    {
       "id": "christkindlmarkt_2025",
       "file": "christkindlmarkt_2025.json",
       "title": "Christkindlmarkt",

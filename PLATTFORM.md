@@ -84,7 +84,7 @@ nach dem Build das Manifest und löscht die zurückgehaltenen Rohdaten aus
 `dist/`, damit sie auch nicht über die direkte URL erreichbar sind:
 
 ```
-Öffentlich:     bahnhofumfrage_2023, volksfest_2024, statistik_kommunal_2022
+Öffentlich:     kommunalwahl_2026, bahnhofumfrage_2023, volksfest_2024, statistik_kommunal_2022
 Zurückgehalten: christkindlmarkt_2025, website_innovationen_2025
 ```
 

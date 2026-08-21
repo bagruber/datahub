@@ -4,6 +4,52 @@
 
 export type ChartItemBin = { label: string; vals: number[] };
 
+// ── Wahlkarten ─────────────────────────────────────────────────────────
+// Die Hexagon-Aufteilung wird im Schwesterprojekt bagruber/elections einmal
+// vorgerechnet und kommt hier als fertige Zeichenware an: Mittelpunkte,
+// Umrisse, Beschriftungsanker, alles schon im Koordinatenraum der viewBox.
+// Der Browser projiziert also nichts mehr, er malt nur noch.
+
+/** Eine Liste mit ihrer Farbe und ihrem Gewicht im ganzen Gebiet. */
+export type WahlListe = {
+  id: string;
+  name: string;
+  farbe: string;
+  sitze: number;
+  /** In wie vielen Gemeinden sie angetreten ist. */
+  gemeinden?: number;
+  /** Stimmenanteil in Prozent — bei einem einzelnen Gremium gesetzt. */
+  anteil?: number | null;
+  /** Gewinn oder Verlust in Prozentpunkten gegenüber der Wahl davor. */
+  veraenderung?: number;
+};
+
+/** Das Ergebnis einer Gemeinde. `sitze` ist null, wo keine vergeben werden. */
+export type WahlGebiet = {
+  ags: string;
+  name: string;
+  sitze: number | null;
+  /** "sammel": nur amtliche Sammelkategorien, örtliche Listen nicht benannt. */
+  genauigkeit: "listen" | "sammel";
+  ergebnis: { id: string; sitze: number | null; anteil: number | null; veraenderung?: number }[];
+};
+
+/** Eine Wahl, über die dieselbe Geometrie gefärbt werden kann. */
+export type WahlEbene = { id: string; label: string; gebiete: WahlGebiet[]; listen: WahlListe[] };
+
+export type WahlGeometrie = {
+  viewBox: number[];
+  radius: number;
+  gebiete: {
+    ags: string;
+    name: string;
+    /** Je Sitz ein Mittelpunkt samt der Fraktion, die darauf sitzt. */
+    felder: [number, number, string][];
+    umriss: string;
+    beschriftung: { x: number; y: number; platz: number } | null;
+  }[];
+};
+
 export type ChartSpec =
   | {
       type: "bar_h";
@@ -136,6 +182,27 @@ export type ChartSpec =
       series: { label: string; color?: string; data: { x: number; y: number }[] }[];
       xLabel?: string;
       yLabel?: string;
+    }
+  | {
+      type: "hexmap";
+      id: string;
+      title: string;
+      source: string;
+      geometrie: WahlGeometrie;
+      /** Mindestens eine; mehrere machen die Vergleichsebene umschaltbar. */
+      ebenen: WahlEbene[];
+      /** Vorbehalt zum Gezeigten, etwa unvollständig benannte örtliche Listen. */
+      hinweis?: string;
+    }
+  | {
+      type: "gremium";
+      id: string;
+      title: string;
+      source: string;
+      geometrie: { viewBox: number[]; radius: number };
+      /** Je Sitz: x, y, Liste, Name der gewählten Person. */
+      sitze: [number, number, string, string | null][];
+      listen: WahlListe[];
     }
   | {
       type: "pyramid";

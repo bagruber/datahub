@@ -1,0 +1,2085 @@
+{
+  "id": "kommunalwahl2026-freising-kreistag",
+  "titel": "Kreistagswahl 2026",
+  "datum": "2026-03-08",
+  "ebene": "kreistag",
+  "gebiet": {
+    "schluessel": "09178",
+    "name": "Landkreis Freising",
+    "datensatz": "freising"
+  },
+  "quellen": [
+    "https://kreistagswahl.kreis-freising.de/ergebnisse_gemeinde_<ags>.html"
+  ],
+  "listen": [
+    {
+      "id": "CSU",
+      "name": "CSU",
+      "art": "partei",
+      "quellname": "CSU",
+      "sitze": 0,
+      "stimmen": 1433948,
+      "farbe": "#1c1b1f",
+      "gemeinden": 24,
+      "anteil": 28.1
+    },
+    {
+      "id": "FW",
+      "name": "Freie Wähler",
+      "art": "partei",
+      "quellname": "FREIE WÄHLER",
+      "sitze": 0,
+      "stimmen": 971621,
+      "farbe": "#f5a800",
+      "gemeinden": 24,
+      "anteil": 19.1
+    },
+    {
+      "id": "GRÜNE",
+      "name": "Grüne",
+      "art": "partei",
+      "quellname": "GRÜNE",
+      "sitze": 0,
+      "stimmen": 901287,
+      "farbe": "#3d8b37",
+      "gemeinden": 24,
+      "anteil": 17.7
+    },
+    {
+      "id": "AfD",
+      "name": "AfD",
+      "art": "partei",
+      "quellname": "AfD",
+      "sitze": 0,
+      "stimmen": 539552,
+      "farbe": "#009ee0",
+      "gemeinden": 24,
+      "anteil": 10.6
+    },
+    {
+      "id": "FSM",
+      "name": "FSM",
+      "art": "örtlich",
+      "quellname": "FSM",
+      "sitze": 0,
+      "stimmen": 397995,
+      "farbe": "#6f4ea8",
+      "gemeinden": 24,
+      "anteil": 7.8
+    },
+    {
+      "id": "SPD",
+      "name": "SPD",
+      "art": "partei",
+      "quellname": "SPD",
+      "sitze": 0,
+      "stimmen": 373798,
+      "farbe": "#e3000f",
+      "gemeinden": 24,
+      "anteil": 7.3
+    },
+    {
+      "id": "LINKE",
+      "name": "Die Linke",
+      "art": "partei",
+      "quellname": "Die Linke",
+      "sitze": 0,
+      "stimmen": 195314,
+      "farbe": "#be3075",
+      "gemeinden": 24,
+      "anteil": 3.8
+    },
+    {
+      "id": "ÖDP",
+      "name": "ÖDP",
+      "art": "partei",
+      "quellname": "ÖDP",
+      "sitze": 0,
+      "stimmen": 158621,
+      "farbe": "#8a4a1c",
+      "gemeinden": 24,
+      "anteil": 3.1
+    },
+    {
+      "id": "FDP",
+      "name": "FDP",
+      "art": "partei",
+      "quellname": "FDP",
+      "sitze": 0,
+      "stimmen": 124371,
+      "farbe": "#f2d43c",
+      "gemeinden": 24,
+      "anteil": 2.4
+    }
+  ],
+  "gemeinden": [
+    {
+      "ags": "09178113",
+      "name": "Allershausen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 60.2,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 58967,
+          "anteil": 36.2,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 37528,
+          "anteil": 23.1,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 20724,
+          "anteil": 12.7,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 16972,
+          "anteil": 10.4,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12981,
+          "anteil": 8,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6638,
+          "anteil": 4.1,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3260,
+          "anteil": 2,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 3079,
+          "anteil": 1.9,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2563,
+          "anteil": 1.6,
+          "farbe": "#8a4a1c"
+        }
+      ]
+    },
+    {
+      "ags": "09178115",
+      "name": "Attenkirchen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 68.7,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 24973,
+          "anteil": 26.7,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 21704,
+          "anteil": 23.2,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13591,
+          "anteil": 14.5,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12372,
+          "anteil": 13.2,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8009,
+          "anteil": 8.5,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 6237,
+          "anteil": 6.7,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3057,
+          "anteil": 3.3,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2082,
+          "anteil": 2.2,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1669,
+          "anteil": 1.8,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178116",
+      "name": "Au i.d.Hallertau",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 67.1,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 64443,
+          "anteil": 34.7,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 47462,
+          "anteil": 25.6,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 28272,
+          "anteil": 15.2,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 15991,
+          "anteil": 8.6,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8321,
+          "anteil": 4.5,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 7274,
+          "anteil": 3.9,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 5365,
+          "anteil": 2.9,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4762,
+          "anteil": 2.6,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3846,
+          "anteil": 2.1,
+          "farbe": "#be3075"
+        }
+      ]
+    },
+    {
+      "ags": "09178120",
+      "name": "Eching",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 59.5,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 134124,
+          "anteil": 32.4,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 69081,
+          "anteil": 16.7,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 67986,
+          "anteil": 16.4,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 48778,
+          "anteil": 11.8,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 38515,
+          "anteil": 9.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 14795,
+          "anteil": 3.6,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 14703,
+          "anteil": 3.6,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 12888,
+          "anteil": 3.1,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12468,
+          "anteil": 3,
+          "farbe": "#8a4a1c"
+        }
+      ]
+    },
+    {
+      "ags": "09178122",
+      "name": "Rudelzhausen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 68.8,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 38945,
+          "anteil": 34.4,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 34474,
+          "anteil": 30.5,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 18689,
+          "anteil": 16.5,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8299,
+          "anteil": 7.3,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4647,
+          "anteil": 4.1,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2963,
+          "anteil": 2.6,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1918,
+          "anteil": 1.7,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1838,
+          "anteil": 1.6,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 1439,
+          "anteil": 1.3,
+          "farbe": "#6f4ea8"
+        }
+      ]
+    },
+    {
+      "ags": "09178123",
+      "name": "Fahrenzhausen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 58.6,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 38199,
+          "anteil": 27.3,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 36344,
+          "anteil": 25.9,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 21811,
+          "anteil": 15.6,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 18806,
+          "anteil": 13.4,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8364,
+          "anteil": 6,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6001,
+          "anteil": 4.3,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4384,
+          "anteil": 3.1,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3298,
+          "anteil": 2.4,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 2960,
+          "anteil": 2.1,
+          "farbe": "#6f4ea8"
+        }
+      ]
+    },
+    {
+      "ags": "09178124",
+      "name": "Freising",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 58.3,
+      "ergebnis": [
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 336361,
+          "anteil": 25.5,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 273035,
+          "anteil": 20.7,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 214705,
+          "anteil": 16.3,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 151233,
+          "anteil": 11.5,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 97009,
+          "anteil": 7.3,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 92288,
+          "anteil": 7,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 68882,
+          "anteil": 5.2,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 57706,
+          "anteil": 4.4,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 29240,
+          "anteil": 2.2,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178125",
+      "name": "Gammelsdorf",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 69.5,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 16517,
+          "anteil": 34.6,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13558,
+          "anteil": 28.4,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6817,
+          "anteil": 14.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4283,
+          "anteil": 9,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2334,
+          "anteil": 4.9,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1368,
+          "anteil": 2.9,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1262,
+          "anteil": 2.6,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 981,
+          "anteil": 2.1,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 643,
+          "anteil": 1.3,
+          "farbe": "#8a4a1c"
+        }
+      ]
+    },
+    {
+      "ags": "09178129",
+      "name": "Haag a.d.Amper",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 68.8,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 31002,
+          "anteil": 31.8,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 20777,
+          "anteil": 21.3,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 15112,
+          "anteil": 15.5,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 11952,
+          "anteil": 12.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 4771,
+          "anteil": 4.9,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4093,
+          "anteil": 4.2,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3912,
+          "anteil": 4,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3554,
+          "anteil": 3.6,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2320,
+          "anteil": 2.4,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178130",
+      "name": "Hallbergmoos",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 52,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 91867,
+          "anteil": 33.8,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 70169,
+          "anteil": 25.8,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 34678,
+          "anteil": 12.8,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 31787,
+          "anteil": 11.7,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 19836,
+          "anteil": 7.3,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 7753,
+          "anteil": 2.9,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6703,
+          "anteil": 2.5,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 4500,
+          "anteil": 1.7,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4440,
+          "anteil": 1.6,
+          "farbe": "#8a4a1c"
+        }
+      ]
+    },
+    {
+      "ags": "09178132",
+      "name": "Hörgertshausen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 68.4,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 17974,
+          "anteil": 31.2,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 15192,
+          "anteil": 26.4,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 9948,
+          "anteil": 17.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6880,
+          "anteil": 12,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2571,
+          "anteil": 4.5,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2050,
+          "anteil": 3.6,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1272,
+          "anteil": 2.2,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 854,
+          "anteil": 1.5,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 831,
+          "anteil": 1.4,
+          "farbe": "#6f4ea8"
+        }
+      ]
+    },
+    {
+      "ags": "09178133",
+      "name": "Hohenkammer",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 64.6,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 32527,
+          "anteil": 42,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 11625,
+          "anteil": 15,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8983,
+          "anteil": 11.6,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 7674,
+          "anteil": 9.9,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 5843,
+          "anteil": 7.5,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4439,
+          "anteil": 5.7,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 2669,
+          "anteil": 3.4,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2051,
+          "anteil": 2.6,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1720,
+          "anteil": 2.2,
+          "farbe": "#8a4a1c"
+        }
+      ]
+    },
+    {
+      "ags": "09178136",
+      "name": "Kirchdorf a.d.Amper",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 66.4,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 40949,
+          "anteil": 39.5,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 21998,
+          "anteil": 21.2,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12199,
+          "anteil": 11.8,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12239,
+          "anteil": 11.8,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 4752,
+          "anteil": 4.6,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3920,
+          "anteil": 3.8,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3020,
+          "anteil": 2.9,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2429,
+          "anteil": 2.3,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2087,
+          "anteil": 2,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178137",
+      "name": "Kranzberg",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 67.4,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 42483,
+          "anteil": 30.5,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 33907,
+          "anteil": 24.3,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 25112,
+          "anteil": 18,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12812,
+          "anteil": 9.2,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8850,
+          "anteil": 6.3,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 5813,
+          "anteil": 4.2,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3928,
+          "anteil": 2.8,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3715,
+          "anteil": 2.7,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2795,
+          "anteil": 2,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178138",
+      "name": "Langenbach",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 66,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 41273,
+          "anteil": 32.4,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 26052,
+          "anteil": 20.4,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 19505,
+          "anteil": 15.3,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13993,
+          "anteil": 11,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 11286,
+          "anteil": 8.9,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 6620,
+          "anteil": 5.2,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3886,
+          "anteil": 3,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2498,
+          "anteil": 2,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2311,
+          "anteil": 1.8,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178140",
+      "name": "Marzling",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 70.7,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 25422,
+          "anteil": 23.6,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 23490,
+          "anteil": 21.8,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 18969,
+          "anteil": 17.6,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 13980,
+          "anteil": 13,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 10943,
+          "anteil": 10.2,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6495,
+          "anteil": 6,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3395,
+          "anteil": 3.2,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2767,
+          "anteil": 2.6,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2127,
+          "anteil": 2,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178142",
+      "name": "Mauern",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 72.2,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 33802,
+          "anteil": 32.1,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 32770,
+          "anteil": 31.1,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13675,
+          "anteil": 13,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 11763,
+          "anteil": 11.2,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6992,
+          "anteil": 6.6,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2801,
+          "anteil": 2.7,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1748,
+          "anteil": 1.7,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1005,
+          "anteil": 1,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 838,
+          "anteil": 0.8,
+          "farbe": "#6f4ea8"
+        }
+      ]
+    },
+    {
+      "ags": "09178143",
+      "name": "Moosburg a.d.Isar",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 61.8,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 163975,
+          "anteil": 31.4,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 109593,
+          "anteil": 21,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 92455,
+          "anteil": 17.7,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 54901,
+          "anteil": 10.5,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 42130,
+          "anteil": 8.1,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 30153,
+          "anteil": 5.8,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 10798,
+          "anteil": 2.1,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 10823,
+          "anteil": 2.1,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 7839,
+          "anteil": 1.5,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178144",
+      "name": "Nandlstadt",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 68.7,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 61155,
+          "anteil": 36,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 43840,
+          "anteil": 25.8,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 22110,
+          "anteil": 13,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 17296,
+          "anteil": 10.2,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8694,
+          "anteil": 5.1,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 5400,
+          "anteil": 3.2,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 4815,
+          "anteil": 2.8,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3801,
+          "anteil": 2.2,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2976,
+          "anteil": 1.7,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178145",
+      "name": "Neufahrn b.Freising",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 53.3,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 145389,
+          "anteil": 29.5,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 94285,
+          "anteil": 19.1,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 88269,
+          "anteil": 17.9,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 55338,
+          "anteil": 11.2,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 48277,
+          "anteil": 9.8,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 19358,
+          "anteil": 3.9,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 17256,
+          "anteil": 3.5,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 12659,
+          "anteil": 2.6,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 12403,
+          "anteil": 2.5,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178150",
+      "name": "Paunzhausen",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 67.9,
+      "ergebnis": [
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 17336,
+          "anteil": 31.7,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13545,
+          "anteil": 24.8,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 7794,
+          "anteil": 14.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6142,
+          "anteil": 11.2,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3025,
+          "anteil": 5.5,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2008,
+          "anteil": 3.7,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 1876,
+          "anteil": 3.4,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1607,
+          "anteil": 2.9,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1359,
+          "anteil": 2.5,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178155",
+      "name": "Wang",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 67.7,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 23190,
+          "anteil": 29.3,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 22955,
+          "anteil": 29,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 11413,
+          "anteil": 14.4,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 9641,
+          "anteil": 12.2,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 5043,
+          "anteil": 6.4,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2768,
+          "anteil": 3.5,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1518,
+          "anteil": 1.9,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 1274,
+          "anteil": 1.6,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1232,
+          "anteil": 1.6,
+          "farbe": "#f2d43c"
+        }
+      ]
+    },
+    {
+      "ags": "09178156",
+      "name": "Wolfersdorf",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 63.7,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 29835,
+          "anteil": 41.2,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13992,
+          "anteil": 19.3,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 8215,
+          "anteil": 11.3,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6986,
+          "anteil": 9.6,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 5037,
+          "anteil": 6.9,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3300,
+          "anteil": 4.6,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 2815,
+          "anteil": 3.9,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1130,
+          "anteil": 1.6,
+          "farbe": "#f2d43c"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 1184,
+          "anteil": 1.6,
+          "farbe": "#be3075"
+        }
+      ]
+    },
+    {
+      "ags": "09178157",
+      "name": "Zolling",
+      "sitze": null,
+      "genauigkeit": "listen",
+      "quelle": "kreistagswahl.kreis-freising.de",
+      "wahlbeteiligung": 63,
+      "ergebnis": [
+        {
+          "id": "CSU",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 48687,
+          "anteil": 34.9,
+          "farbe": "#1c1b1f"
+        },
+        {
+          "id": "FW",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 29931,
+          "anteil": 21.5,
+          "farbe": "#f5a800"
+        },
+        {
+          "id": "GRÜNE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 18960,
+          "anteil": 13.6,
+          "farbe": "#3d8b37"
+        },
+        {
+          "id": "AfD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 13643,
+          "anteil": 9.8,
+          "farbe": "#009ee0"
+        },
+        {
+          "id": "FSM",
+          "art": "örtlich",
+          "sitze": null,
+          "stimmen": 11091,
+          "anteil": 8,
+          "farbe": "#6f4ea8"
+        },
+        {
+          "id": "SPD",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 6767,
+          "anteil": 4.9,
+          "farbe": "#e3000f"
+        },
+        {
+          "id": "LINKE",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 4578,
+          "anteil": 3.3,
+          "farbe": "#be3075"
+        },
+        {
+          "id": "ÖDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 3788,
+          "anteil": 2.7,
+          "farbe": "#8a4a1c"
+        },
+        {
+          "id": "FDP",
+          "art": "partei",
+          "sitze": null,
+          "stimmen": 2030,
+          "anteil": 1.5,
+          "farbe": "#f2d43c"
+        }
+      ]
+    }
+  ]
+}

@@ -133,6 +133,10 @@ export const HELP: Record<string, string> = {
     "Flächentreues Venn-Diagramm: jede Kreisfläche ist proportional zur Gruppengröße, die Schnittfläche zur Anzahl gemeinsamer Antworten. Hover über Kreis, Schnittmenge oder Legende zeigt Detailwerte.",
   venn3:
     "Drei-Kreis-Venn: Kreisflächen entsprechen den Gruppengrößen, paarweise Schnittflächen den gemeinsamen Antworten. Die zentrale Schnittmenge zeigt Befragte, die zu allen drei Gruppen zählen. Hover hebt die jeweilige Gruppe hervor.",
+  hexmap:
+    "Hexagon-Kartogramm: jede Gemeinde bekommt so viele Sechsecke, wie ihr Rat Sitze hat. Die Fläche zeigt damit das Gewicht des Gremiums statt der Quadratkilometer — Freising ist hier viermal so groß wie Wang, nicht dreimal. Die Umrisse des Landkreises bleiben trotzdem erkennbar. Drei Ansichten teilen dieselbe Aufteilung, es wechselt nur die Farbe.",
+  gremium:
+    "Ein Rat als Wabe: ein Sechseck je Sitz, gefärbt nach Fraktion. Jedes Feld steht für eine Person — beim Zeigen erscheint ihr Name. Die Fraktionen liegen als zusammenhängende Klumpen, damit sich ihre Größe abzählen lässt.",
   likert5_group:
     "Pro Innovation ein eigener divergierender Stapelbalken. Negative Bewertungen wachsen nach links, positive nach rechts; die neutrale Mitte überlagert die Null-Linie. So lassen sich Innovationen direkt vergleichen.",
 };

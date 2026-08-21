@@ -36,7 +36,7 @@ jobs:
             const fs = require('fs');
             const p = 'dist/data/manifest.json';
             const m = JSON.parse(fs.readFileSync(p, 'utf8'));
-            const keep = new Set(['bahnhofumfrage_2023', 'volksfest_2024', 'statistik_kommunal_2022']);
+            const keep = new Set(['kommunalwahl_2026', 'bahnhofumfrage_2023', 'volksfest_2024', 'statistik_kommunal_2022']);
             const missing = [...keep].filter(id => !m.datasets.some(d => d.id === id));
             if (missing.length) {
               console.error('Unbekannte Dataset-ID(s): ' + missing.join(', '));
