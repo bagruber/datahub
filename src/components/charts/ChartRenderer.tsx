@@ -232,7 +232,7 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
         />
       );
     case "hexmap":
-      return <Hexmap geometrie={spec.geometrie} ebenen={spec.ebenen} hinweis={spec.hinweis} />;
+      return <Hexmap geometrie={spec.geometrie} ebenen={spec.ebenen} hinweise={spec.hinweise} />;
     case "gremium":
       return (
         <Gremium

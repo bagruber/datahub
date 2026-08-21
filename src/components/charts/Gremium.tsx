@@ -24,6 +24,7 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
 
   const farben = new Map(listen.map((l) => [l.id, l.farbe]));
   const namen = new Map(listen.map((l) => [l.id, l.name]));
+  const grösster = Math.max(...listen.map((l) => l.anteil ?? 0), 1);
   const eckpunkte = hexPfad(geometrie.radius * 0.86);
   const aktiv = gezeigt == null ? null : sitze[gezeigt];
 
@@ -99,24 +100,43 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
         )}
       </p>
 
-      <ul className="grid gap-1 text-sm">
-        {listen.map((l) => (
-          <li key={l.id} className="grid grid-cols-[auto_1fr_auto] items-baseline gap-2">
-            <span
-              aria-hidden
-              className="inline-block h-3.5 w-3.5 shrink-0 self-center rounded-sm border border-black/25"
-              style={{ background: l.farbe }}
-            />
-            <span>{l.name}</span>
-            <span className="whitespace-nowrap text-ink-soft">
-              {l.sitze} · {prozent(l.anteil)}
-              {l.veraenderung != null && <span className="text-ink-muted"> ({punkte(l.veraenderung)})</span>}
-            </span>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <p className="text-xs uppercase tracking-wide text-ink-muted">Sitze · Stimmenanteil, gezeigt als Balken</p>
+        <ul className="mt-2 grid gap-1 text-sm">
+          {listen.map((l) => (
+            <li key={l.id} className="relative grid grid-cols-[auto_1fr_auto] items-baseline gap-2 pb-1.5">
+              <span
+                aria-hidden
+                className="inline-block h-3.5 w-3.5 shrink-0 self-center rounded-sm border border-black/25"
+                style={{ background: l.farbe }}
+              />
+              <span title={l.lang ?? undefined}>{l.name}</span>
+              <span className="whitespace-nowrap text-ink-soft">
+                {l.sitze} · {prozent(l.anteil)}
+                {l.veraenderung != null && <span className="text-ink-muted"> ({punkte(l.veraenderung)})</span>}
+              </span>
+              {/* Die Wabe zählt Sitze, der Balken zeigt Stimmen. Zusammen wird
+                  sichtbar, wo eine Liste mehr Sitze holt, als ihr Stimmenanteil
+                  vermuten ließe — das gibt eine reine Sitzlegende nicht her. */}
+              {l.anteil != null && (
+                <span
+                  aria-hidden
+                  className="absolute bottom-0 left-[1.4rem] right-0 h-0.5 rounded-full opacity-55"
+                  style={{ background: balken(l.farbe, l.anteil, grösster) }}
+                />
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
+}
+
+/** Ein Balken, der bis `anteil` von `grösster` läuft und dann aufhört. */
+function balken(farbe: string, anteil: number, grösster: number): string {
+  const breite = `${((anteil / Math.max(grösster, 1)) * 100).toFixed(1)}%`;
+  return `linear-gradient(to right, ${farbe} ${breite}, transparent ${breite})`;
 }
 
 function beschreibung(sitz: Sitz, namen: Map<string, string>): string {

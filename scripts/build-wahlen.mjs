@@ -39,8 +39,13 @@ function gebiete(datensatz) {
     name: g.name,
     sitze: g.sitze,
     genauigkeit: g.genauigkeit,
+    quelle: g.quelle,
     ergebnis: g.ergebnis.map((e) => ({
       id: e.id,
+      // Die Zeile der Kreislegende, zu der dieser Wahlvorschlag zählt. Die Karte
+      // färbt und wählt nach Gruppen, die Ablesung nennt die Einzelliste.
+      gruppe: e.gruppe ?? e.id,
+      farbe: e.farbe,
       sitze: e.sitze,
       anteil: e.anteil,
       ...(e.veraenderung == null ? {} : { veraenderung: e.veraenderung }),
@@ -55,7 +60,24 @@ function listen(datensatz) {
     farbe: l.farbe,
     sitze: l.sitze,
     gemeinden: l.gemeinden,
+    anteil: l.anteil,
+    ...(l.teile ? { teile: l.teile } : {}),
+    ...(l.unbenannt ? { unbenannt: l.unbenannt } : {}),
   }));
+}
+
+/** Woher welche Angabe stammt — dieselbe Auskunft, die die Karte selbst gibt. */
+function herkunft(datensatz) {
+  const mitListen = datensatz.gemeinden.filter((g) => g.genauigkeit === "listen");
+  const ohne = datensatz.gemeinden.filter((g) => g.genauigkeit === "sammel");
+  const mitVergleich = datensatz.gemeinden.filter((g) => g.ergebnis.some((e) => e.veraenderung != null));
+  return {
+    gemeinden: datensatz.gemeinden.length,
+    listen: mitListen.length,
+    ohneListen: ohne.map((g) => g.name),
+    veraenderung: mitVergleich.length,
+    vergleichswahl: datensatz.vergleichswahl ?? null,
+  };
 }
 
 const grob = gemeinderat.gemeinden.filter((g) => g.genauigkeit === "sammel");
@@ -82,20 +104,30 @@ const karte = {
       label: "Gemeinderatswahl",
       gebiete: gebiete(gemeinderat),
       listen: listen(gemeinderat),
+      herkunft: herkunft(gemeinderat),
     },
     {
       id: "kreistag",
       label: "Kreistagswahl",
       gebiete: gebiete(kreistag),
       listen: listen(kreistag),
+      herkunft: herkunft(kreistag),
+      vergleichswahl: kreistag.vergleichswahl,
     },
   ],
-  hinweis:
-    grob.length > 0
-      ? `In ${grob.length} von ${gemeinderat.gemeinden.length} Gemeinden liegen nur die amtlichen ` +
-        `Sammelkategorien vor — örtliche Listen erscheinen dort als „Wählergruppen“ oder ` +
-        `„Gemeinsame Wahlvorschläge“: ${grob.map((g) => g.name).join(", ")}.`
-      : undefined,
+  hinweise: [
+    ...(grob.length > 0
+      ? [
+          {
+            text:
+              `In ${grob.length} von ${gemeinderat.gemeinden.length} Gemeinden liegen nur die amtlichen ` +
+              `Sammelkategorien vor — örtliche Listen erscheinen dort als „Wählergruppen“ oder ` +
+              `„Gemeinsame Wahlvorschläge“: ${grob.map((g) => g.name).join(", ")}.`,
+          },
+        ]
+      : []),
+    ...(gemeinderat.hinweise ?? []).map((h) => ({ ebene: "gemeinderat", liste: h.liste, text: h.text })),
+  ],
 };
 
 // ── Einzelne Räte ──────────────────────────────────────────────────────
@@ -105,9 +137,6 @@ function rat(ags) {
   const geometrie = kartogramm.gremien[ags];
   if (!gemeinde || !geometrie) throw new Error(`Kein Gremium für ${ags}`);
 
-  const namen = new Map(gemeinderat.listen.map((l) => [l.id, l.name ?? l.id]));
-  const farben = new Map(gemeinderat.listen.map((l) => [l.id, l.farbe]));
-
   return {
     type: "gremium",
     id: `rat-${ags}`,
@@ -115,13 +144,16 @@ function rat(ags) {
     source: gemeinde.quelle,
     geometrie: { viewBox: geometrie.viewBox, radius: geometrie.hex.radius },
     sitze: geometrie.sitze,
+    // Farbe und Name kommen aus dem Gemeindeergebnis, nicht aus der Kreisliste:
+    // dort stehen die Gruppen, hier soll jede Liste ihren eigenen Namen tragen —
+    // in einem einzelnen Rat ist genau das die Information.
     listen: gemeinde.ergebnis.map((e) => ({
       id: e.id,
-      name: namen.get(e.id) ?? e.id,
-      farbe: farben.get(e.id) ?? "#888",
+      name: e.id,
+      lang: e.lang ?? null,
+      farbe: e.farbe,
       sitze: e.sitze,
       anteil: e.anteil,
-      ...(e.veraenderung == null ? {} : { veraenderung: e.veraenderung }),
     })),
   };
 }
@@ -151,11 +183,13 @@ const datensatz = {
       title: "Der ganze Landkreis",
       order: 1,
       text:
-        `440 Sitze in 24 Gemeinderäten. Die Karte zeigt sie auf drei Arten: welche Liste in einer ` +
-        `Gemeinde die meisten Sitze hat, wie sich alle 440 Sitze auf die Fraktionen verteilen, und ` +
-        `wie stark eine einzelne Liste im Kreis abschneidet. Weil Gemeinderatslisten von Ort zu Ort ` +
-        `andere sind, lässt sich die letzte Ansicht auch auf die Kreistagswahl umstellen — die ` +
-        `einzige Wahl, bei der alle 24 Gemeinden über dieselben Listen abgestimmt haben.`,
+        `440 Sitze in 24 Gemeinderäten. Die Karte zeigt sie auf vier Arten: welche Liste in einer ` +
+        `Gemeinde die meisten Sitze hat, wie sich alle 440 Sitze auf die Fraktionen verteilen, wie ` +
+        `stark eine einzelne Liste im Kreis abschneidet, und wo sie gegenüber der Wahl davor ` +
+        `gewonnen oder verloren hat. Weil Gemeinderatslisten von Ort zu Ort andere sind, lässt sich ` +
+        `die Listenansicht auch auf die Kreistagswahl umstellen — die einzige Wahl, bei der alle 24 ` +
+        `Gemeinden über dieselben Listen abgestimmt haben, und die einzige mit einem Vorwahlvergleich, ` +
+        `der sich nachrechnen lässt.`,
       charts: [karte],
     },
     {
