@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
-import type { WahlEbene, WahlGebiet, WahlGeometrie, WahlListe } from "@/lib/chartSpec";
-import { CREAM, INK, INK_LINE } from "@/lib/palette";
+import type { WahlEbene, WahlGebiet, WahlGeometrie, WahlListe, WahlRaster } from "@/lib/chartSpec";
+import { ACCENT_RED, CREAM, INK, INK_LINE } from "@/lib/palette";
 import { isDark, mix } from "@/lib/oklab";
-import { GEWINN, VERLUST, schwankung, spanne, wert } from "@/lib/wahlskala";
+import { GEWINN, VERLUST, wert } from "@/lib/wahlskala";
 import { cn } from "@/lib/cn";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -24,21 +24,26 @@ const ANSICHTEN: { id: Ansicht; label: string }[] = [
   { id: "veraenderung", label: "Gewinn und Verlust" },
 ];
 
-/** Ohne Liste angetreten ist kein kleiner Wert, sondern gar keiner — deshalb
+/** Ohne Liste angetreten ist kein kleiner Wert, sondern gar keiner, deshalb
  *  eine Schraffur und nicht die unterste Stufe derselben Skala. */
 const MUSTER = "wahlkarte-ohne";
 
 /**
  * Hexagon-Kartogramm einer Wahl. Die Fläche einer Gemeinde ist die Größe ihres
- * Rats, ein Sechseck ein Sitz. Über dieselbe Geometrie laufen vier Ansichten —
+ * Rats, ein Sechseck ein Sitz. Über dieselbe Geometrie laufen vier Ansichten:
  * das Layout bleibt stehen, nur die Färbung wechselt. Verschöbe sich die Karte
  * beim Umschalten, ließen sich zwei Ansichten nicht mehr vergleichen.
  */
 export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
   const [ansicht, setAnsicht] = useState<Ansicht>("staerkste");
   const [ebeneId, setEbeneId] = useState(ebenen[0].id);
+  const [rasterId, setRasterId] = useState(geometrie.raster[0].grundlage.id);
   const [listeId, setListeId] = useState<string | null>(null);
   const [gezeigt, setGezeigt] = useState<string | null>(null);
+
+  // Wonach sich die Fläche bemisst. Beim Umschalten verschiebt sich die Karte,
+  // anders als beim Wechsel der Ansicht, und hier ist genau das die Aussage.
+  const raster = geometrie.raster.find((r) => r.grundlage.id === rasterId) ?? geometrie.raster[0];
 
   // Wo es einen prüfbaren Vorwahlvergleich gibt. Ein Knopf, der auf eine leere
   // Karte führt, ist ein Versprechen, das die Daten nicht halten.
@@ -56,17 +61,19 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
 
   const gebiete = useMemo(() => new Map(ebene.gebiete.map((g) => [g.ags, g])), [ebene]);
   const gruppen = useMemo(() => new Map(ebene.listen.map((l) => [l.id, l])), [ebene]);
-  // Die Sitzansicht färbt Feld für Feld nach Einzellisten, nicht nach Gruppen —
+  // Die Sitzansicht färbt Feld für Feld nach Einzellisten, nicht nach Gruppen:
   // die Aufteilung im Schwesterprojekt geht nach den Wahlvorschlägen.
   const einzelfarben = useMemo(
     () => new Map(ebene.gebiete.flatMap((g) => g.ergebnis.map((e) => [e.id, e.farbe ?? INK_LINE]))),
     [ebene],
   );
 
-  const skala = useMemo(() => spanne(ebene, liste.id), [ebene, liste.id]);
-  const wandel = useMemo(() => schwankung(ebene, liste.id), [ebene, liste.id]);
+  // Beide Skalen sind vorgerechnet und stehen an der Legendenzeile. Siehe
+  // lib/wahlskala.ts.
+  const skala = liste.skala ?? { höchster: 0, stark: 0, decke: 0, gemeinden: 0 };
+  const wandel = liste.wandel ?? { ausschlag: 0, tief: null, hoch: null, gemeinden: 0 };
 
-  const eckpunkte = hexPfad(geometrie.radius * 0.92);
+  const eckpunkte = hexPfad(raster.size * (1 - raster.gap));
 
   function füllung(gebiet: WahlGebiet | undefined): string {
     if (!gebiet) return `url(#${MUSTER})`;
@@ -87,7 +94,7 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
   }
 
   /**
-   * Die Liste mit den meisten Sitzen — ein einzelner Wahlvorschlag, nicht eine
+   * Die Liste mit den meisten Sitzen, ein einzelner Wahlvorschlag, nicht eine
    * Gruppe. In Wang halten die beiden Listen der Freien Wähler zusammen mehr
    * Sitze als die stärkste Einzelliste; sie sind aber getrennt angetreten, und
    * die Ansicht heißt nicht ohne Grund „Stärkste Liste“.
@@ -119,6 +126,10 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
       <Steuerung
         ansicht={ansicht}
         setAnsicht={setAnsicht}
+        raster={geometrie.raster}
+        rasterId={raster.grundlage.id}
+        setRasterId={setRasterId}
+        genau={raster.grundlage.genau}
         ebenen={ebenen}
         erlaubte={erlaubte}
         ebeneId={ebene.id}
@@ -141,10 +152,10 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
 
       <ChartFrame width="wide" table={<Tabelle ebene={ebene} />}>
         <svg
-          viewBox={geometrie.viewBox.join(" ")}
+          viewBox={raster.viewBox.join(" ")}
           width="100%"
           role="img"
-          aria-label={`Kartogramm des Gebiets, ${ebene.gebiete.length} Gemeinden`}
+          aria-label={`Kartogramm des Gebiets, ${raster.regions.length} Gemeinden`}
           style={{ display: "block", height: "auto", maxHeight: "78vh", margin: "0 auto" }}
           onPointerLeave={() => setGezeigt(null)}
         >
@@ -155,35 +166,33 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
             </pattern>
           </defs>
 
-          {geometrie.gebiete.map((form) => {
-            const gebiet = gebiete.get(form.ags);
+          {raster.regions.map((form) => {
+            const gebiet = gebiete.get(String(form.id));
             const flaeche = füllung(gebiet);
             const einzeln = ansicht === "sitze";
             // In der Sitzansicht liegt unter dem Namen jede Fraktionsfarbe
-            // gleichzeitig — dort trägt dunkle Schrift auf hellem Rand, statt
+            // gleichzeitig: dort trägt dunkle Schrift auf hellem Rand, statt
             // sich auf eine Flächenhelligkeit zu verlassen, die es nicht gibt.
             const schrift = einzeln ? INK : isDark(flaeche.startsWith("#") ? flaeche : CREAM) ? CREAM : INK;
 
             return (
               <g
-                key={form.ags}
-                onPointerEnter={() => setGezeigt(form.ags)}
-                onFocus={() => setGezeigt(form.ags)}
+                key={form.id}
+                onPointerEnter={() => setGezeigt(String(form.id))}
+                onFocus={() => setGezeigt(String(form.id))}
                 tabIndex={0}
                 style={{ outline: "none" }}
               >
                 <title>{form.name}</title>
-                {form.felder.map(([x, y, fraktion], i) => (
-                  <path
-                    key={i}
-                    d={`M${x},${y}${eckpunkte}`}
-                    fill={einzeln ? (einzelfarben.get(fraktion) ?? `url(#${MUSTER})`) : flaeche}
-                  />
+                {/* Felder derselben Farbe teilen sich einen Pfad. Bei 440
+                    Sechsecken sind das gut siebzig Knoten statt gut vierhundert. */}
+                {bloecke(form.cells, einzeln, einzelfarben, flaeche).map(([farbe, felder]) => (
+                  <path key={farbe} d={felder.map(([x, y]) => `M${x},${y}${eckpunkte}`).join("")} fill={farbe} />
                 ))}
                 {/* Der Umriss trägt keine Füllung, fängt aber trotzdem den
-                    Zeiger — sonst fiele die Ablesung in jeder Fuge aus. */}
+                    Zeiger, sonst fiele die Ablesung in jeder Fuge aus. */}
                 <path
-                  d={form.umriss}
+                  d={form.outline}
                   fill="none"
                   stroke={CREAM}
                   strokeWidth={einzeln ? 7 : 5}
@@ -191,23 +200,23 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
                   pointerEvents="all"
                 />
                 <path
-                  d={form.umriss}
+                  d={form.outline}
                   fill="none"
-                  stroke={gezeigt === form.ags ? "#c8102e" : INK}
-                  strokeWidth={gezeigt === form.ags ? 4 : einzeln ? 2.6 : 1.8}
+                  stroke={gezeigt === String(form.id) ? ACCENT_RED : INK}
+                  strokeWidth={gezeigt === String(form.id) ? 4 : einzeln ? 2.6 : 1.8}
                   strokeLinejoin="round"
                   pointerEvents="none"
                 />
-                {form.beschriftung && form.name.length * geometrie.radius * 0.55 < form.beschriftung.platz && (
+                {form.label && form.name.length * raster.size * 0.372 < form.label.width * 0.95 && (
                   <text
-                    x={form.beschriftung.x}
-                    y={form.beschriftung.y}
+                    x={form.label.x}
+                    y={form.label.y}
                     textAnchor="middle"
                     dominantBaseline="central"
-                    fontSize={geometrie.radius * 0.66}
+                    fontSize={raster.size * 0.62}
                     fill={schrift}
                     stroke={einzeln ? CREAM : "none"}
-                    strokeWidth={einzeln ? geometrie.radius * 0.17 : 0}
+                    strokeWidth={einzeln ? raster.size * 0.155 : 0}
                     pointerEvents="none"
                     style={{ fontFamily: "inherit", paintOrder: "stroke" }}
                   >
@@ -231,28 +240,40 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
     </div>
   );
 
+  /** Was ein Sechseck gerade bedeutet: der Satz kommt in fast jeder Ansicht vor. */
+  function flaeche() {
+    return raster.grundlage.genau
+      ? "Die Fläche einer Gemeinde ist die Größe ihres Rats"
+      : `Die Fläche einer Gemeinde ist ihre Einwohnerzahl, ein Sechseck ${raster.grundlage.einheit}`;
+  }
+
   function bildunterschrift() {
     const sitze = ebene.gebiete.reduce((s, g) => s + (g.sitze ?? 0), 0);
     if (ansicht === "liste") {
       return (
-        `${liste.name}, ${ebene.label}. Die Skala endet bei ${prozent(skala.decke)} — dem geometrischen Mittel aus ` +
+        `${liste.name}, ${ebene.label}. Die Skala endet bei ${prozent(skala.decke)}, dem geometrischen Mittel aus ` +
         `dem Spitzenwert dieser Liste (${prozent(skala.höchster)}) und einem starken Ergebnis auf dieser Karte ` +
         `(${prozent(skala.stark)}). Damit bleiben schwache Listen untereinander vergleichbar und trotzdem als ` +
         `schwach erkennbar. Angetreten in ${skala.gemeinden} von ${ebene.gebiete.length} Gemeinden, ` +
-        `schraffiert die übrigen.`
+        `schraffiert die übrigen. ${flaeche()}.`
       );
     }
     if (ansicht === "veraenderung") {
       return (
         `${liste.name}: Gewinn und Verlust in Prozentpunkten gegenüber der ` +
         `${ebene.vergleichswahl ?? "Wahl davor"}, von ${vorzeichen(wandel.tief)} bis ${vorzeichen(wandel.hoch)} ` +
-        `Punkten in ${wandel.gemeinden} Gemeinden. Die Fläche bleibt die Größe des Gemeinderats.`
+        `Punkten in ${wandel.gemeinden} Gemeinden. ${flaeche()}.`
       );
     }
-    if (ansicht === "sitze") return `Ein Sechseck ist ein Sitz — ${sitze} in ${ebene.gebiete.length} Gemeinderäten.`;
+    if (ansicht === "sitze") {
+      return raster.grundlage.genau
+        ? `Ein Sechseck ist ein Sitz, ${sitze} in ${ebene.gebiete.length} Gemeinderäten.`
+        : `Ein Sechseck sind ${raster.grundlage.je} Einwohner, gefärbt nach dem Stimmenanteil der Listen. Anders ` +
+          `als in der Sitzansicht ist das gerundet: ein Feld hat hier keine Entsprechung im Gremium.`;
+    }
     return (
       `Je Gemeinde die Liste mit den meisten Sitzen; bei Gleichstand entscheidet der Stimmenanteil. ` +
-      `Die Fläche ist die Größe des Gemeinderats, zusammen ${sitze} Sitze.`
+      `${flaeche()}${raster.grundlage.genau ? `, zusammen ${sitze} Sitze` : ""}.`
     );
   }
 }
@@ -262,6 +283,10 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
 function Steuerung({
   ansicht,
   setAnsicht,
+  raster,
+  rasterId,
+  setRasterId,
+  genau,
   ebenen,
   erlaubte,
   ebeneId,
@@ -275,6 +300,10 @@ function Steuerung({
 }: {
   ansicht: Ansicht;
   setAnsicht: (a: Ansicht) => void;
+  raster: WahlRaster[];
+  rasterId: string;
+  setRasterId: (id: string) => void;
+  genau: boolean;
   ebenen: WahlEbene[];
   erlaubte: WahlEbene[];
   ebeneId: string;
@@ -292,10 +321,24 @@ function Steuerung({
     <div className="flex flex-wrap items-end gap-x-6 gap-y-3">
       <Segmente
         label="Ansicht"
-        optionen={sichtbar.map((a) => ({ id: a.id, label: a.label }))}
+        optionen={sichtbar.map((a) => ({
+          id: a.id,
+          // Auf der Einwohnerkarte hat ein Feld keine Entsprechung im Gremium;
+          // dort ist es eine Stimmen- und keine Sitzverteilung.
+          label: a.id === "sitze" && !genau ? "Stimmenverteilung" : a.label,
+        }))}
         wert={ansicht}
         setzen={(id) => setAnsicht(id as Ansicht)}
       />
+
+      {raster.length > 1 && (
+        <Segmente
+          label="Fläche zeigt"
+          optionen={raster.map((r) => ({ id: r.grundlage.id, label: r.grundlage.label }))}
+          wert={rasterId}
+          setzen={setRasterId}
+        />
+      )}
 
       {proListe && (
         <>
@@ -321,8 +364,8 @@ function Steuerung({
               optionen={ebenen.map((e) => ({
                 id: e.id,
                 label: e.label,
-                // Der Knopf bleibt stehen, ist aber erkennbar außer Betrieb —
-                // verschwände er, sprünge die Leiste beim Umschalten.
+                // Der Knopf bleibt stehen, ist aber erkennbar außer Betrieb.
+                // Verschwände er, sprünge die Leiste beim Umschalten.
                 aus: !erlaubte.some((x) => x.id === e.id),
               }))}
               wert={ebeneId}
@@ -390,8 +433,8 @@ function Legende({
   ansicht: Ansicht;
   ebene: WahlEbene;
   liste: WahlListe;
-  skala: ReturnType<typeof spanne>;
-  wandel: ReturnType<typeof schwankung>;
+  skala: { höchster: number; stark: number; decke: number; gemeinden: number };
+  wandel: { ausschlag: number; tief: number | null; hoch: number | null; gemeinden: number };
   stärkste: (g: WahlGebiet) => { id: string; name: string; farbe: string } | null;
 }) {
   const { mass, zeilen } = useMemo<{ mass: string; zeilen: Zeile[] }>(() => {
@@ -461,7 +504,7 @@ function Legende({
             anteil: gruppe ? nachGewicht(gruppe) / grösste : 0,
             // Bei vier verfügbaren Farben für einunddreißig örtliche Listen
             // stehen manche Zeilen im selben Ton. Auf der Karte stören sie sich
-            // nicht — sie liegen nie nebeneinander —, in der Legende schon.
+            // nicht: sie liegen nie nebeneinander, in der Legende schon.
             // Deshalb steht dort die Gemeinde dabei, solange es eine oder zwei sind.
             wert: e.orte.length <= 2 ? e.orte.join(", ") : `vorn in ${e.orte.length} Gemeinden`,
             titel: `Vorn in: ${e.orte.join(", ")}`,
@@ -505,7 +548,7 @@ function Legende({
   );
 }
 
-/** Woraus eine zusammengefasste Zeile besteht — für den Titel, nicht die Zeile. */
+/** Woraus eine zusammengefasste Zeile besteht, für den Titel, nicht die Zeile. */
 function bestandteile(l: WahlListe): string | undefined {
   if (!l.teile?.length && !l.unbenannt) return undefined;
   const teile = (l.teile ?? []).map((t) => `${t.name} ${t.sitze}`);
@@ -545,7 +588,7 @@ function Ablesung({ gebiet, ansicht }: { gebiet: WahlGebiet | null | undefined; 
           </ul>
           {gebiet.genauigkeit === "sammel" && (
             <p className="mt-2 text-sm text-ink-muted">
-              Nur amtliche Sammelkategorien — örtliche Listen sind hier nicht einzeln ausgewiesen.
+              Nur amtliche Sammelkategorien, örtliche Listen sind hier nicht einzeln ausgewiesen.
             </p>
           )}
           {zusammengefasst && (
@@ -559,7 +602,7 @@ function Ablesung({ gebiet, ansicht }: { gebiet: WahlGebiet | null | undefined; 
 
 /**
  * Woher welche Angabe stammt. Bei zwei Quellen, die verschieden viel wissen,
- * gehört das auf die Seite — und nicht nur in ein README, das niemand aufmacht,
+ * gehört das auf die Seite, und nicht nur in ein README, das niemand aufmacht,
  * der auf die Karte zeigt.
  */
 function Herkunft({ ebene }: { ebene: WahlEbene }) {
@@ -583,13 +626,13 @@ function Herkunft({ ebene }: { ebene: WahlEbene }) {
     ],
     [
       "Gewinn und Verlust",
-      h.veraenderung ? "Vergleichsgrafik der Wahlleitung" : "—",
+      h.veraenderung ? "Vergleichsgrafik der Wahlleitung" : "–",
       h.veraenderung
         ? `${h.veraenderung} von ${h.gemeinden} Gemeinden, gegenüber der ${h.vergleichswahl}. Gerechnet aus den ` +
           `beiden ausgewiesenen Ergebnissen, nicht aus der Spalte „Gewinn und Verlust“ der Übersichtstabelle: ` +
           `die weicht bei zwei Dritteln der Listen davon ab.`
         : `nicht ausgewiesen. Die Gemeindeseiten führen zwar eine Spalte dafür, aber keinen Vorwahlvergleich, an ` +
-          `dem sie sich prüfen ließe — und dieselbe Spalte ist auf den Kreistagsseiten nachweislich falsch.`,
+          `dem sie sich prüfen ließe, und dieselbe Spalte ist auf den Kreistagsseiten nachweislich falsch.`,
     ],
   ];
 
@@ -601,7 +644,7 @@ function Herkunft({ ebene }: { ebene: WahlEbene }) {
           <div key={was} className="contents">
             <dt className="font-semibold">{was}</dt>
             <dd className="mb-2 text-ink-soft sm:mb-0">
-              <span className="text-ink">{woher}</span> — {wieviel}
+              <span className="text-ink">{woher}</span>, {wieviel}
             </dd>
           </div>
         ))}
@@ -624,12 +667,12 @@ function Feldchen({ farbe, muster }: { farbe: string; muster: boolean }) {
   );
 }
 
-/** Die Zahlen im Klartext — der zweite Kanal neben der Farbe. */
+/** Die Zahlen im Klartext: der zweite Kanal neben der Farbe. */
 function Tabelle({ ebene }: { ebene: WahlEbene }) {
   const listen = ebene.listen;
   const kopf = ["Gemeinde", ...(ebene.id === "gemeinderat" ? ["Sitze"] : []), ...listen.map((l) => l.name)];
   const zeilen = ebene.gebiete.map((g) => {
-    // Die Spalten sind Gruppen, die Zeilen einer Gemeinde sind Einzellisten —
+    // Die Spalten sind Gruppen, die Zeilen einer Gemeinde sind Einzellisten;
     // „CSU/FW“ gehört in die Spalte „Gemeinsame Wahlvorschläge“. Was in einer
     // Gemeinde mehrere Listen einer Gruppe sind, wird zusammengezählt und benannt.
     const gebündelt = new Map<string, { sitze: number | null; anteil: number | null; namen: string[] }>();
@@ -662,11 +705,31 @@ function prozent(v: number | null | undefined): string {
   return v == null ? "–" : `${v.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
 }
 
-/** Gewinn und Verlust immer mit Vorzeichen — ohne wäre unklar, was gemeint ist. */
+/** Gewinn und Verlust immer mit Vorzeichen, ohne wäre unklar, was gemeint ist. */
 function vorzeichen(v: number | null | undefined): string {
   if (v == null) return "–";
   const zahl = v.toLocaleString("de-DE", { maximumFractionDigits: 1 });
   return v > 0 ? `+${zahl}` : zahl;
+}
+
+/**
+ * Felder nach Farbe bündeln. In der Sitzansicht trägt jedes Feld seine eigene
+ * Farbe, sonst die ganze Gemeinde dieselbe.
+ */
+function bloecke(
+  cells: [number, number, string][],
+  einzeln: boolean,
+  farben: Map<string, string>,
+  flaeche: string,
+): [string, [number, number, string][]][] {
+  if (!einzeln) return [[flaeche, cells]];
+  const nach = new Map<string, [number, number, string][]>();
+  for (const zelle of cells) {
+    const farbe = farben.get(zelle[2]) ?? `url(#${MUSTER})`;
+    if (!nach.has(farbe)) nach.set(farbe, []);
+    nach.get(farbe)!.push(zelle);
+  }
+  return [...nach];
 }
 
 /** Sechseck mit Ecke oben, als relativer Pfad ab dem Mittelpunkt. */

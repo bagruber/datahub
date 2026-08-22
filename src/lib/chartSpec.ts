@@ -34,6 +34,15 @@ export type WahlListe = {
   teile?: { name: string; sitze: number }[];
   /** Sitze, die in der amtlichen Statistik keinen Listennamen tragen. */
   unbenannt?: number;
+  /**
+   * Die Sättigungsskala dieser Zeile, im Schwesterprojekt vorgerechnet. `decke`
+   * ist das geometrische Mittel aus dem eigenen Spitzenwert und einem starken
+   * Ergebnis der Karte; damit bleibt eine schwache Liste zwischen den Gemeinden
+   * abgestuft und trotzdem als schwach erkennbar.
+   */
+  skala?: { höchster: number; stark: number; decke: number; gemeinden: number };
+  /** Dasselbe für Gewinn und Verlust, symmetrisch um null. Fehlt ohne Vergleich. */
+  wandel?: { ausschlag: number; tief: number; hoch: number; gemeinden: number };
 };
 
 /** Das Ergebnis eines Wahlvorschlags in einer Gemeinde. */
@@ -80,18 +89,34 @@ export type WahlEbene = {
   vergleichswahl?: string | null;
 };
 
-export type WahlGeometrie = {
+/**
+ * Eine Kartogramm-Aufteilung. Es gibt zwei davon, und der Unterschied zwischen
+ * ihnen ist die eigentliche Auskunft: auf der einen ist ein Sechseck ein
+ * Ratssitz, auf der anderen sind es 500 Einwohner. Im Landkreis Freising kommen
+ * auf einen Sitz in Freising 1223 Einwohner und in Gammelsdorf 133.
+ */
+export type WahlRaster = {
+  /** `genau` ist falsch, wo die Felder nach Stimmenanteil gerundet fallen. */
+  grundlage: { id: string; label: string; je: number; einheit: string; genau: boolean };
   viewBox: number[];
-  radius: number;
-  gebiete: {
-    ags: string;
+  /** Kantenlänge eines Sechsecks im Koordinatenraum der viewBox. */
+  size: number;
+  gap: number;
+  orientation: "pointy" | "flat";
+  regions: {
+    /** Der Gemeindeschlüssel. */
+    id: string;
     name: string;
-    /** Je Sitz ein Mittelpunkt samt der Fraktion, die darauf sitzt. */
-    felder: [number, number, string][];
-    umriss: string;
-    beschriftung: { x: number; y: number; platz: number } | null;
+    /** Je Feld Mittelpunkt und die Liste, die darauf liegt. */
+    cells: [number, number, string][];
+    outline: string;
+    /** Anker für den Namen, samt Platz, der dort zur Verfügung steht. */
+    label: { x: number; y: number; width: number } | null;
   }[];
 };
+
+/** Die Aufteilungen einer Wahl, in der Reihenfolge, in der sie angeboten werden. */
+export type WahlGeometrie = { raster: WahlRaster[] };
 
 export type ChartSpec =
   | {

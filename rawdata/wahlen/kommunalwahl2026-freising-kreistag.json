@@ -33,7 +33,19 @@
       "vorher": 35,
       "gemeinden": 24,
       "farbe": "#0a0a0a",
-      "anteil": 28.1
+      "skala": {
+        "höchster": 42,
+        "stark": 29,
+        "decke": 34.9,
+        "gemeinden": 24
+      },
+      "anteil": 28.1,
+      "wandel": {
+        "ausschlag": 7.3,
+        "tief": -6.1,
+        "hoch": 9.1,
+        "gemeinden": 24
+      }
     },
     {
       "id": "FW",
@@ -45,7 +57,19 @@
       "vorher": 27.2,
       "gemeinden": 24,
       "farbe": "#f28c15",
-      "anteil": 19.1
+      "skala": {
+        "höchster": 31.7,
+        "stark": 29,
+        "decke": 30.3,
+        "gemeinden": 24
+      },
+      "anteil": 19.1,
+      "wandel": {
+        "ausschlag": 7.5,
+        "tief": -9.8,
+        "hoch": 4.7,
+        "gemeinden": 24
+      }
     },
     {
       "id": "GRÜNE",
@@ -56,7 +80,19 @@
       "vorher": 14.3,
       "gemeinden": 24,
       "farbe": "#3d8b37",
-      "anteil": 17.7
+      "skala": {
+        "höchster": 25.5,
+        "stark": 29,
+        "decke": 27.2,
+        "gemeinden": 24
+      },
+      "anteil": 17.7,
+      "wandel": {
+        "ausschlag": 6.9,
+        "tief": -8.3,
+        "hoch": -0.1,
+        "gemeinden": 24
+      }
     },
     {
       "id": "AfD",
@@ -67,7 +103,19 @@
       "vorher": 4.1,
       "gemeinden": 24,
       "farbe": "#009de0",
-      "anteil": 10.6
+      "skala": {
+        "höchster": 17.3,
+        "stark": 29,
+        "decke": 22.4,
+        "gemeinden": 24
+      },
+      "anteil": 10.6,
+      "wandel": {
+        "ausschlag": 7.5,
+        "tief": 2.4,
+        "hoch": 9.8,
+        "gemeinden": 24
+      }
     },
     {
       "id": "FSM",
@@ -78,7 +126,19 @@
       "vorher": 4.1,
       "gemeinden": 24,
       "farbe": "#2d47bc",
-      "anteil": 7.8
+      "skala": {
+        "höchster": 20.7,
+        "stark": 29,
+        "decke": 24.5,
+        "gemeinden": 24
+      },
+      "anteil": 7.8,
+      "wandel": {
+        "ausschlag": 6.2,
+        "tief": -6.6,
+        "hoch": 1.7,
+        "gemeinden": 24
+      }
     },
     {
       "id": "SPD",
@@ -89,7 +149,19 @@
       "vorher": 6,
       "gemeinden": 24,
       "farbe": "#e31e2d",
-      "anteil": 7.3
+      "skala": {
+        "höchster": 11.8,
+        "stark": 29,
+        "decke": 18.5,
+        "gemeinden": 24
+      },
+      "anteil": 7.3,
+      "wandel": {
+        "ausschlag": 5,
+        "tief": -4.3,
+        "hoch": 3.2,
+        "gemeinden": 24
+      }
     },
     {
       "id": "LINKE",
@@ -100,7 +172,19 @@
       "vorher": 1.7,
       "gemeinden": 24,
       "farbe": "#be3075",
-      "anteil": 3.8
+      "skala": {
+        "höchster": 5.8,
+        "stark": 29,
+        "decke": 13,
+        "gemeinden": 24
+      },
+      "anteil": 3.8,
+      "wandel": {
+        "ausschlag": 3.9,
+        "tief": -0.2,
+        "hoch": 2.6,
+        "gemeinden": 24
+      }
     },
     {
       "id": "ÖDP",
@@ -111,7 +195,19 @@
       "vorher": 3,
       "gemeinden": 24,
       "farbe": "#a85a12",
-      "anteil": 3.1
+      "skala": {
+        "höchster": 6.9,
+        "stark": 29,
+        "decke": 14.1,
+        "gemeinden": 24
+      },
+      "anteil": 3.1,
+      "wandel": {
+        "ausschlag": 4,
+        "tief": -2.4,
+        "hoch": 2.8,
+        "gemeinden": 24
+      }
     },
     {
       "id": "FDP",
@@ -122,7 +218,19 @@
       "vorher": 4.4,
       "gemeinden": 24,
       "farbe": "#e5c800",
-      "anteil": 2.4
+      "skala": {
+        "höchster": 7.5,
+        "stark": 29,
+        "decke": 14.7,
+        "gemeinden": 24
+      },
+      "anteil": 2.4,
+      "wandel": {
+        "ausschlag": 4.9,
+        "tief": -4.1,
+        "hoch": 2.1,
+        "gemeinden": 24
+      }
     }
   ],
   "gemeinden": [
