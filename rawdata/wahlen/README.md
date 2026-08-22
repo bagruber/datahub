@@ -9,9 +9,9 @@ vorgerechnet.
 
 | Datei | Herkunft |
 |---|---|
-| `*-gemeinderat.json` | `data/wahlen/` — Ergebnis je Gemeinde, Sitze und gewichtete Stimmen, samt der Gewählten |
-| `*-kreistag.json` | `data/wahlen/` — dieselbe Struktur für die Kreistagswahl |
-| `*-kartogramm.json` | `data/kartogramm/` — fertige Zeichenware: Mittelpunkte, Umrisse, Beschriftungsanker |
+| `*-gemeinderat.json` | `data/wahlen/`, Ergebnis je Gemeinde, Sitze und gewichtete Stimmen, samt der Gewählten |
+| `*-kreistag.json` | `data/wahlen/`: dieselbe Struktur für die Kreistagswahl |
+| `*-kartogramm.json` | `data/kartogramm/`, fertige Zeichenware: Mittelpunkte, Umrisse, Beschriftungsanker, je Bezugsgröße ein Raster |
 
 Erneuern heißt: dort `npm run hole && npm run baue && node scripts/kartogramm.mjs <id>`
 laufen lassen, die drei Dateien hierher kopieren, dann `node scripts/build-wahlen.mjs`.
@@ -34,6 +34,12 @@ ihrer Vergleichsgrafik 4,1 Prozent für 2020 und 10,4 Prozent für 2026 ausweist
 Das Schwesterprojekt rechnet die Veränderung deshalb aus der Grafik. Die
 Gemeindeseiten haben keine solche Grafik, also lässt sich dort nichts
 nachrechnen, und es steht auch nichts im Datensatz.
+
+**Zwei Raster.** `raster.sitze` legt ein Sechseck je Ratssitz, `raster.einwohner`
+eines je 500 Einwohner. Auf einen Sitz kommen in Freising 1223 Einwohner und in
+Gammelsdorf 133: die kleinen Gemeinden schrumpfen beim Umschalten also auf ein
+Neuntel. Auf der Einwohnerkarte hat ein Feld keine Entsprechung im Gremium; die
+Felder fallen dort nach Stimmenanteil, und `grundlage.genau` steht auf falsch.
 
 **`herkunft`** trägt je Ebene, wie viele Gemeinden welche Art von Angabe haben.
 Die Karte zeigt das unter „Woher die Zahlen kommen"; es ist keine Fußnote,

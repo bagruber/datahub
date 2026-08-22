@@ -16,7 +16,7 @@ type Props = {
 /**
  * Ein Rat als Wabe: ein Sechseck je Sitz, gefärbt nach Fraktion. Anders als auf
  * der Landkreiskarte steht ein Feld hier nicht für einen Sitz, sondern für einen
- * Menschen — jedes trägt den Namen der oder des Gewählten. Die Fraktionen
+ * Menschen, jedes trägt den Namen der oder des Gewählten. Die Fraktionen
  * liegen als zusammenhängende Klumpen, damit sich ihre Größe abzählen lässt.
  */
 export function Gremium({ geometrie, sitze, listen, title }: Props) {
@@ -88,7 +88,7 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
       </ChartFrame>
 
       {/* Ein fester Platz für die Ablesung, damit die Karte beim Zeigen nicht
-          springt — leer steht dort, worauf man zeigen kann. */}
+          springt, leer steht dort, worauf man zeigen kann. */}
       <p className="min-h-[1.5rem] text-center text-sm">
         {aktiv ? (
           <>
@@ -96,7 +96,7 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
             <span className="text-ink-soft"> · {namen.get(aktiv[2]) ?? aktiv[2]}</span>
           </>
         ) : (
-          <span className="text-ink-muted">Auf ein Sechseck zeigen — jedes ist ein Ratsmitglied.</span>
+          <span className="text-ink-muted">Auf ein Sechseck zeigen, jedes ist ein Ratsmitglied.</span>
         )}
       </p>
 
@@ -117,7 +117,7 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
               </span>
               {/* Die Wabe zählt Sitze, der Balken zeigt Stimmen. Zusammen wird
                   sichtbar, wo eine Liste mehr Sitze holt, als ihr Stimmenanteil
-                  vermuten ließe — das gibt eine reine Sitzlegende nicht her. */}
+                  vermuten ließe: das gibt eine reine Sitzlegende nicht her. */}
               {l.anteil != null && (
                 <span
                   aria-hidden
@@ -141,14 +141,14 @@ function balken(farbe: string, anteil: number, grösster: number): string {
 
 function beschreibung(sitz: Sitz, namen: Map<string, string>): string {
   const liste = namen.get(sitz[2]) ?? sitz[2];
-  return sitz[3] ? `${sitz[3]} — ${liste}` : liste;
+  return sitz[3] ? `${sitz[3]}, ${liste}` : liste;
 }
 
 function prozent(v: number | null | undefined): string {
   return v == null ? "–" : `${v.toLocaleString("de-DE", { maximumFractionDigits: 1 })} %`;
 }
 
-/** Gewinn und Verlust immer mit Vorzeichen — ohne wäre unklar, was gemeint ist. */
+/** Gewinn und Verlust immer mit Vorzeichen, ohne wäre unklar, was gemeint ist. */
 function punkte(v: number | null | undefined): string {
   if (v == null) return "–";
   const zahl = v.toLocaleString("de-DE", { maximumFractionDigits: 1 });

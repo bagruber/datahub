@@ -4,7 +4,7 @@
 // die amtliche Statistik (GENESIS-Online) und die Veröffentlichungen der
 // Wahlleitungen zusammengeführt und gegeneinander geprüft, dort wird auch die
 // Hexagon-Aufteilung einmal vorgerechnet. Hier wird daraus nur noch ein
-// Datensatz im Format des Data Hubs — gerechnet wird nichts mehr.
+// Datensatz im Format des Data Hubs, gerechnet wird nichts mehr.
 //
 // Neu laufen lassen, wenn die Dateien in rawdata/wahlen/ erneuert wurden:
 //   node scripts/build-wahlen.mjs
@@ -63,10 +63,13 @@ function listen(datensatz) {
     anteil: l.anteil,
     ...(l.teile ? { teile: l.teile } : {}),
     ...(l.unbenannt ? { unbenannt: l.unbenannt } : {}),
+    // Vorgerechnet im Schwesterprojekt; hier wird nichts mehr gerechnet.
+    skala: l.skala,
+    ...(l.wandel ? { wandel: l.wandel } : {}),
   }));
 }
 
-/** Woher welche Angabe stammt — dieselbe Auskunft, die die Karte selbst gibt. */
+/** Woher welche Angabe stammt: dieselbe Auskunft, die die Karte selbst gibt. */
 function herkunft(datensatz) {
   const mitListen = datensatz.gemeinden.filter((g) => g.genauigkeit === "listen");
   const ohne = datensatz.gemeinden.filter((g) => g.genauigkeit === "sammel");
@@ -87,16 +90,11 @@ const karte = {
   id: "landkreis",
   title: "Landkreis Freising",
   source: "Bayerisches Landesamt für Statistik und die Wahlleitungen",
+  // Zwei Aufteilungen: Sechsecke nach Ratssitzen und nach Einwohnern. Der
+  // Unterschied zwischen ihnen ist die eigentliche Auskunft dieser Karte.
   geometrie: {
-    viewBox: kartogramm.viewBox,
-    radius: kartogramm.hex.radius,
-    gebiete: kartogramm.gemeinden.map((g) => ({
-      ags: g.ags,
-      name: g.name,
-      felder: g.felder,
-      umriss: g.umriss,
-      beschriftung: g.beschriftung,
-    })),
+    // Unverändert übernommen: das ist die Form, die hexagonalmap ausgibt.
+    raster: Object.values(kartogramm.raster),
   },
   ebenen: [
     {
@@ -121,7 +119,7 @@ const karte = {
           {
             text:
               `In ${grob.length} von ${gemeinderat.gemeinden.length} Gemeinden liegen nur die amtlichen ` +
-              `Sammelkategorien vor — örtliche Listen erscheinen dort als „Wählergruppen“ oder ` +
+              `Sammelkategorien vor, örtliche Listen erscheinen dort als „Wählergruppen“ oder ` +
               `„Gemeinsame Wahlvorschläge“: ${grob.map((g) => g.name).join(", ")}.`,
           },
         ]
@@ -161,6 +159,7 @@ function rat(ags) {
 // ── Datensatz ──────────────────────────────────────────────────────────
 
 const sitzeGesamt = gemeinderat.gemeinden.reduce((a, g) => a + g.sitze, 0);
+const jeHex = kartogramm.raster.einwohner?.grundlage.je;
 
 const datensatz = {
   meta: {
@@ -170,8 +169,8 @@ const datensatz = {
     n: sitzeGesamt,
     description:
       "Die Gemeinde- und Stadtratswahlen vom 8. März 2026 im Landkreis Freising als " +
-      "Hexagon-Kartogramm: jede Gemeinde bekommt so viele Sechsecke, wie ihr Rat Sitze hat. " +
-      "Die Fläche zeigt damit das Gewicht des Gremiums statt der Quadratkilometer.",
+      "Hexagon-Kartogramm: die Fläche einer Gemeinde ist nicht ihre Quadratkilometerzahl, sondern " +
+      "wahlweise die Größe ihres Rats oder ihre Einwohnerzahl. Zwischen beidem liegt Faktor neun.",
     source: "Landesamt für Statistik und Wahlleitungen",
   },
   kind: "statistik",
@@ -184,12 +183,16 @@ const datensatz = {
       order: 1,
       text:
         `440 Sitze in 24 Gemeinderäten. Die Karte zeigt sie auf vier Arten: welche Liste in einer ` +
-        `Gemeinde die meisten Sitze hat, wie sich alle 440 Sitze auf die Fraktionen verteilen, wie ` +
-        `stark eine einzelne Liste im Kreis abschneidet, und wo sie gegenüber der Wahl davor ` +
-        `gewonnen oder verloren hat. Weil Gemeinderatslisten von Ort zu Ort andere sind, lässt sich ` +
-        `die Listenansicht auch auf die Kreistagswahl umstellen — die einzige Wahl, bei der alle 24 ` +
-        `Gemeinden über dieselben Listen abgestimmt haben, und die einzige mit einem Vorwahlvergleich, ` +
-        `der sich nachrechnen lässt.`,
+        `Gemeinde die meisten Sitze hat, wie sich die Sitze auf die Fraktionen verteilen, wie stark ` +
+        `eine einzelne Liste im Kreis abschneidet, und wo sie gegenüber der Wahl davor gewonnen oder ` +
+        `verloren hat. Weil Gemeinderatslisten von Ort zu Ort andere sind, lässt sich die ` +
+        `Listenansicht auch auf die Kreistagswahl umstellen: die einzige Wahl, bei der alle 24 ` +
+        `Gemeinden über dieselben Listen abgestimmt haben, und die einzige mit einem ` +
+        `Vorwahlvergleich, der sich nachrechnen lässt. ` +
+        `Wonach die Fläche sich bemisst, ist ebenfalls umschaltbar, und der Unterschied ist die eigentliche ` +
+        `Auskunft: bei „Sitze" ist ein Sechseck ein Ratssitz, bei „Einwohner" sind es ${jeHex}. Auf ` +
+        `einen Sitz kommen in Freising 1223 Einwohner und in Gammelsdorf 133: die kleinen Gemeinden ` +
+        `schrumpfen beim Umschalten also auf ein Neuntel ihres Gewichts.`,
       charts: [karte],
     },
     {
@@ -225,5 +228,5 @@ fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + "\n", "utf8");
 const kb = fs.statSync(OUT).size / 1024;
 console.log(
   `kommunalwahl_2026.json  ${gemeinderat.gemeinden.length} Gemeinden  ${sitzeGesamt} Sitze  ` +
-    `${DETAILS.length} Räte im Detail  ${kb.toFixed(0)} kB`
+    `${DETAILS.length} Räte im Detail  ${Object.keys(kartogramm.raster).length} Aufteilungen  ${kb.toFixed(0)} kB`
 );
