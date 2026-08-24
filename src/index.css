@@ -4,34 +4,22 @@
 @import "@fontsource/playfair-display/600.css";
 @import "@fontsource/playfair-display/700.css";
 
+/* Die Grund-Tokens kommen aus dem gemeinsamen Kanon:
+   github.com/bagruber/moosburg-design */
+@import "moosburg-design/css/theme.css";
+
 @theme {
-  /* ──────────────────────────────────────────────────────────────
-     Brand — aligned with sibling /moosburg site
-     Red leitfarbe + cream ground + gold accent
-     ────────────────────────────────────────────────────────────── */
-  --color-red-50: #fdf3f5;
-  --color-red-100: #fbe5e9;
-  --color-red-500: #c8102e;
-  --color-red-600: #b00e28;
-  --color-red-700: #9b0000; /* council deep red */
-  --color-red-900: #5a070a;
+  /* Abweichung vom Kanon: kompaktere Display-Skala. Datenseiten tragen
+     ihre Hierarchie in Diagrammen und Tabellen, nicht in Riesenlettern. */
+  --text-display-1: 3rem;
+  --text-display-2: 2.25rem;
+  --text-display-3: 1.5rem;
 
-  --color-gold-100: #f6ecd5;
-  --color-gold-200: #e8dfcf;
-  --color-gold-400: #b39f7a; /* council accent */
-  --color-gold-500: #b8964e;
-  --color-gold-600: #968b69;
-  --color-gold-700: #6e5a30;
+  /* App-eigene Töne: gedeckter Balken-Akzent neben den Daten-Farben. */
+  --color-gold-400: #b39f7a;
 
-  --color-cream: #faf7f2;
-  --color-cream-dark: #f1ece1;
-
-  --color-ink: #1c1c1c;
-  --color-ink-soft: #555555;
-  --color-ink-muted: #888888;
-  --color-ink-line: #e4e0d7;
-
-  /* Semantic data palette — civic surveys (from council) */
+  /* Semantische Daten-Palette, übernommen aus council, damit Ja/Nein in
+     beiden Projekten gleich aussieht. */
   --color-data-yes: #78be1e;
   --color-data-no: #9b0000;
   --color-data-absent: #b0b0b0;
@@ -39,41 +27,13 @@
   --color-data-teal: #00b4d8;
   --color-data-purple: #9b59b6;
 
-  /* Diverging Likert ramp — 6 steps, perceptually ordered */
+  /* Divergierende Likert-Rampe, sechs Stufen. */
   --color-likert-1: #b00e28;
   --color-likert-2: #d96a4f;
   --color-likert-3: #e8b878;
   --color-likert-4: #c9d39e;
   --color-likert-5: #82b67c;
   --color-likert-6: #3f8c52;
-
-  /* Rainbow stripe — fixed order, ornament only */
-  --color-rb-1: #e91e8c;
-  --color-rb-2: #e5202e;
-  --color-rb-3: #f4830a;
-  --color-rb-4: #f5d400;
-  --color-rb-5: #0a9e4c;
-  --color-rb-6: #009ac7;
-  --color-rb-7: #3b3f9a;
-  --color-rb-8: #8b4a2a;
-  --color-rb-9: #1a1a1a;
-
-  /* Typography */
-  --font-display: "Playfair Display", ui-serif, Georgia, serif;
-  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
-
-  --text-display-1: 3rem;     /* 48px — hero */
-  --text-display-2: 2.25rem;  /* 36px — h1 */
-  --text-display-3: 1.5rem;   /* 24px — h2 */
-
-  --radius-sm: 2px;
-  --radius-md: 4px;
-  --radius-lg: 8px;
-  --radius-xl: 12px;
-  --radius-2xl: 20px;
-
-  --shadow-soft: 0 1px 3px rgb(0 0 0 / 0.07);
-  --shadow-lift: 0 4px 16px rgb(0 0 0 / 0.10);
 }
 
 html {
@@ -121,7 +81,8 @@ body {
   letter-spacing: 0.14em;
   font-weight: 600;
   font-size: 0.75rem;
-  color: var(--color-gold-600);
+  /* gold-700: hellere Goldtöne bestehen als Schriftfarbe auf Creme nicht. */
+  color: var(--color-gold-700);
 }
 
 /* Rainbow stripe — 9 fixed segments, 4px */
