@@ -14,7 +14,8 @@ vorgerechnet.
 | `*-kartogramm.json` | `data/kartogramm/`, fertige Zeichenware: Mittelpunkte, Umrisse, Beschriftungsanker, je Bezugsgröße ein Raster |
 
 Erneuern heißt: dort `npm run hole && npm run baue && node scripts/kartogramm.mjs <id>`
-laufen lassen, die drei Dateien hierher kopieren, dann `node scripts/build-wahlen.mjs`.
+laufen lassen, dann hier `node scripts/hole-wahlen.mjs` (holt die drei Dateien
+und setzt jeder Kopie ihren `_herkunft`-Kopf) und `node scripts/build-wahlen.mjs`.
 
 ## Was in den Dateien steckt, das man kennen muss
 

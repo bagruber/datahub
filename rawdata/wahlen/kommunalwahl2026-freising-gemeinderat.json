@@ -1,3994 +1,4000 @@
 {
-  "id": "kommunalwahl2026-freising-gemeinderat",
-  "titel": "Gemeinde- und Stadtratswahlen 2026",
-  "datum": "2026-03-08",
-  "ebene": "gemeinderat",
-  "gebiet": {
-    "schluessel": "09178",
-    "name": "Landkreis Freising",
-    "datensatz": "freising"
+ "_herkunft": {
+  "quelle": "bagruber/elections · data/wahlen/kommunalwahl2026-freising-gemeinderat.json",
+  "stand": "2026-08-22",
+  "skript": "scripts/hole-wahlen.mjs",
+  "hinweis": "GENERIERT, nicht von Hand ändern. Neu erzeugen: node scripts/hole-wahlen.mjs"
+ },
+ "id": "kommunalwahl2026-freising-gemeinderat",
+ "titel": "Gemeinde- und Stadtratswahlen 2026",
+ "datum": "2026-03-08",
+ "ebene": "gemeinderat",
+ "gebiet": {
+  "schluessel": "09178",
+  "name": "Landkreis Freising",
+  "datensatz": "freising"
+ },
+ "quellen": [
+  "Bayerisches Landesamt für Statistik, GENESIS-Online, Tabellen 14431-005r und 14431-003r",
+  "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178115.html",
+  "https://wahl.rathaus-au.de/3mgr/ergebnisse.html",
+  "https://wahlen.osrz-akdb.de/ob-p/178120/2/20260308/gemeinderatswahl_gemeinde/index.html",
+  "https://wahlen.osrz-akdb.de/ob-p/178122/2/20260308/gemeinderatswahl_gemeinde/index.html",
+  "https://wahlen.osrz-akdb.de/ob-p/178123/0/20260308/gemeinderatswahl_gemeinde/index.html",
+  "https://wahl.freising.de/Stadtrat_2026/",
+  "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178125.html",
+  "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178129.html",
+  "https://www.hallbergmoos.de/wahlen/Kommunal2026/",
+  "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178132.html",
+  "https://www.hohenkammer.de/Wahlen/GR-2026/ergebnisse_gemeinde_09178133.html",
+  "https://wahlen.osrz-akdb.de/ob-p/178136/2/20260308/gemeinderatswahl_gemeinde/index.html",
+  "https://wahlen.kranzberg.de/2026_GR/",
+  "https://www.gemeinde-langenbach.de/site/assets/uploads/gemeinderatswahl/ergebnisse.html",
+  "https://www.marzling.de/wahlen/2026gr/ergebnisse.html",
+  "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178142.html",
+  "https://wahlen.osrz-akdb.de/ob-p/178143/2/20260308/gemeinderatswahl_gemeinde/index.html",
+  "https://markt-nandlstadt.de/wahlen2026/ergebnisse.html",
+  "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178155.html",
+  "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178156.html",
+  "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178157.html"
+ ],
+ "herkunft": {
+  "listen": {
+   "gemeinden": 21,
+   "sitze": 378
   },
-  "quellen": [
-    "Bayerisches Landesamt für Statistik, GENESIS-Online, Tabellen 14431-005r und 14431-003r",
-    "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178115.html",
-    "https://wahl.rathaus-au.de/3mgr/ergebnisse.html",
-    "https://wahlen.osrz-akdb.de/ob-p/178120/2/20260308/gemeinderatswahl_gemeinde/index.html",
-    "https://wahlen.osrz-akdb.de/ob-p/178122/2/20260308/gemeinderatswahl_gemeinde/index.html",
-    "https://wahlen.osrz-akdb.de/ob-p/178123/0/20260308/gemeinderatswahl_gemeinde/index.html",
-    "https://wahl.freising.de/Stadtrat_2026/",
-    "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178125.html",
-    "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178129.html",
-    "https://www.hallbergmoos.de/wahlen/Kommunal2026/",
-    "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178132.html",
-    "https://www.hohenkammer.de/Wahlen/GR-2026/ergebnisse_gemeinde_09178133.html",
-    "https://wahlen.osrz-akdb.de/ob-p/178136/2/20260308/gemeinderatswahl_gemeinde/index.html",
-    "https://wahlen.kranzberg.de/2026_GR/",
-    "https://www.gemeinde-langenbach.de/site/assets/uploads/gemeinderatswahl/ergebnisse.html",
-    "https://www.marzling.de/wahlen/2026gr/ergebnisse.html",
-    "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178142.html",
-    "https://wahlen.osrz-akdb.de/ob-p/178143/2/20260308/gemeinderatswahl_gemeinde/index.html",
-    "https://markt-nandlstadt.de/wahlen2026/ergebnisse.html",
-    "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178155.html",
-    "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178156.html",
-    "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178157.html"
-  ],
-  "herkunft": {
-    "listen": {
-      "gemeinden": 21,
-      "sitze": 378
-    },
-    "sammel": {
-      "gemeinden": 3,
-      "sitze": 62
-    },
-    "veraenderung": 0,
-    "gewaehlte": 21
+  "sammel": {
+   "gemeinden": 3,
+   "sitze": 62
   },
-  "listen": [
+  "veraenderung": 0,
+  "gewaehlte": 21
+ },
+ "listen": [
+  {
+   "id": "CSU",
+   "name": "CSU",
+   "art": "partei",
+   "sitze": 94,
+   "stimmen": 18429,
+   "gemeinden": 17,
+   "farbe": "#0a0a0a",
+   "skala": {
+    "höchster": 40.4,
+    "stark": 40.8,
+    "decke": 40.6,
+    "gemeinden": 17
+   },
+   "anteil": 22.4
+  },
+  {
+   "id": "FW",
+   "name": "Freie Wähler",
+   "art": "familie",
+   "familie": "FW",
+   "sitze": 70,
+   "stimmen": 12043,
+   "gemeinden": 13,
+   "farbe": "#f28c15",
+   "skala": {
+    "höchster": 56.9,
+    "stark": 40.8,
+    "decke": 48.2,
+    "gemeinden": 13
+   },
+   "anteil": 14.6,
+   "teile": [
     {
-      "id": "CSU",
-      "name": "CSU",
-      "art": "partei",
-      "sitze": 94,
-      "stimmen": 18429,
-      "gemeinden": 17,
-      "farbe": "#0a0a0a",
-      "skala": {
-        "höchster": 40.4,
-        "stark": 40.8,
-        "decke": 40.6,
-        "gemeinden": 17
-      },
-      "anteil": 22.4
+     "name": "FW",
+     "sitze": 21
     },
     {
-      "id": "FW",
-      "name": "Freie Wähler",
-      "art": "familie",
-      "familie": "FW",
-      "sitze": 70,
-      "stimmen": 12043,
-      "gemeinden": 13,
-      "farbe": "#f28c15",
-      "skala": {
-        "höchster": 56.9,
-        "stark": 40.8,
-        "decke": 48.2,
-        "gemeinden": 13
-      },
-      "anteil": 14.6,
-      "teile": [
-        {
-          "name": "FW",
-          "sitze": 21
-        },
-        {
-          "name": "FREIE WÄHLER - FW Eching",
-          "sitze": 6
-        },
-        {
-          "name": "Freie Wähler / FWE",
-          "sitze": 6
-        },
-        {
-          "name": "FREIE WÄHLER/FWG Mauern",
-          "sitze": 6
-        },
-        {
-          "name": "FWG Kirchdorf",
-          "sitze": 5
-        },
-        {
-          "name": "FREIE WÄHLER – FW Freising",
-          "sitze": 4
-        },
-        {
-          "name": "FREIE WÄHLER - FWG Kranzberg",
-          "sitze": 4
-        },
-        {
-          "name": "FREIE WÄHLER, FW Moosburg",
-          "sitze": 4
-        },
-        {
-          "name": "FWI",
-          "sitze": 4
-        },
-        {
-          "name": "FWV",
-          "sitze": 4
-        },
-        {
-          "name": "FWG Au",
-          "sitze": 3
-        },
-        {
-          "name": "FWO",
-          "sitze": 3
-        }
-      ]
+     "name": "FREIE WÄHLER - FW Eching",
+     "sitze": 6
     },
     {
-      "id": "GRÜNE",
-      "name": "Grüne",
-      "art": "partei",
-      "sitze": 47,
-      "stimmen": 11931,
-      "gemeinden": 14,
-      "farbe": "#3d8b37",
-      "skala": {
-        "höchster": 23.3,
-        "stark": 40.8,
-        "decke": 30.8,
-        "gemeinden": 14
-      },
-      "anteil": 14.5
+     "name": "Freie Wähler / FWE",
+     "sitze": 6
     },
     {
-      "id": "SPD",
-      "name": "SPD",
-      "art": "partei",
-      "sitze": 23,
-      "stimmen": 5140,
-      "gemeinden": 10,
-      "farbe": "#e31e2d",
-      "skala": {
-        "höchster": 13,
-        "stark": 40.8,
-        "decke": 23,
-        "gemeinden": 10
-      },
-      "anteil": 6.2
+     "name": "FREIE WÄHLER/FWG Mauern",
+     "sitze": 6
     },
     {
-      "id": "GEMEINSAM",
-      "name": "Gemeinsame Wahlvorschläge",
-      "art": "sammel",
-      "sitze": 20,
-      "stimmen": 3356,
-      "gemeinden": 5,
-      "farbe": "#6b6759",
-      "skala": {
-        "höchster": 54.2,
-        "stark": 40.8,
-        "decke": 47,
-        "gemeinden": 5
-      },
-      "anteil": 4.1,
-      "teile": [
-        {
-          "name": "CSU/FW",
-          "sitze": 9
-        },
-        {
-          "name": "CSU/PfW",
-          "sitze": 3
-        },
-        {
-          "name": "GOL",
-          "sitze": 2
-        },
-        {
-          "name": "BfE, EM, ÖDP",
-          "sitze": 1
-        }
-      ],
-      "unbenannt": 5
+     "name": "FWG Kirchdorf",
+     "sitze": 5
     },
     {
-      "id": "AfD",
-      "name": "AfD",
-      "art": "partei",
-      "sitze": 13,
-      "stimmen": 3630,
-      "gemeinden": 7,
-      "farbe": "#009de0",
-      "skala": {
-        "höchster": 10.4,
-        "stark": 40.8,
-        "decke": 20.6,
-        "gemeinden": 7
-      },
-      "anteil": 4.4
+     "name": "FREIE WÄHLER – FW Freising",
+     "sitze": 4
     },
     {
-      "id": "WÄHLERGRUPPEN",
-      "name": "Wählergruppen",
-      "art": "sammel",
-      "sitze": 12,
-      "stimmen": 2053,
-      "gemeinden": 4,
-      "farbe": "#b4afa1",
-      "skala": {
-        "höchster": 33.4,
-        "stark": 40.8,
-        "decke": 36.9,
-        "gemeinden": 4
-      },
-      "anteil": 2.5,
-      "teile": [
-        {
-          "name": "MiLa",
-          "sitze": 1
-        }
-      ],
-      "unbenannt": 11
+     "name": "FREIE WÄHLER - FWG Kranzberg",
+     "sitze": 4
     },
     {
-      "id": "WH",
-      "name": "WH",
-      "art": "örtlich",
-      "sitze": 12,
-      "stimmen": 1053,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 99.8,
-        "stark": 40.8,
-        "decke": 63.8,
-        "gemeinden": 1
-      },
-      "anteil": 1.3
+     "name": "FREIE WÄHLER, FW Moosburg",
+     "sitze": 4
     },
     {
-      "id": "ÜWG",
-      "name": "ÜWG",
-      "art": "örtlich",
-      "sitze": 10,
-      "stimmen": 1006,
-      "gemeinden": 2,
-      "farbe": "#8861bc",
-      "skala": {
-        "höchster": 53,
-        "stark": 40.8,
-        "decke": 46.5,
-        "gemeinden": 2
-      },
-      "anteil": 1.2
+     "name": "FWI",
+     "sitze": 4
     },
     {
-      "id": "FSM",
-      "name": "FSM",
-      "art": "örtlich",
-      "sitze": 9,
-      "stimmen": 4816,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 23.5,
-        "stark": 40.8,
-        "decke": 31,
-        "gemeinden": 1
-      },
-      "anteil": 5.8
+     "name": "FWV",
+     "sitze": 4
     },
     {
-      "id": "UB",
-      "name": "UB",
-      "art": "örtlich",
-      "sitze": 9,
-      "stimmen": 990,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 63.6,
-        "stark": 40.8,
-        "decke": 50.9,
-        "gemeinden": 1
-      },
-      "anteil": 1.2
+     "name": "FWG Au",
+     "sitze": 3
     },
     {
-      "id": "Wählergemeinschaft Wolfersdorf",
-      "name": "Wählergemeinschaft Wolfersdorf",
-      "art": "örtlich",
-      "sitze": 9,
-      "stimmen": 825,
-      "gemeinden": 1,
-      "farbe": "#8861bc",
-      "skala": {
-        "höchster": 67.8,
-        "stark": 40.8,
-        "decke": 52.6,
-        "gemeinden": 1
-      },
-      "anteil": 1
-    },
-    {
-      "id": "GfAu",
-      "name": "GfAu",
-      "art": "örtlich",
-      "sitze": 8,
-      "stimmen": 1394,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 43.2,
-        "stark": 40.8,
-        "decke": 42,
-        "gemeinden": 1
-      },
-      "anteil": 1.7
-    },
-    {
-      "id": "Marzlinger Liste",
-      "name": "Marzlinger Liste",
-      "art": "örtlich",
-      "sitze": 7,
-      "stimmen": 792,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 44.3,
-        "stark": 40.8,
-        "decke": 42.5,
-        "gemeinden": 1
-      },
-      "anteil": 1
-    },
-    {
-      "id": "WIR",
-      "name": "WIR",
-      "art": "örtlich",
-      "sitze": 7,
-      "stimmen": 746,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 50.7,
-        "stark": 40.8,
-        "decke": 45.5,
-        "gemeinden": 1
-      },
-      "anteil": 0.9
-    },
-    {
-      "id": "UWN",
-      "name": "UWN",
-      "art": "örtlich",
-      "sitze": 6,
-      "stimmen": 845,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 29.4,
-        "stark": 40.8,
-        "decke": 34.6,
-        "gemeinden": 1
-      },
-      "anteil": 1
-    },
-    {
-      "id": "WWV",
-      "name": "WWV",
-      "art": "örtlich",
-      "sitze": 6,
-      "stimmen": 562,
-      "gemeinden": 1,
-      "farbe": "#c97b95",
-      "skala": {
-        "höchster": 43.1,
-        "stark": 40.8,
-        "decke": 41.9,
-        "gemeinden": 1
-      },
-      "anteil": 0.7
-    },
-    {
-      "id": "BvHo",
-      "name": "BvHo",
-      "art": "örtlich",
-      "sitze": 6,
-      "stimmen": 530,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 40.8,
-        "stark": 40.8,
-        "decke": 40.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.6
-    },
-    {
-      "id": "FDP",
-      "name": "FDP",
-      "art": "partei",
-      "sitze": 5,
-      "stimmen": 972,
-      "gemeinden": 4,
-      "farbe": "#e5c800",
-      "skala": {
-        "höchster": 10.9,
-        "stark": 40.8,
-        "decke": 21.1,
-        "gemeinden": 4
-      },
-      "anteil": 1.2
-    },
-    {
-      "id": "UBZ",
-      "name": "UBZ",
-      "art": "örtlich",
-      "sitze": 5,
-      "stimmen": 765,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 32.8,
-        "stark": 40.8,
-        "decke": 36.6,
-        "gemeinden": 1
-      },
-      "anteil": 0.9
-    },
-    {
-      "id": "UWG",
-      "name": "UWG",
-      "art": "örtlich",
-      "sitze": 5,
-      "stimmen": 491,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 33.4,
-        "stark": 40.8,
-        "decke": 36.9,
-        "gemeinden": 1
-      },
-      "anteil": 0.6
-    },
-    {
-      "id": "Wählergemeinschaft Dürnhaindlfing",
-      "name": "Wählergemeinschaft Dürnhaindlfing",
-      "art": "örtlich",
-      "sitze": 5,
-      "stimmen": 392,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 32.2,
-        "stark": 40.8,
-        "decke": 36.2,
-        "gemeinden": 1
-      },
-      "anteil": 0.5
-    },
-    {
-      "id": "ÖDP",
-      "name": "ÖDP",
-      "art": "partei",
-      "sitze": 4,
-      "stimmen": 1260,
-      "gemeinden": 2,
-      "farbe": "#a85a12",
-      "skala": {
-        "höchster": 4.9,
-        "stark": 40.8,
-        "decke": 14.1,
-        "gemeinden": 2
-      },
-      "anteil": 1.5
-    },
-    {
-      "id": "Einigkeit",
-      "name": "Einigkeit",
-      "art": "örtlich",
-      "sitze": 4,
-      "stimmen": 785,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 18.1,
-        "stark": 40.8,
-        "decke": 27.2,
-        "gemeinden": 1
-      },
-      "anteil": 1
-    },
-    {
-      "id": "GenAU",
-      "name": "GenAU",
-      "art": "örtlich",
-      "sitze": 4,
-      "stimmen": 613,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 19,
-        "stark": 40.8,
-        "decke": 27.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.7
-    },
-    {
-      "id": "FBL",
-      "name": "FBL",
-      "art": "örtlich",
-      "sitze": 4,
-      "stimmen": 400,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 17.5,
-        "stark": 40.8,
-        "decke": 26.7,
-        "gemeinden": 1
-      },
-      "anteil": 0.5
-    },
-    {
-      "id": "PB",
-      "name": "PB",
-      "art": "örtlich",
-      "sitze": 4,
-      "stimmen": 388,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 21.7,
-        "stark": 40.8,
-        "decke": 29.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.5
-    },
-    {
-      "id": "MfG",
-      "name": "MfG",
-      "art": "örtlich",
-      "sitze": 4,
-      "stimmen": 254,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 29,
-        "stark": 40.8,
-        "decke": 34.4,
-        "gemeinden": 1
-      },
-      "anteil": 0.3
-    },
-    {
-      "id": "LINKE",
-      "name": "Die Linke",
-      "art": "partei",
-      "sitze": 3,
-      "stimmen": 1308,
-      "gemeinden": 2,
-      "farbe": "#be3075",
-      "skala": {
-        "höchster": 4.7,
-        "stark": 40.8,
-        "decke": 13.8,
-        "gemeinden": 2
-      },
-      "anteil": 1.6
-    },
-    {
-      "id": "MEGA",
-      "name": "MEGA",
-      "art": "örtlich",
-      "sitze": 3,
-      "stimmen": 685,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 10.6,
-        "stark": 40.8,
-        "decke": 20.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.8
-    },
-    {
-      "id": "KGL",
-      "name": "KGL",
-      "art": "örtlich",
-      "sitze": 3,
-      "stimmen": 476,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 20.9,
-        "stark": 40.8,
-        "decke": 29.2,
-        "gemeinden": 1
-      },
-      "anteil": 0.6
-    },
-    {
-      "id": "BLN",
-      "name": "BLN",
-      "art": "örtlich",
-      "sitze": 3,
-      "stimmen": 428,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 14.9,
-        "stark": 40.8,
-        "decke": 24.7,
-        "gemeinden": 1
-      },
-      "anteil": 0.5
-    },
-    {
-      "id": "BL",
-      "name": "BL",
-      "art": "örtlich",
-      "sitze": 3,
-      "stimmen": 352,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 18.9,
-        "stark": 40.8,
-        "decke": 27.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.4
-    },
-    {
-      "id": "EB",
-      "name": "EB",
-      "art": "örtlich",
-      "sitze": 3,
-      "stimmen": 301,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 16.2,
-        "stark": 40.8,
-        "decke": 25.7,
-        "gemeinden": 1
-      },
-      "anteil": 0.4
-    },
-    {
-      "id": "FRESH",
-      "name": "FRESH",
-      "art": "örtlich",
-      "sitze": 2,
-      "stimmen": 881,
-      "gemeinden": 1,
-      "farbe": "#36c9c5",
-      "skala": {
-        "höchster": 10.2,
-        "stark": 40.8,
-        "decke": 20.4,
-        "gemeinden": 1
-      },
-      "anteil": 1.1
-    },
-    {
-      "id": "Freising für alle",
-      "name": "Freising für alle",
-      "art": "örtlich",
-      "sitze": 2,
-      "stimmen": 758,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 3.7,
-        "stark": 40.8,
-        "decke": 12.3,
-        "gemeinden": 1
-      },
-      "anteil": 0.9
-    },
-    {
-      "id": "ZAM",
-      "name": "ZAM",
-      "art": "örtlich",
-      "sitze": 2,
-      "stimmen": 276,
-      "gemeinden": 1,
-      "farbe": "#8861bc",
-      "skala": {
-        "höchster": 9.6,
-        "stark": 40.8,
-        "decke": 19.8,
-        "gemeinden": 1
-      },
-      "anteil": 0.3
-    },
-    {
-      "id": "UWL",
-      "name": "UWL",
-      "art": "örtlich",
-      "sitze": 2,
-      "stimmen": 270,
-      "gemeinden": 1,
-      "farbe": "#2d47bc",
-      "skala": {
-        "höchster": 12.9,
-        "stark": 40.8,
-        "decke": 22.9,
-        "gemeinden": 1
-      },
-      "anteil": 0.3
-    },
-    {
-      "id": "BGG",
-      "name": "BGG",
-      "art": "örtlich",
-      "sitze": 2,
-      "stimmen": 131,
-      "gemeinden": 1,
-      "farbe": "#7b2088",
-      "skala": {
-        "höchster": 14.9,
-        "stark": 40.8,
-        "decke": 24.7,
-        "gemeinden": 1
-      },
-      "anteil": 0.2
+     "name": "FWO",
+     "sitze": 3
     }
-  ],
-  "gemeinden": [
+   ]
+  },
+  {
+   "id": "GRÜNE",
+   "name": "Grüne",
+   "art": "partei",
+   "sitze": 47,
+   "stimmen": 11931,
+   "gemeinden": 14,
+   "farbe": "#3d8b37",
+   "skala": {
+    "höchster": 23.3,
+    "stark": 40.8,
+    "decke": 30.8,
+    "gemeinden": 14
+   },
+   "anteil": 14.5
+  },
+  {
+   "id": "SPD",
+   "name": "SPD",
+   "art": "partei",
+   "sitze": 23,
+   "stimmen": 5140,
+   "gemeinden": 10,
+   "farbe": "#e31e2d",
+   "skala": {
+    "höchster": 13,
+    "stark": 40.8,
+    "decke": 23,
+    "gemeinden": 10
+   },
+   "anteil": 6.2
+  },
+  {
+   "id": "GEMEINSAM",
+   "name": "Gemeinsame Wahlvorschläge",
+   "art": "sammel",
+   "sitze": 20,
+   "stimmen": 3356,
+   "gemeinden": 5,
+   "farbe": "#6b6759",
+   "skala": {
+    "höchster": 54.2,
+    "stark": 40.8,
+    "decke": 47,
+    "gemeinden": 5
+   },
+   "anteil": 4.1,
+   "teile": [
     {
-      "ags": "09178113",
-      "name": "Allershausen",
-      "sitze": 20,
-      "genauigkeit": "sammel",
-      "quelle": "genesis",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "sitze": 8,
-          "stimmen": 1105,
-          "anteil": 40.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "WÄHLERGRUPPEN",
-          "art": "sammel",
-          "sitze": 6,
-          "stimmen": 913,
-          "anteil": 33.4,
-          "farbe": "#b4afa1",
-          "gruppe": "WÄHLERGRUPPEN"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "sitze": 3,
-          "stimmen": 363,
-          "anteil": 13.3,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "sitze": 3,
-          "stimmen": 355,
-          "anteil": 13,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        }
-      ],
-      "gewaehlte": []
+     "name": "CSU/FW",
+     "sitze": 9
     },
     {
-      "ags": "09178115",
-      "name": "Attenkirchen",
-      "sitze": 14,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178115.html",
-      "ergebnis": [
-        {
-          "id": "WIR",
-          "art": "örtlich",
-          "lang": null,
-          "sitze": 7,
-          "stimmen": 746,
-          "anteil": 50.7,
-          "farbe": "#2d47bc",
-          "gruppe": "WIR"
-        },
-        {
-          "id": "UWG",
-          "art": "örtlich",
-          "lang": "Unabhängige Wählergemeinschaft Attenkirchen e.V.",
-          "sitze": 5,
-          "stimmen": 491,
-          "anteil": 33.4,
-          "farbe": "#7b2088",
-          "gruppe": "UWG"
-        },
-        {
-          "id": "GOL",
-          "art": "verbindung",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN - Offene Liste Attenkirchen",
-          "sitze": 2,
-          "stimmen": 234,
-          "anteil": 15.9,
-          "farbe": "#6b6759",
-          "gruppe": "GEMEINSAM"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Ausfelder Theresa",
-          "liste": "WIR",
-          "stimmen": 1150
-        },
-        {
-          "name": "Festner Stefan",
-          "liste": "WIR",
-          "stimmen": 1140
-        },
-        {
-          "name": "Riedl Florian",
-          "liste": "WIR",
-          "stimmen": 1135
-        },
-        {
-          "name": "Fischer Sepp",
-          "liste": "UWG",
-          "stimmen": 985
-        },
-        {
-          "name": "Lobmeier Maximilian",
-          "liste": "WIR",
-          "stimmen": 960
-        },
-        {
-          "name": "Grimps Sabine",
-          "liste": "UWG",
-          "stimmen": 875
-        },
-        {
-          "name": "Rieger Eva",
-          "liste": "UWG",
-          "stimmen": 850
-        },
-        {
-          "name": "Sänger Johann",
-          "liste": "UWG",
-          "stimmen": 793
-        },
-        {
-          "name": "Spitzenberger Andreas",
-          "liste": "WIR",
-          "stimmen": 758
-        },
-        {
-          "name": "Eichinger Julia",
-          "liste": "WIR",
-          "stimmen": 754
-        },
-        {
-          "name": "Dr. Schlott Walter",
-          "liste": "GOL",
-          "stimmen": 629
-        },
-        {
-          "name": "Niedermeier Christoph",
-          "liste": "WIR",
-          "stimmen": 588
-        },
-        {
-          "name": "Eichinger Johannes",
-          "liste": "UWG",
-          "stimmen": 529
-        },
-        {
-          "name": "Vujkov Conny",
-          "liste": "GOL",
-          "stimmen": 401
-        }
-      ]
+     "name": "CSU/PfW",
+     "sitze": 3
     },
     {
-      "ags": "09178116",
-      "name": "Au i.d.Hallertau",
-      "sitze": 20,
-      "genauigkeit": "listen",
-      "quelle": "https://wahl.rathaus-au.de/3mgr/ergebnisse.html",
-      "ergebnis": [
-        {
-          "id": "GfAu",
-          "art": "örtlich",
-          "lang": "Gemeinsam für Au",
-          "sitze": 8,
-          "stimmen": 1394,
-          "anteil": 43.2,
-          "farbe": "#7b2088",
-          "gruppe": "GfAu"
-        },
-        {
-          "id": "GenAU",
-          "art": "örtlich",
-          "lang": "Gemeinde neu ausrichten",
-          "sitze": 4,
-          "stimmen": 613,
-          "anteil": 19,
-          "farbe": "#2d47bc",
-          "gruppe": "GenAU"
-        },
-        {
-          "id": "FWG Au",
-          "art": "örtlich",
-          "lang": "Freie Wählergemeinschaft Au",
-          "sitze": 3,
-          "stimmen": 474,
-          "anteil": 14.7,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "CSU/PfW",
-          "art": "verbindung",
-          "lang": "Christlich-Soziale Union in Bayern e. V./Parteifreie Wähler",
-          "sitze": 3,
-          "stimmen": 436,
-          "anteil": 13.5,
-          "farbe": "#6b6759",
-          "gruppe": "GEMEINSAM"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 2,
-          "stimmen": 307,
-          "anteil": 9.5,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Sebald Beatrix",
-          "liste": "FWG Au",
-          "stimmen": 2188
-        },
-        {
-          "name": "Linseisen Martin",
-          "liste": "CSU/PfW",
-          "stimmen": 2066
-        },
-        {
-          "name": "Roggenbuck Petra",
-          "liste": "GfAu",
-          "stimmen": 1941
-        },
-        {
-          "name": "Gantner Martin",
-          "liste": "GfAu",
-          "stimmen": 1922
-        },
-        {
-          "name": "Hillebrand Michael",
-          "liste": "GenAU",
-          "stimmen": 1861
-        },
-        {
-          "name": "Hofmaier Konrad",
-          "liste": "GfAu",
-          "stimmen": 1763
-        },
-        {
-          "name": "Römer Andreas",
-          "liste": "GfAu",
-          "stimmen": 1751
-        },
-        {
-          "name": "Felsl Thomas",
-          "liste": "GfAu",
-          "stimmen": 1745
-        },
-        {
-          "name": "Hellerbrand Martin",
-          "liste": "CSU/PfW",
-          "stimmen": 1561
-        },
-        {
-          "name": "Wernthaler Bernhard jun.",
-          "liste": "CSU/PfW",
-          "stimmen": 1523
-        },
-        {
-          "name": "Röhrig Sebastian",
-          "liste": "FWG Au",
-          "stimmen": 1498
-        },
-        {
-          "name": "Ewert Sabine",
-          "liste": "GfAu",
-          "stimmen": 1319
-        },
-        {
-          "name": "Haubrichs Daniel",
-          "liste": "GfAu",
-          "stimmen": 1309
-        },
-        {
-          "name": "Holzmann Christian",
-          "liste": "GfAu",
-          "stimmen": 1301
-        },
-        {
-          "name": "Kronthaler Stefan",
-          "liste": "AfD",
-          "stimmen": 1237
-        },
-        {
-          "name": "Durst Natascha",
-          "liste": "FWG Au",
-          "stimmen": 1089
-        },
-        {
-          "name": "Prügl Barbara",
-          "liste": "GenAU",
-          "stimmen": 1027
-        },
-        {
-          "name": "Danner Stephan",
-          "liste": "GenAU",
-          "stimmen": 1017
-        },
-        {
-          "name": "Hirmer Angelika",
-          "liste": "GenAU",
-          "stimmen": 935
-        },
-        {
-          "name": "Hagl Georg",
-          "liste": "AfD",
-          "stimmen": 931
-        }
-      ]
+     "name": "GOL",
+     "sitze": 2
     },
     {
-      "ags": "09178120",
-      "name": "Eching",
-      "sitze": 24,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.osrz-akdb.de/ob-p/178120/2/20260308/gemeinderatswahl_gemeinde/index.html",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 7,
-          "stimmen": 1900,
-          "anteil": 29.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FREIE WÄHLER - FW Eching",
-          "art": "örtlich",
-          "lang": "FREIE WÄHLER - FREIE WÄHLER Eching e.V.",
-          "sitze": 6,
-          "stimmen": 1616,
-          "anteil": 25,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN",
-          "sitze": 3,
-          "stimmen": 956,
-          "anteil": 14.8,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "MEGA",
-          "art": "örtlich",
-          "lang": "Miteinander Eching GestAlten",
-          "sitze": 3,
-          "stimmen": 685,
-          "anteil": 10.6,
-          "farbe": "#2d47bc",
-          "gruppe": "MEGA"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 3,
-          "stimmen": 685,
-          "anteil": 10.6,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        },
-        {
-          "id": "BfE, EM, ÖDP",
-          "art": "verbindung",
-          "lang": "Bürger für Eching, Echinger Mitte, Ökologisch-Demokratische Partei",
-          "sitze": 1,
-          "stimmen": 368,
-          "anteil": 5.7,
-          "farbe": "#6b6759",
-          "gruppe": "GEMEINSAM"
-        },
-        {
-          "id": "FDP",
-          "art": "partei",
-          "lang": "Freie Demokratische Partei",
-          "sitze": 1,
-          "stimmen": 258,
-          "anteil": 4,
-          "farbe": "#e5c800",
-          "gruppe": "FDP"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Jacob Eric",
-          "liste": "GRÜNE",
-          "stimmen": 3704
-        },
-        {
-          "name": "Gürtner Christoph",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 3615
-        },
-        {
-          "name": "Dallinger Otmar",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 3433
-        },
-        {
-          "name": "Pflügler Angelika",
-          "liste": "GRÜNE",
-          "stimmen": 3103
-        },
-        {
-          "name": "Friedrich Ulrike",
-          "liste": "GRÜNE",
-          "stimmen": 2987
-        },
-        {
-          "name": "Wehkamp Susanne",
-          "liste": "CSU",
-          "stimmen": 2763
-        },
-        {
-          "name": "Wallner Bernhard",
-          "liste": "CSU",
-          "stimmen": 2744
-        },
-        {
-          "name": "Krauß Heike",
-          "liste": "CSU",
-          "stimmen": 2584
-        },
-        {
-          "name": "Thaler Sebastian",
-          "liste": "MEGA",
-          "stimmen": 2537
-        },
-        {
-          "name": "Steiger-Steininger Claudia",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 2396
-        },
-        {
-          "name": "Wolff Manuel",
-          "liste": "CSU",
-          "stimmen": 2254
-        },
-        {
-          "name": "Stuckenberger Marco",
-          "liste": "CSU",
-          "stimmen": 2230
-        },
-        {
-          "name": "Stepan Benjamin",
-          "liste": "CSU",
-          "stimmen": 2225
-        },
-        {
-          "name": "Handschuh-Sidorow Christine",
-          "liste": "CSU",
-          "stimmen": 2117
-        },
-        {
-          "name": "Morgenroth Julian",
-          "liste": "SPD",
-          "stimmen": 1970
-        },
-        {
-          "name": "Gerber Florian",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 1915
-        },
-        {
-          "name": "Nagl Wolfgang",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 1771
-        },
-        {
-          "name": "Handschuh Jessica",
-          "liste": "FREIE WÄHLER - FW Eching",
-          "stimmen": 1661
-        },
-        {
-          "name": "Blank Vincent",
-          "liste": "SPD",
-          "stimmen": 1568
-        },
-        {
-          "name": "Wutz Manfred",
-          "liste": "BfE, EM, ÖDP",
-          "stimmen": 1527
-        },
-        {
-          "name": "Gelis Esma",
-          "liste": "SPD",
-          "stimmen": 1417
-        },
-        {
-          "name": "Rehbach Lena",
-          "liste": "MEGA",
-          "stimmen": 1405
-        },
-        {
-          "name": "Oberhuber Stefan",
-          "liste": "MEGA",
-          "stimmen": 1328
-        },
-        {
-          "name": "Dr. Hirschmann Irena",
-          "liste": "FDP",
-          "stimmen": 1063
-        }
-      ]
-    },
-    {
-      "ags": "09178122",
-      "name": "Rudelzhausen",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.osrz-akdb.de/ob-p/178122/2/20260308/gemeinderatswahl_gemeinde/index.html",
-      "ergebnis": [
-        {
-          "id": "FW",
-          "art": "partei",
-          "lang": "Freie Wähler Rudelzhausen",
-          "sitze": 5,
-          "stimmen": 618,
-          "anteil": 33.2,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e. V.",
-          "sitze": 5,
-          "stimmen": 590,
-          "anteil": 31.7,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "BL",
-          "art": "örtlich",
-          "lang": "BÜRGERLISTE Rudelzhausen",
-          "sitze": 3,
-          "stimmen": 352,
-          "anteil": 18.9,
-          "farbe": "#2d47bc",
-          "gruppe": "BL"
-        },
-        {
-          "id": "EB",
-          "art": "örtlich",
-          "lang": "Engagierte Bürger",
-          "sitze": 3,
-          "stimmen": 301,
-          "anteil": 16.2,
-          "farbe": "#7b2088",
-          "gruppe": "EB"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Linseisen Richard",
-          "liste": "FW",
-          "stimmen": 1468
-        },
-        {
-          "name": "Senger Simon",
-          "liste": "CSU",
-          "stimmen": 1341
-        },
-        {
-          "name": "Kreitmair Alfons",
-          "liste": "FW",
-          "stimmen": 1144
-        },
-        {
-          "name": "Roßmann Thomas",
-          "liste": "CSU",
-          "stimmen": 1129
-        },
-        {
-          "name": "Forster Robert",
-          "liste": "CSU",
-          "stimmen": 1078
-        },
-        {
-          "name": "Huber Florian",
-          "liste": "CSU",
-          "stimmen": 1065
-        },
-        {
-          "name": "Gallmeier Benedikt",
-          "liste": "FW",
-          "stimmen": 880
-        },
-        {
-          "name": "Caruso Rebekka",
-          "liste": "BL",
-          "stimmen": 880
-        },
-        {
-          "name": "Würtele Markus",
-          "liste": "CSU",
-          "stimmen": 851
-        },
-        {
-          "name": "Kottermair Lorenz",
-          "liste": "BL",
-          "stimmen": 831
-        },
-        {
-          "name": "Trojer Daniel",
-          "liste": "BL",
-          "stimmen": 802
-        },
-        {
-          "name": "Fichtner Anita",
-          "liste": "FW",
-          "stimmen": 801
-        },
-        {
-          "name": "Engl Carmen",
-          "liste": "FW",
-          "stimmen": 756
-        },
-        {
-          "name": "Kellner Andreas",
-          "liste": "EB",
-          "stimmen": 560
-        },
-        {
-          "name": "Traublinger Erwin",
-          "liste": "EB",
-          "stimmen": 485
-        },
-        {
-          "name": "Obermaier Christoph",
-          "liste": "EB",
-          "stimmen": 437
-        }
-      ]
-    },
-    {
-      "ags": "09178123",
-      "name": "Fahrenzhausen",
-      "sitze": 20,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.osrz-akdb.de/ob-p/178123/0/20260308/gemeinderatswahl_gemeinde/index.html",
-      "ergebnis": [
-        {
-          "id": "Freie Wähler / FWE",
-          "art": "örtlich",
-          "lang": "Freie Wähler Bayern / Freie Wählergruppe Einigkeit",
-          "sitze": 6,
-          "stimmen": 734,
-          "anteil": 32.1,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 6,
-          "stimmen": 649,
-          "anteil": 28.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FBL",
-          "art": "örtlich",
-          "lang": "Freie Bürgerliste Fahrenzhausen",
-          "sitze": 4,
-          "stimmen": 400,
-          "anteil": 17.5,
-          "farbe": "#2d47bc",
-          "gruppe": "FBL"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "Bündnis 90 / Die Grünen",
-          "sitze": 3,
-          "stimmen": 363,
-          "anteil": 15.9,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "FDP",
-          "art": "partei",
-          "lang": "Freie Demokratische Partei",
-          "sitze": 1,
-          "stimmen": 142,
-          "anteil": 6.2,
-          "farbe": "#e5c800",
-          "gruppe": "FDP"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Karl Andreas",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 1981
-        },
-        {
-          "name": "Hermann Christian",
-          "liste": "CSU",
-          "stimmen": 1644
-        },
-        {
-          "name": "Mößmer Christian",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 1573
-        },
-        {
-          "name": "Karl Alexandra",
-          "liste": "GRÜNE",
-          "stimmen": 1439
-        },
-        {
-          "name": "Guttner Annemarie",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 1314
-        },
-        {
-          "name": "Wildgruber-Bolesczuk Astrid",
-          "liste": "CSU",
-          "stimmen": 1255
-        },
-        {
-          "name": "Betz Bernhard",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 1237
-        },
-        {
-          "name": "Stadlbauer Birgitta",
-          "liste": "GRÜNE",
-          "stimmen": 1185
-        },
-        {
-          "name": "Berger Martin",
-          "liste": "FBL",
-          "stimmen": 1178
-        },
-        {
-          "name": "Diemer Sandra",
-          "liste": "CSU",
-          "stimmen": 1156
-        },
-        {
-          "name": "Kern Robert",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 1024
-        },
-        {
-          "name": "Rusp Thomas",
-          "liste": "Freie Wähler / FWE",
-          "stimmen": 948
-        },
-        {
-          "name": "Stadlbauer Heinrich",
-          "liste": "FBL",
-          "stimmen": 944
-        },
-        {
-          "name": "Angermaier Martin",
-          "liste": "CSU",
-          "stimmen": 922
-        },
-        {
-          "name": "Resch Martin",
-          "liste": "FBL",
-          "stimmen": 900
-        },
-        {
-          "name": "Stocker Eva",
-          "liste": "FBL",
-          "stimmen": 891
-        },
-        {
-          "name": "Vöst Sebastian",
-          "liste": "GRÜNE",
-          "stimmen": 807
-        },
-        {
-          "name": "Scholz Ren&eacute;",
-          "liste": "CSU",
-          "stimmen": 627
-        },
-        {
-          "name": "Harms Thorsten",
-          "liste": "FDP",
-          "stimmen": 608
-        },
-        {
-          "name": "Schönberger-Wetzel Fabian",
-          "liste": "CSU",
-          "stimmen": 556
-        }
-      ]
-    },
-    {
-      "ags": "09178124",
-      "name": "Freising",
-      "sitze": 40,
-      "genauigkeit": "listen",
-      "quelle": "https://wahl.freising.de/Stadtrat_2026/",
-      "ergebnis": [
-        {
-          "id": "FSM",
-          "art": "örtlich",
-          "lang": "Freisinger Mitte e.V.",
-          "sitze": 9,
-          "stimmen": 4816,
-          "anteil": 23.5,
-          "farbe": "#2d47bc",
-          "gruppe": "FSM"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90 / DIE GRÜNEN",
-          "sitze": 9,
-          "stimmen": 4775,
-          "anteil": 23.3,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich Soziale Union",
-          "sitze": 6,
-          "stimmen": 3033,
-          "anteil": 14.8,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FREIE WÄHLER – FW Freising",
-          "art": "örtlich",
-          "lang": "FREIE WÄHLER Bayern – FREIE WÄHLER Freising e.V.",
-          "sitze": 4,
-          "stimmen": 2008,
-          "anteil": 9.8,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 3,
-          "stimmen": 1578,
-          "anteil": 7.7,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 2,
-          "stimmen": 1271,
-          "anteil": 6.2,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        },
-        {
-          "id": "LINKE",
-          "art": "partei",
-          "lang": null,
-          "sitze": 2,
-          "stimmen": 963,
-          "anteil": 4.7,
-          "farbe": "#be3075",
-          "gruppe": "LINKE"
-        },
-        {
-          "id": "ÖDP",
-          "art": "partei",
-          "lang": "Ökologisch-Demokratische Partei",
-          "sitze": 2,
-          "stimmen": 881,
-          "anteil": 4.3,
-          "farbe": "#a85a12",
-          "gruppe": "ÖDP"
-        },
-        {
-          "id": "Freising für alle",
-          "art": "örtlich",
-          "lang": null,
-          "sitze": 2,
-          "stimmen": 758,
-          "anteil": 3.7,
-          "farbe": "#7b2088",
-          "gruppe": "Freising für alle"
-        },
-        {
-          "id": "FDP",
-          "art": "partei",
-          "lang": "Freie Demokratische Partei",
-          "sitze": 1,
-          "stimmen": 430,
-          "anteil": 2.1,
-          "farbe": "#e5c800",
-          "gruppe": "FDP"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Schwind Monika",
-          "liste": "FSM",
-          "stimmen": 11826
-        },
-        {
-          "name": "Bönig Eva",
-          "liste": "GRÜNE",
-          "stimmen": 10970
-        },
-        {
-          "name": "Heitz Nico",
-          "liste": "GRÜNE",
-          "stimmen": 9618
-        },
-        {
-          "name": "Fosso Samuel",
-          "liste": "FSM",
-          "stimmen": 8593
-        },
-        {
-          "name": "Günther Susanne",
-          "liste": "GRÜNE",
-          "stimmen": 7711
-        },
-        {
-          "name": "Riesch Monika",
-          "liste": "FSM",
-          "stimmen": 7090
-        },
-        {
-          "name": "Bayraktar Joana",
-          "liste": "GRÜNE",
-          "stimmen": 6918
-        },
-        {
-          "name": "Fiedler Reinhard",
-          "liste": "FSM",
-          "stimmen": 6864
-        },
-        {
-          "name": "Pellmeyer Thomas",
-          "liste": "FSM",
-          "stimmen": 6692
-        },
-        {
-          "name": "Frankl Anton",
-          "liste": "FSM",
-          "stimmen": 6491
-        },
-        {
-          "name": "Böhme Philomena",
-          "liste": "FSM",
-          "stimmen": 6431
-        },
-        {
-          "name": "Zierer Benno",
-          "liste": "FREIE WÄHLER – FW Freising",
-          "stimmen": 6271
-        },
-        {
-          "name": "Dr. med. Schilling von Canstatt Christoph",
-          "liste": "FSM",
-          "stimmen": 6169
-        },
-        {
-          "name": "Warlimont Peter",
-          "liste": "SPD",
-          "stimmen": 5982
-        },
-        {
-          "name": "Dr. Ing. habil. Reitsam Charlotte",
-          "liste": "GRÜNE",
-          "stimmen": 5775
-        },
-        {
-          "name": "Drobny Manfred",
-          "liste": "GRÜNE",
-          "stimmen": 5697
-        },
-        {
-          "name": "Schwaiger Rudolf",
-          "liste": "CSU",
-          "stimmen": 5680
-        },
-        {
-          "name": "Habermeyer Sebastian",
-          "liste": "GRÜNE",
-          "stimmen": 5655
-        },
-        {
-          "name": "Habermeyer Werner",
-          "liste": "GRÜNE",
-          "stimmen": 5479
-        },
-        {
-          "name": "Lintl Maria",
-          "liste": "FSM",
-          "stimmen": 5478
-        },
-        {
-          "name": "Knott Lucy",
-          "liste": "GRÜNE",
-          "stimmen": 5245
-        },
-        {
-          "name": "Schindlmayr Simon",
-          "liste": "CSU",
-          "stimmen": 5141
-        },
-        {
-          "name": "Weller Robert",
-          "liste": "FREIE WÄHLER – FW Freising",
-          "stimmen": 4964
-        },
-        {
-          "name": "Mieskes Jürgen",
-          "liste": "CSU",
-          "stimmen": 4584
-        },
-        {
-          "name": "Kaiser Ingrid",
-          "liste": "CSU",
-          "stimmen": 4526
-        },
-        {
-          "name": "Hubensteiner Daniel",
-          "liste": "FREIE WÄHLER – FW Freising",
-          "stimmen": 4333
-        },
-        {
-          "name": "Paukner Richard",
-          "liste": "AfD",
-          "stimmen": 4293
-        },
-        {
-          "name": "Holzner Ulrich",
-          "liste": "AfD",
-          "stimmen": 4196
-        },
-        {
-          "name": "Dr. Adldinger Carolin",
-          "liste": "CSU",
-          "stimmen": 4129
-        },
-        {
-          "name": "Dr. Mehltretter Andreas",
-          "liste": "SPD",
-          "stimmen": 3938
-        },
-        {
-          "name": "Hiergeist Johanna",
-          "liste": "FREIE WÄHLER – FW Freising",
-          "stimmen": 3846
-        },
-        {
-          "name": "Hauner Martin",
-          "liste": "CSU",
-          "stimmen": 3597
-        },
-        {
-          "name": "Cellura Antonia",
-          "liste": "LINKE",
-          "stimmen": 3462
-        },
-        {
-          "name": "Freitag Rosalie",
-          "liste": "LINKE",
-          "stimmen": 3404
-        },
-        {
-          "name": "Dr. Vogl Ulrich",
-          "liste": "ÖDP",
-          "stimmen": 3308
-        },
-        {
-          "name": "Graßy Nicolas-Pano",
-          "liste": "Freising für alle",
-          "stimmen": 3213
-        },
-        {
-          "name": "Degelmann Teresa",
-          "liste": "SPD",
-          "stimmen": 2914
-        },
-        {
-          "name": "Dr. Barschdorf Jens",
-          "liste": "FDP",
-          "stimmen": 1999
-        },
-        {
-          "name": "Rüdel Daniel",
-          "liste": "ÖDP",
-          "stimmen": 1961
-        },
-        {
-          "name": "Dr. Hoyer Guido",
-          "liste": "Freising für alle",
-          "stimmen": 1960
-        }
-      ]
-    },
-    {
-      "ags": "09178125",
-      "name": "Gammelsdorf",
-      "sitze": 12,
-      "genauigkeit": "listen",
-      "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178125.html",
-      "ergebnis": [
-        {
-          "id": "ÜWG",
-          "art": "örtlich",
-          "lang": "Überparteiliche Wählergruppe Gammelsdorf",
-          "sitze": 6,
-          "stimmen": 465,
-          "anteil": 53,
-          "farbe": "#8861bc",
-          "gruppe": "ÜWG"
-        },
-        {
-          "id": "MfG",
-          "art": "örtlich",
-          "lang": "Miteinander für Gammelsdorf",
-          "sitze": 4,
-          "stimmen": 254,
-          "anteil": 29,
-          "farbe": "#2d47bc",
-          "gruppe": "MfG"
-        },
-        {
-          "id": "BGG",
-          "art": "örtlich",
-          "lang": "Bürgernahe Gruppe Gammelsdorf",
-          "sitze": 2,
-          "stimmen": 131,
-          "anteil": 14.9,
-          "farbe": "#7b2088",
-          "gruppe": "BGG"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Lochinger Bernhard",
-          "liste": "MfG",
-          "stimmen": 799
-        },
-        {
-          "name": "Riedl Markus",
-          "liste": "ÜWG",
-          "stimmen": 781
-        },
-        {
-          "name": "Ritch Maria",
-          "liste": "MfG",
-          "stimmen": 643
-        },
-        {
-          "name": "Menzel Raimunda",
-          "liste": "ÜWG",
-          "stimmen": 629
-        },
-        {
-          "name": "Weinzierl Konrad",
-          "liste": "ÜWG",
-          "stimmen": 557
-        },
-        {
-          "name": "Zeilhofer Sandra",
-          "liste": "MfG",
-          "stimmen": 494
-        },
-        {
-          "name": "Penner Uwe",
-          "liste": "BGG",
-          "stimmen": 493
-        },
-        {
-          "name": "Schranner Christoph",
-          "liste": "ÜWG",
-          "stimmen": 489
-        },
-        {
-          "name": "Fink Paula",
-          "liste": "ÜWG",
-          "stimmen": 475
-        },
-        {
-          "name": "Kiermeier Jakob",
-          "liste": "ÜWG",
-          "stimmen": 422
-        },
-        {
-          "name": "Lang Bernhard",
-          "liste": "MfG",
-          "stimmen": 405
-        },
-        {
-          "name": "Bucher Wolfgang",
-          "liste": "BGG",
-          "stimmen": 380
-        }
-      ]
-    },
-    {
-      "ags": "09178129",
-      "name": "Haag a.d.Amper",
-      "sitze": 14,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178129.html",
-      "ergebnis": [
-        {
-          "id": "UB",
-          "art": "örtlich",
-          "lang": "Unabhängige Bürger",
-          "sitze": 9,
-          "stimmen": 990,
-          "anteil": 63.6,
-          "farbe": "#2d47bc",
-          "gruppe": "UB"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 5,
-          "stimmen": 566,
-          "anteil": 36.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Maier Elisabeth",
-          "liste": "UB",
-          "stimmen": 1273
-        },
-        {
-          "name": "Huber Franz",
-          "liste": "UB",
-          "stimmen": 1228
-        },
-        {
-          "name": "Aigner Anja",
-          "liste": "UB",
-          "stimmen": 1190
-        },
-        {
-          "name": "Flexeder Benedikt",
-          "liste": "CSU",
-          "stimmen": 1117
-        },
-        {
-          "name": "Reiter Klaus",
-          "liste": "UB",
-          "stimmen": 1071
-        },
-        {
-          "name": "Dr. Michel Petra",
-          "liste": "UB",
-          "stimmen": 959
-        },
-        {
-          "name": "Böttner Stefan",
-          "liste": "UB",
-          "stimmen": 870
-        },
-        {
-          "name": "Fischer Jonas",
-          "liste": "UB",
-          "stimmen": 838
-        },
-        {
-          "name": "Goldes Sebastian",
-          "liste": "CSU",
-          "stimmen": 776
-        },
-        {
-          "name": "Stockmeier Sylvia",
-          "liste": "UB",
-          "stimmen": 775
-        },
-        {
-          "name": "Kroboth Veronika",
-          "liste": "UB",
-          "stimmen": 741
-        },
-        {
-          "name": "Schwaiger Robert",
-          "liste": "CSU",
-          "stimmen": 719
-        },
-        {
-          "name": "Engel Christian",
-          "liste": "CSU",
-          "stimmen": 667
-        },
-        {
-          "name": "Gmach Stephan",
-          "liste": "CSU",
-          "stimmen": 627
-        }
-      ]
-    },
-    {
-      "ags": "09178130",
-      "name": "Hallbergmoos",
-      "sitze": 24,
-      "genauigkeit": "listen",
-      "quelle": "https://www.hallbergmoos.de/wahlen/Kommunal2026/",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 7,
-          "stimmen": 1327,
-          "anteil": 30.6,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FW",
-          "art": "partei",
-          "lang": "Freie Wähler Hallbergmoos-Goldach e.V.",
-          "sitze": 7,
-          "stimmen": 1279,
-          "anteil": 29.5,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "Einigkeit",
-          "art": "örtlich",
-          "lang": "Einigkeit Hallbergmoos - Goldach e.V.",
-          "sitze": 4,
-          "stimmen": 785,
-          "anteil": 18.1,
-          "farbe": "#2d47bc",
-          "gruppe": "Einigkeit"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90 / DIE GRÜNEN",
-          "sitze": 3,
-          "stimmen": 473,
-          "anteil": 10.9,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 3,
-          "stimmen": 468,
-          "anteil": 10.8,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Fischer Josef",
-          "liste": "FW",
-          "stimmen": 3141
-        },
-        {
-          "name": "Edfelder Silvia",
-          "liste": "CSU",
-          "stimmen": 2548
-        },
-        {
-          "name": "Henning Thomas",
-          "liste": "FW",
-          "stimmen": 2349
-        },
-        {
-          "name": "Lackermeier Robert",
-          "liste": "CSU",
-          "stimmen": 2312
-        },
-        {
-          "name": "Schirsch Christian",
-          "liste": "CSU",
-          "stimmen": 2177
-        },
-        {
-          "name": "Edfelder Damian",
-          "liste": "CSU",
-          "stimmen": 1992
-        },
-        {
-          "name": "Hartshauser Hermann",
-          "liste": "Einigkeit",
-          "stimmen": 1951
-        },
-        {
-          "name": "Knieler Tanja",
-          "liste": "CSU",
-          "stimmen": 1829
-        },
-        {
-          "name": "Brosch Sabine",
-          "liste": "GRÜNE",
-          "stimmen": 1828
-        },
-        {
-          "name": "Straub Christian",
-          "liste": "FW",
-          "stimmen": 1799
-        },
-        {
-          "name": "Krätschmer Christian",
-          "liste": "CSU",
-          "stimmen": 1779
-        },
-        {
-          "name": "Kronner Stefan",
-          "liste": "SPD",
-          "stimmen": 1777
-        },
-        {
-          "name": "Loibl Markus",
-          "liste": "Einigkeit",
-          "stimmen": 1757
-        },
-        {
-          "name": "Streitberger Markus",
-          "liste": "FW",
-          "stimmen": 1701
-        },
-        {
-          "name": "Dr. Mey Marcus",
-          "liste": "CSU",
-          "stimmen": 1687
-        },
-        {
-          "name": "Oldenburg-Balden Christiane",
-          "liste": "SPD",
-          "stimmen": 1621
-        },
-        {
-          "name": "Wäger Robert",
-          "liste": "GRÜNE",
-          "stimmen": 1525
-        },
-        {
-          "name": "Ziegltrum Eva",
-          "liste": "FW",
-          "stimmen": 1470
-        },
-        {
-          "name": "Reitmeyer Michaela",
-          "liste": "FW",
-          "stimmen": 1462
-        },
-        {
-          "name": "Rothmeyer Florian",
-          "liste": "GRÜNE",
-          "stimmen": 1376
-        },
-        {
-          "name": "Lamprecht Rudolf",
-          "liste": "Einigkeit",
-          "stimmen": 1300
-        },
-        {
-          "name": "Weiß Franz",
-          "liste": "FW",
-          "stimmen": 1294
-        },
-        {
-          "name": "Oppermann-Schmid Sieglinde",
-          "liste": "Einigkeit",
-          "stimmen": 1112
-        },
-        {
-          "name": "Tenbrink Julia",
-          "liste": "SPD",
-          "stimmen": 589
-        }
-      ]
-    },
-    {
-      "ags": "09178132",
-      "name": "Hörgertshausen",
-      "sitze": 12,
-      "genauigkeit": "listen",
-      "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178132.html",
-      "ergebnis": [
-        {
-          "id": "WH",
-          "art": "örtlich",
-          "lang": "Wählergemeinschaft Hörgertshausen",
-          "sitze": 12,
-          "stimmen": 1053,
-          "anteil": 99.8,
-          "farbe": "#2d47bc",
-          "gruppe": "WH"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Steiger Josef",
-          "liste": "WH",
-          "stimmen": 1029
-        },
-        {
-          "name": "Wild Gregor",
-          "liste": "WH",
-          "stimmen": 981
-        },
-        {
-          "name": "Decker Stefan",
-          "liste": "WH",
-          "stimmen": 940
-        },
-        {
-          "name": "Glück Konrad",
-          "liste": "WH",
-          "stimmen": 859
-        },
-        {
-          "name": "Mirlach Stephan",
-          "liste": "WH",
-          "stimmen": 810
-        },
-        {
-          "name": "Kellerer Johannes",
-          "liste": "WH",
-          "stimmen": 766
-        },
-        {
-          "name": "Hobmaier Tanja",
-          "liste": "WH",
-          "stimmen": 739
-        },
-        {
-          "name": "Fischer Christian",
-          "liste": "WH",
-          "stimmen": 699
-        },
-        {
-          "name": "Hobmaier Thomas",
-          "liste": "WH",
-          "stimmen": 682
-        },
-        {
-          "name": "Hobmaier Michael",
-          "liste": "WH",
-          "stimmen": 637
-        },
-        {
-          "name": "Setzensack Michael",
-          "liste": "WH",
-          "stimmen": 531
-        },
-        {
-          "name": "Sergl Georg",
-          "liste": "WH",
-          "stimmen": 428
-        }
-      ]
-    },
-    {
-      "ags": "09178133",
-      "name": "Hohenkammer",
-      "sitze": 14,
-      "genauigkeit": "listen",
-      "quelle": "https://www.hohenkammer.de/Wahlen/GR-2026/ergebnisse_gemeinde_09178133.html",
-      "ergebnis": [
-        {
-          "id": "BvHo",
-          "art": "örtlich",
-          "lang": "Bürgervereinigung Hohenkammer",
-          "sitze": 6,
-          "stimmen": 530,
-          "anteil": 40.8,
-          "farbe": "#2d47bc",
-          "gruppe": "BvHo"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich Soziale Union",
-          "sitze": 5,
-          "stimmen": 508,
-          "anteil": 39.1,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FDP",
-          "art": "partei",
-          "lang": "Freie Demokratische Partei",
-          "sitze": 2,
-          "stimmen": 142,
-          "anteil": 10.9,
-          "farbe": "#e5c800",
-          "gruppe": "FDP"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozial Demokratische Partei",
-          "sitze": 1,
-          "stimmen": 118,
-          "anteil": 9.1,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Loy Michael",
-          "liste": "BvHo",
-          "stimmen": 962
-        },
-        {
-          "name": "Stampfl Alexander",
-          "liste": "CSU",
-          "stimmen": 923
-        },
-        {
-          "name": "Hummel Alois",
-          "liste": "BvHo",
-          "stimmen": 914
-        },
-        {
-          "name": "Berti Mario",
-          "liste": "CSU",
-          "stimmen": 909
-        },
-        {
-          "name": "Hammerl Markus",
-          "liste": "BvHo",
-          "stimmen": 814
-        },
-        {
-          "name": "Königer Bernhard",
-          "liste": "CSU",
-          "stimmen": 807
-        },
-        {
-          "name": "Sailer Sebastian",
-          "liste": "CSU",
-          "stimmen": 761
-        },
-        {
-          "name": "Brandstetter Marina",
-          "liste": "BvHo",
-          "stimmen": 694
-        },
-        {
-          "name": "Hagenrainer Anna",
-          "liste": "BvHo",
-          "stimmen": 665
-        },
-        {
-          "name": "Wagatha Gertraud",
-          "liste": "BvHo",
-          "stimmen": 654
-        },
-        {
-          "name": "Ingold Brigitte",
-          "liste": "CSU",
-          "stimmen": 651
-        },
-        {
-          "name": "Reichenwallner Thomas",
-          "liste": "SPD",
-          "stimmen": 565
-        },
-        {
-          "name": "Luginger Friedrich",
-          "liste": "FDP",
-          "stimmen": 450
-        },
-        {
-          "name": "Kistler Robert",
-          "liste": "FDP",
-          "stimmen": 414
-        }
-      ]
-    },
-    {
-      "ags": "09178136",
-      "name": "Kirchdorf a.d.Amper",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.osrz-akdb.de/ob-p/178136/2/20260308/gemeinderatswahl_gemeinde/index.html",
-      "ergebnis": [
-        {
-          "id": "CSU/FW",
-          "art": "verbindung",
-          "lang": "Christlich-Soziale Union in Bayern e. V. / Freie Wähler Kirchdorf (CSU/FW)",
-          "sitze": 9,
-          "stimmen": 946,
-          "anteil": 54.2,
-          "farbe": "#6b6759",
-          "gruppe": "GEMEINSAM"
-        },
-        {
-          "id": "FWG Kirchdorf",
-          "art": "örtlich",
-          "lang": "Freie Wählergemeinschaft Kirchdorf",
-          "sitze": 5,
-          "stimmen": 560,
-          "anteil": 32.1,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN",
-          "sitze": 2,
-          "stimmen": 239,
-          "anteil": 13.7,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Steininger Thomas",
-          "liste": "CSU/FW",
-          "stimmen": 1872
-        },
-        {
-          "name": "Wildgruber Helmut",
-          "liste": "FWG Kirchdorf",
-          "stimmen": 1594
-        },
-        {
-          "name": "Gerlsbeck Uwe",
-          "liste": "CSU/FW",
-          "stimmen": 1426
-        },
-        {
-          "name": "Springer Stefan",
-          "liste": "FWG Kirchdorf",
-          "stimmen": 1374
-        },
-        {
-          "name": "Kaindl Johannes",
-          "liste": "CSU/FW",
-          "stimmen": 1298
-        },
-        {
-          "name": "Nußstein Martin",
-          "liste": "FWG Kirchdorf",
-          "stimmen": 1156
-        },
-        {
-          "name": "Elzenbeck Regina",
-          "liste": "CSU/FW",
-          "stimmen": 1089
-        },
-        {
-          "name": "Ismaier Markus",
-          "liste": "FWG Kirchdorf",
-          "stimmen": 1044
-        },
-        {
-          "name": "Knecht Michael",
-          "liste": "FWG Kirchdorf",
-          "stimmen": 988
-        },
-        {
-          "name": "Trost Rudolf",
-          "liste": "CSU/FW",
-          "stimmen": 958
-        },
-        {
-          "name": "Wastl Florian",
-          "liste": "CSU/FW",
-          "stimmen": 887
-        },
-        {
-          "name": "Richter Elisabeth",
-          "liste": "CSU/FW",
-          "stimmen": 845
-        },
-        {
-          "name": "Fischer Stephan",
-          "liste": "CSU/FW",
-          "stimmen": 827
-        },
-        {
-          "name": "Ackstaller Susanne",
-          "liste": "GRÜNE",
-          "stimmen": 782
-        },
-        {
-          "name": "Pelczer Simon",
-          "liste": "CSU/FW",
-          "stimmen": 732
-        },
-        {
-          "name": "Helm Sabine",
-          "liste": "GRÜNE",
-          "stimmen": 703
-        }
-      ]
-    },
-    {
-      "ags": "09178137",
-      "name": "Kranzberg",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.kranzberg.de/2026_GR/",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale-Union",
-          "sitze": 4,
-          "stimmen": 633,
-          "anteil": 27.8,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "FREIE WÄHLER - FWG Kranzberg",
-          "art": "örtlich",
-          "lang": "FREIE WÄHLER Bayern - Freie Wählergemeinschaft Kranzberg",
-          "sitze": 4,
-          "stimmen": 587,
-          "anteil": 25.8,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "KGL",
-          "art": "örtlich",
-          "lang": "Kranzberger Gemeindeliste",
-          "sitze": 3,
-          "stimmen": 476,
-          "anteil": 20.9,
-          "farbe": "#2d47bc",
-          "gruppe": "KGL"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "Bündnis 90 / Die Grünen",
-          "sitze": 3,
-          "stimmen": 369,
-          "anteil": 16.2,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 2,
-          "stimmen": 214,
-          "anteil": 9.4,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Jositz Florian",
-          "liste": "CSU",
-          "stimmen": 1063
-        },
-        {
-          "name": "Hierhager Anton",
-          "liste": "SPD",
-          "stimmen": 1033
-        },
-        {
-          "name": "Kieslinger Sonja",
-          "liste": "FREIE WÄHLER - FWG Kranzberg",
-          "stimmen": 1012
-        },
-        {
-          "name": "Braun Franz",
-          "liste": "CSU",
-          "stimmen": 1004
-        },
-        {
-          "name": "Vierthaler Florian",
-          "liste": "KGL",
-          "stimmen": 1003
-        },
-        {
-          "name": "Mülling Josef jun.",
-          "liste": "FREIE WÄHLER - FWG Kranzberg",
-          "stimmen": 982
-        },
-        {
-          "name": "Enghofer Ursula",
-          "liste": "FREIE WÄHLER - FWG Kranzberg",
-          "stimmen": 977
-        },
-        {
-          "name": "Siebler Michael",
-          "liste": "CSU",
-          "stimmen": 937
-        },
-        {
-          "name": "Haslbeck Roland",
-          "liste": "CSU",
-          "stimmen": 915
-        },
-        {
-          "name": "Wildgruber Rudolf",
-          "liste": "KGL",
-          "stimmen": 818
-        },
-        {
-          "name": "Dr. Hammerl Georg",
-          "liste": "FREIE WÄHLER - FWG Kranzberg",
-          "stimmen": 810
-        },
-        {
-          "name": "Neumair Konrad",
-          "liste": "KGL",
-          "stimmen": 739
-        },
-        {
-          "name": "Turek Ellen",
-          "liste": "GRÜNE",
-          "stimmen": 729
-        },
-        {
-          "name": "Kirchfeld Johann",
-          "liste": "GRÜNE",
-          "stimmen": 603
-        },
-        {
-          "name": "Nieder Christine",
-          "liste": "GRÜNE",
-          "stimmen": 546
-        },
-        {
-          "name": "Silingas Sandra",
-          "liste": "SPD",
-          "stimmen": 360
-        }
-      ]
-    },
-    {
-      "ags": "09178138",
-      "name": "Langenbach",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://www.gemeinde-langenbach.de/site/assets/uploads/gemeinderatswahl/ergebnisse.html",
-      "ergebnis": [
-        {
-          "id": "FW",
-          "art": "partei",
-          "lang": "FREIE WÄHLER",
-          "sitze": 4,
-          "stimmen": 448,
-          "anteil": 21.4,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "FWO",
-          "art": "örtlich",
-          "lang": "Freie Wählergemeinschaft Oberhummel",
-          "sitze": 3,
-          "stimmen": 431,
-          "anteil": 20.6,
-          "farbe": "#7d4a12",
-          "gruppe": "FW"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e. V.",
-          "sitze": 2,
-          "stimmen": 274,
-          "anteil": 13.1,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "UWL",
-          "art": "örtlich",
-          "lang": "Unabhängige Wähler Langenbach",
-          "sitze": 2,
-          "stimmen": 270,
-          "anteil": 12.9,
-          "farbe": "#2d47bc",
-          "gruppe": "UWL"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 2,
-          "stimmen": 260,
-          "anteil": 12.4,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN",
-          "sitze": 2,
-          "stimmen": 241,
-          "anteil": 11.5,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "MiLa",
-          "art": "örtlich",
-          "lang": "Miteinander.Langenbach",
-          "sitze": 1,
-          "stimmen": 170,
-          "anteil": 8.1,
-          "farbe": "#b4afa1",
-          "gruppe": "WÄHLERGRUPPEN"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Böck Florian",
-          "liste": "FW",
-          "stimmen": 1388
-        },
-        {
-          "name": "Jenuwein Sandra",
-          "liste": "CSU",
-          "stimmen": 1149
-        },
-        {
-          "name": "Huber Christian",
-          "liste": "SPD",
-          "stimmen": 1120
-        },
-        {
-          "name": "Dr. Götz Rudolf",
-          "liste": "FWO",
-          "stimmen": 1085
-        },
-        {
-          "name": "Juranowitsch Verena",
-          "liste": "GRÜNE",
-          "stimmen": 971
-        },
-        {
-          "name": "Moses Maik",
-          "liste": "MiLa",
-          "stimmen": 948
-        },
-        {
-          "name": "Wildgruber Susanne",
-          "liste": "FWO",
-          "stimmen": 938
-        },
-        {
-          "name": "Apold Andreas",
-          "liste": "FW",
-          "stimmen": 895
-        },
-        {
-          "name": "Würfl Ingrid",
-          "liste": "FW",
-          "stimmen": 830
-        },
-        {
-          "name": "Karl Armin",
-          "liste": "CSU",
-          "stimmen": 766
-        },
-        {
-          "name": "Zitzelsberger Sebastian",
-          "liste": "FW",
-          "stimmen": 730
-        },
-        {
-          "name": "Würfl Franz",
-          "liste": "FWO",
-          "stimmen": 723
-        },
-        {
-          "name": "Welser Niklas",
-          "liste": "GRÜNE",
-          "stimmen": 673
-        },
-        {
-          "name": "Hehnen Johannes",
-          "liste": "SPD",
-          "stimmen": 669
-        },
-        {
-          "name": "Huber Martin",
-          "liste": "UWL",
-          "stimmen": 622
-        },
-        {
-          "name": "Huber Michael",
-          "liste": "UWL",
-          "stimmen": 529
-        }
-      ]
-    },
-    {
-      "ags": "09178140",
-      "name": "Marzling",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://www.marzling.de/wahlen/2026gr/ergebnisse.html",
-      "ergebnis": [
-        {
-          "id": "Marzlinger Liste",
-          "art": "örtlich",
-          "lang": null,
-          "sitze": 7,
-          "stimmen": 792,
-          "anteil": 44.3,
-          "farbe": "#7b2088",
-          "gruppe": "Marzlinger Liste"
-        },
-        {
-          "id": "PB",
-          "art": "örtlich",
-          "lang": "Parteifreie Bürger",
-          "sitze": 4,
-          "stimmen": 388,
-          "anteil": 21.7,
-          "farbe": "#2d47bc",
-          "gruppe": "PB"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "Bündnis 90/Die Grünen",
-          "sitze": 3,
-          "stimmen": 332,
-          "anteil": 18.6,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich Soziale Union in Bayern e.V.",
-          "sitze": 2,
-          "stimmen": 275,
-          "anteil": 15.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Apold Roswitha",
-          "liste": "PB",
-          "stimmen": 1723
-        },
-        {
-          "name": "Mäuer Christian",
-          "liste": "Marzlinger Liste",
-          "stimmen": 1586
-        },
-        {
-          "name": "Schwaiger Michael",
-          "liste": "Marzlinger Liste",
-          "stimmen": 1477
-        },
-        {
-          "name": "Sellmeir Thomas",
-          "liste": "Marzlinger Liste",
-          "stimmen": 1302
-        },
-        {
-          "name": "Rothermel Matthias",
-          "liste": "Marzlinger Liste",
-          "stimmen": 1117
-        },
-        {
-          "name": "Göls Karl",
-          "liste": "CSU",
-          "stimmen": 914
-        },
-        {
-          "name": "Petermeier Franziska",
-          "liste": "GRÜNE",
-          "stimmen": 880
-        },
-        {
-          "name": "Henninger Thomas",
-          "liste": "Marzlinger Liste",
-          "stimmen": 849
-        },
-        {
-          "name": "Grandl Albert",
-          "liste": "CSU",
-          "stimmen": 812
-        },
-        {
-          "name": "Ball Peter",
-          "liste": "PB",
-          "stimmen": 807
-        },
-        {
-          "name": "Seidl Winfried",
-          "liste": "PB",
-          "stimmen": 805
-        },
-        {
-          "name": "Mäuer Felix",
-          "liste": "Marzlinger Liste",
-          "stimmen": 731
-        },
-        {
-          "name": "Petermeier Johannes",
-          "liste": "GRÜNE",
-          "stimmen": 696
-        },
-        {
-          "name": "Retzer Barbara",
-          "liste": "GRÜNE",
-          "stimmen": 680
-        },
-        {
-          "name": "Sauerer Sebastian",
-          "liste": "Marzlinger Liste",
-          "stimmen": 663
-        },
-        {
-          "name": "Aiglstorfer Nicole",
-          "liste": "PB",
-          "stimmen": 619
-        }
-      ]
-    },
-    {
-      "ags": "09178142",
-      "name": "Mauern",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178142.html",
-      "ergebnis": [
-        {
-          "id": "FREIE WÄHLER/FWG Mauern",
-          "art": "örtlich",
-          "lang": "FREIE WÄHLER Bayern/Freie Wählergemeinschaft Mauern e.V.",
-          "sitze": 6,
-          "stimmen": 645,
-          "anteil": 37.2,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale-Union in Bayern e.V.",
-          "sitze": 6,
-          "stimmen": 629,
-          "anteil": 36.3,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 2,
-          "stimmen": 180,
-          "anteil": 10.4,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": null,
-          "sitze": 1,
-          "stimmen": 147,
-          "anteil": 8.5,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 1,
-          "stimmen": 132,
-          "anteil": 7.6,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Krojer Georg",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 1400
-        },
-        {
-          "name": "Scharlach Maria",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 1394
-        },
-        {
-          "name": "Vogl Johanna",
-          "liste": "CSU",
-          "stimmen": 1062
-        },
-        {
-          "name": "Deliano Josef",
-          "liste": "CSU",
-          "stimmen": 1053
-        },
-        {
-          "name": "Igl Johann",
-          "liste": "CSU",
-          "stimmen": 1026
-        },
-        {
-          "name": "Sixt Georg",
-          "liste": "CSU",
-          "stimmen": 1026
-        },
-        {
-          "name": "Filipp Harald",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 839
-        },
-        {
-          "name": "Probst Siegfried",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 823
-        },
-        {
-          "name": "Felsl Jakob",
-          "liste": "CSU",
-          "stimmen": 795
-        },
-        {
-          "name": "Mayer Thomas",
-          "liste": "CSU",
-          "stimmen": 772
-        },
-        {
-          "name": "Albuschat Michael",
-          "liste": "AfD",
-          "stimmen": 691
-        },
-        {
-          "name": "Schreiner Markus",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 640
-        },
-        {
-          "name": "Schreiner Evelyn",
-          "liste": "FREIE WÄHLER/FWG Mauern",
-          "stimmen": 608
-        },
-        {
-          "name": "Mühlbauer Regina",
-          "liste": "GRÜNE",
-          "stimmen": 573
-        },
-        {
-          "name": "Daniel Melanie",
-          "liste": "AfD",
-          "stimmen": 523
-        },
-        {
-          "name": "Bauer Michael",
-          "liste": "SPD",
-          "stimmen": 463
-        }
-      ]
-    },
-    {
-      "ags": "09178143",
-      "name": "Moosburg a.d.Isar",
-      "sitze": 24,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.osrz-akdb.de/ob-p/178143/2/20260308/gemeinderatswahl_gemeinde/index.html",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 8,
-          "stimmen": 2840,
-          "anteil": 32.9,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN",
-          "sitze": 5,
-          "stimmen": 1709,
-          "anteil": 19.8,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "FREIE WÄHLER, FW Moosburg",
-          "art": "örtlich",
-          "lang": "FREIE WÄHLER Bayern, Der Freie Wähler Moosburg e.V.",
-          "sitze": 4,
-          "stimmen": 1554,
-          "anteil": 18,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "FRESH",
-          "art": "örtlich",
-          "lang": "FRESH - jung, bunt, aktiv e. V.",
-          "sitze": 2,
-          "stimmen": 881,
-          "anteil": 10.2,
-          "farbe": "#36c9c5",
-          "gruppe": "FRESH"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 2,
-          "stimmen": 777,
-          "anteil": 9,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "lang": "Sozialdemokratische Partei Deutschlands",
-          "sitze": 2,
-          "stimmen": 535,
-          "anteil": 6.2,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        },
-        {
-          "id": "LINKE",
-          "art": "partei",
-          "lang": null,
-          "sitze": 1,
-          "stimmen": 345,
-          "anteil": 4,
-          "farbe": "#be3075",
-          "gruppe": "LINKE"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Mader Maximilian",
-          "liste": "CSU",
-          "stimmen": 6657
-        },
-        {
-          "name": "Heinz Rudolf",
-          "liste": "CSU",
-          "stimmen": 5265
-        },
-        {
-          "name": "Hadersdorfer Georg",
-          "liste": "CSU",
-          "stimmen": 4923
-        },
-        {
-          "name": "Dr. Stanglmaier Michael",
-          "liste": "GRÜNE",
-          "stimmen": 4751
-        },
-        {
-          "name": "Lauterbach Reinhard",
-          "liste": "FREIE WÄHLER, FW Moosburg",
-          "stimmen": 4414
-        },
-        {
-          "name": "Dr. Reither Dominikus",
-          "liste": "CSU",
-          "stimmen": 3742
-        },
-        {
-          "name": "Tristl Manfred",
-          "liste": "CSU",
-          "stimmen": 3394
-        },
-        {
-          "name": "Beibl Verena",
-          "liste": "GRÜNE",
-          "stimmen": 3288
-        },
-        {
-          "name": "Schweiger Christian",
-          "liste": "CSU",
-          "stimmen": 3187
-        },
-        {
-          "name": "Linz Karin",
-          "liste": "CSU",
-          "stimmen": 3115
-        },
-        {
-          "name": "Meier Christian",
-          "liste": "FREIE WÄHLER, FW Moosburg",
-          "stimmen": 3091
-        },
-        {
-          "name": "Kehlringer Lorena",
-          "liste": "CSU",
-          "stimmen": 2906
-        },
-        {
-          "name": "Grundner Thomas",
-          "liste": "FREIE WÄHLER, FW Moosburg",
-          "stimmen": 2735
-        },
-        {
-          "name": "Sixt Josef",
-          "liste": "FREIE WÄHLER, FW Moosburg",
-          "stimmen": 2675
-        },
-        {
-          "name": "Welter Gerhard-Michael",
-          "liste": "AfD",
-          "stimmen": 2579
-        },
-        {
-          "name": "Rümelin Ramona",
-          "liste": "GRÜNE",
-          "stimmen": 2268
-        },
-        {
-          "name": "Dr. Daoud Ghadieh Moutasem",
-          "liste": "AfD",
-          "stimmen": 2222
-        },
-        {
-          "name": "Linz Kilian",
-          "liste": "GRÜNE",
-          "stimmen": 2199
-        },
-        {
-          "name": "Marcus Gunnar",
-          "liste": "SPD",
-          "stimmen": 2055
-        },
-        {
-          "name": "Marschoun Christoph",
-          "liste": "SPD",
-          "stimmen": 2006
-        },
-        {
-          "name": "Röck Matthias",
-          "liste": "GRÜNE",
-          "stimmen": 2005
-        },
-        {
-          "name": "Strobl Alexander",
-          "liste": "LINKE",
-          "stimmen": 1728
-        },
-        {
-          "name": "&Scaron;abanović Benjamin",
-          "liste": "FRESH",
-          "stimmen": 1719
-        },
-        {
-          "name": "Dick Johanna",
-          "liste": "FRESH",
-          "stimmen": 1520
-        }
-      ]
-    },
-    {
-      "ags": "09178144",
-      "name": "Nandlstadt",
-      "sitze": 20,
-      "genauigkeit": "listen",
-      "quelle": "https://markt-nandlstadt.de/wahlen2026/ergebnisse.html",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 7,
-          "stimmen": 957,
-          "anteil": 33.3,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "UWN",
-          "art": "örtlich",
-          "lang": "Unabhängige Wähler Nandlstadt",
-          "sitze": 6,
-          "stimmen": 845,
-          "anteil": 29.4,
-          "farbe": "#2d47bc",
-          "gruppe": "UWN"
-        },
-        {
-          "id": "BLN",
-          "art": "örtlich",
-          "lang": "Bürgerliste Nandlstadt",
-          "sitze": 3,
-          "stimmen": 428,
-          "anteil": 14.9,
-          "farbe": "#7b2088",
-          "gruppe": "BLN"
-        },
-        {
-          "id": "ZAM",
-          "art": "örtlich",
-          "lang": "Zukunft. Aktiv. Miteinander.",
-          "sitze": 2,
-          "stimmen": 276,
-          "anteil": 9.6,
-          "farbe": "#8861bc",
-          "gruppe": "ZAM"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 1,
-          "stimmen": 190,
-          "anteil": 6.6,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "lang": "BÜNDNIS 90/DIE GRÜNEN",
-          "sitze": 1,
-          "stimmen": 178,
-          "anteil": 6.2,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Thiermann-Mayrhofer Sibylle",
-          "liste": "CSU",
-          "stimmen": 2528
-        },
-        {
-          "name": "Betz Gerhard",
-          "liste": "UWN",
-          "stimmen": 2420
-        },
-        {
-          "name": "Klier Rainer",
-          "liste": "CSU",
-          "stimmen": 2175
-        },
-        {
-          "name": "Rauscher Maria",
-          "liste": "ZAM",
-          "stimmen": 2101
-        },
-        {
-          "name": "Mayer Franz",
-          "liste": "CSU",
-          "stimmen": 1721
-        },
-        {
-          "name": "Schranner Michael",
-          "liste": "BLN",
-          "stimmen": 1659
-        },
-        {
-          "name": "Sixt Susanne",
-          "liste": "UWN",
-          "stimmen": 1393
-        },
-        {
-          "name": "Kühner Sebastian",
-          "liste": "BLN",
-          "stimmen": 1316
-        },
-        {
-          "name": "Krojer Reinhard",
-          "liste": "UWN",
-          "stimmen": 1232
-        },
-        {
-          "name": "Buchberger Michael",
-          "liste": "UWN",
-          "stimmen": 1143
-        },
-        {
-          "name": "Kronthaler Jürgen",
-          "liste": "UWN",
-          "stimmen": 1139
-        },
-        {
-          "name": "Forster Martin",
-          "liste": "CSU",
-          "stimmen": 1066
-        },
-        {
-          "name": "Schillinger Regina",
-          "liste": "ZAM",
-          "stimmen": 1051
-        },
-        {
-          "name": "Unger Daniel",
-          "liste": "CSU",
-          "stimmen": 1021
-        },
-        {
-          "name": "Urbaneck Robert",
-          "liste": "UWN",
-          "stimmen": 974
-        },
-        {
-          "name": "Stanglmair Andreas",
-          "liste": "CSU",
-          "stimmen": 903
-        },
-        {
-          "name": "Nocker Patrick",
-          "liste": "BLN",
-          "stimmen": 876
-        },
-        {
-          "name": "Stöckeler Bernd",
-          "liste": "GRÜNE",
-          "stimmen": 861
-        },
-        {
-          "name": "Tafelmaier Doris",
-          "liste": "CSU",
-          "stimmen": 824
-        },
-        {
-          "name": "Kurzyk Christoph",
-          "liste": "AfD",
-          "stimmen": 801
-        }
-      ]
-    },
-    {
-      "ags": "09178145",
-      "name": "Neufahrn b.Freising",
-      "sitze": 30,
-      "genauigkeit": "sammel",
-      "quelle": "genesis",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "sitze": 8,
-          "stimmen": 2137,
-          "anteil": 27.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "sitze": 7,
-          "stimmen": 1656,
-          "anteil": 21.3,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        },
-        {
-          "id": "GEMEINSAM",
-          "art": "sammel",
-          "sitze": 5,
-          "stimmen": 1372,
-          "anteil": 17.6,
-          "farbe": "#6b6759",
-          "gruppe": "GEMEINSAM"
-        },
-        {
-          "id": "SPD",
-          "art": "partei",
-          "sitze": 3,
-          "stimmen": 795,
-          "anteil": 10.2,
-          "farbe": "#e31e2d",
-          "gruppe": "SPD"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "sitze": 3,
-          "stimmen": 705,
-          "anteil": 9,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        },
-        {
-          "id": "WÄHLERGRUPPEN",
-          "art": "sammel",
-          "sitze": 2,
-          "stimmen": 747,
-          "anteil": 9.6,
-          "farbe": "#b4afa1",
-          "gruppe": "WÄHLERGRUPPEN"
-        },
-        {
-          "id": "ÖDP",
-          "art": "partei",
-          "sitze": 2,
-          "stimmen": 379,
-          "anteil": 4.9,
-          "farbe": "#a85a12",
-          "gruppe": "ÖDP"
-        }
-      ],
-      "gewaehlte": []
-    },
-    {
-      "ags": "09178150",
-      "name": "Paunzhausen",
-      "sitze": 12,
-      "genauigkeit": "sammel",
-      "quelle": "genesis",
-      "ergebnis": [
-        {
-          "id": "FW",
-          "art": "partei",
-          "sitze": 5,
-          "stimmen": 346,
-          "anteil": 39.3,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "WÄHLERGRUPPEN",
-          "art": "sammel",
-          "sitze": 3,
-          "stimmen": 223,
-          "anteil": 25.3,
-          "farbe": "#b4afa1",
-          "gruppe": "WÄHLERGRUPPEN"
-        },
-        {
-          "id": "CSU",
-          "art": "partei",
-          "sitze": 2,
-          "stimmen": 181,
-          "anteil": 20.6,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "GRÜNE",
-          "art": "partei",
-          "sitze": 2,
-          "stimmen": 130,
-          "anteil": 14.8,
-          "farbe": "#3d8b37",
-          "gruppe": "GRÜNE"
-        }
-      ],
-      "gewaehlte": []
-    },
-    {
-      "ags": "09178155",
-      "name": "Wang",
-      "sitze": 14,
-      "genauigkeit": "listen",
-      "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178155.html",
-      "ergebnis": [
-        {
-          "id": "WWV",
-          "art": "örtlich",
-          "lang": "Wählergemeinschaft Wang/Volkmannsdorf",
-          "sitze": 6,
-          "stimmen": 562,
-          "anteil": 43.1,
-          "farbe": "#c97b95",
-          "gruppe": "WWV"
-        },
-        {
-          "id": "FWI",
-          "art": "örtlich",
-          "lang": "Freie Wählergemeinschaft Inzkofen",
-          "sitze": 4,
-          "stimmen": 410,
-          "anteil": 31.4,
-          "farbe": "#f28c15",
-          "gruppe": "FW"
-        },
-        {
-          "id": "FWV",
-          "art": "örtlich",
-          "lang": "Freie Wähler Volkmannsdorferau",
-          "sitze": 4,
-          "stimmen": 333,
-          "anteil": 25.5,
-          "farbe": "#7d4a12",
-          "gruppe": "FW"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Sedlmeier Dominik",
-          "liste": "FWI",
-          "stimmen": 940
-        },
-        {
-          "name": "Heigl Michael",
-          "liste": "FWI",
-          "stimmen": 890
-        },
-        {
-          "name": "Sicheneder Lena",
-          "liste": "FWI",
-          "stimmen": 876
-        },
-        {
-          "name": "Forster Heinz",
-          "liste": "WWV",
-          "stimmen": 833
-        },
-        {
-          "name": "Schwaiger Josef",
-          "liste": "FWI",
-          "stimmen": 833
-        },
-        {
-          "name": "Mengelkamp Patrick",
-          "liste": "FWV",
-          "stimmen": 707
-        },
-        {
-          "name": "Stadler Maria",
-          "liste": "WWV",
-          "stimmen": 615
-        },
-        {
-          "name": "Haas Stefan",
-          "liste": "WWV",
-          "stimmen": 592
-        },
-        {
-          "name": "Wittmann Dieter",
-          "liste": "WWV",
-          "stimmen": 591
-        },
-        {
-          "name": "Stangl Stefan",
-          "liste": "FWV",
-          "stimmen": 580
-        },
-        {
-          "name": "Müller Michael",
-          "liste": "WWV",
-          "stimmen": 545
-        },
-        {
-          "name": "Müller Patrick",
-          "liste": "WWV",
-          "stimmen": 537
-        },
-        {
-          "name": "Obermaier Claudia",
-          "liste": "FWV",
-          "stimmen": 496
-        },
-        {
-          "name": "Urbaniak Marianne",
-          "liste": "FWV",
-          "stimmen": 370
-        }
-      ]
-    },
-    {
-      "ags": "09178156",
-      "name": "Wolfersdorf",
-      "sitze": 14,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178156.html",
-      "ergebnis": [
-        {
-          "id": "Wählergemeinschaft Wolfersdorf",
-          "art": "örtlich",
-          "lang": null,
-          "sitze": 9,
-          "stimmen": 825,
-          "anteil": 67.8,
-          "farbe": "#8861bc",
-          "gruppe": "Wählergemeinschaft Wolfersdorf"
-        },
-        {
-          "id": "Wählergemeinschaft Dürnhaindlfing",
-          "art": "örtlich",
-          "lang": null,
-          "sitze": 5,
-          "stimmen": 392,
-          "anteil": 32.2,
-          "farbe": "#2d47bc",
-          "gruppe": "Wählergemeinschaft Dürnhaindlfing"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Reiser Matthias",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 1347
-        },
-        {
-          "name": "Jonas Claudia",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 1130
-        },
-        {
-          "name": "Seitzl Ludwig",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 1111
-        },
-        {
-          "name": "Holzmaier Maria",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 1106
-        },
-        {
-          "name": "Schröfl Andreas",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 1047
-        },
-        {
-          "name": "Stark Simon",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 874
-        },
-        {
-          "name": "Radlmaier Georg",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 811
-        },
-        {
-          "name": "Geltl Alexander",
-          "liste": "Wählergemeinschaft Dürnhaindlfing",
-          "stimmen": 780
-        },
-        {
-          "name": "Flassak Bernd",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 742
-        },
-        {
-          "name": "Lobmayer Sieglinde",
-          "liste": "Wählergemeinschaft Dürnhaindlfing",
-          "stimmen": 740
-        },
-        {
-          "name": "Grabichler Thomas",
-          "liste": "Wählergemeinschaft Dürnhaindlfing",
-          "stimmen": 720
-        },
-        {
-          "name": "Hilgers Alexander",
-          "liste": "Wählergemeinschaft Dürnhaindlfing",
-          "stimmen": 713
-        },
-        {
-          "name": "Betzenbichler Werner",
-          "liste": "Wählergemeinschaft Wolfersdorf",
-          "stimmen": 626
-        },
-        {
-          "name": "Denk Johannes",
-          "liste": "Wählergemeinschaft Dürnhaindlfing",
-          "stimmen": 622
-        }
-      ]
-    },
-    {
-      "ags": "09178157",
-      "name": "Zolling",
-      "sitze": 16,
-      "genauigkeit": "listen",
-      "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178157.html",
-      "ergebnis": [
-        {
-          "id": "CSU",
-          "art": "partei",
-          "lang": "Christlich-Soziale Union in Bayern e.V.",
-          "sitze": 6,
-          "stimmen": 825,
-          "anteil": 35.4,
-          "farbe": "#0a0a0a",
-          "gruppe": "CSU"
-        },
-        {
-          "id": "UBZ",
-          "art": "örtlich",
-          "lang": "Unabhängige Bürger Zolling",
-          "sitze": 5,
-          "stimmen": 765,
-          "anteil": 32.8,
-          "farbe": "#2d47bc",
-          "gruppe": "UBZ"
-        },
-        {
-          "id": "ÜWG",
-          "art": "örtlich",
-          "lang": "Überparteiliche Wählergemeinschaft Zolling",
-          "sitze": 4,
-          "stimmen": 541,
-          "anteil": 23.2,
-          "farbe": "#8861bc",
-          "gruppe": "ÜWG"
-        },
-        {
-          "id": "AfD",
-          "art": "partei",
-          "lang": "Alternative für Deutschland",
-          "sitze": 1,
-          "stimmen": 200,
-          "anteil": 8.6,
-          "farbe": "#009de0",
-          "gruppe": "AfD"
-        }
-      ],
-      "gewaehlte": [
-        {
-          "name": "Bachmaier Andrea",
-          "liste": "CSU",
-          "stimmen": 1815
-        },
-        {
-          "name": "Flohr Manuela",
-          "liste": "UBZ",
-          "stimmen": 1801
-        },
-        {
-          "name": "Neumair Annemarie",
-          "liste": "CSU",
-          "stimmen": 1331
-        },
-        {
-          "name": "Glatt Gottfried",
-          "liste": "CSU",
-          "stimmen": 1322
-        },
-        {
-          "name": "Unger Klaus",
-          "liste": "ÜWG",
-          "stimmen": 1210
-        },
-        {
-          "name": "Wiesheu Christian",
-          "liste": "ÜWG",
-          "stimmen": 1095
-        },
-        {
-          "name": "Wöhrl Stephan",
-          "liste": "CSU",
-          "stimmen": 1077
-        },
-        {
-          "name": "Forster Johannes",
-          "liste": "UBZ",
-          "stimmen": 1016
-        },
-        {
-          "name": "Falkner Maximilian",
-          "liste": "CSU",
-          "stimmen": 983
-        },
-        {
-          "name": "Hildebrandt Alexander",
-          "liste": "UBZ",
-          "stimmen": 975
-        },
-        {
-          "name": "Grepmair Markus",
-          "liste": "UBZ",
-          "stimmen": 828
-        },
-        {
-          "name": "Kopp Christine",
-          "liste": "CSU",
-          "stimmen": 814
-        },
-        {
-          "name": "Griebel Stephan",
-          "liste": "UBZ",
-          "stimmen": 807
-        },
-        {
-          "name": "Goletz Simon",
-          "liste": "ÜWG",
-          "stimmen": 775
-        },
-        {
-          "name": "Wolf Karlheinz",
-          "liste": "ÜWG",
-          "stimmen": 712
-        },
-        {
-          "name": "Mair Georg",
-          "liste": "AfD",
-          "stimmen": 627
-        }
-      ]
+     "name": "BfE, EM, ÖDP",
+     "sitze": 1
     }
-  ],
-  "hinweise": [
+   ],
+   "unbenannt": 5
+  },
+  {
+   "id": "AfD",
+   "name": "AfD",
+   "art": "partei",
+   "sitze": 13,
+   "stimmen": 3630,
+   "gemeinden": 7,
+   "farbe": "#009de0",
+   "skala": {
+    "höchster": 10.4,
+    "stark": 40.8,
+    "decke": 20.6,
+    "gemeinden": 7
+   },
+   "anteil": 4.4
+  },
+  {
+   "id": "WÄHLERGRUPPEN",
+   "name": "Wählergruppen",
+   "art": "sammel",
+   "sitze": 12,
+   "stimmen": 2053,
+   "gemeinden": 4,
+   "farbe": "#b4afa1",
+   "skala": {
+    "höchster": 33.4,
+    "stark": 40.8,
+    "decke": 36.9,
+    "gemeinden": 4
+   },
+   "anteil": 2.5,
+   "teile": [
     {
-      "liste": "FW",
-      "text": "Die Freien Wähler sind hier als eine Liste gezählt: 70 Sitze aus 12 örtlichen Wahlvorschlägen, die den Namen führen. Die amtliche Statistik zählt anders, unter „FREIE WÄHLER Bayern“ stehen dort nur 9 Sitze. Die übrigen sind eigenständige Wählergemeinschaften und liegen in den Kategorien „Wählergruppen“ und „Gemeinsame Wahlvorschläge“. Beides ist richtig; die Zahlen sind nur nicht dasselbe."
+     "name": "MiLa",
+     "sitze": 1
     }
-  ]
+   ],
+   "unbenannt": 11
+  },
+  {
+   "id": "WH",
+   "name": "WH",
+   "art": "örtlich",
+   "sitze": 12,
+   "stimmen": 1053,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 99.8,
+    "stark": 40.8,
+    "decke": 63.8,
+    "gemeinden": 1
+   },
+   "anteil": 1.3
+  },
+  {
+   "id": "ÜWG",
+   "name": "ÜWG",
+   "art": "örtlich",
+   "sitze": 10,
+   "stimmen": 1006,
+   "gemeinden": 2,
+   "farbe": "#8861bc",
+   "skala": {
+    "höchster": 53,
+    "stark": 40.8,
+    "decke": 46.5,
+    "gemeinden": 2
+   },
+   "anteil": 1.2
+  },
+  {
+   "id": "FSM",
+   "name": "FSM",
+   "art": "örtlich",
+   "sitze": 9,
+   "stimmen": 4816,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 23.5,
+    "stark": 40.8,
+    "decke": 31,
+    "gemeinden": 1
+   },
+   "anteil": 5.8
+  },
+  {
+   "id": "UB",
+   "name": "UB",
+   "art": "örtlich",
+   "sitze": 9,
+   "stimmen": 990,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 63.6,
+    "stark": 40.8,
+    "decke": 50.9,
+    "gemeinden": 1
+   },
+   "anteil": 1.2
+  },
+  {
+   "id": "Wählergemeinschaft Wolfersdorf",
+   "name": "Wählergemeinschaft Wolfersdorf",
+   "art": "örtlich",
+   "sitze": 9,
+   "stimmen": 825,
+   "gemeinden": 1,
+   "farbe": "#8861bc",
+   "skala": {
+    "höchster": 67.8,
+    "stark": 40.8,
+    "decke": 52.6,
+    "gemeinden": 1
+   },
+   "anteil": 1
+  },
+  {
+   "id": "GfAu",
+   "name": "GfAu",
+   "art": "örtlich",
+   "sitze": 8,
+   "stimmen": 1394,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 43.2,
+    "stark": 40.8,
+    "decke": 42,
+    "gemeinden": 1
+   },
+   "anteil": 1.7
+  },
+  {
+   "id": "Marzlinger Liste",
+   "name": "Marzlinger Liste",
+   "art": "örtlich",
+   "sitze": 7,
+   "stimmen": 792,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 44.3,
+    "stark": 40.8,
+    "decke": 42.5,
+    "gemeinden": 1
+   },
+   "anteil": 1
+  },
+  {
+   "id": "WIR",
+   "name": "WIR",
+   "art": "örtlich",
+   "sitze": 7,
+   "stimmen": 746,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 50.7,
+    "stark": 40.8,
+    "decke": 45.5,
+    "gemeinden": 1
+   },
+   "anteil": 0.9
+  },
+  {
+   "id": "UWN",
+   "name": "UWN",
+   "art": "örtlich",
+   "sitze": 6,
+   "stimmen": 845,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 29.4,
+    "stark": 40.8,
+    "decke": 34.6,
+    "gemeinden": 1
+   },
+   "anteil": 1
+  },
+  {
+   "id": "WWV",
+   "name": "WWV",
+   "art": "örtlich",
+   "sitze": 6,
+   "stimmen": 562,
+   "gemeinden": 1,
+   "farbe": "#c97b95",
+   "skala": {
+    "höchster": 43.1,
+    "stark": 40.8,
+    "decke": 41.9,
+    "gemeinden": 1
+   },
+   "anteil": 0.7
+  },
+  {
+   "id": "BvHo",
+   "name": "BvHo",
+   "art": "örtlich",
+   "sitze": 6,
+   "stimmen": 530,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 40.8,
+    "stark": 40.8,
+    "decke": 40.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.6
+  },
+  {
+   "id": "FDP",
+   "name": "FDP",
+   "art": "partei",
+   "sitze": 5,
+   "stimmen": 972,
+   "gemeinden": 4,
+   "farbe": "#e5c800",
+   "skala": {
+    "höchster": 10.9,
+    "stark": 40.8,
+    "decke": 21.1,
+    "gemeinden": 4
+   },
+   "anteil": 1.2
+  },
+  {
+   "id": "UBZ",
+   "name": "UBZ",
+   "art": "örtlich",
+   "sitze": 5,
+   "stimmen": 765,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 32.8,
+    "stark": 40.8,
+    "decke": 36.6,
+    "gemeinden": 1
+   },
+   "anteil": 0.9
+  },
+  {
+   "id": "UWG",
+   "name": "UWG",
+   "art": "örtlich",
+   "sitze": 5,
+   "stimmen": 491,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 33.4,
+    "stark": 40.8,
+    "decke": 36.9,
+    "gemeinden": 1
+   },
+   "anteil": 0.6
+  },
+  {
+   "id": "Wählergemeinschaft Dürnhaindlfing",
+   "name": "Wählergemeinschaft Dürnhaindlfing",
+   "art": "örtlich",
+   "sitze": 5,
+   "stimmen": 392,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 32.2,
+    "stark": 40.8,
+    "decke": 36.2,
+    "gemeinden": 1
+   },
+   "anteil": 0.5
+  },
+  {
+   "id": "ÖDP",
+   "name": "ÖDP",
+   "art": "partei",
+   "sitze": 4,
+   "stimmen": 1260,
+   "gemeinden": 2,
+   "farbe": "#a85a12",
+   "skala": {
+    "höchster": 4.9,
+    "stark": 40.8,
+    "decke": 14.1,
+    "gemeinden": 2
+   },
+   "anteil": 1.5
+  },
+  {
+   "id": "Einigkeit",
+   "name": "Einigkeit",
+   "art": "örtlich",
+   "sitze": 4,
+   "stimmen": 785,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 18.1,
+    "stark": 40.8,
+    "decke": 27.2,
+    "gemeinden": 1
+   },
+   "anteil": 1
+  },
+  {
+   "id": "GenAU",
+   "name": "GenAU",
+   "art": "örtlich",
+   "sitze": 4,
+   "stimmen": 613,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 19,
+    "stark": 40.8,
+    "decke": 27.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.7
+  },
+  {
+   "id": "FBL",
+   "name": "FBL",
+   "art": "örtlich",
+   "sitze": 4,
+   "stimmen": 400,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 17.5,
+    "stark": 40.8,
+    "decke": 26.7,
+    "gemeinden": 1
+   },
+   "anteil": 0.5
+  },
+  {
+   "id": "PB",
+   "name": "PB",
+   "art": "örtlich",
+   "sitze": 4,
+   "stimmen": 388,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 21.7,
+    "stark": 40.8,
+    "decke": 29.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.5
+  },
+  {
+   "id": "MfG",
+   "name": "MfG",
+   "art": "örtlich",
+   "sitze": 4,
+   "stimmen": 254,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 29,
+    "stark": 40.8,
+    "decke": 34.4,
+    "gemeinden": 1
+   },
+   "anteil": 0.3
+  },
+  {
+   "id": "LINKE",
+   "name": "Die Linke",
+   "art": "partei",
+   "sitze": 3,
+   "stimmen": 1308,
+   "gemeinden": 2,
+   "farbe": "#be3075",
+   "skala": {
+    "höchster": 4.7,
+    "stark": 40.8,
+    "decke": 13.8,
+    "gemeinden": 2
+   },
+   "anteil": 1.6
+  },
+  {
+   "id": "MEGA",
+   "name": "MEGA",
+   "art": "örtlich",
+   "sitze": 3,
+   "stimmen": 685,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 10.6,
+    "stark": 40.8,
+    "decke": 20.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.8
+  },
+  {
+   "id": "KGL",
+   "name": "KGL",
+   "art": "örtlich",
+   "sitze": 3,
+   "stimmen": 476,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 20.9,
+    "stark": 40.8,
+    "decke": 29.2,
+    "gemeinden": 1
+   },
+   "anteil": 0.6
+  },
+  {
+   "id": "BLN",
+   "name": "BLN",
+   "art": "örtlich",
+   "sitze": 3,
+   "stimmen": 428,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 14.9,
+    "stark": 40.8,
+    "decke": 24.7,
+    "gemeinden": 1
+   },
+   "anteil": 0.5
+  },
+  {
+   "id": "BL",
+   "name": "BL",
+   "art": "örtlich",
+   "sitze": 3,
+   "stimmen": 352,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 18.9,
+    "stark": 40.8,
+    "decke": 27.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.4
+  },
+  {
+   "id": "EB",
+   "name": "EB",
+   "art": "örtlich",
+   "sitze": 3,
+   "stimmen": 301,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 16.2,
+    "stark": 40.8,
+    "decke": 25.7,
+    "gemeinden": 1
+   },
+   "anteil": 0.4
+  },
+  {
+   "id": "FRESH",
+   "name": "FRESH",
+   "art": "örtlich",
+   "sitze": 2,
+   "stimmen": 881,
+   "gemeinden": 1,
+   "farbe": "#36c9c5",
+   "skala": {
+    "höchster": 10.2,
+    "stark": 40.8,
+    "decke": 20.4,
+    "gemeinden": 1
+   },
+   "anteil": 1.1
+  },
+  {
+   "id": "Freising für alle",
+   "name": "Freising für alle",
+   "art": "örtlich",
+   "sitze": 2,
+   "stimmen": 758,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 3.7,
+    "stark": 40.8,
+    "decke": 12.3,
+    "gemeinden": 1
+   },
+   "anteil": 0.9
+  },
+  {
+   "id": "ZAM",
+   "name": "ZAM",
+   "art": "örtlich",
+   "sitze": 2,
+   "stimmen": 276,
+   "gemeinden": 1,
+   "farbe": "#8861bc",
+   "skala": {
+    "höchster": 9.6,
+    "stark": 40.8,
+    "decke": 19.8,
+    "gemeinden": 1
+   },
+   "anteil": 0.3
+  },
+  {
+   "id": "UWL",
+   "name": "UWL",
+   "art": "örtlich",
+   "sitze": 2,
+   "stimmen": 270,
+   "gemeinden": 1,
+   "farbe": "#2d47bc",
+   "skala": {
+    "höchster": 12.9,
+    "stark": 40.8,
+    "decke": 22.9,
+    "gemeinden": 1
+   },
+   "anteil": 0.3
+  },
+  {
+   "id": "BGG",
+   "name": "BGG",
+   "art": "örtlich",
+   "sitze": 2,
+   "stimmen": 131,
+   "gemeinden": 1,
+   "farbe": "#7b2088",
+   "skala": {
+    "höchster": 14.9,
+    "stark": 40.8,
+    "decke": 24.7,
+    "gemeinden": 1
+   },
+   "anteil": 0.2
+  }
+ ],
+ "gemeinden": [
+  {
+   "ags": "09178113",
+   "name": "Allershausen",
+   "sitze": 20,
+   "genauigkeit": "sammel",
+   "quelle": "genesis",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "sitze": 8,
+     "stimmen": 1105,
+     "anteil": 40.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "WÄHLERGRUPPEN",
+     "art": "sammel",
+     "sitze": 6,
+     "stimmen": 913,
+     "anteil": 33.4,
+     "farbe": "#b4afa1",
+     "gruppe": "WÄHLERGRUPPEN"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "sitze": 3,
+     "stimmen": 363,
+     "anteil": 13.3,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "sitze": 3,
+     "stimmen": 355,
+     "anteil": 13,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    }
+   ],
+   "gewaehlte": []
+  },
+  {
+   "ags": "09178115",
+   "name": "Attenkirchen",
+   "sitze": 14,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178115.html",
+   "ergebnis": [
+    {
+     "id": "WIR",
+     "art": "örtlich",
+     "lang": null,
+     "sitze": 7,
+     "stimmen": 746,
+     "anteil": 50.7,
+     "farbe": "#2d47bc",
+     "gruppe": "WIR"
+    },
+    {
+     "id": "UWG",
+     "art": "örtlich",
+     "lang": "Unabhängige Wählergemeinschaft Attenkirchen e.V.",
+     "sitze": 5,
+     "stimmen": 491,
+     "anteil": 33.4,
+     "farbe": "#7b2088",
+     "gruppe": "UWG"
+    },
+    {
+     "id": "GOL",
+     "art": "verbindung",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN - Offene Liste Attenkirchen",
+     "sitze": 2,
+     "stimmen": 234,
+     "anteil": 15.9,
+     "farbe": "#6b6759",
+     "gruppe": "GEMEINSAM"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Ausfelder Theresa",
+     "liste": "WIR",
+     "stimmen": 1150
+    },
+    {
+     "name": "Festner Stefan",
+     "liste": "WIR",
+     "stimmen": 1140
+    },
+    {
+     "name": "Riedl Florian",
+     "liste": "WIR",
+     "stimmen": 1135
+    },
+    {
+     "name": "Fischer Sepp",
+     "liste": "UWG",
+     "stimmen": 985
+    },
+    {
+     "name": "Lobmeier Maximilian",
+     "liste": "WIR",
+     "stimmen": 960
+    },
+    {
+     "name": "Grimps Sabine",
+     "liste": "UWG",
+     "stimmen": 875
+    },
+    {
+     "name": "Rieger Eva",
+     "liste": "UWG",
+     "stimmen": 850
+    },
+    {
+     "name": "Sänger Johann",
+     "liste": "UWG",
+     "stimmen": 793
+    },
+    {
+     "name": "Spitzenberger Andreas",
+     "liste": "WIR",
+     "stimmen": 758
+    },
+    {
+     "name": "Eichinger Julia",
+     "liste": "WIR",
+     "stimmen": 754
+    },
+    {
+     "name": "Dr. Schlott Walter",
+     "liste": "GOL",
+     "stimmen": 629
+    },
+    {
+     "name": "Niedermeier Christoph",
+     "liste": "WIR",
+     "stimmen": 588
+    },
+    {
+     "name": "Eichinger Johannes",
+     "liste": "UWG",
+     "stimmen": 529
+    },
+    {
+     "name": "Vujkov Conny",
+     "liste": "GOL",
+     "stimmen": 401
+    }
+   ]
+  },
+  {
+   "ags": "09178116",
+   "name": "Au i.d.Hallertau",
+   "sitze": 20,
+   "genauigkeit": "listen",
+   "quelle": "https://wahl.rathaus-au.de/3mgr/ergebnisse.html",
+   "ergebnis": [
+    {
+     "id": "GfAu",
+     "art": "örtlich",
+     "lang": "Gemeinsam für Au",
+     "sitze": 8,
+     "stimmen": 1394,
+     "anteil": 43.2,
+     "farbe": "#7b2088",
+     "gruppe": "GfAu"
+    },
+    {
+     "id": "GenAU",
+     "art": "örtlich",
+     "lang": "Gemeinde neu ausrichten",
+     "sitze": 4,
+     "stimmen": 613,
+     "anteil": 19,
+     "farbe": "#2d47bc",
+     "gruppe": "GenAU"
+    },
+    {
+     "id": "FWG Au",
+     "art": "örtlich",
+     "lang": "Freie Wählergemeinschaft Au",
+     "sitze": 3,
+     "stimmen": 474,
+     "anteil": 14.7,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "CSU/PfW",
+     "art": "verbindung",
+     "lang": "Christlich-Soziale Union in Bayern e. V./Parteifreie Wähler",
+     "sitze": 3,
+     "stimmen": 436,
+     "anteil": 13.5,
+     "farbe": "#6b6759",
+     "gruppe": "GEMEINSAM"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 2,
+     "stimmen": 307,
+     "anteil": 9.5,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Sebald Beatrix",
+     "liste": "FWG Au",
+     "stimmen": 2188
+    },
+    {
+     "name": "Linseisen Martin",
+     "liste": "CSU/PfW",
+     "stimmen": 2066
+    },
+    {
+     "name": "Roggenbuck Petra",
+     "liste": "GfAu",
+     "stimmen": 1941
+    },
+    {
+     "name": "Gantner Martin",
+     "liste": "GfAu",
+     "stimmen": 1922
+    },
+    {
+     "name": "Hillebrand Michael",
+     "liste": "GenAU",
+     "stimmen": 1861
+    },
+    {
+     "name": "Hofmaier Konrad",
+     "liste": "GfAu",
+     "stimmen": 1763
+    },
+    {
+     "name": "Römer Andreas",
+     "liste": "GfAu",
+     "stimmen": 1751
+    },
+    {
+     "name": "Felsl Thomas",
+     "liste": "GfAu",
+     "stimmen": 1745
+    },
+    {
+     "name": "Hellerbrand Martin",
+     "liste": "CSU/PfW",
+     "stimmen": 1561
+    },
+    {
+     "name": "Wernthaler Bernhard jun.",
+     "liste": "CSU/PfW",
+     "stimmen": 1523
+    },
+    {
+     "name": "Röhrig Sebastian",
+     "liste": "FWG Au",
+     "stimmen": 1498
+    },
+    {
+     "name": "Ewert Sabine",
+     "liste": "GfAu",
+     "stimmen": 1319
+    },
+    {
+     "name": "Haubrichs Daniel",
+     "liste": "GfAu",
+     "stimmen": 1309
+    },
+    {
+     "name": "Holzmann Christian",
+     "liste": "GfAu",
+     "stimmen": 1301
+    },
+    {
+     "name": "Kronthaler Stefan",
+     "liste": "AfD",
+     "stimmen": 1237
+    },
+    {
+     "name": "Durst Natascha",
+     "liste": "FWG Au",
+     "stimmen": 1089
+    },
+    {
+     "name": "Prügl Barbara",
+     "liste": "GenAU",
+     "stimmen": 1027
+    },
+    {
+     "name": "Danner Stephan",
+     "liste": "GenAU",
+     "stimmen": 1017
+    },
+    {
+     "name": "Hirmer Angelika",
+     "liste": "GenAU",
+     "stimmen": 935
+    },
+    {
+     "name": "Hagl Georg",
+     "liste": "AfD",
+     "stimmen": 931
+    }
+   ]
+  },
+  {
+   "ags": "09178120",
+   "name": "Eching",
+   "sitze": 24,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.osrz-akdb.de/ob-p/178120/2/20260308/gemeinderatswahl_gemeinde/index.html",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 7,
+     "stimmen": 1900,
+     "anteil": 29.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FREIE WÄHLER - FW Eching",
+     "art": "örtlich",
+     "lang": "FREIE WÄHLER - FREIE WÄHLER Eching e.V.",
+     "sitze": 6,
+     "stimmen": 1616,
+     "anteil": 25,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN",
+     "sitze": 3,
+     "stimmen": 956,
+     "anteil": 14.8,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "MEGA",
+     "art": "örtlich",
+     "lang": "Miteinander Eching GestAlten",
+     "sitze": 3,
+     "stimmen": 685,
+     "anteil": 10.6,
+     "farbe": "#2d47bc",
+     "gruppe": "MEGA"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 3,
+     "stimmen": 685,
+     "anteil": 10.6,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    },
+    {
+     "id": "BfE, EM, ÖDP",
+     "art": "verbindung",
+     "lang": "Bürger für Eching, Echinger Mitte, Ökologisch-Demokratische Partei",
+     "sitze": 1,
+     "stimmen": 368,
+     "anteil": 5.7,
+     "farbe": "#6b6759",
+     "gruppe": "GEMEINSAM"
+    },
+    {
+     "id": "FDP",
+     "art": "partei",
+     "lang": "Freie Demokratische Partei",
+     "sitze": 1,
+     "stimmen": 258,
+     "anteil": 4,
+     "farbe": "#e5c800",
+     "gruppe": "FDP"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Jacob Eric",
+     "liste": "GRÜNE",
+     "stimmen": 3704
+    },
+    {
+     "name": "Gürtner Christoph",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 3615
+    },
+    {
+     "name": "Dallinger Otmar",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 3433
+    },
+    {
+     "name": "Pflügler Angelika",
+     "liste": "GRÜNE",
+     "stimmen": 3103
+    },
+    {
+     "name": "Friedrich Ulrike",
+     "liste": "GRÜNE",
+     "stimmen": 2987
+    },
+    {
+     "name": "Wehkamp Susanne",
+     "liste": "CSU",
+     "stimmen": 2763
+    },
+    {
+     "name": "Wallner Bernhard",
+     "liste": "CSU",
+     "stimmen": 2744
+    },
+    {
+     "name": "Krauß Heike",
+     "liste": "CSU",
+     "stimmen": 2584
+    },
+    {
+     "name": "Thaler Sebastian",
+     "liste": "MEGA",
+     "stimmen": 2537
+    },
+    {
+     "name": "Steiger-Steininger Claudia",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 2396
+    },
+    {
+     "name": "Wolff Manuel",
+     "liste": "CSU",
+     "stimmen": 2254
+    },
+    {
+     "name": "Stuckenberger Marco",
+     "liste": "CSU",
+     "stimmen": 2230
+    },
+    {
+     "name": "Stepan Benjamin",
+     "liste": "CSU",
+     "stimmen": 2225
+    },
+    {
+     "name": "Handschuh-Sidorow Christine",
+     "liste": "CSU",
+     "stimmen": 2117
+    },
+    {
+     "name": "Morgenroth Julian",
+     "liste": "SPD",
+     "stimmen": 1970
+    },
+    {
+     "name": "Gerber Florian",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 1915
+    },
+    {
+     "name": "Nagl Wolfgang",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 1771
+    },
+    {
+     "name": "Handschuh Jessica",
+     "liste": "FREIE WÄHLER - FW Eching",
+     "stimmen": 1661
+    },
+    {
+     "name": "Blank Vincent",
+     "liste": "SPD",
+     "stimmen": 1568
+    },
+    {
+     "name": "Wutz Manfred",
+     "liste": "BfE, EM, ÖDP",
+     "stimmen": 1527
+    },
+    {
+     "name": "Gelis Esma",
+     "liste": "SPD",
+     "stimmen": 1417
+    },
+    {
+     "name": "Rehbach Lena",
+     "liste": "MEGA",
+     "stimmen": 1405
+    },
+    {
+     "name": "Oberhuber Stefan",
+     "liste": "MEGA",
+     "stimmen": 1328
+    },
+    {
+     "name": "Dr. Hirschmann Irena",
+     "liste": "FDP",
+     "stimmen": 1063
+    }
+   ]
+  },
+  {
+   "ags": "09178122",
+   "name": "Rudelzhausen",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.osrz-akdb.de/ob-p/178122/2/20260308/gemeinderatswahl_gemeinde/index.html",
+   "ergebnis": [
+    {
+     "id": "FW",
+     "art": "partei",
+     "lang": "Freie Wähler Rudelzhausen",
+     "sitze": 5,
+     "stimmen": 618,
+     "anteil": 33.2,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e. V.",
+     "sitze": 5,
+     "stimmen": 590,
+     "anteil": 31.7,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "BL",
+     "art": "örtlich",
+     "lang": "BÜRGERLISTE Rudelzhausen",
+     "sitze": 3,
+     "stimmen": 352,
+     "anteil": 18.9,
+     "farbe": "#2d47bc",
+     "gruppe": "BL"
+    },
+    {
+     "id": "EB",
+     "art": "örtlich",
+     "lang": "Engagierte Bürger",
+     "sitze": 3,
+     "stimmen": 301,
+     "anteil": 16.2,
+     "farbe": "#7b2088",
+     "gruppe": "EB"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Linseisen Richard",
+     "liste": "FW",
+     "stimmen": 1468
+    },
+    {
+     "name": "Senger Simon",
+     "liste": "CSU",
+     "stimmen": 1341
+    },
+    {
+     "name": "Kreitmair Alfons",
+     "liste": "FW",
+     "stimmen": 1144
+    },
+    {
+     "name": "Roßmann Thomas",
+     "liste": "CSU",
+     "stimmen": 1129
+    },
+    {
+     "name": "Forster Robert",
+     "liste": "CSU",
+     "stimmen": 1078
+    },
+    {
+     "name": "Huber Florian",
+     "liste": "CSU",
+     "stimmen": 1065
+    },
+    {
+     "name": "Gallmeier Benedikt",
+     "liste": "FW",
+     "stimmen": 880
+    },
+    {
+     "name": "Caruso Rebekka",
+     "liste": "BL",
+     "stimmen": 880
+    },
+    {
+     "name": "Würtele Markus",
+     "liste": "CSU",
+     "stimmen": 851
+    },
+    {
+     "name": "Kottermair Lorenz",
+     "liste": "BL",
+     "stimmen": 831
+    },
+    {
+     "name": "Trojer Daniel",
+     "liste": "BL",
+     "stimmen": 802
+    },
+    {
+     "name": "Fichtner Anita",
+     "liste": "FW",
+     "stimmen": 801
+    },
+    {
+     "name": "Engl Carmen",
+     "liste": "FW",
+     "stimmen": 756
+    },
+    {
+     "name": "Kellner Andreas",
+     "liste": "EB",
+     "stimmen": 560
+    },
+    {
+     "name": "Traublinger Erwin",
+     "liste": "EB",
+     "stimmen": 485
+    },
+    {
+     "name": "Obermaier Christoph",
+     "liste": "EB",
+     "stimmen": 437
+    }
+   ]
+  },
+  {
+   "ags": "09178123",
+   "name": "Fahrenzhausen",
+   "sitze": 20,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.osrz-akdb.de/ob-p/178123/0/20260308/gemeinderatswahl_gemeinde/index.html",
+   "ergebnis": [
+    {
+     "id": "Freie Wähler / FWE",
+     "art": "örtlich",
+     "lang": "Freie Wähler Bayern / Freie Wählergruppe Einigkeit",
+     "sitze": 6,
+     "stimmen": 734,
+     "anteil": 32.1,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 6,
+     "stimmen": 649,
+     "anteil": 28.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FBL",
+     "art": "örtlich",
+     "lang": "Freie Bürgerliste Fahrenzhausen",
+     "sitze": 4,
+     "stimmen": 400,
+     "anteil": 17.5,
+     "farbe": "#2d47bc",
+     "gruppe": "FBL"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "Bündnis 90 / Die Grünen",
+     "sitze": 3,
+     "stimmen": 363,
+     "anteil": 15.9,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "FDP",
+     "art": "partei",
+     "lang": "Freie Demokratische Partei",
+     "sitze": 1,
+     "stimmen": 142,
+     "anteil": 6.2,
+     "farbe": "#e5c800",
+     "gruppe": "FDP"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Karl Andreas",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 1981
+    },
+    {
+     "name": "Hermann Christian",
+     "liste": "CSU",
+     "stimmen": 1644
+    },
+    {
+     "name": "Mößmer Christian",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 1573
+    },
+    {
+     "name": "Karl Alexandra",
+     "liste": "GRÜNE",
+     "stimmen": 1439
+    },
+    {
+     "name": "Guttner Annemarie",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 1314
+    },
+    {
+     "name": "Wildgruber-Bolesczuk Astrid",
+     "liste": "CSU",
+     "stimmen": 1255
+    },
+    {
+     "name": "Betz Bernhard",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 1237
+    },
+    {
+     "name": "Stadlbauer Birgitta",
+     "liste": "GRÜNE",
+     "stimmen": 1185
+    },
+    {
+     "name": "Berger Martin",
+     "liste": "FBL",
+     "stimmen": 1178
+    },
+    {
+     "name": "Diemer Sandra",
+     "liste": "CSU",
+     "stimmen": 1156
+    },
+    {
+     "name": "Kern Robert",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 1024
+    },
+    {
+     "name": "Rusp Thomas",
+     "liste": "Freie Wähler / FWE",
+     "stimmen": 948
+    },
+    {
+     "name": "Stadlbauer Heinrich",
+     "liste": "FBL",
+     "stimmen": 944
+    },
+    {
+     "name": "Angermaier Martin",
+     "liste": "CSU",
+     "stimmen": 922
+    },
+    {
+     "name": "Resch Martin",
+     "liste": "FBL",
+     "stimmen": 900
+    },
+    {
+     "name": "Stocker Eva",
+     "liste": "FBL",
+     "stimmen": 891
+    },
+    {
+     "name": "Vöst Sebastian",
+     "liste": "GRÜNE",
+     "stimmen": 807
+    },
+    {
+     "name": "Scholz Ren&eacute;",
+     "liste": "CSU",
+     "stimmen": 627
+    },
+    {
+     "name": "Harms Thorsten",
+     "liste": "FDP",
+     "stimmen": 608
+    },
+    {
+     "name": "Schönberger-Wetzel Fabian",
+     "liste": "CSU",
+     "stimmen": 556
+    }
+   ]
+  },
+  {
+   "ags": "09178124",
+   "name": "Freising",
+   "sitze": 40,
+   "genauigkeit": "listen",
+   "quelle": "https://wahl.freising.de/Stadtrat_2026/",
+   "ergebnis": [
+    {
+     "id": "FSM",
+     "art": "örtlich",
+     "lang": "Freisinger Mitte e.V.",
+     "sitze": 9,
+     "stimmen": 4816,
+     "anteil": 23.5,
+     "farbe": "#2d47bc",
+     "gruppe": "FSM"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90 / DIE GRÜNEN",
+     "sitze": 9,
+     "stimmen": 4775,
+     "anteil": 23.3,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich Soziale Union",
+     "sitze": 6,
+     "stimmen": 3033,
+     "anteil": 14.8,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FREIE WÄHLER – FW Freising",
+     "art": "örtlich",
+     "lang": "FREIE WÄHLER Bayern – FREIE WÄHLER Freising e.V.",
+     "sitze": 4,
+     "stimmen": 2008,
+     "anteil": 9.8,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 3,
+     "stimmen": 1578,
+     "anteil": 7.7,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 2,
+     "stimmen": 1271,
+     "anteil": 6.2,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    },
+    {
+     "id": "LINKE",
+     "art": "partei",
+     "lang": null,
+     "sitze": 2,
+     "stimmen": 963,
+     "anteil": 4.7,
+     "farbe": "#be3075",
+     "gruppe": "LINKE"
+    },
+    {
+     "id": "ÖDP",
+     "art": "partei",
+     "lang": "Ökologisch-Demokratische Partei",
+     "sitze": 2,
+     "stimmen": 881,
+     "anteil": 4.3,
+     "farbe": "#a85a12",
+     "gruppe": "ÖDP"
+    },
+    {
+     "id": "Freising für alle",
+     "art": "örtlich",
+     "lang": null,
+     "sitze": 2,
+     "stimmen": 758,
+     "anteil": 3.7,
+     "farbe": "#7b2088",
+     "gruppe": "Freising für alle"
+    },
+    {
+     "id": "FDP",
+     "art": "partei",
+     "lang": "Freie Demokratische Partei",
+     "sitze": 1,
+     "stimmen": 430,
+     "anteil": 2.1,
+     "farbe": "#e5c800",
+     "gruppe": "FDP"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Schwind Monika",
+     "liste": "FSM",
+     "stimmen": 11826
+    },
+    {
+     "name": "Bönig Eva",
+     "liste": "GRÜNE",
+     "stimmen": 10970
+    },
+    {
+     "name": "Heitz Nico",
+     "liste": "GRÜNE",
+     "stimmen": 9618
+    },
+    {
+     "name": "Fosso Samuel",
+     "liste": "FSM",
+     "stimmen": 8593
+    },
+    {
+     "name": "Günther Susanne",
+     "liste": "GRÜNE",
+     "stimmen": 7711
+    },
+    {
+     "name": "Riesch Monika",
+     "liste": "FSM",
+     "stimmen": 7090
+    },
+    {
+     "name": "Bayraktar Joana",
+     "liste": "GRÜNE",
+     "stimmen": 6918
+    },
+    {
+     "name": "Fiedler Reinhard",
+     "liste": "FSM",
+     "stimmen": 6864
+    },
+    {
+     "name": "Pellmeyer Thomas",
+     "liste": "FSM",
+     "stimmen": 6692
+    },
+    {
+     "name": "Frankl Anton",
+     "liste": "FSM",
+     "stimmen": 6491
+    },
+    {
+     "name": "Böhme Philomena",
+     "liste": "FSM",
+     "stimmen": 6431
+    },
+    {
+     "name": "Zierer Benno",
+     "liste": "FREIE WÄHLER – FW Freising",
+     "stimmen": 6271
+    },
+    {
+     "name": "Dr. med. Schilling von Canstatt Christoph",
+     "liste": "FSM",
+     "stimmen": 6169
+    },
+    {
+     "name": "Warlimont Peter",
+     "liste": "SPD",
+     "stimmen": 5982
+    },
+    {
+     "name": "Dr. Ing. habil. Reitsam Charlotte",
+     "liste": "GRÜNE",
+     "stimmen": 5775
+    },
+    {
+     "name": "Drobny Manfred",
+     "liste": "GRÜNE",
+     "stimmen": 5697
+    },
+    {
+     "name": "Schwaiger Rudolf",
+     "liste": "CSU",
+     "stimmen": 5680
+    },
+    {
+     "name": "Habermeyer Sebastian",
+     "liste": "GRÜNE",
+     "stimmen": 5655
+    },
+    {
+     "name": "Habermeyer Werner",
+     "liste": "GRÜNE",
+     "stimmen": 5479
+    },
+    {
+     "name": "Lintl Maria",
+     "liste": "FSM",
+     "stimmen": 5478
+    },
+    {
+     "name": "Knott Lucy",
+     "liste": "GRÜNE",
+     "stimmen": 5245
+    },
+    {
+     "name": "Schindlmayr Simon",
+     "liste": "CSU",
+     "stimmen": 5141
+    },
+    {
+     "name": "Weller Robert",
+     "liste": "FREIE WÄHLER – FW Freising",
+     "stimmen": 4964
+    },
+    {
+     "name": "Mieskes Jürgen",
+     "liste": "CSU",
+     "stimmen": 4584
+    },
+    {
+     "name": "Kaiser Ingrid",
+     "liste": "CSU",
+     "stimmen": 4526
+    },
+    {
+     "name": "Hubensteiner Daniel",
+     "liste": "FREIE WÄHLER – FW Freising",
+     "stimmen": 4333
+    },
+    {
+     "name": "Paukner Richard",
+     "liste": "AfD",
+     "stimmen": 4293
+    },
+    {
+     "name": "Holzner Ulrich",
+     "liste": "AfD",
+     "stimmen": 4196
+    },
+    {
+     "name": "Dr. Adldinger Carolin",
+     "liste": "CSU",
+     "stimmen": 4129
+    },
+    {
+     "name": "Dr. Mehltretter Andreas",
+     "liste": "SPD",
+     "stimmen": 3938
+    },
+    {
+     "name": "Hiergeist Johanna",
+     "liste": "FREIE WÄHLER – FW Freising",
+     "stimmen": 3846
+    },
+    {
+     "name": "Hauner Martin",
+     "liste": "CSU",
+     "stimmen": 3597
+    },
+    {
+     "name": "Cellura Antonia",
+     "liste": "LINKE",
+     "stimmen": 3462
+    },
+    {
+     "name": "Freitag Rosalie",
+     "liste": "LINKE",
+     "stimmen": 3404
+    },
+    {
+     "name": "Dr. Vogl Ulrich",
+     "liste": "ÖDP",
+     "stimmen": 3308
+    },
+    {
+     "name": "Graßy Nicolas-Pano",
+     "liste": "Freising für alle",
+     "stimmen": 3213
+    },
+    {
+     "name": "Degelmann Teresa",
+     "liste": "SPD",
+     "stimmen": 2914
+    },
+    {
+     "name": "Dr. Barschdorf Jens",
+     "liste": "FDP",
+     "stimmen": 1999
+    },
+    {
+     "name": "Rüdel Daniel",
+     "liste": "ÖDP",
+     "stimmen": 1961
+    },
+    {
+     "name": "Dr. Hoyer Guido",
+     "liste": "Freising für alle",
+     "stimmen": 1960
+    }
+   ]
+  },
+  {
+   "ags": "09178125",
+   "name": "Gammelsdorf",
+   "sitze": 12,
+   "genauigkeit": "listen",
+   "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178125.html",
+   "ergebnis": [
+    {
+     "id": "ÜWG",
+     "art": "örtlich",
+     "lang": "Überparteiliche Wählergruppe Gammelsdorf",
+     "sitze": 6,
+     "stimmen": 465,
+     "anteil": 53,
+     "farbe": "#8861bc",
+     "gruppe": "ÜWG"
+    },
+    {
+     "id": "MfG",
+     "art": "örtlich",
+     "lang": "Miteinander für Gammelsdorf",
+     "sitze": 4,
+     "stimmen": 254,
+     "anteil": 29,
+     "farbe": "#2d47bc",
+     "gruppe": "MfG"
+    },
+    {
+     "id": "BGG",
+     "art": "örtlich",
+     "lang": "Bürgernahe Gruppe Gammelsdorf",
+     "sitze": 2,
+     "stimmen": 131,
+     "anteil": 14.9,
+     "farbe": "#7b2088",
+     "gruppe": "BGG"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Lochinger Bernhard",
+     "liste": "MfG",
+     "stimmen": 799
+    },
+    {
+     "name": "Riedl Markus",
+     "liste": "ÜWG",
+     "stimmen": 781
+    },
+    {
+     "name": "Ritch Maria",
+     "liste": "MfG",
+     "stimmen": 643
+    },
+    {
+     "name": "Menzel Raimunda",
+     "liste": "ÜWG",
+     "stimmen": 629
+    },
+    {
+     "name": "Weinzierl Konrad",
+     "liste": "ÜWG",
+     "stimmen": 557
+    },
+    {
+     "name": "Zeilhofer Sandra",
+     "liste": "MfG",
+     "stimmen": 494
+    },
+    {
+     "name": "Penner Uwe",
+     "liste": "BGG",
+     "stimmen": 493
+    },
+    {
+     "name": "Schranner Christoph",
+     "liste": "ÜWG",
+     "stimmen": 489
+    },
+    {
+     "name": "Fink Paula",
+     "liste": "ÜWG",
+     "stimmen": 475
+    },
+    {
+     "name": "Kiermeier Jakob",
+     "liste": "ÜWG",
+     "stimmen": 422
+    },
+    {
+     "name": "Lang Bernhard",
+     "liste": "MfG",
+     "stimmen": 405
+    },
+    {
+     "name": "Bucher Wolfgang",
+     "liste": "BGG",
+     "stimmen": 380
+    }
+   ]
+  },
+  {
+   "ags": "09178129",
+   "name": "Haag a.d.Amper",
+   "sitze": 14,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178129.html",
+   "ergebnis": [
+    {
+     "id": "UB",
+     "art": "örtlich",
+     "lang": "Unabhängige Bürger",
+     "sitze": 9,
+     "stimmen": 990,
+     "anteil": 63.6,
+     "farbe": "#2d47bc",
+     "gruppe": "UB"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 5,
+     "stimmen": 566,
+     "anteil": 36.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Maier Elisabeth",
+     "liste": "UB",
+     "stimmen": 1273
+    },
+    {
+     "name": "Huber Franz",
+     "liste": "UB",
+     "stimmen": 1228
+    },
+    {
+     "name": "Aigner Anja",
+     "liste": "UB",
+     "stimmen": 1190
+    },
+    {
+     "name": "Flexeder Benedikt",
+     "liste": "CSU",
+     "stimmen": 1117
+    },
+    {
+     "name": "Reiter Klaus",
+     "liste": "UB",
+     "stimmen": 1071
+    },
+    {
+     "name": "Dr. Michel Petra",
+     "liste": "UB",
+     "stimmen": 959
+    },
+    {
+     "name": "Böttner Stefan",
+     "liste": "UB",
+     "stimmen": 870
+    },
+    {
+     "name": "Fischer Jonas",
+     "liste": "UB",
+     "stimmen": 838
+    },
+    {
+     "name": "Goldes Sebastian",
+     "liste": "CSU",
+     "stimmen": 776
+    },
+    {
+     "name": "Stockmeier Sylvia",
+     "liste": "UB",
+     "stimmen": 775
+    },
+    {
+     "name": "Kroboth Veronika",
+     "liste": "UB",
+     "stimmen": 741
+    },
+    {
+     "name": "Schwaiger Robert",
+     "liste": "CSU",
+     "stimmen": 719
+    },
+    {
+     "name": "Engel Christian",
+     "liste": "CSU",
+     "stimmen": 667
+    },
+    {
+     "name": "Gmach Stephan",
+     "liste": "CSU",
+     "stimmen": 627
+    }
+   ]
+  },
+  {
+   "ags": "09178130",
+   "name": "Hallbergmoos",
+   "sitze": 24,
+   "genauigkeit": "listen",
+   "quelle": "https://www.hallbergmoos.de/wahlen/Kommunal2026/",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 7,
+     "stimmen": 1327,
+     "anteil": 30.6,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FW",
+     "art": "partei",
+     "lang": "Freie Wähler Hallbergmoos-Goldach e.V.",
+     "sitze": 7,
+     "stimmen": 1279,
+     "anteil": 29.5,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "Einigkeit",
+     "art": "örtlich",
+     "lang": "Einigkeit Hallbergmoos - Goldach e.V.",
+     "sitze": 4,
+     "stimmen": 785,
+     "anteil": 18.1,
+     "farbe": "#2d47bc",
+     "gruppe": "Einigkeit"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90 / DIE GRÜNEN",
+     "sitze": 3,
+     "stimmen": 473,
+     "anteil": 10.9,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 3,
+     "stimmen": 468,
+     "anteil": 10.8,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Fischer Josef",
+     "liste": "FW",
+     "stimmen": 3141
+    },
+    {
+     "name": "Edfelder Silvia",
+     "liste": "CSU",
+     "stimmen": 2548
+    },
+    {
+     "name": "Henning Thomas",
+     "liste": "FW",
+     "stimmen": 2349
+    },
+    {
+     "name": "Lackermeier Robert",
+     "liste": "CSU",
+     "stimmen": 2312
+    },
+    {
+     "name": "Schirsch Christian",
+     "liste": "CSU",
+     "stimmen": 2177
+    },
+    {
+     "name": "Edfelder Damian",
+     "liste": "CSU",
+     "stimmen": 1992
+    },
+    {
+     "name": "Hartshauser Hermann",
+     "liste": "Einigkeit",
+     "stimmen": 1951
+    },
+    {
+     "name": "Knieler Tanja",
+     "liste": "CSU",
+     "stimmen": 1829
+    },
+    {
+     "name": "Brosch Sabine",
+     "liste": "GRÜNE",
+     "stimmen": 1828
+    },
+    {
+     "name": "Straub Christian",
+     "liste": "FW",
+     "stimmen": 1799
+    },
+    {
+     "name": "Krätschmer Christian",
+     "liste": "CSU",
+     "stimmen": 1779
+    },
+    {
+     "name": "Kronner Stefan",
+     "liste": "SPD",
+     "stimmen": 1777
+    },
+    {
+     "name": "Loibl Markus",
+     "liste": "Einigkeit",
+     "stimmen": 1757
+    },
+    {
+     "name": "Streitberger Markus",
+     "liste": "FW",
+     "stimmen": 1701
+    },
+    {
+     "name": "Dr. Mey Marcus",
+     "liste": "CSU",
+     "stimmen": 1687
+    },
+    {
+     "name": "Oldenburg-Balden Christiane",
+     "liste": "SPD",
+     "stimmen": 1621
+    },
+    {
+     "name": "Wäger Robert",
+     "liste": "GRÜNE",
+     "stimmen": 1525
+    },
+    {
+     "name": "Ziegltrum Eva",
+     "liste": "FW",
+     "stimmen": 1470
+    },
+    {
+     "name": "Reitmeyer Michaela",
+     "liste": "FW",
+     "stimmen": 1462
+    },
+    {
+     "name": "Rothmeyer Florian",
+     "liste": "GRÜNE",
+     "stimmen": 1376
+    },
+    {
+     "name": "Lamprecht Rudolf",
+     "liste": "Einigkeit",
+     "stimmen": 1300
+    },
+    {
+     "name": "Weiß Franz",
+     "liste": "FW",
+     "stimmen": 1294
+    },
+    {
+     "name": "Oppermann-Schmid Sieglinde",
+     "liste": "Einigkeit",
+     "stimmen": 1112
+    },
+    {
+     "name": "Tenbrink Julia",
+     "liste": "SPD",
+     "stimmen": 589
+    }
+   ]
+  },
+  {
+   "ags": "09178132",
+   "name": "Hörgertshausen",
+   "sitze": 12,
+   "genauigkeit": "listen",
+   "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178132.html",
+   "ergebnis": [
+    {
+     "id": "WH",
+     "art": "örtlich",
+     "lang": "Wählergemeinschaft Hörgertshausen",
+     "sitze": 12,
+     "stimmen": 1053,
+     "anteil": 99.8,
+     "farbe": "#2d47bc",
+     "gruppe": "WH"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Steiger Josef",
+     "liste": "WH",
+     "stimmen": 1029
+    },
+    {
+     "name": "Wild Gregor",
+     "liste": "WH",
+     "stimmen": 981
+    },
+    {
+     "name": "Decker Stefan",
+     "liste": "WH",
+     "stimmen": 940
+    },
+    {
+     "name": "Glück Konrad",
+     "liste": "WH",
+     "stimmen": 859
+    },
+    {
+     "name": "Mirlach Stephan",
+     "liste": "WH",
+     "stimmen": 810
+    },
+    {
+     "name": "Kellerer Johannes",
+     "liste": "WH",
+     "stimmen": 766
+    },
+    {
+     "name": "Hobmaier Tanja",
+     "liste": "WH",
+     "stimmen": 739
+    },
+    {
+     "name": "Fischer Christian",
+     "liste": "WH",
+     "stimmen": 699
+    },
+    {
+     "name": "Hobmaier Thomas",
+     "liste": "WH",
+     "stimmen": 682
+    },
+    {
+     "name": "Hobmaier Michael",
+     "liste": "WH",
+     "stimmen": 637
+    },
+    {
+     "name": "Setzensack Michael",
+     "liste": "WH",
+     "stimmen": 531
+    },
+    {
+     "name": "Sergl Georg",
+     "liste": "WH",
+     "stimmen": 428
+    }
+   ]
+  },
+  {
+   "ags": "09178133",
+   "name": "Hohenkammer",
+   "sitze": 14,
+   "genauigkeit": "listen",
+   "quelle": "https://www.hohenkammer.de/Wahlen/GR-2026/ergebnisse_gemeinde_09178133.html",
+   "ergebnis": [
+    {
+     "id": "BvHo",
+     "art": "örtlich",
+     "lang": "Bürgervereinigung Hohenkammer",
+     "sitze": 6,
+     "stimmen": 530,
+     "anteil": 40.8,
+     "farbe": "#2d47bc",
+     "gruppe": "BvHo"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich Soziale Union",
+     "sitze": 5,
+     "stimmen": 508,
+     "anteil": 39.1,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FDP",
+     "art": "partei",
+     "lang": "Freie Demokratische Partei",
+     "sitze": 2,
+     "stimmen": 142,
+     "anteil": 10.9,
+     "farbe": "#e5c800",
+     "gruppe": "FDP"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozial Demokratische Partei",
+     "sitze": 1,
+     "stimmen": 118,
+     "anteil": 9.1,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Loy Michael",
+     "liste": "BvHo",
+     "stimmen": 962
+    },
+    {
+     "name": "Stampfl Alexander",
+     "liste": "CSU",
+     "stimmen": 923
+    },
+    {
+     "name": "Hummel Alois",
+     "liste": "BvHo",
+     "stimmen": 914
+    },
+    {
+     "name": "Berti Mario",
+     "liste": "CSU",
+     "stimmen": 909
+    },
+    {
+     "name": "Hammerl Markus",
+     "liste": "BvHo",
+     "stimmen": 814
+    },
+    {
+     "name": "Königer Bernhard",
+     "liste": "CSU",
+     "stimmen": 807
+    },
+    {
+     "name": "Sailer Sebastian",
+     "liste": "CSU",
+     "stimmen": 761
+    },
+    {
+     "name": "Brandstetter Marina",
+     "liste": "BvHo",
+     "stimmen": 694
+    },
+    {
+     "name": "Hagenrainer Anna",
+     "liste": "BvHo",
+     "stimmen": 665
+    },
+    {
+     "name": "Wagatha Gertraud",
+     "liste": "BvHo",
+     "stimmen": 654
+    },
+    {
+     "name": "Ingold Brigitte",
+     "liste": "CSU",
+     "stimmen": 651
+    },
+    {
+     "name": "Reichenwallner Thomas",
+     "liste": "SPD",
+     "stimmen": 565
+    },
+    {
+     "name": "Luginger Friedrich",
+     "liste": "FDP",
+     "stimmen": 450
+    },
+    {
+     "name": "Kistler Robert",
+     "liste": "FDP",
+     "stimmen": 414
+    }
+   ]
+  },
+  {
+   "ags": "09178136",
+   "name": "Kirchdorf a.d.Amper",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.osrz-akdb.de/ob-p/178136/2/20260308/gemeinderatswahl_gemeinde/index.html",
+   "ergebnis": [
+    {
+     "id": "CSU/FW",
+     "art": "verbindung",
+     "lang": "Christlich-Soziale Union in Bayern e. V. / Freie Wähler Kirchdorf (CSU/FW)",
+     "sitze": 9,
+     "stimmen": 946,
+     "anteil": 54.2,
+     "farbe": "#6b6759",
+     "gruppe": "GEMEINSAM"
+    },
+    {
+     "id": "FWG Kirchdorf",
+     "art": "örtlich",
+     "lang": "Freie Wählergemeinschaft Kirchdorf",
+     "sitze": 5,
+     "stimmen": 560,
+     "anteil": 32.1,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN",
+     "sitze": 2,
+     "stimmen": 239,
+     "anteil": 13.7,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Steininger Thomas",
+     "liste": "CSU/FW",
+     "stimmen": 1872
+    },
+    {
+     "name": "Wildgruber Helmut",
+     "liste": "FWG Kirchdorf",
+     "stimmen": 1594
+    },
+    {
+     "name": "Gerlsbeck Uwe",
+     "liste": "CSU/FW",
+     "stimmen": 1426
+    },
+    {
+     "name": "Springer Stefan",
+     "liste": "FWG Kirchdorf",
+     "stimmen": 1374
+    },
+    {
+     "name": "Kaindl Johannes",
+     "liste": "CSU/FW",
+     "stimmen": 1298
+    },
+    {
+     "name": "Nußstein Martin",
+     "liste": "FWG Kirchdorf",
+     "stimmen": 1156
+    },
+    {
+     "name": "Elzenbeck Regina",
+     "liste": "CSU/FW",
+     "stimmen": 1089
+    },
+    {
+     "name": "Ismaier Markus",
+     "liste": "FWG Kirchdorf",
+     "stimmen": 1044
+    },
+    {
+     "name": "Knecht Michael",
+     "liste": "FWG Kirchdorf",
+     "stimmen": 988
+    },
+    {
+     "name": "Trost Rudolf",
+     "liste": "CSU/FW",
+     "stimmen": 958
+    },
+    {
+     "name": "Wastl Florian",
+     "liste": "CSU/FW",
+     "stimmen": 887
+    },
+    {
+     "name": "Richter Elisabeth",
+     "liste": "CSU/FW",
+     "stimmen": 845
+    },
+    {
+     "name": "Fischer Stephan",
+     "liste": "CSU/FW",
+     "stimmen": 827
+    },
+    {
+     "name": "Ackstaller Susanne",
+     "liste": "GRÜNE",
+     "stimmen": 782
+    },
+    {
+     "name": "Pelczer Simon",
+     "liste": "CSU/FW",
+     "stimmen": 732
+    },
+    {
+     "name": "Helm Sabine",
+     "liste": "GRÜNE",
+     "stimmen": 703
+    }
+   ]
+  },
+  {
+   "ags": "09178137",
+   "name": "Kranzberg",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.kranzberg.de/2026_GR/",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale-Union",
+     "sitze": 4,
+     "stimmen": 633,
+     "anteil": 27.8,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "FREIE WÄHLER - FWG Kranzberg",
+     "art": "örtlich",
+     "lang": "FREIE WÄHLER Bayern - Freie Wählergemeinschaft Kranzberg",
+     "sitze": 4,
+     "stimmen": 587,
+     "anteil": 25.8,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "KGL",
+     "art": "örtlich",
+     "lang": "Kranzberger Gemeindeliste",
+     "sitze": 3,
+     "stimmen": 476,
+     "anteil": 20.9,
+     "farbe": "#2d47bc",
+     "gruppe": "KGL"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "Bündnis 90 / Die Grünen",
+     "sitze": 3,
+     "stimmen": 369,
+     "anteil": 16.2,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 2,
+     "stimmen": 214,
+     "anteil": 9.4,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Jositz Florian",
+     "liste": "CSU",
+     "stimmen": 1063
+    },
+    {
+     "name": "Hierhager Anton",
+     "liste": "SPD",
+     "stimmen": 1033
+    },
+    {
+     "name": "Kieslinger Sonja",
+     "liste": "FREIE WÄHLER - FWG Kranzberg",
+     "stimmen": 1012
+    },
+    {
+     "name": "Braun Franz",
+     "liste": "CSU",
+     "stimmen": 1004
+    },
+    {
+     "name": "Vierthaler Florian",
+     "liste": "KGL",
+     "stimmen": 1003
+    },
+    {
+     "name": "Mülling Josef jun.",
+     "liste": "FREIE WÄHLER - FWG Kranzberg",
+     "stimmen": 982
+    },
+    {
+     "name": "Enghofer Ursula",
+     "liste": "FREIE WÄHLER - FWG Kranzberg",
+     "stimmen": 977
+    },
+    {
+     "name": "Siebler Michael",
+     "liste": "CSU",
+     "stimmen": 937
+    },
+    {
+     "name": "Haslbeck Roland",
+     "liste": "CSU",
+     "stimmen": 915
+    },
+    {
+     "name": "Wildgruber Rudolf",
+     "liste": "KGL",
+     "stimmen": 818
+    },
+    {
+     "name": "Dr. Hammerl Georg",
+     "liste": "FREIE WÄHLER - FWG Kranzberg",
+     "stimmen": 810
+    },
+    {
+     "name": "Neumair Konrad",
+     "liste": "KGL",
+     "stimmen": 739
+    },
+    {
+     "name": "Turek Ellen",
+     "liste": "GRÜNE",
+     "stimmen": 729
+    },
+    {
+     "name": "Kirchfeld Johann",
+     "liste": "GRÜNE",
+     "stimmen": 603
+    },
+    {
+     "name": "Nieder Christine",
+     "liste": "GRÜNE",
+     "stimmen": 546
+    },
+    {
+     "name": "Silingas Sandra",
+     "liste": "SPD",
+     "stimmen": 360
+    }
+   ]
+  },
+  {
+   "ags": "09178138",
+   "name": "Langenbach",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://www.gemeinde-langenbach.de/site/assets/uploads/gemeinderatswahl/ergebnisse.html",
+   "ergebnis": [
+    {
+     "id": "FW",
+     "art": "partei",
+     "lang": "FREIE WÄHLER",
+     "sitze": 4,
+     "stimmen": 448,
+     "anteil": 21.4,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "FWO",
+     "art": "örtlich",
+     "lang": "Freie Wählergemeinschaft Oberhummel",
+     "sitze": 3,
+     "stimmen": 431,
+     "anteil": 20.6,
+     "farbe": "#7d4a12",
+     "gruppe": "FW"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e. V.",
+     "sitze": 2,
+     "stimmen": 274,
+     "anteil": 13.1,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "UWL",
+     "art": "örtlich",
+     "lang": "Unabhängige Wähler Langenbach",
+     "sitze": 2,
+     "stimmen": 270,
+     "anteil": 12.9,
+     "farbe": "#2d47bc",
+     "gruppe": "UWL"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 2,
+     "stimmen": 260,
+     "anteil": 12.4,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN",
+     "sitze": 2,
+     "stimmen": 241,
+     "anteil": 11.5,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "MiLa",
+     "art": "örtlich",
+     "lang": "Miteinander.Langenbach",
+     "sitze": 1,
+     "stimmen": 170,
+     "anteil": 8.1,
+     "farbe": "#b4afa1",
+     "gruppe": "WÄHLERGRUPPEN"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Böck Florian",
+     "liste": "FW",
+     "stimmen": 1388
+    },
+    {
+     "name": "Jenuwein Sandra",
+     "liste": "CSU",
+     "stimmen": 1149
+    },
+    {
+     "name": "Huber Christian",
+     "liste": "SPD",
+     "stimmen": 1120
+    },
+    {
+     "name": "Dr. Götz Rudolf",
+     "liste": "FWO",
+     "stimmen": 1085
+    },
+    {
+     "name": "Juranowitsch Verena",
+     "liste": "GRÜNE",
+     "stimmen": 971
+    },
+    {
+     "name": "Moses Maik",
+     "liste": "MiLa",
+     "stimmen": 948
+    },
+    {
+     "name": "Wildgruber Susanne",
+     "liste": "FWO",
+     "stimmen": 938
+    },
+    {
+     "name": "Apold Andreas",
+     "liste": "FW",
+     "stimmen": 895
+    },
+    {
+     "name": "Würfl Ingrid",
+     "liste": "FW",
+     "stimmen": 830
+    },
+    {
+     "name": "Karl Armin",
+     "liste": "CSU",
+     "stimmen": 766
+    },
+    {
+     "name": "Zitzelsberger Sebastian",
+     "liste": "FW",
+     "stimmen": 730
+    },
+    {
+     "name": "Würfl Franz",
+     "liste": "FWO",
+     "stimmen": 723
+    },
+    {
+     "name": "Welser Niklas",
+     "liste": "GRÜNE",
+     "stimmen": 673
+    },
+    {
+     "name": "Hehnen Johannes",
+     "liste": "SPD",
+     "stimmen": 669
+    },
+    {
+     "name": "Huber Martin",
+     "liste": "UWL",
+     "stimmen": 622
+    },
+    {
+     "name": "Huber Michael",
+     "liste": "UWL",
+     "stimmen": 529
+    }
+   ]
+  },
+  {
+   "ags": "09178140",
+   "name": "Marzling",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://www.marzling.de/wahlen/2026gr/ergebnisse.html",
+   "ergebnis": [
+    {
+     "id": "Marzlinger Liste",
+     "art": "örtlich",
+     "lang": null,
+     "sitze": 7,
+     "stimmen": 792,
+     "anteil": 44.3,
+     "farbe": "#7b2088",
+     "gruppe": "Marzlinger Liste"
+    },
+    {
+     "id": "PB",
+     "art": "örtlich",
+     "lang": "Parteifreie Bürger",
+     "sitze": 4,
+     "stimmen": 388,
+     "anteil": 21.7,
+     "farbe": "#2d47bc",
+     "gruppe": "PB"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "Bündnis 90/Die Grünen",
+     "sitze": 3,
+     "stimmen": 332,
+     "anteil": 18.6,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich Soziale Union in Bayern e.V.",
+     "sitze": 2,
+     "stimmen": 275,
+     "anteil": 15.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Apold Roswitha",
+     "liste": "PB",
+     "stimmen": 1723
+    },
+    {
+     "name": "Mäuer Christian",
+     "liste": "Marzlinger Liste",
+     "stimmen": 1586
+    },
+    {
+     "name": "Schwaiger Michael",
+     "liste": "Marzlinger Liste",
+     "stimmen": 1477
+    },
+    {
+     "name": "Sellmeir Thomas",
+     "liste": "Marzlinger Liste",
+     "stimmen": 1302
+    },
+    {
+     "name": "Rothermel Matthias",
+     "liste": "Marzlinger Liste",
+     "stimmen": 1117
+    },
+    {
+     "name": "Göls Karl",
+     "liste": "CSU",
+     "stimmen": 914
+    },
+    {
+     "name": "Petermeier Franziska",
+     "liste": "GRÜNE",
+     "stimmen": 880
+    },
+    {
+     "name": "Henninger Thomas",
+     "liste": "Marzlinger Liste",
+     "stimmen": 849
+    },
+    {
+     "name": "Grandl Albert",
+     "liste": "CSU",
+     "stimmen": 812
+    },
+    {
+     "name": "Ball Peter",
+     "liste": "PB",
+     "stimmen": 807
+    },
+    {
+     "name": "Seidl Winfried",
+     "liste": "PB",
+     "stimmen": 805
+    },
+    {
+     "name": "Mäuer Felix",
+     "liste": "Marzlinger Liste",
+     "stimmen": 731
+    },
+    {
+     "name": "Petermeier Johannes",
+     "liste": "GRÜNE",
+     "stimmen": 696
+    },
+    {
+     "name": "Retzer Barbara",
+     "liste": "GRÜNE",
+     "stimmen": 680
+    },
+    {
+     "name": "Sauerer Sebastian",
+     "liste": "Marzlinger Liste",
+     "stimmen": 663
+    },
+    {
+     "name": "Aiglstorfer Nicole",
+     "liste": "PB",
+     "stimmen": 619
+    }
+   ]
+  },
+  {
+   "ags": "09178142",
+   "name": "Mauern",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178142.html",
+   "ergebnis": [
+    {
+     "id": "FREIE WÄHLER/FWG Mauern",
+     "art": "örtlich",
+     "lang": "FREIE WÄHLER Bayern/Freie Wählergemeinschaft Mauern e.V.",
+     "sitze": 6,
+     "stimmen": 645,
+     "anteil": 37.2,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale-Union in Bayern e.V.",
+     "sitze": 6,
+     "stimmen": 629,
+     "anteil": 36.3,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 2,
+     "stimmen": 180,
+     "anteil": 10.4,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": null,
+     "sitze": 1,
+     "stimmen": 147,
+     "anteil": 8.5,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 1,
+     "stimmen": 132,
+     "anteil": 7.6,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Krojer Georg",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 1400
+    },
+    {
+     "name": "Scharlach Maria",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 1394
+    },
+    {
+     "name": "Vogl Johanna",
+     "liste": "CSU",
+     "stimmen": 1062
+    },
+    {
+     "name": "Deliano Josef",
+     "liste": "CSU",
+     "stimmen": 1053
+    },
+    {
+     "name": "Igl Johann",
+     "liste": "CSU",
+     "stimmen": 1026
+    },
+    {
+     "name": "Sixt Georg",
+     "liste": "CSU",
+     "stimmen": 1026
+    },
+    {
+     "name": "Filipp Harald",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 839
+    },
+    {
+     "name": "Probst Siegfried",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 823
+    },
+    {
+     "name": "Felsl Jakob",
+     "liste": "CSU",
+     "stimmen": 795
+    },
+    {
+     "name": "Mayer Thomas",
+     "liste": "CSU",
+     "stimmen": 772
+    },
+    {
+     "name": "Albuschat Michael",
+     "liste": "AfD",
+     "stimmen": 691
+    },
+    {
+     "name": "Schreiner Markus",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 640
+    },
+    {
+     "name": "Schreiner Evelyn",
+     "liste": "FREIE WÄHLER/FWG Mauern",
+     "stimmen": 608
+    },
+    {
+     "name": "Mühlbauer Regina",
+     "liste": "GRÜNE",
+     "stimmen": 573
+    },
+    {
+     "name": "Daniel Melanie",
+     "liste": "AfD",
+     "stimmen": 523
+    },
+    {
+     "name": "Bauer Michael",
+     "liste": "SPD",
+     "stimmen": 463
+    }
+   ]
+  },
+  {
+   "ags": "09178143",
+   "name": "Moosburg a.d.Isar",
+   "sitze": 24,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.osrz-akdb.de/ob-p/178143/2/20260308/gemeinderatswahl_gemeinde/index.html",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 8,
+     "stimmen": 2840,
+     "anteil": 32.9,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN",
+     "sitze": 5,
+     "stimmen": 1709,
+     "anteil": 19.8,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "FREIE WÄHLER, FW Moosburg",
+     "art": "örtlich",
+     "lang": "FREIE WÄHLER Bayern, Der Freie Wähler Moosburg e.V.",
+     "sitze": 4,
+     "stimmen": 1554,
+     "anteil": 18,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "FRESH",
+     "art": "örtlich",
+     "lang": "FRESH - jung, bunt, aktiv e. V.",
+     "sitze": 2,
+     "stimmen": 881,
+     "anteil": 10.2,
+     "farbe": "#36c9c5",
+     "gruppe": "FRESH"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 2,
+     "stimmen": 777,
+     "anteil": 9,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "lang": "Sozialdemokratische Partei Deutschlands",
+     "sitze": 2,
+     "stimmen": 535,
+     "anteil": 6.2,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    },
+    {
+     "id": "LINKE",
+     "art": "partei",
+     "lang": null,
+     "sitze": 1,
+     "stimmen": 345,
+     "anteil": 4,
+     "farbe": "#be3075",
+     "gruppe": "LINKE"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Mader Maximilian",
+     "liste": "CSU",
+     "stimmen": 6657
+    },
+    {
+     "name": "Heinz Rudolf",
+     "liste": "CSU",
+     "stimmen": 5265
+    },
+    {
+     "name": "Hadersdorfer Georg",
+     "liste": "CSU",
+     "stimmen": 4923
+    },
+    {
+     "name": "Dr. Stanglmaier Michael",
+     "liste": "GRÜNE",
+     "stimmen": 4751
+    },
+    {
+     "name": "Lauterbach Reinhard",
+     "liste": "FREIE WÄHLER, FW Moosburg",
+     "stimmen": 4414
+    },
+    {
+     "name": "Dr. Reither Dominikus",
+     "liste": "CSU",
+     "stimmen": 3742
+    },
+    {
+     "name": "Tristl Manfred",
+     "liste": "CSU",
+     "stimmen": 3394
+    },
+    {
+     "name": "Beibl Verena",
+     "liste": "GRÜNE",
+     "stimmen": 3288
+    },
+    {
+     "name": "Schweiger Christian",
+     "liste": "CSU",
+     "stimmen": 3187
+    },
+    {
+     "name": "Linz Karin",
+     "liste": "CSU",
+     "stimmen": 3115
+    },
+    {
+     "name": "Meier Christian",
+     "liste": "FREIE WÄHLER, FW Moosburg",
+     "stimmen": 3091
+    },
+    {
+     "name": "Kehlringer Lorena",
+     "liste": "CSU",
+     "stimmen": 2906
+    },
+    {
+     "name": "Grundner Thomas",
+     "liste": "FREIE WÄHLER, FW Moosburg",
+     "stimmen": 2735
+    },
+    {
+     "name": "Sixt Josef",
+     "liste": "FREIE WÄHLER, FW Moosburg",
+     "stimmen": 2675
+    },
+    {
+     "name": "Welter Gerhard-Michael",
+     "liste": "AfD",
+     "stimmen": 2579
+    },
+    {
+     "name": "Rümelin Ramona",
+     "liste": "GRÜNE",
+     "stimmen": 2268
+    },
+    {
+     "name": "Dr. Daoud Ghadieh Moutasem",
+     "liste": "AfD",
+     "stimmen": 2222
+    },
+    {
+     "name": "Linz Kilian",
+     "liste": "GRÜNE",
+     "stimmen": 2199
+    },
+    {
+     "name": "Marcus Gunnar",
+     "liste": "SPD",
+     "stimmen": 2055
+    },
+    {
+     "name": "Marschoun Christoph",
+     "liste": "SPD",
+     "stimmen": 2006
+    },
+    {
+     "name": "Röck Matthias",
+     "liste": "GRÜNE",
+     "stimmen": 2005
+    },
+    {
+     "name": "Strobl Alexander",
+     "liste": "LINKE",
+     "stimmen": 1728
+    },
+    {
+     "name": "&Scaron;abanović Benjamin",
+     "liste": "FRESH",
+     "stimmen": 1719
+    },
+    {
+     "name": "Dick Johanna",
+     "liste": "FRESH",
+     "stimmen": 1520
+    }
+   ]
+  },
+  {
+   "ags": "09178144",
+   "name": "Nandlstadt",
+   "sitze": 20,
+   "genauigkeit": "listen",
+   "quelle": "https://markt-nandlstadt.de/wahlen2026/ergebnisse.html",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 7,
+     "stimmen": 957,
+     "anteil": 33.3,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "UWN",
+     "art": "örtlich",
+     "lang": "Unabhängige Wähler Nandlstadt",
+     "sitze": 6,
+     "stimmen": 845,
+     "anteil": 29.4,
+     "farbe": "#2d47bc",
+     "gruppe": "UWN"
+    },
+    {
+     "id": "BLN",
+     "art": "örtlich",
+     "lang": "Bürgerliste Nandlstadt",
+     "sitze": 3,
+     "stimmen": 428,
+     "anteil": 14.9,
+     "farbe": "#7b2088",
+     "gruppe": "BLN"
+    },
+    {
+     "id": "ZAM",
+     "art": "örtlich",
+     "lang": "Zukunft. Aktiv. Miteinander.",
+     "sitze": 2,
+     "stimmen": 276,
+     "anteil": 9.6,
+     "farbe": "#8861bc",
+     "gruppe": "ZAM"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 1,
+     "stimmen": 190,
+     "anteil": 6.6,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "lang": "BÜNDNIS 90/DIE GRÜNEN",
+     "sitze": 1,
+     "stimmen": 178,
+     "anteil": 6.2,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Thiermann-Mayrhofer Sibylle",
+     "liste": "CSU",
+     "stimmen": 2528
+    },
+    {
+     "name": "Betz Gerhard",
+     "liste": "UWN",
+     "stimmen": 2420
+    },
+    {
+     "name": "Klier Rainer",
+     "liste": "CSU",
+     "stimmen": 2175
+    },
+    {
+     "name": "Rauscher Maria",
+     "liste": "ZAM",
+     "stimmen": 2101
+    },
+    {
+     "name": "Mayer Franz",
+     "liste": "CSU",
+     "stimmen": 1721
+    },
+    {
+     "name": "Schranner Michael",
+     "liste": "BLN",
+     "stimmen": 1659
+    },
+    {
+     "name": "Sixt Susanne",
+     "liste": "UWN",
+     "stimmen": 1393
+    },
+    {
+     "name": "Kühner Sebastian",
+     "liste": "BLN",
+     "stimmen": 1316
+    },
+    {
+     "name": "Krojer Reinhard",
+     "liste": "UWN",
+     "stimmen": 1232
+    },
+    {
+     "name": "Buchberger Michael",
+     "liste": "UWN",
+     "stimmen": 1143
+    },
+    {
+     "name": "Kronthaler Jürgen",
+     "liste": "UWN",
+     "stimmen": 1139
+    },
+    {
+     "name": "Forster Martin",
+     "liste": "CSU",
+     "stimmen": 1066
+    },
+    {
+     "name": "Schillinger Regina",
+     "liste": "ZAM",
+     "stimmen": 1051
+    },
+    {
+     "name": "Unger Daniel",
+     "liste": "CSU",
+     "stimmen": 1021
+    },
+    {
+     "name": "Urbaneck Robert",
+     "liste": "UWN",
+     "stimmen": 974
+    },
+    {
+     "name": "Stanglmair Andreas",
+     "liste": "CSU",
+     "stimmen": 903
+    },
+    {
+     "name": "Nocker Patrick",
+     "liste": "BLN",
+     "stimmen": 876
+    },
+    {
+     "name": "Stöckeler Bernd",
+     "liste": "GRÜNE",
+     "stimmen": 861
+    },
+    {
+     "name": "Tafelmaier Doris",
+     "liste": "CSU",
+     "stimmen": 824
+    },
+    {
+     "name": "Kurzyk Christoph",
+     "liste": "AfD",
+     "stimmen": 801
+    }
+   ]
+  },
+  {
+   "ags": "09178145",
+   "name": "Neufahrn b.Freising",
+   "sitze": 30,
+   "genauigkeit": "sammel",
+   "quelle": "genesis",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "sitze": 8,
+     "stimmen": 2137,
+     "anteil": 27.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "sitze": 7,
+     "stimmen": 1656,
+     "anteil": 21.3,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    },
+    {
+     "id": "GEMEINSAM",
+     "art": "sammel",
+     "sitze": 5,
+     "stimmen": 1372,
+     "anteil": 17.6,
+     "farbe": "#6b6759",
+     "gruppe": "GEMEINSAM"
+    },
+    {
+     "id": "SPD",
+     "art": "partei",
+     "sitze": 3,
+     "stimmen": 795,
+     "anteil": 10.2,
+     "farbe": "#e31e2d",
+     "gruppe": "SPD"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "sitze": 3,
+     "stimmen": 705,
+     "anteil": 9,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    },
+    {
+     "id": "WÄHLERGRUPPEN",
+     "art": "sammel",
+     "sitze": 2,
+     "stimmen": 747,
+     "anteil": 9.6,
+     "farbe": "#b4afa1",
+     "gruppe": "WÄHLERGRUPPEN"
+    },
+    {
+     "id": "ÖDP",
+     "art": "partei",
+     "sitze": 2,
+     "stimmen": 379,
+     "anteil": 4.9,
+     "farbe": "#a85a12",
+     "gruppe": "ÖDP"
+    }
+   ],
+   "gewaehlte": []
+  },
+  {
+   "ags": "09178150",
+   "name": "Paunzhausen",
+   "sitze": 12,
+   "genauigkeit": "sammel",
+   "quelle": "genesis",
+   "ergebnis": [
+    {
+     "id": "FW",
+     "art": "partei",
+     "sitze": 5,
+     "stimmen": 346,
+     "anteil": 39.3,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "WÄHLERGRUPPEN",
+     "art": "sammel",
+     "sitze": 3,
+     "stimmen": 223,
+     "anteil": 25.3,
+     "farbe": "#b4afa1",
+     "gruppe": "WÄHLERGRUPPEN"
+    },
+    {
+     "id": "CSU",
+     "art": "partei",
+     "sitze": 2,
+     "stimmen": 181,
+     "anteil": 20.6,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "GRÜNE",
+     "art": "partei",
+     "sitze": 2,
+     "stimmen": 130,
+     "anteil": 14.8,
+     "farbe": "#3d8b37",
+     "gruppe": "GRÜNE"
+    }
+   ],
+   "gewaehlte": []
+  },
+  {
+   "ags": "09178155",
+   "name": "Wang",
+   "sitze": 14,
+   "genauigkeit": "listen",
+   "quelle": "https://vg-mauern.de/gemeinderatswahl-2026/ergebnisse_gemeinde_09178155.html",
+   "ergebnis": [
+    {
+     "id": "WWV",
+     "art": "örtlich",
+     "lang": "Wählergemeinschaft Wang/Volkmannsdorf",
+     "sitze": 6,
+     "stimmen": 562,
+     "anteil": 43.1,
+     "farbe": "#c97b95",
+     "gruppe": "WWV"
+    },
+    {
+     "id": "FWI",
+     "art": "örtlich",
+     "lang": "Freie Wählergemeinschaft Inzkofen",
+     "sitze": 4,
+     "stimmen": 410,
+     "anteil": 31.4,
+     "farbe": "#f28c15",
+     "gruppe": "FW"
+    },
+    {
+     "id": "FWV",
+     "art": "örtlich",
+     "lang": "Freie Wähler Volkmannsdorferau",
+     "sitze": 4,
+     "stimmen": 333,
+     "anteil": 25.5,
+     "farbe": "#7d4a12",
+     "gruppe": "FW"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Sedlmeier Dominik",
+     "liste": "FWI",
+     "stimmen": 940
+    },
+    {
+     "name": "Heigl Michael",
+     "liste": "FWI",
+     "stimmen": 890
+    },
+    {
+     "name": "Sicheneder Lena",
+     "liste": "FWI",
+     "stimmen": 876
+    },
+    {
+     "name": "Forster Heinz",
+     "liste": "WWV",
+     "stimmen": 833
+    },
+    {
+     "name": "Schwaiger Josef",
+     "liste": "FWI",
+     "stimmen": 833
+    },
+    {
+     "name": "Mengelkamp Patrick",
+     "liste": "FWV",
+     "stimmen": 707
+    },
+    {
+     "name": "Stadler Maria",
+     "liste": "WWV",
+     "stimmen": 615
+    },
+    {
+     "name": "Haas Stefan",
+     "liste": "WWV",
+     "stimmen": 592
+    },
+    {
+     "name": "Wittmann Dieter",
+     "liste": "WWV",
+     "stimmen": 591
+    },
+    {
+     "name": "Stangl Stefan",
+     "liste": "FWV",
+     "stimmen": 580
+    },
+    {
+     "name": "Müller Michael",
+     "liste": "WWV",
+     "stimmen": 545
+    },
+    {
+     "name": "Müller Patrick",
+     "liste": "WWV",
+     "stimmen": 537
+    },
+    {
+     "name": "Obermaier Claudia",
+     "liste": "FWV",
+     "stimmen": 496
+    },
+    {
+     "name": "Urbaniak Marianne",
+     "liste": "FWV",
+     "stimmen": 370
+    }
+   ]
+  },
+  {
+   "ags": "09178156",
+   "name": "Wolfersdorf",
+   "sitze": 14,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178156.html",
+   "ergebnis": [
+    {
+     "id": "Wählergemeinschaft Wolfersdorf",
+     "art": "örtlich",
+     "lang": null,
+     "sitze": 9,
+     "stimmen": 825,
+     "anteil": 67.8,
+     "farbe": "#8861bc",
+     "gruppe": "Wählergemeinschaft Wolfersdorf"
+    },
+    {
+     "id": "Wählergemeinschaft Dürnhaindlfing",
+     "art": "örtlich",
+     "lang": null,
+     "sitze": 5,
+     "stimmen": 392,
+     "anteil": 32.2,
+     "farbe": "#2d47bc",
+     "gruppe": "Wählergemeinschaft Dürnhaindlfing"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Reiser Matthias",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 1347
+    },
+    {
+     "name": "Jonas Claudia",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 1130
+    },
+    {
+     "name": "Seitzl Ludwig",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 1111
+    },
+    {
+     "name": "Holzmaier Maria",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 1106
+    },
+    {
+     "name": "Schröfl Andreas",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 1047
+    },
+    {
+     "name": "Stark Simon",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 874
+    },
+    {
+     "name": "Radlmaier Georg",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 811
+    },
+    {
+     "name": "Geltl Alexander",
+     "liste": "Wählergemeinschaft Dürnhaindlfing",
+     "stimmen": 780
+    },
+    {
+     "name": "Flassak Bernd",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 742
+    },
+    {
+     "name": "Lobmayer Sieglinde",
+     "liste": "Wählergemeinschaft Dürnhaindlfing",
+     "stimmen": 740
+    },
+    {
+     "name": "Grabichler Thomas",
+     "liste": "Wählergemeinschaft Dürnhaindlfing",
+     "stimmen": 720
+    },
+    {
+     "name": "Hilgers Alexander",
+     "liste": "Wählergemeinschaft Dürnhaindlfing",
+     "stimmen": 713
+    },
+    {
+     "name": "Betzenbichler Werner",
+     "liste": "Wählergemeinschaft Wolfersdorf",
+     "stimmen": 626
+    },
+    {
+     "name": "Denk Johannes",
+     "liste": "Wählergemeinschaft Dürnhaindlfing",
+     "stimmen": 622
+    }
+   ]
+  },
+  {
+   "ags": "09178157",
+   "name": "Zolling",
+   "sitze": 16,
+   "genauigkeit": "listen",
+   "quelle": "https://wahlen.vg-zolling.de/2026/gr/ergebnisse_gemeinde_09178157.html",
+   "ergebnis": [
+    {
+     "id": "CSU",
+     "art": "partei",
+     "lang": "Christlich-Soziale Union in Bayern e.V.",
+     "sitze": 6,
+     "stimmen": 825,
+     "anteil": 35.4,
+     "farbe": "#0a0a0a",
+     "gruppe": "CSU"
+    },
+    {
+     "id": "UBZ",
+     "art": "örtlich",
+     "lang": "Unabhängige Bürger Zolling",
+     "sitze": 5,
+     "stimmen": 765,
+     "anteil": 32.8,
+     "farbe": "#2d47bc",
+     "gruppe": "UBZ"
+    },
+    {
+     "id": "ÜWG",
+     "art": "örtlich",
+     "lang": "Überparteiliche Wählergemeinschaft Zolling",
+     "sitze": 4,
+     "stimmen": 541,
+     "anteil": 23.2,
+     "farbe": "#8861bc",
+     "gruppe": "ÜWG"
+    },
+    {
+     "id": "AfD",
+     "art": "partei",
+     "lang": "Alternative für Deutschland",
+     "sitze": 1,
+     "stimmen": 200,
+     "anteil": 8.6,
+     "farbe": "#009de0",
+     "gruppe": "AfD"
+    }
+   ],
+   "gewaehlte": [
+    {
+     "name": "Bachmaier Andrea",
+     "liste": "CSU",
+     "stimmen": 1815
+    },
+    {
+     "name": "Flohr Manuela",
+     "liste": "UBZ",
+     "stimmen": 1801
+    },
+    {
+     "name": "Neumair Annemarie",
+     "liste": "CSU",
+     "stimmen": 1331
+    },
+    {
+     "name": "Glatt Gottfried",
+     "liste": "CSU",
+     "stimmen": 1322
+    },
+    {
+     "name": "Unger Klaus",
+     "liste": "ÜWG",
+     "stimmen": 1210
+    },
+    {
+     "name": "Wiesheu Christian",
+     "liste": "ÜWG",
+     "stimmen": 1095
+    },
+    {
+     "name": "Wöhrl Stephan",
+     "liste": "CSU",
+     "stimmen": 1077
+    },
+    {
+     "name": "Forster Johannes",
+     "liste": "UBZ",
+     "stimmen": 1016
+    },
+    {
+     "name": "Falkner Maximilian",
+     "liste": "CSU",
+     "stimmen": 983
+    },
+    {
+     "name": "Hildebrandt Alexander",
+     "liste": "UBZ",
+     "stimmen": 975
+    },
+    {
+     "name": "Grepmair Markus",
+     "liste": "UBZ",
+     "stimmen": 828
+    },
+    {
+     "name": "Kopp Christine",
+     "liste": "CSU",
+     "stimmen": 814
+    },
+    {
+     "name": "Griebel Stephan",
+     "liste": "UBZ",
+     "stimmen": 807
+    },
+    {
+     "name": "Goletz Simon",
+     "liste": "ÜWG",
+     "stimmen": 775
+    },
+    {
+     "name": "Wolf Karlheinz",
+     "liste": "ÜWG",
+     "stimmen": 712
+    },
+    {
+     "name": "Mair Georg",
+     "liste": "AfD",
+     "stimmen": 627
+    }
+   ]
+  }
+ ],
+ "hinweise": [
+  {
+   "liste": "FW",
+   "text": "Die Freien Wähler sind hier als eine Liste gezählt: 70 Sitze aus 12 örtlichen Wahlvorschlägen, die den Namen führen. Die amtliche Statistik zählt anders, unter „FREIE WÄHLER Bayern“ stehen dort nur 9 Sitze. Die übrigen sind eigenständige Wählergemeinschaften und liegen in den Kategorien „Wählergruppen“ und „Gemeinsame Wahlvorschläge“. Beides ist richtig; die Zahlen sind nur nicht dasselbe."
+  }
+ ]
 }
