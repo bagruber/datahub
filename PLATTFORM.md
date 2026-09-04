@@ -11,8 +11,8 @@ Kontext steht im Repo `bagruber/moosburg-eu` in `BRIEFING.md`.
 
 | | Adresse | Basispfad | Build |
 |---|---|---|---|
-| GitHub Pages | `bagruber.github.io/datahub/` | `/datahub/` | `npm run build` (`.github/workflows/deploy.yml`) |
-| moosburg.eu | `moosburg.eu/data/` | `/data/` | `npm run build:hostinger` (`hostinger.yml`) |
+| GitHub Pages | `bagruber.github.io/datahub/` | `/datahub/` | `npm run build` (`.github/workflows/pages.yml`) |
+| moosburg.eu | `moosburg.eu/data/` | `/data/` | `npm run build:hostinger` (`moosburg-eu.yml`) |
 
 Beide Workflows hängen an `main`. Ein Push löst beide aus; sie stören sich
 nicht, weil nur einer FTP nutzt.
@@ -79,7 +79,7 @@ oder eine feste, kleine Breite haben.
 
 ## Öffentlich ist nur eine Auswahl
 
-Auf moosburg.eu läuft eine **Vorschau**. Ein Schritt in `hostinger.yml` kürzt
+Auf moosburg.eu läuft eine **Vorschau**. Ein Schritt in `moosburg-eu.yml` kürzt
 nach dem Build das Manifest und löscht die zurückgehaltenen Rohdaten aus
 `dist/`, damit sie auch nicht über die direkte URL erreichbar sind:
 
@@ -122,3 +122,29 @@ fällt damit unter die WCAG-AA-Grenze. Auf der getönten Karte übernimmt deshal
 
 Wer weitere getönte Flächen einführt, rechnet den Kontrast nach, statt die
 Textfarbe von der weißen Karte zu übernehmen.
+
+## Offen: Zählung einbinden
+
+Die Zeile fehlt noch vor `</body>` in `index.html`, mit absolutem Pfad:
+
+```html
+<script src="/assets/zaehler.js" defer></script>
+```
+
+Dazu der Routenwechsel, denn diese App nutzt `createBrowserRouter`. In einer
+Layout-Komponente:
+
+```tsx
+const { pathname } = useLocation();
+useEffect(() => { window.zaehl?.(window.location.pathname); }, [pathname]);
+```
+
+Bewusst `window.location.pathname` und nicht das `pathname` aus
+`useLocation`: letzteres liefert den Pfad **ohne** den Basispfad, und der ist
+hier je nach Deploy `/data/` oder `/datahub/`. In der Auswertung fielen beide
+Adressen sonst zusammen.
+
+Warum die Zählung ohne Einwilligungsbanner auskommt, warum deshalb hier
+niemals eine Sitzungs-ID in `sessionStorage` oder `localStorage` nachgerüstet
+werden darf und warum der Aufruf auf GitHub Pages absichtlich ins Leere läuft,
+steht in `bagruber/moosburg-eu`, `README.md`, Abschnitt „Zählen".
