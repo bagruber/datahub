@@ -32,13 +32,6 @@ GitHub Pages und moosburg.eu/data/ via FTP, mit unterschiedlichem `--base`.
 Nach einem Update `pnpm run build` **und** `pnpm run build:hostinger` pruefen —
 die CI faehrt beide Workflows.
 
-## Nichts davon ist gepusht
-
-Alle Aenderungen vom 26.08.2026 liegen als lokale Commits. Der Deploy-Workflow
-wurde von `npm ci` auf `pnpm install --frozen-lockfile` umgestellt und bekommt
-einen `pnpm/action-setup@v4`-Schritt. **Der erste Push aktiviert das.** Bricht
-danach ein Deploy, ist das die erste Stelle zum Nachsehen — nicht der App-Code.
-
 ## Beim naechsten Paket-Update
 
 Weder `pnpm install` noch `pnpm prune` raeumt die alte Version aus
