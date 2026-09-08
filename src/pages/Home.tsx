@@ -67,6 +67,11 @@ export function Home() {
             titel="Moosburg historisch"
             zeile="Acht Kartenausgaben von 1960 bis heute, übereinandergelegt"
           />
+          <KartenCard
+            href={`${import.meta.env.BASE_URL}foodhub/`}
+            titel="Speisekarten"
+            zeile="1.714 Gerichte aus 17 Speisekarten, jede mit Quelle und Datum"
+          />
         </div>
       </section>
     </div>
