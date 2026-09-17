@@ -15,6 +15,8 @@ import { CARD_KIND } from "@/lib/cardKind";
 import { themenfarbe, zeichnung } from "@/lib/themenfarbe";
 import { Section } from "@/components/Section";
 import { FilterChart } from "@/components/FilterChart";
+import { FilterKnoepfe } from "@/components/FilterKnoepfe";
+import { Leiste, kapitelAnker } from "@/components/Leiste";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { PressSection } from "@/components/press/PressSection";
 import { HELP, HelpIcon } from "@/components/HelpIcon";
@@ -149,57 +151,83 @@ export function Dataset() {
         </div>
       </header>
 
-      {/* Sticky filter strip — compact vertical bars, always reachable */}
-      {dataset.filters.length > 0 && (
-        <div className="sticky top-[var(--kopf-hoehe)] z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-cream/95 backdrop-blur border-y border-ink-line">
-          <div className="py-2.5">
-            <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(86px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(110px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
-              {dataset.filters.map((f) => {
-                // Each filter sees the records that satisfy ALL other filters
-                // — so age bars react when "Moosburger" is selected, etc.
-                const otherSelections = { ...selections, [f.key]: [] };
-                const recordsForThisFilter = applyFilters(
-                  dataset.records,
-                  dataset.filters,
-                  otherSelections,
-                );
-                return (
-                  <FilterChart
-                    key={f.key}
-                    spec={f}
-                    records={recordsForThisFilter}
-                    selected={selections[f.key] ?? []}
-                    onToggle={(idx) =>
-                      updateSelections(toggleOption(selections, f.key, idx))
-                    }
-                  />
-                );
-              })}
-            </div>
-            <div className="mt-1.5 flex items-baseline justify-between gap-3 text-[11px] text-ink-muted">
-              <span>Wer hat geantwortet?</span>
-              {active > 0 ? (
-                <button
-                  type="button"
-                  onClick={() => updateSelections(clearAll())}
-                  className="font-semibold text-red-700 hover:text-red-900 underline decoration-dotted"
+      {sortedSections.length > 1 && (
+        <nav aria-label="Kapitel" className="border-b border-ink-line py-5">
+          <ol className="flex flex-wrap gap-x-6 gap-y-2 text-[15px]">
+            {sortedSections.map((s) => (
+              <li key={s.id}>
+                <a
+                  href={`#${kapitelAnker(s.id)}`}
+                  className="text-red-700 underline decoration-red-700/30 underline-offset-4 hover:decoration-red-700"
                 >
-                  alle Filter zurücksetzen
-                </button>
-              ) : (
-                <span className="hidden sm:inline">
-                  Balken antippen oder klicken zum Filtern
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
+                  {s.title}
+                </a>
+              </li>
+            ))}
+          </ol>
+        </nav>
       )}
+
+      <Leiste kapitel={sortedSections}>
+        {dataset.filters.length > 0 && (
+          <>
+            <div className="py-2.5 sm:hidden">
+              <FilterKnoepfe
+                filters={dataset.filters}
+                records={dataset.records}
+                selections={selections}
+                gefiltert={filteredRecords.length}
+                onToggle={(key, idx) => updateSelections(toggleOption(selections, key, idx))}
+                onClear={(key) => updateSelections({ ...selections, [key]: [] })}
+              />
+            </div>
+            <div className="hidden py-2.5 sm:block">
+              <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(110px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
+                {dataset.filters.map((f) => {
+                  // Each filter sees the records that satisfy ALL other filters
+                  // — so age bars react when "Moosburger" is selected, etc.
+                  const otherSelections = { ...selections, [f.key]: [] };
+                  const recordsForThisFilter = applyFilters(
+                    dataset.records,
+                    dataset.filters,
+                    otherSelections,
+                  );
+                  return (
+                    <FilterChart
+                      key={f.key}
+                      spec={f}
+                      records={recordsForThisFilter}
+                      selected={selections[f.key] ?? []}
+                      onToggle={(idx) =>
+                        updateSelections(toggleOption(selections, f.key, idx))
+                      }
+                    />
+                  );
+                })}
+              </div>
+              <div className="mt-1.5 flex items-baseline justify-between gap-3 text-[11px] text-ink-muted">
+                <span>Wer hat geantwortet?</span>
+                {active > 0 ? (
+                  <button
+                    type="button"
+                    onClick={() => updateSelections(clearAll())}
+                    className="font-semibold text-ink underline decoration-dotted hover:text-gold-700"
+                  >
+                    alle Filter zurücksetzen
+                  </button>
+                ) : (
+                  <span>Balken antippen oder klicken zum Filtern</span>
+                )}
+              </div>
+            </div>
+          </>
+        )}
+      </Leiste>
 
       {/* Sections */}
       <div className="divide-y divide-ink-line">
         {sortedSections.map((s) => (
-          <Section key={s.id} title={s.title} text={s.text}>
+          <Section key={s.id} id={kapitelAnker(s.id)} title={s.title} text={s.text}>
             {(s.charts ?? []).length === 0 && (
               <p className="text-ink-muted text-sm italic">
                 Für diesen Abschnitt liegen noch keine Visualisierungen vor.

@@ -22,9 +22,6 @@
   --text-display-2: 2.25rem;
   --text-display-3: 1.5rem;
 
-  /* App-eigene Töne: gedeckter Balken-Akzent neben den Daten-Farben. */
-  --color-gold-400: #b39f7a;
-
   /* Semantische Daten-Palette, übernommen aus council, damit Ja/Nein in
      beiden Projekten gleich aussieht. */
   --color-data-yes: #78be1e;

@@ -10,9 +10,9 @@ type Props = {
   onToggle: (idx: number) => void;
 };
 
-type Bar = { idx: number; label: string; count: number; share: number };
+export type Bar = { idx: number; label: string; count: number; share: number };
 
-function buildBars(records: Dataset["records"], spec: FilterSpec): Bar[] {
+export function buildBars(records: Dataset["records"], spec: FilterSpec): Bar[] {
   const labels = spec.type === "histogram_range" ? spec.groups.map((g) => g.label) : spec.labels;
   const total = records.length;
   return labels.map((label, idx) => {
@@ -77,7 +77,7 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
             type="button"
             onClick={() => selected.forEach((i) => onToggle(i))}
             aria-label={`${spec.label} zurücksetzen`}
-            className="text-[10px] text-ink-muted hover:text-red-700 underline decoration-dotted shrink-0 self-start"
+            className="text-[10px] text-ink-muted hover:text-ink underline decoration-dotted shrink-0 self-start"
           >
             ×
           </button>
@@ -88,8 +88,8 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
       <div className="lg:hidden px-2.5 pb-2">
         <svg
           width="100%"
-          height={VERT_H}
-          viewBox={`0 0 ${vbWidth} ${VERT_H}`}
+          height={VERT_H + 3}
+          viewBox={`0 0 ${vbWidth} ${VERT_H + 3}`}
           preserveAspectRatio="none"
           role="img"
           aria-label={spec.label}
@@ -101,17 +101,15 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
             const h = Math.max(2, (b.count / max) * VERT_H);
             const y = VERT_H - h;
             const on = selected.includes(b.idx);
-            const dim = anySel && !on;
             const fill = on
-              ? "var(--color-red-500)"
-              : dim
-              ? "var(--color-ink-line)"
+              ? "var(--color-gold-700)"
               : hover === b.idx
-              ? "var(--color-red-500)"
-              : "var(--color-gold-400)";
+              ? "var(--color-gold-600)"
+              : "var(--color-gold-500)";
             return (
+              <g key={b.idx}>
+              {on && <rect x={x} y={VERT_H + 1} width={VB_BAR} height={2} fill="var(--color-gold-700)" aria-hidden />}
               <rect
-                key={b.idx}
                 x={x}
                 y={y}
                 width={VB_BAR}
@@ -133,13 +131,14 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                 aria-pressed={on}
                 aria-label={`${b.label}: ${fmtInt(b.count)} (${fmtPct(b.share)})`}
               />
+              </g>
             );
           })}
         </svg>
         <p
           className={cn(
             "mt-1.5 text-[11px] leading-tight tabular-nums",
-            focused ? "text-ink" : selSummary ? "text-red-700" : "text-ink-muted",
+            focused ? "text-ink" : selSummary ? "font-semibold text-gold-700" : "text-ink-muted",
           )}
           style={{
             display: "-webkit-box",
@@ -158,7 +157,6 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
       <ul className="hidden lg:block px-1.5 pb-2 space-y-0.5">
         {bars.map((b) => {
           const on = selected.includes(b.idx);
-          const dim = anySel && !on;
           return (
             <li key={b.idx}>
               <button
@@ -171,34 +169,30 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                 aria-pressed={on}
                 className={cn(
                   "group w-full grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-1.5 py-1 rounded-md text-left transition-colors",
-                  on ? "bg-red-50" : "hover:bg-cream-dark",
+                  on ? "bg-gold-100" : "hover:bg-cream-dark",
                 )}
               >
                 <span className="min-w-0">
                   <span
                     className={cn(
                       "block text-xs leading-snug truncate transition-colors",
-                      on
-                        ? "font-semibold text-red-700"
-                        : dim
-                        ? "text-ink-muted"
-                        : "text-ink",
+                      on ? "font-semibold text-ink" : "text-ink",
                     )}
                   >
                     {b.label}
                   </span>
                   <span
-                    className="mt-1 block h-1.5 rounded-full bg-cream-dark overflow-hidden"
+                    className={cn(
+                      "mt-1 block h-1.5 rounded-full bg-cream-dark overflow-hidden",
+                      // Grundstrich, damit die Auswahl nicht allein an der Farbe hängt.
+                      on && "shadow-[0_2px_0_var(--color-gold-700)]",
+                    )}
                     aria-hidden
                   >
                     <span
                       className={cn(
                         "block h-full transition-all",
-                        on
-                          ? "bg-red-500"
-                          : dim
-                          ? "bg-ink-line"
-                          : "bg-gold-400 group-hover:bg-red-500",
+                        on ? "bg-gold-700" : "bg-gold-500 group-hover:bg-gold-600",
                       )}
                       style={{ width: `${(b.count / max) * 100}%` }}
                     />
