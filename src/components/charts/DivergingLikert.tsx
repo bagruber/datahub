@@ -198,7 +198,7 @@ export function DivergingLikert({
         label: legendLabel ?? defaultLegendFor(tone, scale),
       },
       style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
       },

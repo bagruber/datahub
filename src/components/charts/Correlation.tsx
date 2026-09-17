@@ -108,7 +108,7 @@ export function Correlation({ records, sources }: Props) {
         ticks: [-1, -0.5, 0, 0.5, 1],
       },
       style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
       },

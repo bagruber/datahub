@@ -68,7 +68,7 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
         legend: true,
       },
       style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
       },

@@ -66,7 +66,7 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
       },
       y: { percent: true, grid: true, label: null, ticks: isMobile ? 3 : 4 },
       style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
       },
