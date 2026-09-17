@@ -53,7 +53,7 @@ export function PressCard({ link }: { link: PressLink }) {
         </span>
       </div>
       <div className="p-4">
-        <p className="text-[11px] uppercase tracking-wider text-ink-muted">
+        <p className="text-sm text-ink-muted">
           {PRESS_OUTLET_NAMES[link.outlet]} · {formatDate(link.date)}
         </p>
         <h3 className="mt-1 font-semibold text-ink leading-snug group-hover:text-red-700 transition-colors">

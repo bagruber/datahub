@@ -15,7 +15,6 @@ export function Header() {
           />
           <span className="leading-tight">
             <span className="block headline text-[1.05rem] sm:text-[1.2rem]">Data Hub</span>
-            <span className="block eyebrow text-[0.65rem]">Moosburg an der Isar</span>
           </span>
         </Link>
         <nav aria-label="Hauptnavigation" className="flex items-center gap-1 sm:gap-2">

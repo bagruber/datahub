@@ -97,16 +97,6 @@ h1, h2, h3, .headline {
   );
 }
 
-.eyebrow {
-  font-family: var(--font-sans);
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  font-weight: 600;
-  font-size: 0.75rem;
-  /* gold-700: hellere Goldtöne bestehen als Schriftfarbe auf Creme nicht. */
-  color: var(--color-gold-700);
-}
-
 /* Rainbow stripe — 9 fixed segments, 4px */
 .rainbow-stripe {
   display: flex;

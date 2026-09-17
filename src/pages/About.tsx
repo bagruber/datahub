@@ -1,7 +1,6 @@
 export function About() {
   return (
     <div className="mx-auto max-w-screen-md px-4 sm:px-6 py-10 sm:py-16">
-      <p className="eyebrow mb-3">Über</p>
       <h1 className="headline text-display-2 mb-6">Data Hub Moosburg</h1>
       <div className="prose prose-stone max-w-none text-ink-soft space-y-4">
         <p>
