@@ -12,7 +12,7 @@ import {
 } from "@/lib/filters";
 import { KategorieZeile, Kennzahl } from "@/components/ui";
 import { CARD_KIND } from "@/lib/cardKind";
-import { themenfarbe } from "@/lib/themenfarbe";
+import { themenfarbe, zeichnung } from "@/lib/themenfarbe";
 import { Section } from "@/components/Section";
 import { FilterChart } from "@/components/FilterChart";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
@@ -99,23 +99,32 @@ export function Dataset() {
         className="relative -mx-[calc(50vw-50%)] px-[calc(50vw-50%)] py-8 text-cream sm:py-12"
         style={{ background: themenfarbe(entry.id) }}
       >
+        {zeichnung(entry.id) && (
+          // Hintergrundbild statt <img>: unter lg ausgeblendet und dann nicht geladen.
+          <div aria-hidden className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block">
+            <div
+              className="absolute -right-28 bottom-0 h-full w-[30rem] bg-contain xl:-right-24 xl:w-[46rem] bg-right-bottom bg-no-repeat opacity-80"
+              style={{ backgroundImage: `url(${import.meta.env.BASE_URL}${zeichnung(entry.id)})` }}
+            />
+          </div>
+        )}
         <Link
           to="/"
-          className="inline-flex items-center gap-1.5 text-sm font-semibold text-cream/85 hover:text-cream"
+          className="relative inline-flex items-center gap-1.5 text-sm font-semibold text-cream/85 hover:text-cream"
         >
           <ArrowLeft aria-hidden className="shrink-0" />
           Data Hub
         </Link>
-        <KategorieZeile icon={style.icon} className="mt-6 flex text-gold-200">
+        <KategorieZeile icon={style.icon} className="relative mt-6 flex text-gold-200">
           {dataset.kind === "statistik"
             ? [style.label, dataset.meta.source].filter(Boolean).join(" · ")
             : `${style.label} ${dataset.meta.year}`}
         </KategorieZeile>
-        <h1 className="headline mt-2 text-display-2 sm:text-display-1">{dataset.meta.title}</h1>
+        <h1 className="headline relative mt-2 text-display-2 sm:text-display-1">{dataset.meta.title}</h1>
         {dataset.meta.description && (
-          <p className="mt-4 max-w-prose text-lg">{dataset.meta.description}</p>
+          <p className="relative mt-4 max-w-prose text-lg">{dataset.meta.description}</p>
         )}
-        <div className="mt-8 flex flex-wrap gap-x-12 gap-y-5">
+        <div className="relative mt-8 flex flex-wrap gap-x-12 gap-y-5">
           {dataset.kind === "statistik" ? (
             <>
               <Kennzahl wert={dataset.meta.year} label="Stand" className="text-gold-200" labelClassName="text-cream" />

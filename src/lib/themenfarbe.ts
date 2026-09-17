@@ -9,3 +9,11 @@ const THEMENFARBE: Record<string, string> = {
 };
 
 export const themenfarbe = (id: string) => THEMENFARBE[id] ?? "#6d0818";
+
+/** Tuschezeichnung im Kopfband, Datei unter public/. Volksfest und
+ *  Bevölkerungsstatistik folgen. */
+const ZEICHNUNG: Record<string, string> = {
+  bahnhofumfrage_2023: "sketches/bahnhofA.webp",
+};
+
+export const zeichnung = (id: string): string | undefined => ZEICHNUNG[id];
