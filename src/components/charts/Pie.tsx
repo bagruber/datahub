@@ -21,7 +21,8 @@ type Props = {
 
 const SIZE = 220;
 const R = SIZE / 2 - 4;
-const RI = R * 0.58;
+// Probe Diagramme, vorläufig (18.09.2026): dünnerer Ring.
+const RI = R * 0.74;
 
 type Slice = { label: string; color: string; count: number; share: number };
 
@@ -134,9 +135,9 @@ export function Pie({ records, source, labels, values, colors, items }: Props) {
             y={focused ? 10 : 14}
             textAnchor="middle"
             className="fill-ink-muted"
-            style={{ fontSize: 11, letterSpacing: "0.08em" }}
+            style={{ fontSize: 11 }}
           >
-            {focused ? focused.label.toUpperCase() : "ANTWORTEN"}
+            {focused ? focused.label : "Antworten"}
           </text>
           {focused && (
             <text
