@@ -3,7 +3,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { countByBins, countByCodebook, countByObjectKeys, type AggResult } from "@/lib/aggregate";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { EINZEL, INK, RADIUS } from "@/lib/palette";
+import { EINZEL, INK, INK_MUTED, NULLLINIE, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -57,7 +57,8 @@ export function BarH({ records, codebook, source, items, slots, preserveOrder }:
       marginRight: MARGIN_RIGHT,
       marginTop: MARGIN_TOP,
       marginBottom,
-      x: { axis: "bottom", percent: true, grid: true, label: null, ticks: isMobile ? 4 : 5 },
+      // Jeder Balken traegt seinen Wert, deshalb keine Werteachse und kein Gitter.
+      x: { axis: null, percent: true, label: null },
       y: { domain: sorted.map((d) => d.label), label: null, tickSize: 0 },
       style: {
         fontFamily: "var(--font-sans)",
@@ -66,7 +67,7 @@ export function BarH({ records, codebook, source, items, slots, preserveOrder }:
         background: "transparent",
       },
       marks: [
-        Plot.axisY({ lineWidth: isMobile ? 9 : 11, fontSize: axisPx }),
+        Plot.axisY({ lineWidth: isMobile ? 9 : 11, fontSize: axisPx, tickSize: 0, color: INK_MUTED }),
         Plot.barX(sorted, {
           x: "share",
           y: "label",
@@ -90,7 +91,7 @@ export function BarH({ records, codebook, source, items, slots, preserveOrder }:
           fontSize: fontPx,
           fill: INK,
         }),
-        Plot.ruleX([0]),
+        Plot.ruleX([0], { stroke: NULLLINIE }),
       ],
     }),
     [sorted, accent, answered, isMobile, marginLeft, marginBottom, fontPx, axisPx],

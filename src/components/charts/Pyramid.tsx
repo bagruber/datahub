@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
-import { INK, RADIUS } from "@/lib/palette";
+import { GITTER, INK, INK_MUTED, NULLLINIE, RADIUS, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -13,8 +13,6 @@ type Props = {
   groups: Group[];
   leftLabel: string;
   rightLabel: string;
-  leftColor?: string;
-  rightColor?: string;
   title?: string;
 };
 
@@ -26,8 +24,6 @@ export function Pyramid({
   groups,
   leftLabel,
   rightLabel,
-  leftColor = "#1f77b4",
-  rightColor = "#c8102e",
 }: Props) {
   const isMobile = useIsMobile();
   const fontPx = isMobile ? 11 : 13;
@@ -64,7 +60,7 @@ export function Pyramid({
         domain: [-extent, extent],
         axis: "bottom",
         label: null,
-        grid: true,
+        grid: false,
         ticks: 5,
         tickFormat: (v: number) => fmtInt(Math.abs(v)),
       },
@@ -72,7 +68,8 @@ export function Pyramid({
       color: {
         type: "ordinal",
         domain: [leftLabel, rightLabel],
-        range: [leftColor, rightColor],
+        // Zwei Toene aus der Palette statt Blau und Rot nach Geschlecht.
+        range: [SERIE[3], SERIE[2]],
         legend: true,
       },
       style: {
@@ -81,6 +78,9 @@ export function Pyramid({
         color: INK,
       },
       marks: [
+        Plot.gridX({ stroke: GITTER, strokeOpacity: 1 }),
+        Plot.axisX({ fontSize: fontPx - 1, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(Math.abs(v)) }),
+        Plot.axisY({ fontSize: fontPx - 1, tickSize: 0, color: INK_MUTED }),
         Plot.barX(data, {
           x: "x",
           y: "label",
@@ -92,10 +92,10 @@ export function Pyramid({
           title: (d: { side: string; label: string; count: number }) =>
             `${d.label} · ${d.side}\n${fmtInt(d.count)}`,
         }),
-        Plot.ruleX([0], { stroke: INK, strokeWidth: 1.25 }),
+        Plot.ruleX([0], { stroke: NULLLINIE, strokeWidth: 1 }),
       ],
     }),
-    [data, yDomain, groups.length, leftLabel, rightLabel, leftColor, rightColor, fontPx, extent],
+    [data, yDomain, groups.length, leftLabel, rightLabel, fontPx, extent],
   );
 
   // sr-only table: one row per age band, columns = left / right / total.

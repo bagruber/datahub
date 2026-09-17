@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
-import { EINZEL, INK, SERIE } from "@/lib/palette";
+import { EINZEL, GITTER, INK, INK_MUTED, NULLLINIE, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -50,23 +50,21 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
       marginTop: 24,
       marginBottom: 44,
       x: {
-        label: xLabel ?? null,
-        labelAnchor: "center",
+        label: null,
         tickFormat: (v: number) => String(v),
         grid: false,
       },
+      // Achsentitel ohne Pfeil; die Einheit steht in der Fusszeile der Karte.
       y: {
-        label: yLabel ?? null,
-        labelAnchor: "top",
-        labelOffset: 50,
-        grid: true,
+        label: null,
+        grid: false,
         tickFormat: (v: number) => fmtInt(v),
       },
       color: {
         type: "ordinal",
         domain: colorDomain,
         range: colorRange,
-        legend: true,
+        legend: series.length > 1,
       },
       style: {
         fontFamily: "var(--font-sans)",
@@ -74,6 +72,9 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
         color: INK,
       },
       marks: [
+        Plot.gridY({ stroke: GITTER, strokeOpacity: 1 }),
+        Plot.axisX({ fontSize: axisPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => String(v) }),
+        Plot.axisY({ fontSize: axisPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(v) }),
         Plot.line(data, {
           x: "x",
           y: "y",
@@ -106,10 +107,10 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
                 }),
               ),
             ]),
-        Plot.ruleY([0]),
+        Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
-    [data, colorDomain, colorRange, xLabel, yLabel, markers, fontPx],
+    [data, colorDomain, colorRange, series.length, markers, fontPx, axisPx],
   );
   void axisPx;
 
@@ -137,6 +138,7 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
         />
       }
     >
+      {yLabel && <p className="mb-1 text-xs text-ink-muted">{yLabel}</p>}
       <PlotFigure options={options} />
     </ChartFrame>
   );

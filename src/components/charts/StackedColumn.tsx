@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { INK, RADIUS, SERIE } from "@/lib/palette";
+import { GITTER, INK, INK_MUTED, NULLLINIE, RADIUS, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -53,15 +53,13 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
       marginTop: 24,
       marginBottom: 44,
       x: {
-        label: xLabel ?? null,
-        labelAnchor: "center",
+        label: null,
         tickFormat: (v: number) => String(v),
       },
+      // Achsentitel ohne Pfeil; die Einheit steht in der Basiszeile der Karte.
       y: {
-        label: yLabel ?? null,
-        labelAnchor: "top",
-        labelOffset: 50,
-        grid: true,
+        label: null,
+        grid: false,
         tickFormat: (v: number) => fmtInt(v),
       },
       color: {
@@ -76,12 +74,18 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
         color: INK,
       },
       marks: [
+        Plot.gridY({ stroke: GITTER, strokeOpacity: 1 }),
+        Plot.axisX({ fontSize: fontPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => String(v) }),
+        Plot.axisY({ fontSize: fontPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(v) }),
         Plot.barY(data, {
           x: "x",
           y: "y",
           fill: "series",
-          insetLeft: 2,
-          insetRight: 2,
+          // 2 px Luft zwischen den Stapeln und zwischen den Segmenten.
+          insetLeft: 6,
+          insetRight: 6,
+          insetTop: 1,
+          insetBottom: 1,
           rx: RADIUS.bar,
           tip: true,
           title: (d: { x: number; series: string; y: number }) => {
@@ -90,10 +94,10 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
             return `${d.x}\n${d.series}: ${fmtInt(d.y)}\n${fmtPct(share)} (Gesamt ${fmtInt(total)})`;
           },
         }),
-        Plot.ruleY([0]),
+        Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
-    [data, colorDomain, colorRange, xLabel, yLabel, fontPx, totals],
+    [data, colorDomain, colorRange, fontPx, totals],
   );
 
   const xValues = useMemo(() => {
@@ -120,6 +124,7 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
         />
       }
     >
+      {yLabel && <p className="mb-1 text-xs text-ink-muted">{yLabel}</p>}
       <PlotFigure options={options} />
     </ChartFrame>
   );

@@ -241,8 +241,6 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           groups={spec.groups}
           leftLabel={spec.leftLabel}
           rightLabel={spec.rightLabel}
-          leftColor={spec.leftColor}
-          rightColor={spec.rightColor}
           title={spec.title}
         />
       );
