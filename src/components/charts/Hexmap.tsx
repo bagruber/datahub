@@ -393,7 +393,7 @@ function Segmente({
     <div className="grid gap-1.5">
       <span className="text-sm font-semibold text-ink-muted">{label}</span>
       <div
-        className="inline-flex overflow-hidden rounded-md border border-ink-line bg-white"
+        className="inline-flex w-fit rounded-lg bg-cream-dark p-[3px]"
         role="radiogroup"
         aria-label={label}
       >
@@ -407,9 +407,11 @@ function Segmente({
             title={o.aus ? "Für diese Wahl liegt kein prüfbarer Vorwahlvergleich vor." : undefined}
             onClick={() => setzen(o.id)}
             className={cn(
-              "border-r border-ink-line px-3 py-1.5 text-sm transition-colors last:border-r-0",
-              o.id === gewählt ? "bg-ink text-cream" : "text-ink-soft hover:bg-cream-dark",
-              o.aus && "cursor-not-allowed text-ink-line hover:bg-white",
+              "rounded-md px-3.5 py-1.5 text-sm transition-colors",
+              o.id === gewählt
+                ? "bg-white font-semibold text-ink shadow-[0_1px_3px_rgb(28_28_28/0.12)]"
+                : "text-ink-soft hover:text-ink",
+              o.aus && "cursor-not-allowed text-ink-muted/50 hover:text-ink-muted/50",
             )}
           >
             {o.label}

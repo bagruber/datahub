@@ -16,6 +16,10 @@
   --font-sans: "Atkinson Hyperlegible Next Variable", ui-sans-serif, system-ui, sans-serif;
   --font-script: "Madelon Script", cursive;
 
+  /* Probe Formsprache, vorläufig (17.09.2026): 8 px für Kacheln, Flächen und
+     Knöpfe wie rounded-xl im Kanon; rounded-md (4 px) bleibt für Kleinteile. */
+  --radius-lg: 8px;
+
   /* Abweichung vom Kanon: kompaktere Display-Skala. Datenseiten tragen
      ihre Hierarchie in Diagrammen und Tabellen, nicht in Riesenlettern. */
   --text-display-1: 3rem;
