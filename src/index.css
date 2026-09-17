@@ -54,6 +54,15 @@
   font-display: swap;
 }
 
+/* Höhe des klebenden Kopfs: Stripe 4 px, Zeile 56 px (ab lg 64 px), Linie
+   1 px. Die klebende Leiste der Datensatzseiten hängt daran. */
+:root {
+  --kopf-hoehe: 61px;
+}
+@media (min-width: 1024px) {
+  :root { --kopf-hoehe: 69px; }
+}
+
 html {
   scroll-behavior: smooth;
 }
