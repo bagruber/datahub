@@ -3,7 +3,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { countByBins, countByCodebook, countByObjectKeys, type AggResult } from "@/lib/aggregate";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { ACCENT_RED, INK, RADIUS } from "@/lib/palette";
+import { EINZEL, INK, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -15,7 +15,6 @@ type Props = {
   source: string;
   items?: { label: string; vals: number[] }[];
   slots?: { key: string; label: string }[];
-  color?: string;
   title?: string;
   preserveOrder?: boolean;
 };
@@ -30,7 +29,7 @@ const MARGIN_BOTTOM_MOBILE = 84;
 const MARGIN_LEFT = 48;
 const MARGIN_RIGHT = 16;
 
-export function BarV({ records, codebook, source, items, slots, color, preserveOrder }: Props) {
+export function BarV({ records, codebook, source, items, slots, preserveOrder }: Props) {
   const isMobile = useIsMobile();
   const { rows, n: answered } = useMemo<AggResult>(() => {
     if (slots && slots.length > 0) return countByObjectKeys(records, source, slots);
@@ -45,7 +44,8 @@ export function BarV({ records, codebook, source, items, slots, color, preserveO
     [rows, preserveOrder],
   );
 
-  const accent = color ?? ACCENT_RED;
+  // Farbe kommt aus der Palette, nicht aus dem Datensatz.
+  const accent = EINZEL;
   const marginTop = isMobile ? MARGIN_TOP_MOBILE : MARGIN_TOP_DESKTOP;
   const marginBottom = isMobile ? MARGIN_BOTTOM_MOBILE : MARGIN_BOTTOM_DESKTOP;
   const fontPx = isMobile ? 10 : 12;

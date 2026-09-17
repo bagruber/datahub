@@ -3,7 +3,7 @@ import { arc, pie } from "d3-shape";
 import { fmtPct, fmtInt } from "@/lib/format";
 import type { Dataset } from "@/lib/data";
 import { cn } from "@/lib/cn";
-import { CATEGORICAL, RADIUS } from "@/lib/palette";
+import { RADIUS, SERIE } from "@/lib/palette";
 
 type SliceItem = { label: string; vals: number[]; color?: string };
 
@@ -34,12 +34,12 @@ function buildSlices(
   const slices = spec.items
     ? spec.items.map((it, i) => ({
         label: it.label,
-        color: it.color ?? CATEGORICAL[i % CATEGORICAL.length],
+        color: SERIE[i % SERIE.length],
         vals: it.vals,
       }))
     : (spec.labels ?? []).map((label, i) => ({
         label,
-        color: spec.colors?.[i] ?? CATEGORICAL[i % CATEGORICAL.length],
+        color: SERIE[i % SERIE.length],
         vals: [spec.values?.[i] ?? -1],
       }));
 

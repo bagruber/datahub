@@ -5,12 +5,12 @@ import { divergingStack } from "@/lib/diverging";
 import { asScalar } from "@/lib/record";
 import { fmtInt, fmtPct } from "@/lib/format";
 import {
+  GOLD_STUFEN,
+  GOLD_STUFEN6,
   INK,
-  LIKERT5_RAMP,
-  LIKERT6_RAMP,
-  PRICE5_RAMP,
-  PRICE6_RAMP,
   RADIUS,
+  SKALA5,
+  SKALA6,
   STROKE,
 } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
@@ -66,8 +66,8 @@ const DEFAULT_ENDPOINTS: Record<DivergingTone, { left: string; right: string }> 
 };
 
 function rampFor(tone: DivergingTone, scale: 5 | 6): readonly string[] {
-  if (tone === "evaluative") return scale === 5 ? LIKERT5_RAMP : LIKERT6_RAMP;
-  return scale === 5 ? PRICE5_RAMP : PRICE6_RAMP;
+  if (tone === "evaluative") return scale === 5 ? SKALA5 : SKALA6;
+  return scale === 5 ? GOLD_STUFEN : GOLD_STUFEN6;
 }
 
 /** Diverging layout per scale size. 5-point has a true neutral that straddles

@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
-import { CORRELATION_RAMP, INK, RADIUS } from "@/lib/palette";
+import { INK, KORRELATION_RAMPE, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -102,7 +102,7 @@ export function Correlation({ records, sources }: Props) {
       color: {
         type: "linear",
         domain: [-1, 0, 1],
-        range: CORRELATION_RAMP,
+        range: KORRELATION_RAMPE,
         legend: true,
         label: "Pearson r (−1 = gegenläufig, 0 = kein Zusammenhang, +1 = gleichgerichtet)",
         ticks: [-1, -0.5, 0, 0.5, 1],
