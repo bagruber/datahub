@@ -3,7 +3,7 @@ import { layoutVenn2 } from "@/lib/venn";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { Chip } from "@/components/svg/Chip";
-import { ACCENT_GOLD, ACCENT_RED, STROKE } from "@/lib/palette";
+import { SERIE, STROKE } from "@/lib/palette";
 import type { Dataset } from "@/lib/data";
 
 type Region = "onlyA" | "onlyB" | "both";
@@ -13,14 +13,13 @@ type Props = {
   source: string;
   values: number[]; // [codeA, codeB]
   labels: string[]; // [labelA, labelB]
-  colors: string[]; // [colorA, colorB]
   title?: string;
 };
 
 const PAD = 40;
 const TARGET_W = 480;
 
-export function Venn2({ records, source, values, labels, colors }: Props) {
+export function Venn2({ records, source, values, labels }: Props) {
   const [hover, setHover] = useState<Region | null>(null);
 
   const counts = useMemo(() => {
@@ -61,8 +60,8 @@ export function Venn2({ records, source, values, labels, colors }: Props) {
     );
   }
 
-  const colorA = colors[0] ?? ACCENT_RED;
-  const colorB = colors[1] ?? ACCENT_GOLD;
+  const colorA = SERIE[0];
+  const colorB = SERIE[1];
 
   // Scale layout to viewBox
   const innerW = TARGET_W - PAD * 2;

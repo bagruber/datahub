@@ -65,7 +65,6 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           items={spec.items}
           slots={spec.slots}
           preserveOrder={spec.preserveOrder}
-          color={spec.color}
           title={spec.title}
         />
       );
@@ -78,7 +77,6 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           items={spec.items}
           slots={spec.slots}
           preserveOrder={spec.preserveOrder}
-          color={spec.color}
           title={spec.title}
         />
       );
@@ -151,7 +149,6 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           source={spec.source}
           labels={labels}
           values={values}
-          colors={spec.colors}
           title={spec.title}
         />
       );
@@ -187,27 +184,23 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
         />
       );
     case "venn2": {
-      const colors = spec.colors ?? ["#c8102e", "#1f77b4"];
       return (
         <Venn2
           records={records}
           source={spec.source}
           values={spec.values}
           labels={spec.labels}
-          colors={colors}
           title={spec.title}
         />
       );
     }
     case "venn3": {
-      const colors = spec.colors ?? ["#e2a900", "#1f77b4", "#c8102e"];
       return (
         <Venn3
           records={records}
           source={spec.source}
           values={spec.values}
           labels={spec.labels}
-          colors={colors}
           title={spec.title}
         />
       );

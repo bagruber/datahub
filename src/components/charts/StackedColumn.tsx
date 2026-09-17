@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { CATEGORICAL, INK, RADIUS } from "@/lib/palette";
+import { INK, RADIUS, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -33,7 +33,8 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
   );
   const colorDomain = useMemo(() => series.map((s) => s.label), [series]);
   const colorRange = useMemo(
-    () => series.map((s, i) => s.color ?? CATEGORICAL[i % CATEGORICAL.length]),
+    // Farben aus der Palette, nicht aus dem Datensatz.
+    () => series.map((_, i) => SERIE[i % SERIE.length]),
     [series],
   );
 

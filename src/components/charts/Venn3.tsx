@@ -3,7 +3,7 @@ import { layoutVenn3 } from "@/lib/venn";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { cn } from "@/lib/cn";
 import { Chip } from "@/components/svg/Chip";
-import { STROKE } from "@/lib/palette";
+import { SERIE, STROKE } from "@/lib/palette";
 import type { Dataset } from "@/lib/data";
 
 type SetKey = "A" | "B" | "C";
@@ -28,14 +28,15 @@ type Props = {
   source: string;
   values: number[]; // [codeA, codeB, codeC]
   labels: string[]; // 3 labels
-  colors: string[]; // 3 colours
   title?: string;
 };
 
 const PAD = 44;
 const TARGET_W = 520;
 
-export function Venn3({ records, source, values, labels, colors }: Props) {
+export function Venn3({ records, source, values, labels }: Props) {
+  // Farben aus der Palette; die ersten drei bestehen die Prüfung jeder gegen jeden.
+  const colors = [SERIE[0], SERIE[1], SERIE[2]];
   const [hover, setHover] = useState<HoverEntry | null>(null);
 
   const counts = useMemo(() => {

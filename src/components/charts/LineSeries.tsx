@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt } from "@/lib/format";
-import { CATEGORICAL, INK } from "@/lib/palette";
+import { EINZEL, INK, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -37,7 +37,8 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
   );
   const colorDomain = useMemo(() => series.map((s) => s.label), [series]);
   const colorRange = useMemo(
-    () => series.map((s, i) => s.color ?? CATEGORICAL[i % CATEGORICAL.length]),
+    // Farben aus der Palette; eine einzelne Reihe trägt Isar-Blau.
+    () => (series.length === 1 ? [EINZEL] : series.map((_, i) => SERIE[i % SERIE.length])),
     [series],
   );
 
