@@ -50,6 +50,9 @@ export type Section = {
   order: number;
   text?: string;
   charts: ChartSpec[];
+  type?: string;
+  /** Ausgewertete Themen aus offenen Rückmeldungen (type "open_themes"). */
+  themes?: { label: string; desc: string; icon?: string }[];
 };
 
 /** Kind of dataset.

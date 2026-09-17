@@ -16,6 +16,7 @@ import { themenfarbe, zeichnung } from "@/lib/themenfarbe";
 import { Section } from "@/components/Section";
 import { FilterChart } from "@/components/FilterChart";
 import { FilterKnoepfe } from "@/components/FilterKnoepfe";
+import { OffeneThemen } from "@/components/OffeneThemen";
 import { Leiste, kapitelAnker } from "@/components/Leiste";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { PressSection } from "@/components/press/PressSection";
@@ -228,7 +229,10 @@ export function Dataset() {
       <div className="divide-y divide-ink-line">
         {sortedSections.map((s) => (
           <Section key={s.id} id={kapitelAnker(s.id)} title={s.title} text={s.text}>
-            {(s.charts ?? []).length === 0 && (
+            {s.type === "open_themes" && s.themes && (
+              <OffeneThemen themen={s.themes} farbe={themenfarbe(entry.id)} />
+            )}
+            {(s.charts ?? []).length === 0 && !s.themes && (
               <p className="text-ink-muted text-sm italic">
                 Für diesen Abschnitt liegen noch keine Visualisierungen vor.
               </p>
