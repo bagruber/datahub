@@ -47,8 +47,8 @@ export const SKALA6 = ["#a21a20", "#ca5650", "#de958e", "#72b5d3", "#1b8cb3", "#
 /** Fünf Stufen mit warmem Grau in der Mitte. */
 export const SKALA5 = ["#a21a20", "#ca5650", "#d9d4ca", "#1b8cb3", "#00617f"];
 
-/** Ordnen: ein Farbton von hell nach dunkel, ohne Wertung. */
-export const GOLD_STUFEN = ["#cfac64", "#b58f3c", "#99741b", "#7b5b01", "#5c4304"];
+/** Ordnen mit Mitte: fünf Stufen, die mittlere neutral („angemessen“). */
+export const GOLD_STUFEN = ["#cfac64", "#b58f3c", "#d9d4ca", "#7b5b01", "#5c4304"];
 /** Sechs Stufen desselben Tons, für Skalen mit sechs Antworten. */
 export const GOLD_STUFEN6 = ["#ddc08a", "#c8a457", "#b08a33", "#94711a", "#7a5c0d", "#5c4304"];
 /** Die Mitte einer ungeraden Ordnungsskala bleibt neutral. */
@@ -75,3 +75,6 @@ export const STROKE = {
   centerRule: 1,     // Mitte der Skalen
   cardBorder: 1,     // ink-line, über CSS
 } as const;
+
+/** Kerben an der Mitte der Skalen: leiser als die Nulllinie, aber sichtbar. */
+export const KERBE = "#9a9488";
