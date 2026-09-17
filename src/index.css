@@ -1,14 +1,21 @@
 @import "tailwindcss";
-@import "@fontsource-variable/inter";
-@import "@fontsource/playfair-display/400.css";
-@import "@fontsource/playfair-display/600.css";
-@import "@fontsource/playfair-display/700.css";
+/* Probe Formsprache, vorläufig (17.09.2026): Source Serif 4 und Atkinson
+   Hyperlegible Next lösen Playfair und Inter ab. Die opsz-Datei deckt optische
+   Größe und Gewicht ab. Die alten Pakete bleiben in der package.json, bis die
+   Entscheidung endgültig ist. */
+@import "@fontsource-variable/source-serif-4/opsz.css";
+@import "@fontsource-variable/atkinson-hyperlegible-next";
 
 /* Die Grund-Tokens kommen aus dem gemeinsamen Kanon:
    github.com/bagruber/moosburg-design */
 @import "moosburg-design/css/theme.css";
 
 @theme {
+  /* Probe Formsprache, vorläufig (17.09.2026): Schriften der Probe. */
+  --font-display: "Source Serif 4 Variable", Georgia, serif;
+  --font-sans: "Atkinson Hyperlegible Next Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-script: "Madelon Script", cursive;
+
   /* Abweichung vom Kanon: kompaktere Display-Skala. Datenseiten tragen
      ihre Hierarchie in Diagrammen und Tabellen, nicht in Riesenlettern. */
   --text-display-1: 3rem;
@@ -36,6 +43,17 @@
   --color-likert-6: #3f8c52;
 }
 
+/* Probe Formsprache, vorläufig (17.09.2026): Madelon Script ist kein npm-Paket.
+   Lizenz ungeklärt, öffentlich vorerst erlaubt wie im Haushalt; angesprochen
+   nur über --font-script, damit ein Tausch eine Zeile ist. */
+@font-face {
+  font-family: "Madelon Script";
+  src: url("./assets/fonts/MadelonScript.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -45,7 +63,6 @@ body {
   color: var(--color-ink);
   background: var(--color-cream);
   -webkit-font-smoothing: antialiased;
-  font-feature-settings: "ss01", "cv11";
   /* Accessibility: large base — 17px mobile, 18px desktop */
   font-size: 17px;
   line-height: 1.6;
@@ -55,6 +72,11 @@ body {
 }
 
 .font-display { font-family: var(--font-display); }
+
+h1, h2, h3, .headline {
+  font-optical-sizing: auto;
+  font-variant-numeric: lining-nums;
+}
 
 .headline {
   font-family: var(--font-display);
@@ -111,6 +133,8 @@ body {
 
 /* Plot figure resets — keep charts on the cream ground, no extra margin */
 figure.plot-figure { margin: 0; }
+/* Plot-Legenden setzen system-ui per :where(); hier die Textschrift. */
+figure.plot-figure > div, figure.plot-figure > svg { font-family: var(--font-sans); }
 figure.plot-figure svg { display: block; max-width: 100%; height: auto; }
 
 /* Suppress browser tap-highlight and focus stroke on interactive SVG shapes

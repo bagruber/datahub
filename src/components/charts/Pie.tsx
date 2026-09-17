@@ -125,7 +125,7 @@ export function Pie({ records, source, labels, values, colors, items }: Props) {
             y={focused ? -10 : -4}
             textAnchor="middle"
             className="fill-ink"
-            style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700 }}
+            style={{ fontFamily: "var(--font-display)", fontSize: 22, fontWeight: 700, fontVariantNumeric: "lining-nums tabular-nums" }}
           >
             {focused ? fmtInt(focused.count) : fmtInt(total)}
           </text>

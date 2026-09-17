@@ -15,7 +15,7 @@ type ChipProps = {
   emphasized?: boolean;
 };
 
-// Width approximation for Inter at given px size. Good enough for the short
+// Width approximation at given px size (Atkinson measures ~0.47 em per char). Good enough for the short
 // numeric/label strings we put in chips. Avoids flicker from getBBox-on-mount.
 function approxWidth(text: string, fontSize: number): number {
   return text.length * fontSize * 0.58;

@@ -60,7 +60,7 @@ export function BarH({ records, codebook, source, items, slots, color, preserveO
       x: { axis: "bottom", percent: true, grid: true, label: null, ticks: isMobile ? 4 : 5 },
       y: { domain: sorted.map((d) => d.label), label: null, tickSize: 0 },
       style: {
-        fontFamily: "Inter Variable, Inter, sans-serif",
+        fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
         background: "transparent",
