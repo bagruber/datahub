@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { loadManifest, type Manifest } from "@/lib/data";
-import { DatasetCard } from "@/components/DatasetCard";
+import { DatasetCard, Kachel } from "@/components/DatasetCard";
 import { CARD_KIND } from "@/lib/cardKind";
 
 export function Home() {
@@ -35,15 +35,15 @@ export function Home() {
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className="h-36 rounded-xl bg-white/60 border border-ink-line animate-pulse"
+                className="h-44 rounded-xl bg-white/60 border border-ink-line animate-pulse"
               />
             ))}
           </div>
         )}
         {manifest && (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {manifest.datasets.map((d) => (
-              <DatasetCard key={d.id} entry={d} />
+          <div className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+            {manifest.datasets.map((d, i) => (
+              <DatasetCard key={d.id} entry={d} variante={i} />
             ))}
           </div>
         )}
@@ -52,24 +52,33 @@ export function Home() {
       {/* Eigenständige Anwendungen, keine Datensätze aus dem Manifest.
           Grundton wie die anderen „Eigene Auswertung", Aufbau in KartenCard. */}
       <section className="pb-16">
-        {/* Überschrift benennt die Form, der Kicker auf der Card die
+        {/* Überschrift benennt die Form, die Kategoriezeile der Kachel die
             Herkunft — sonst stünde zweimal dasselbe. */}
         <h2 className="headline text-2xl sm:text-3xl mb-5">Karten</h2>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
           <KartenCard
             href={`${import.meta.env.BASE_URL}baumkarte/`}
             titel="Baumkarte"
-            zeile="2.868.813 Einzelbäume rund um Moosburg"
+            satz="Alle Einzelbäume rund um Moosburg."
+            zahl="2.868.813"
+            einheit="Einzelbäume"
+            variante={0}
           />
           <KartenCard
             href={`${import.meta.env.BASE_URL}historisch/`}
             titel="Moosburg historisch"
-            zeile="Acht Kartenausgaben von 1960 bis heute, übereinandergelegt"
+            satz="Acht Kartenausgaben von 1960 bis heute, übereinandergelegt."
+            zahl="8"
+            einheit="Kartenausgaben"
+            variante={1}
           />
           <KartenCard
             href={`${import.meta.env.BASE_URL}foodhub/`}
             titel="Speisekarten"
-            zeile="1.714 Gerichte aus 17 Speisekarten, jede mit Quelle und Datum"
+            satz="Aus 17 Speisekarten, jede mit Quelle und Datum."
+            zahl="1.714"
+            einheit="Gerichte"
+            variante={2}
           />
         </div>
       </section>
@@ -77,37 +86,31 @@ export function Home() {
   );
 }
 
-/** Card einer eigenständigen Kartenanwendung: eigener Build unter /data/…/,
+/** Kachel einer eigenständigen Kartenanwendung: eigener Build unter /data/…/,
     deshalb ein normaler Link statt einer Route des Routers. */
-function KartenCard({ href, titel, zeile }: { href: string; titel: string; zeile: string }) {
+function KartenCard({ href, titel, satz, zahl, einheit, variante }: {
+  href: string;
+  titel: string;
+  satz: string;
+  zahl: string;
+  einheit: string;
+  variante: number;
+}) {
   return (
-    <a
-      href={href}
-      className={`group block rounded-xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift ${CARD_KIND.eigen.surface}`}
-    >
-      <p className={CARD_KIND.eigen.zeile}>{CARD_KIND.eigen.label}</p>
-      <h3
-        className={`headline mt-1 mb-2 flex items-center gap-1.5 text-xl transition-colors sm:text-2xl ${CARD_KIND.eigen.titleHover}`}
-      >
-        {titel}
-        <svg
-          width="11"
-          height="11"
-          viewBox="0 0 11 11"
-          fill="none"
-          aria-hidden
-          className="mt-0.5 shrink-0 opacity-45"
-        >
-          <path
-            d="M2.5 8.5 8.5 2.5M4 2.5h4.5V7"
-            stroke="currentColor"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </h3>
-      <p className={`text-sm ${CARD_KIND.eigen.meta}`}>{zeile}</p>
-    </a>
+    <Kachel
+      kind="eigen"
+      variante={variante}
+      zeile={CARD_KIND.eigen.label}
+      titel={titel}
+      satz={satz}
+      zahl={zahl}
+      einheit={einheit}
+      extern
+      link={(className, children) => (
+        <a href={href} className={className}>
+          {children}
+        </a>
+      )}
+    />
   );
 }
