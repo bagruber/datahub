@@ -44,8 +44,8 @@ export const RADIUS = {
   bar: 2,        // bars in any bar/stack chart, filter mini-bars
   cell: 4,       // heatmap and correlation cells, pie/donut corners
   chip: 4,       // chip annotation backgrounds
-  card: 8,       // chart cards, stat cards (matches rounded-lg)
-  hero: 12,      // dataset cards, popovers (matches rounded-xl)
+  card: 8,       // chart cards (matches rounded-lg)
+  hero: 8,       // dataset cards, popovers (matches rounded-xl)
 } as const;
 
 // Stroke logic. Filled data marks don't get strokes by default; outline shapes
