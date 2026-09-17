@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import { loadManifest, type Manifest } from "@/lib/data";
 import { DatasetCard, Kachel } from "@/components/DatasetCard";
 import { CARD_KIND } from "@/lib/cardKind";
@@ -11,6 +12,13 @@ export function Home() {
   useEffect(() => {
     loadManifest().then(setManifest).catch((e: Error) => setError(e.message));
   }, []);
+
+  // Der Router springt nicht selbst zu #karten; erst nach dem Manifest, weil
+  // die Kacheln darüber sonst die Position noch verschieben.
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash && (manifest || error)) document.getElementById(hash.slice(1))?.scrollIntoView();
+  }, [hash, manifest, error]);
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 sm:px-6">
@@ -53,7 +61,7 @@ export function Home() {
 
       {/* Eigenständige Anwendungen, keine Datensätze aus dem Manifest.
           Grundton wie die anderen „Eigene Auswertung", Aufbau in KartenCard. */}
-      <section className="pb-16">
+      <section id="karten" className="scroll-mt-[calc(var(--kopf-hoehe)+1rem)] pb-16">
         {/* Überschrift benennt die Form, die Kategoriezeile der Kachel die
             Herkunft — sonst stünde zweimal dasselbe. */}
         <h2 className="headline text-2xl sm:text-3xl mb-5">Karten</h2>

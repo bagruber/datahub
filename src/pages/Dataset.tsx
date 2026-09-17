@@ -151,7 +151,7 @@ export function Dataset() {
 
       {/* Sticky filter strip — compact vertical bars, always reachable */}
       {dataset.filters.length > 0 && (
-        <div className="sticky top-[57px] z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-cream/95 backdrop-blur border-y border-ink-line">
+        <div className="sticky top-[var(--kopf-hoehe)] z-20 -mx-4 sm:-mx-6 px-4 sm:px-6 bg-cream/95 backdrop-blur border-y border-ink-line">
           <div className="py-2.5">
             <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(86px,1fr))] sm:grid-cols-[repeat(auto-fit,minmax(110px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
               {dataset.filters.map((f) => {

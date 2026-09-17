@@ -10,9 +10,7 @@ export function About() {
         </p>
         <p>
           Die Auswertungen sind bewusst zurückhaltend gestaltet — eine Frage, eine
-          Grafik, ein Gedanke. Wer tiefer einsteigen möchte, kann jeden Datensatz
-          herunterladen oder im Methodik-Hinweis nachlesen, wie die Befragung
-          durchgeführt wurde.
+          Grafik, ein Gedanke.
         </p>
       </div>
     </div>
