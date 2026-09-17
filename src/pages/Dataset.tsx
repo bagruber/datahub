@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
+import { ArrowLeft } from "@phosphor-icons/react";
 import { loadDataset, loadManifest, type Dataset as Ds, type ManifestEntry } from "@/lib/data";
 import {
   activeCount,
@@ -56,8 +57,9 @@ export function Dataset() {
         <p className="text-red-700 bg-red-50 rounded-md px-4 py-3 border border-red-100">
           {error}
         </p>
-        <Link to="/" className="inline-block mt-6 text-red-700 underline decoration-dotted">
-          ← Zurück zur Übersicht
+        <Link to="/" className="inline-flex items-center gap-1.5 mt-6 text-red-700 underline decoration-dotted">
+          <ArrowLeft aria-hidden className="shrink-0" />
+          Zurück zur Übersicht
         </Link>
       </div>
     );
@@ -90,8 +92,9 @@ export function Dataset() {
     <div className="mx-auto max-w-screen-2xl px-4 sm:px-6">
       {/* Hero */}
       <header className="py-10 sm:py-14">
-        <Link to="/" className="eyebrow text-ink-muted hover:text-ink">
-          ← Data Hub
+        <Link to="/" className="eyebrow inline-flex items-center gap-1.5 text-ink-muted hover:text-ink">
+          <ArrowLeft aria-hidden className="shrink-0" />
+          Data Hub
         </Link>
         <h1 className="headline text-display-2 sm:text-display-1 mt-3">
           {dataset.meta.title}
