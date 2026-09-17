@@ -10,7 +10,9 @@ import {
   toggleOption,
   writeSelections,
 } from "@/lib/filters";
-import { Stat } from "@/components/Stat";
+import { KategorieZeile, Kennzahl } from "@/components/ui";
+import { CARD_KIND } from "@/lib/cardKind";
+import { themenfarbe } from "@/lib/themenfarbe";
 import { Section } from "@/components/Section";
 import { FilterChart } from "@/components/FilterChart";
 import { ChartRenderer } from "@/components/charts/ChartRenderer";
@@ -81,6 +83,7 @@ export function Dataset() {
 
   const sortedSections = [...dataset.sections].sort((a, b) => a.order - b.order);
   const active = activeCount(selections);
+  const style = CARD_KIND[dataset.kind === "statistik" ? "statistik" : dataset.kind === "eigen" ? "eigen" : "umfrage"];
 
   const updateSelections = (next: typeof selections) =>
     setSearchParams(writeSelections(searchParams, next, dataset.filters), {
@@ -90,49 +93,52 @@ export function Dataset() {
 
   return (
     <div className="mx-auto max-w-screen-2xl px-4 sm:px-6">
-      {/* Hero */}
-      <header className="py-10 sm:py-14">
-        <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted hover:text-ink">
+      {/* Kopfband über die volle Breite in der Themenfarbe. 50vw zählt eine
+          sichtbare Scrollleiste mit, deshalb body { overflow-x: clip }. */}
+      <header
+        className="relative -mx-[calc(50vw-50%)] px-[calc(50vw-50%)] py-8 text-cream sm:py-12"
+        style={{ background: themenfarbe(entry.id) }}
+      >
+        <Link
+          to="/"
+          className="inline-flex items-center gap-1.5 text-sm font-semibold text-cream/85 hover:text-cream"
+        >
           <ArrowLeft aria-hidden className="shrink-0" />
           Data Hub
         </Link>
-        <h1 className="headline text-display-2 sm:text-display-1 mt-3">
-          {dataset.meta.title}
-        </h1>
+        <KategorieZeile icon={style.icon} className="mt-6 flex text-gold-200">
+          {dataset.kind === "statistik"
+            ? [style.label, dataset.meta.source].filter(Boolean).join(" · ")
+            : `${style.label} ${dataset.meta.year}`}
+        </KategorieZeile>
+        <h1 className="headline mt-2 text-display-2 sm:text-display-1">{dataset.meta.title}</h1>
         {dataset.meta.description && (
-          <p className="mt-4 text-ink-soft text-lg max-w-prose">
-            {dataset.meta.description}
-          </p>
+          <p className="mt-4 max-w-prose text-lg">{dataset.meta.description}</p>
         )}
+        <div className="mt-8 flex flex-wrap gap-x-12 gap-y-5">
+          {dataset.kind === "statistik" ? (
+            <>
+              <Kennzahl wert={dataset.meta.year} label="Stand" className="text-gold-200" labelClassName="text-cream" />
+              <Kennzahl wert={fmtInt(entry.n)} label="Datenpunkte" className="text-gold-200" labelClassName="text-cream" />
+            </>
+          ) : (
+            <>
+              <Kennzahl wert={dataset.meta.year} label="Erhebungsjahr" className="text-gold-200" labelClassName="text-cream" />
+              <Kennzahl
+                wert={fmtInt(filteredRecords.length)}
+                label={
+                  filteredRecords.length === dataset.records.length
+                    ? "Antworten"
+                    : `Antworten, gefiltert von ${fmtInt(dataset.records.length)}`
+                }
+                className="text-gold-200"
+                labelClassName="text-cream"
+              />
+            </>
+          )}
+          <Kennzahl wert={sortedSections.length} label="Themenbereiche" className="text-gold-200" labelClassName="text-cream" />
+        </div>
       </header>
-
-      {/* Key facts — first, before filters. Layout differs by dataset kind:
-          surveys show respondents; statistik shows the source. */}
-      {dataset.kind === "statistik" ? (
-        <div className="grid gap-4 sm:grid-cols-3 pb-6">
-          <Stat label="Stand" value={String(dataset.meta.year)} />
-          <Stat
-            label="Quelle"
-            value={dataset.meta.source ?? "—"}
-            sub="Amtliche Statistik"
-          />
-          <Stat label="Themenbereiche" value={String(sortedSections.length)} />
-        </div>
-      ) : (
-        <div className="grid gap-4 sm:grid-cols-3 pb-6">
-          <Stat label="Erhebungsjahr" value={String(dataset.meta.year)} />
-          <Stat
-            label="Antworten"
-            value={fmtInt(filteredRecords.length)}
-            sub={
-              filteredRecords.length === dataset.records.length
-                ? "Stichprobengröße"
-                : `gefiltert von ${fmtInt(dataset.records.length)}`
-            }
-          />
-          <Stat label="Themenbereiche" value={String(sortedSections.length)} />
-        </div>
-      )}
 
       {/* Sticky filter strip — compact vertical bars, always reachable */}
       {dataset.filters.length > 0 && (

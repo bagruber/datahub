@@ -63,6 +63,9 @@ body {
   color: var(--color-ink);
   background: var(--color-cream);
   -webkit-font-smoothing: antialiased;
+  /* Bänder über die volle Breite rechnen mit 50vw, das eine sichtbare
+     Scrollleiste mitzählt; clip verhindert den waagrechten Überlauf. */
+  overflow-x: clip;
   /* Accessibility: large base — 17px mobile, 18px desktop */
   font-size: 17px;
   line-height: 1.6;
