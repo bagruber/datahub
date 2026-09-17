@@ -34,7 +34,7 @@ importers:
         version: 3.2.0
       moosburg-design:
         specifier: github:bagruber/moosburg-design
-        version: https://codeload.github.com/bagruber/moosburg-design/tar.gz/1b5c29e2efc4852291e41ea9ec520080cf160e00
+        version: https://codeload.github.com/bagruber/moosburg-design/tar.gz/cd312faebdaab06e82d3c10928a55676d85d3aed
       react:
         specifier: ^19.0.0
         version: 19.2.8
@@ -816,8 +816,8 @@ packages:
   magic-string@0.30.21:
     resolution: {integrity: sha512-vd2F4YUyEXKGcLHoq+TEyCjxueSeHnFxyyjNp80yg0XV4vUhnDer/lvvlqM/arB5bXQN5K2/3oinyCRyx8T2CQ==}
 
-  moosburg-design@https://codeload.github.com/bagruber/moosburg-design/tar.gz/1b5c29e2efc4852291e41ea9ec520080cf160e00:
-    resolution: {gitHosted: true, tarball: https://codeload.github.com/bagruber/moosburg-design/tar.gz/1b5c29e2efc4852291e41ea9ec520080cf160e00}
+  moosburg-design@https://codeload.github.com/bagruber/moosburg-design/tar.gz/cd312faebdaab06e82d3c10928a55676d85d3aed:
+    resolution: {gitHosted: true, integrity: sha512-clz5ABGPG5t7kU3YmQcNBlPQ+M9mQ/qN1+BBbgyU+/8uSdFHy05YnTyubGrQ2th2rICzJKb8+Jzw7pHIsyBR4Q==, tarball: https://codeload.github.com/bagruber/moosburg-design/tar.gz/cd312faebdaab06e82d3c10928a55676d85d3aed}
     version: 0.1.0
 
   nanoid@3.3.18:
@@ -1490,7 +1490,7 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  moosburg-design@https://codeload.github.com/bagruber/moosburg-design/tar.gz/1b5c29e2efc4852291e41ea9ec520080cf160e00: {}
+  moosburg-design@https://codeload.github.com/bagruber/moosburg-design/tar.gz/cd312faebdaab06e82d3c10928a55676d85d3aed: {}
 
   nanoid@3.3.18: {}
 
