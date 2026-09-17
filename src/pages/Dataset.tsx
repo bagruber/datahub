@@ -127,7 +127,7 @@ export function Dataset() {
         {dataset.meta.description && (
           <p className="relative mt-4 max-w-prose text-lg">{dataset.meta.description}</p>
         )}
-        <div className="relative mt-8 flex flex-wrap gap-x-12 gap-y-5">
+        <div className="relative mt-8 flex flex-wrap gap-x-8 gap-y-5 sm:gap-x-12">
           {dataset.kind === "statistik" ? (
             <>
               <Kennzahl wert={dataset.meta.year} label="Stand" className="text-gold-200" labelClassName="text-cream" />
