@@ -296,7 +296,7 @@ export function Venn3({ records, source, values, labels, colors }: Props) {
             );
           })}
           <li className="border-t border-ink-line pt-1.5 mt-0.5">
-            <p className="eyebrow text-[10px] mb-1 px-2">Schnittmengen</p>
+            <p className="text-xs font-semibold text-ink-muted mb-1 px-2">Schnittmengen</p>
           </li>
           {/* Pairwise — split squares (interactive) */}
           <RegionRow

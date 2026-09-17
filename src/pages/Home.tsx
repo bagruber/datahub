@@ -14,7 +14,6 @@ export function Home() {
   return (
     <div className="mx-auto max-w-screen-xl px-4 sm:px-6">
       <section className="py-10 sm:py-16 max-w-3xl">
-        <p className="eyebrow mb-3">Data Hub</p>
         <h1 className="headline text-display-2 sm:text-display-1">
           Was Moosburg sagt, sichtbar gemacht.
         </h1>
@@ -25,7 +24,7 @@ export function Home() {
       </section>
 
       <section className="pb-16">
-        <h2 className="eyebrow mb-4">Datensätze</h2>
+        <h2 className="headline text-2xl sm:text-3xl mb-5">Datensätze</h2>
         {error && (
           <p className="text-red-700 bg-red-50 rounded-md px-4 py-3 border border-red-100">
             Fehler beim Laden: {error}
@@ -55,7 +54,7 @@ export function Home() {
       <section className="pb-16">
         {/* Überschrift benennt die Form, der Kicker auf der Card die
             Herkunft — sonst stünde zweimal dasselbe. */}
-        <h2 className="eyebrow mb-4">Karten</h2>
+        <h2 className="headline text-2xl sm:text-3xl mb-5">Karten</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <KartenCard
             href={`${import.meta.env.BASE_URL}baumkarte/`}
@@ -86,7 +85,7 @@ function KartenCard({ href, titel, zeile }: { href: string; titel: string; zeile
       href={href}
       className={`group block rounded-xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift ${CARD_KIND.eigen.surface}`}
     >
-      <p className={CARD_KIND.eigen.eyebrow}>{CARD_KIND.eigen.label}</p>
+      <p className={CARD_KIND.eigen.zeile}>{CARD_KIND.eigen.label}</p>
       <h3
         className={`headline mt-1 mb-2 flex items-center gap-1.5 text-xl transition-colors sm:text-2xl ${CARD_KIND.eigen.titleHover}`}
       >

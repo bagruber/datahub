@@ -101,6 +101,7 @@ export function Gremium({ geometrie, sitze, listen, title }: Props) {
       </p>
 
       <div>
+        {/* Versalien bleiben bis zur Wahl-Runde */}
         <p className="text-xs uppercase tracking-wide text-ink-muted">Sitze · Stimmenanteil, gezeigt als Balken</p>
         <ul className="mt-2 grid gap-1 text-sm">
           {listen.map((l) => (

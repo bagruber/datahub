@@ -92,7 +92,7 @@ export function Dataset() {
     <div className="mx-auto max-w-screen-2xl px-4 sm:px-6">
       {/* Hero */}
       <header className="py-10 sm:py-14">
-        <Link to="/" className="eyebrow inline-flex items-center gap-1.5 text-ink-muted hover:text-ink">
+        <Link to="/" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ink-muted hover:text-ink">
           <ArrowLeft aria-hidden className="shrink-0" />
           Data Hub
         </Link>
@@ -184,7 +184,7 @@ export function Dataset() {
       {/* Sections */}
       <div className="divide-y divide-ink-line">
         {sortedSections.map((s) => (
-          <Section key={s.id} eyebrow={`Kapitel ${s.order}`} title={s.title} text={s.text}>
+          <Section key={s.id} title={s.title} text={s.text}>
             {(s.charts ?? []).length === 0 && (
               <p className="text-ink-muted text-sm italic">
                 Für diesen Abschnitt liegen noch keine Visualisierungen vor.

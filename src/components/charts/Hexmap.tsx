@@ -343,7 +343,7 @@ function Steuerung({
       {proListe && (
         <>
           <label className="grid gap-1.5">
-            <span className="eyebrow text-ink-muted">Liste</span>
+            <span className="text-sm font-semibold text-ink-muted">Liste</span>
             <select
               value={listeId}
               onChange={(e) => setListeId(e.target.value)}
@@ -391,7 +391,7 @@ function Segmente({
 }) {
   return (
     <div className="grid gap-1.5">
-      <span className="eyebrow text-ink-muted">{label}</span>
+      <span className="text-sm font-semibold text-ink-muted">{label}</span>
       <div
         className="inline-flex overflow-hidden rounded-md border border-ink-line bg-white"
         role="radiogroup"
@@ -515,7 +515,8 @@ function Legende({
 
   return (
     <div>
-      <h4 className="eyebrow text-ink-muted">Legende</h4>
+      <h4 className="text-sm font-semibold text-ink-muted">Legende</h4>
+      {/* Versalien bleiben bis zur Wahl-Runde */}
       <p className="mt-1 text-xs uppercase tracking-wide text-ink-muted">{mass}</p>
       <ul className="mt-2 grid gap-1 text-sm">
         {zeilen.map((z, i) => (
@@ -561,7 +562,7 @@ function Ablesung({ gebiet, ansicht }: { gebiet: WahlGebiet | null | undefined; 
 
   return (
     <div aria-live="polite">
-      <h4 className="eyebrow text-ink-muted">Gemeinde</h4>
+      <h4 className="text-sm font-semibold text-ink-muted">Gemeinde</h4>
       {!gebiet ? (
         <p className="mt-2 text-sm text-ink-muted">Auf eine Fläche zeigen.</p>
       ) : (
@@ -638,7 +639,7 @@ function Herkunft({ ebene }: { ebene: WahlEbene }) {
 
   return (
     <div className="border-t border-ink-line pt-4">
-      <h4 className="eyebrow text-ink-muted">Woher die Zahlen kommen</h4>
+      <h4 className="text-sm font-semibold text-ink-muted">Woher die Zahlen kommen</h4>
       <dl className="mt-2 grid gap-x-5 gap-y-1.5 text-sm sm:grid-cols-[minmax(9rem,auto)_1fr]">
         {zeilen.map(([was, woher, wieviel]) => (
           <div key={was} className="contents">

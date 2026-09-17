@@ -11,7 +11,7 @@ export function DatasetCard({ entry }: { entry: ManifestEntry }) {
   const style = CARD_KIND[kind];
 
   // Die Jahreszahl allein sagte nicht, was man vor sich hat
-  const eyebrowText = kind === "umfrage" ? `${style.label} ${entry.year}` : style.label;
+  const zeileText = kind === "umfrage" ? `${style.label} ${entry.year}` : style.label;
   const countText =
     kind === "statistik"
       ? `${fmtInt(entry.n)} Datenpunkte`
@@ -24,7 +24,7 @@ export function DatasetCard({ entry }: { entry: ManifestEntry }) {
       to={`/d/${entry.id}`}
       className={`group block rounded-xl border p-5 shadow-soft transition-all hover:-translate-y-0.5 hover:shadow-lift ${style.surface}`}
     >
-      <p className={style.eyebrow}>{eyebrowText}</p>
+      <p className={style.zeile}>{zeileText}</p>
       <h3
         className={`headline mt-1 mb-2 text-xl transition-colors sm:text-2xl ${style.titleHover}`}
       >

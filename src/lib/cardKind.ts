@@ -18,25 +18,25 @@ export type CardKind = "umfrage" | "statistik" | "eigen";
 
 export const CARD_KIND: Record<
   CardKind,
-  { surface: string; eyebrow: string; meta: string; titleHover: string; label: string }
+  { surface: string; zeile: string; meta: string; titleHover: string; label: string }
 > = {
   umfrage: {
     surface: "bg-white border-ink-line",
-    eyebrow: "eyebrow text-ink-muted",
+    zeile: "text-sm font-semibold text-ink-muted",
     meta: "text-ink-muted",
     titleHover: "group-hover:text-red-700",
     label: "Umfrage",
   },
   statistik: {
     surface: "bg-gold-100 border-gold-200",
-    eyebrow: "eyebrow text-gold-700",
+    zeile: "text-sm font-semibold text-gold-700",
     meta: "text-ink-soft",
     titleHover: "group-hover:text-gold-700",
     label: "Amtliche Statistik",
   },
   eigen: {
     surface: "card-hatch border-ink-line",
-    eyebrow: "eyebrow text-ink-soft",
+    zeile: "text-sm font-semibold text-ink-soft",
     meta: "text-ink-soft",
     titleHover: "group-hover:text-red-700",
     label: "Eigene Auswertung",
