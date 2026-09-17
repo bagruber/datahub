@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { loadManifest, type Manifest } from "@/lib/data";
 import { DatasetCard, Kachel } from "@/components/DatasetCard";
 import { CARD_KIND } from "@/lib/cardKind";
+import { SeitenKopf } from "@/components/ui";
 
 export function Home() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
@@ -13,15 +14,16 @@ export function Home() {
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 sm:px-6">
-      <section className="py-10 sm:py-16 max-w-3xl">
-        <h1 className="headline text-display-2 sm:text-display-1">
-          Was Moosburg sagt, sichtbar gemacht.
-        </h1>
-        <p className="mt-5 text-ink-soft text-lg max-w-prose">
-          Bürgerbefragungen, offene Daten und Auswertungen aus der Stadt — kompakt,
-          nachvollziehbar und ohne Anmeldung.
-        </p>
-      </section>
+      <div className="py-10 sm:py-16">
+        <SeitenKopf
+          titel="Was Moosburg sagt, sichtbar gemacht."
+          script="nachgefragt"
+          zeichnung="sketches/buechereiA.svg"
+          className="max-w-3xl text-display-2 sm:text-display-1"
+        >
+          Bürgerbefragungen, offene Daten und Auswertungen aus Moosburg, kompakt und ohne Anmeldung.
+        </SeitenKopf>
+      </div>
 
       <section className="pb-16">
         <h2 className="headline text-2xl sm:text-3xl mb-5">Datensätze</h2>
