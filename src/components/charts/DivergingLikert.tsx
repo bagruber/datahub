@@ -4,19 +4,11 @@ import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { asScalar } from "@/lib/record";
 import { fmtInt, fmtPct } from "@/lib/format";
-import {
-  GOLD_STUFEN,
-  GOLD_STUFEN6,
-  INK,
-  RADIUS,
-  SKALA5,
-  SKALA6,
-  STROKE,
-} from "@/lib/palette";
+import { GITTER, INK, INK_MUTED, KERBE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
-import { ScaleCaption } from "./ScaleCaption";
+import { Skalenleiste, rampeFuer } from "./Skalenleiste";
 import type { Codebook, Dataset } from "@/lib/data";
 
 /**
@@ -65,10 +57,7 @@ const DEFAULT_ENDPOINTS: Record<DivergingTone, { left: string; right: string }> 
   neutral:    { left: "günstig",       right: "teuer" },
 };
 
-function rampFor(tone: DivergingTone, scale: 5 | 6): readonly string[] {
-  if (tone === "evaluative") return scale === 5 ? SKALA5 : SKALA6;
-  return scale === 5 ? GOLD_STUFEN : GOLD_STUFEN6;
-}
+const rampFor = rampeFuer;
 
 /** Diverging layout per scale size. 5-point has a true neutral that straddles
  *  the centre line; 6-point has no centre and splits between rating 3 and 4. */
@@ -138,6 +127,13 @@ function buildRows(
   return out;
 }
 
+type Kennzahl = { label: string; n: number; links: number; rechts: number; mittel: number | null };
+
+/** Mittelwert der Skala auf die Diagrammbreite abbilden: 1 ganz links, n ganz rechts. */
+function mittelAufAchse(mittel: number, scale: number, extent: number): number {
+  return -extent + ((mittel - 1) / (scale - 1)) * 2 * extent;
+}
+
 export function DivergingLikert({
   records,
   codebook,
@@ -161,12 +157,34 @@ export function DivergingLikert({
   );
   const itemOrder = useMemo(() => items.map((i) => i.label).reverse(), [items]);
 
+  // Probe Diagramme, vorläufig (18.09.2026): Summe beider Seiten außen, dazu
+  // der Mittelwert auf einer feinen Skala unter dem Balken.
+  const kennzahlen = useMemo(() => {
+    const mitte = scale / 2;
+    return items.map((it) => {
+      const eigene = rows.filter((r) => r.item === it.label);
+      const n = eigene[0]?.n ?? 0;
+      const summe = (von: number, bis: number) =>
+        eigene.filter((r) => r.rating >= von && r.rating <= bis).reduce((a, r) => a + r.share, 0);
+      const gewicht = eigene.reduce((a, r) => a + r.rating * r.count, 0);
+      return {
+        label: it.label,
+        n,
+        links: summe(1, mitte),
+        rechts: summe(mitte + 1, scale),
+        mittel: n > 0 ? gewicht / n : null,
+      };
+    });
+  }, [items, rows, scale]);
+
   const compact = density === "compact";
-  const marginLeft = compact ? (isMobile ? 100 : 160) : (isMobile ? 110 : 180);
-  const marginRight = compact ? 16 : 24;
+  // Platz für die Summen links und rechts außerhalb der Zeichenfläche.
+  const marginLeft = compact ? (isMobile ? 100 : 160) : (isMobile ? 138 : 216);
+  const marginRight = compact ? 46 : 56;
   const fontPx = compact ? (isMobile ? 10 : 12) : (isMobile ? 11 : 13);
   const axisPx = isMobile ? 10 : 12;
-  const rowHeight = compact ? 28 : 30;
+  // Höhere Zeile: Balken oben, darunter die feine Skala mit dem Mittelwert.
+  const rowHeight = compact ? 40 : 44;
   const bandPadding = compact ? 60 : tone === "neutral" ? 70 : 60;
 
   const extent = useMemo(() => {
@@ -181,20 +199,14 @@ export function DivergingLikert({
       marginRight,
       marginTop: 32,
       marginBottom: compact ? 24 : 28,
-      x: {
-        domain: [-extent, extent],
-        axis: "top",
-        label: null,
-        grid: true,
-        ticks: isMobile ? 4 : 5,
-        tickFormat: (v: number) => `${Math.abs(Math.round(v * 100))}%`,
-      },
+      // Keine Prozentachse: die Summen stehen an den Enden der Balken.
+      x: { domain: [-extent, extent], axis: null, label: null },
       y: { domain: itemOrder, label: null, tickSize: 0 },
       color: {
         type: "ordinal",
         domain: ratings,
         range: [...ramp],
-        legend: true,
+        legend: false,
         label: legendLabel ?? defaultLegendFor(tone, scale),
       },
       style: {
@@ -205,36 +217,90 @@ export function DivergingLikert({
       marks: [
         // Compact density skips the explicit axis (parent's card carries the
         // labels visually; row count is small enough that wrap doesn't help).
-        ...(compact ? [] : [Plot.axisY({ lineWidth: isMobile ? 9 : 12, fontSize: axisPx })]),
+        ...(compact
+          ? []
+          : [
+              // dx hält die Merkmale links von der Spalte mit den Summen.
+              Plot.axisY({
+                lineWidth: isMobile ? 8 : 11,
+                fontSize: axisPx,
+                tickSize: 0,
+                color: INK_MUTED,
+                dx: -38,
+              }),
+            ]),
         Plot.barX(rows, {
           x1: "x1",
           x2: "x2",
           y: "item",
           fill: "rating",
-          insetTop: 3,
-          insetBottom: 3,
-          rx: RADIUS.bar,
+          insetTop: 8,
+          insetBottom: 24,
+          // 1 px Fuge zwischen den Stufen, keine runden Ecken im Stapel.
+          insetLeft: 0.5,
+          insetRight: 0.5,
           tip: true,
           title: (d: Row) =>
             `${d.item}\nBewertung ${d.rating}\n${fmtInt(d.count)} von ${fmtInt(d.n)}\n${fmtPct(d.share)}`,
         }),
-        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
+        // Kerben über und unter jedem Balken statt einer Linie mitten hindurch.
+        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: 3, insetBottom: rowHeight - 7, stroke: KERBE }),
+        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: 21, insetBottom: rowHeight - 25, stroke: KERBE }),
+        // Summen beider Seiten.
+        Plot.text(kennzahlen, {
+          x: -extent,
+          y: "label",
+          text: (d: Kennzahl) => fmtPct(d.links),
+          textAnchor: "end",
+          dx: -6,
+          dy: -8,
+          fontSize: fontPx - 1,
+          fill: INK_MUTED,
+        }),
+        Plot.text(kennzahlen, {
+          x: extent,
+          y: "label",
+          text: (d: Kennzahl) => fmtPct(d.rechts),
+          textAnchor: "start",
+          dx: 6,
+          dy: -8,
+          fontWeight: 600,
+          fontSize: fontPx,
+          fill: INK,
+        }),
+        // Feine Skala von 1 bis n mit dem Mittelwert als Punkt.
+        Plot.ruleY(kennzahlen, { y: "label", x1: -extent, x2: extent, dy: 12, stroke: GITTER }),
+        Plot.dot(kennzahlen.filter((k) => k.mittel !== null), {
+          x: (d: Kennzahl) => mittelAufAchse(d.mittel!, scale, extent),
+          y: "label",
+          dy: 12,
+          r: 3.5,
+          fill: INK,
+          stroke: "white",
+          strokeWidth: 1.5,
+        }),
+        Plot.text(kennzahlen.filter((k) => k.mittel !== null), {
+          x: (d: Kennzahl) => mittelAufAchse(d.mittel!, scale, extent),
+          y: "label",
+          text: (d: Kennzahl) => `Ø ${d.mittel!.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`,
+          textAnchor: "end",
+          dx: -8,
+          dy: 12,
+          fontSize: fontPx - 1,
+          fontWeight: 600,
+          fill: INK,
+        }),
       ],
     }),
     [
       rows, itemOrder, ratings, ramp, compact, fontPx, marginLeft, marginRight,
-      isMobile, axisPx, extent, legendLabel, tone, scale, rowHeight, bandPadding,
+      isMobile, axisPx, extent, legendLabel, tone, scale, rowHeight, bandPadding, kennzahlen,
     ],
   );
 
   // Compact mode renders bare (parent owns the card + caption layout).
   if (compact) {
-    return (
-      <>
-        <PlotFigure options={options} />
-        <ScaleCaption left={ep.left} right={ep.right} />
-      </>
-    );
+    return <PlotFigure options={options} />;
   }
 
   const tableRows = items.map((it) => {
@@ -244,9 +310,9 @@ export function DivergingLikert({
 
   return (
     <ChartFrame
-      caption={{ left: ep.left, right: ep.right }}
       table={<ChartTable headers={["Merkmal", ...ratings.map(String)]} rows={tableRows} />}
     >
+      <Skalenleiste ramp={ramp} links={ep.left} rechts={ep.right} kerbe />
       <PlotFigure options={options} />
     </ChartFrame>
   );
