@@ -3,7 +3,7 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { countByBins, countByCodebook, countByObjectKeys, type AggResult } from "@/lib/aggregate";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { EINZEL, INK, RADIUS } from "@/lib/palette";
+import { EINZEL, INK, INK_MUTED, NULLLINIE, RADIUS } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -64,15 +64,16 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
         tickSize: 0,
         tickRotate: -45,
       },
-      y: { percent: true, grid: true, label: null, ticks: isMobile ? 3 : 4 },
+      // Die Werte stehen auf den Deckeln, die Achse entfaellt.
+      y: { axis: null, percent: true, label: null },
       style: {
         fontFamily: "var(--font-sans)",
         fontSize: `${fontPx}px`,
         color: INK,
       },
       marks: [
-        Plot.axisX({ fontSize: axisPx }),
-        Plot.axisY({ fontSize: axisPx }),
+        Plot.axisX({ fontSize: axisPx, tickSize: 0, color: INK_MUTED }),
+
         Plot.barY(ordered, {
           x: "label",
           y: "share",
@@ -96,7 +97,7 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
           fontSize: fontPx,
           fill: INK,
         }),
-        Plot.ruleY([0]),
+        Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
     [ordered, accent, answered, isMobile, marginTop, marginBottom, fontPx, axisPx],
