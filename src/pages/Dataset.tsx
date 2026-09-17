@@ -22,6 +22,7 @@ import { ChartRenderer } from "@/components/charts/ChartRenderer";
 import { PressSection } from "@/components/press/PressSection";
 import { HELP, HelpIcon } from "@/components/HelpIcon";
 import { fmtInt } from "@/lib/format";
+import { basiszeile } from "@/lib/basis";
 
 export function Dataset() {
   const { id } = useParams<{ id: string }>();
@@ -242,10 +243,20 @@ export function Dataset() {
                 key={c.id}
                 className="rounded-xl bg-white border border-ink-line shadow-soft p-4 sm:p-6"
               >
-                <div className="flex items-start justify-between gap-3 mb-3">
-                  {"title" in c && c.title && (
-                    <h3 className="font-semibold text-ink leading-snug">{c.title}</h3>
-                  )}
+                <div className="mb-4 flex items-start justify-between gap-3">
+                  <div>
+                    {"title" in c && c.title && (
+                      <h3 className="font-display text-lg font-semibold leading-snug text-ink">
+                        {c.title}
+                      </h3>
+                    )}
+                    {/* Worauf sich die Zahlen beziehen, zählt mit den Filtern mit. */}
+                    {basiszeile(c, filteredRecords) && (
+                      <p className="mt-0.5 text-sm text-ink-muted tabular-nums">
+                        {basiszeile(c, filteredRecords)}
+                      </p>
+                    )}
+                  </div>
                   {HELP[c.type] && <HelpIcon explanation={HELP[c.type]} />}
                 </div>
                 {/* Survey charts read from records and need the "no matches"
