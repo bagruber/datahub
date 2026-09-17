@@ -88,7 +88,7 @@ h1, h2, h3, .headline {
 /* Grund für „Eigene Auswertung": feine Schraffur als Zeichen des Gemachten.
    Bewusst eine Textur statt einer dritten Farbe — die Palette bleibt eng,
    und der Unterschied trägt auch in Graustufen und bei Farbenblindheit. */
-.card-hatch {
+@utility card-hatch {
   background-color: var(--color-cream);
   background-image: repeating-linear-gradient(
     45deg,
