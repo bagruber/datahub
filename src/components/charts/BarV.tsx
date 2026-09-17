@@ -51,8 +51,54 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
   const fontPx = isMobile ? 10 : 12;
   const axisPx = isMobile ? 9 : 11;
 
+  // Probe Diagramme, vorläufig (18.09.2026): Am Handy werden aus den Säulen
+  // Balken in derselben Reihenfolge — statt gedrehter Beschriftung und
+  // waagrechtem Scroll.
   const options: Plot.PlotOptions = useMemo(
-    () => ({
+    () =>
+      isMobile
+        ? {
+            height: ordered.length * 34 + 8,
+            marginLeft: 96,
+            marginRight: 48,
+            marginTop: 4,
+            marginBottom: 4,
+            x: { axis: null, percent: true, label: null },
+            y: { domain: ordered.map((d) => d.label), label: null, tickSize: 0 },
+            style: { fontFamily: "var(--font-sans)", fontSize: `${fontPx}px`, color: INK },
+            marks: [
+              Plot.axisY({ fontSize: axisPx, tickSize: 0, color: INK_MUTED, lineWidth: 8 }),
+              Plot.barX(ordered, {
+                x: "share",
+                y: "label",
+                fill: accent,
+                insetTop: 9,
+                insetBottom: 9,
+                rx2y1: RADIUS.bar,
+                rx2y2: RADIUS.bar,
+                tip: true,
+                title: (d) =>
+                  `${d.label}
+${fmtInt(d.count)} Antworten
+${fmtPct(d.share)}${
+                    answered > 0 ? ` von ${fmtInt(answered)}` : ""
+                  }`,
+              }),
+              Plot.text(ordered, {
+                x: "share",
+                y: "label",
+                text: (d) => fmtPct(d.share),
+                dx: 5,
+                textAnchor: "start",
+                fontWeight: 600,
+                fontSize: fontPx,
+                fill: INK,
+              }),
+              Plot.ruleX([0], { stroke: NULLLINIE }),
+            ],
+          }
+        : {
+
       height: HEIGHT,
       marginLeft: MARGIN_LEFT,
       marginRight: MARGIN_RIGHT,
@@ -62,7 +108,8 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
         domain: ordered.map((d) => d.label),
         label: null,
         tickSize: 0,
-        tickRotate: -45,
+        // Dichter: die Säule nimmt rund 70 % der Bandbreite.
+        padding: 0.3,
       },
       // Die Werte stehen auf den Deckeln, die Achse entfaellt.
       y: { axis: null, percent: true, label: null },
@@ -78,9 +125,8 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
           x: "label",
           y: "share",
           fill: accent,
-          insetLeft: 4,
-          insetRight: 4,
-          rx: RADIUS.bar,
+          rx1y1: RADIUS.bar,
+          rx2y1: RADIUS.bar,
           tip: true,
           title: (d) =>
             `${d.label}\n${fmtInt(d.count)} Antworten\n${fmtPct(d.share)}${
@@ -99,11 +145,11 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
         }),
         Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
-    }),
+              },
     [ordered, accent, answered, isMobile, marginTop, marginBottom, fontPx, axisPx],
   );
 
-  const minWidth = ordered.length * BAR_BAND + MARGIN_LEFT + MARGIN_RIGHT;
+  const minWidth = isMobile ? 0 : ordered.length * BAR_BAND + MARGIN_LEFT + MARGIN_RIGHT;
   const width: "narrow" | "normal" | "wide" =
     ordered.length <= 7 ? "narrow" : ordered.length <= 9 ? "normal" : "wide";
 

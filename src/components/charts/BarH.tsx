@@ -72,9 +72,11 @@ export function BarH({ records, codebook, source, items, slots, preserveOrder }:
           x: "share",
           y: "label",
           fill: accent,
-          insetTop: 4,
-          insetBottom: 4,
-          rx: RADIUS.bar,
+          // Balken höchstens 20 px dick, runde Spitze, eckige Basis.
+          insetTop: (BAR_BAND - 20) / 2,
+          insetBottom: (BAR_BAND - 20) / 2,
+          rx2y1: RADIUS.bar,
+          rx2y2: RADIUS.bar,
           tip: true,
           title: (d) =>
             `${d.label}\n${fmtInt(d.count)} Antworten\n${fmtPct(d.share)}${
