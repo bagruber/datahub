@@ -49,6 +49,24 @@ export function KategorieZeile({ icon: Icon, farbe, className, children }: {
   );
 }
 
+/** Kennzahl: die Zahl zuerst, Beschriftung darunter in Satzschreibung. Lining
+ *  und gleich breite Ziffern, damit Nachbarn auf einer Grundlinie stehen. */
+export function Kennzahl({ wert, label, className, labelClassName }: {
+  wert: ReactNode;
+  label: ReactNode;
+  className?: string;
+  labelClassName?: string;
+}) {
+  return (
+    <div>
+      <div className={cn("whitespace-nowrap font-display text-3xl font-semibold leading-tight lining-nums tabular-nums", className)}>
+        {wert}
+      </div>
+      <div className={cn("mt-1 text-sm text-ink-muted", labelClassName)}>{label}</div>
+    </div>
+  );
+}
+
 /** CSS-Maske für eine Datei unter public/, damit die Form eine Token-Farbe annimmt. */
 function maske(datei: string, position: string): CSSProperties {
   const url = `url(${import.meta.env.BASE_URL}${datei})`;
