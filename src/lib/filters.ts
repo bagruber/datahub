@@ -60,6 +60,22 @@ export function activeCount(selections: FilterSelections): number {
   return Object.values(selections).reduce((n, v) => n + (v.length > 0 ? 1 : 0), 0);
 }
 
+/** Index der Zeile „ohne Angabe“: eins hinter der letzten Option, damit
+ *  bestehende Filter-URLs ihre Bedeutung behalten. */
+export function ohneAngabeIndex(f: FilterSpec): number {
+  return f.type === "histogram_range" ? f.groups.length : f.labels.length;
+}
+
+/** Trifft keine der Optionen des Filters auf den Wert zu? */
+export function istOhneAngabe(f: FilterSpec, v: unknown): boolean {
+  if (f.type === "histogram_range") {
+    return typeof v !== "number" || !f.groups.some((g) => v >= g.min && v <= g.max);
+  }
+  const all = filterCodes(f);
+  if (Array.isArray(v)) return !v.some((x) => all.some((c) => codeMatches(x, c)));
+  return !all.some((c) => codeMatches(v, c));
+}
+
 /** Apply selections to records. AND across filters, OR within a filter. */
 export function applyFilters(
   records: Dataset["records"],
@@ -73,6 +89,7 @@ export function applyFilters(
     active.every((f) => {
       const sel = selections[f.key]!;
       const v = r[f.source];
+      if (sel.includes(ohneAngabeIndex(f)) && istOhneAngabe(f, v)) return true;
       if (f.type === "histogram_range") {
         if (typeof v !== "number") return false;
         return sel.some((i) => {

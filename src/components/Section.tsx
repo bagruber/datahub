@@ -1,15 +1,20 @@
 import { cn } from "@/lib/cn";
 
 type Props = {
+  id?: string;
   title: string;
   text?: string;
   children: React.ReactNode;
   className?: string;
 };
 
-export function Section({ title, text, children, className }: Props) {
+export function Section({ id, title, text, children, className }: Props) {
   return (
-    <section className={cn("py-8 sm:py-10", className)}>
+    <section
+      id={id}
+      className={cn("py-8 sm:py-10", className)}
+      style={{ scrollMarginTop: "var(--leiste-unten, var(--kopf-hoehe))" }}
+    >
       <h2 className="headline text-2xl sm:text-3xl mb-3">{title}</h2>
       {text && (
         <p
