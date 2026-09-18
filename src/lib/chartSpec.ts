@@ -184,6 +184,11 @@ export type ChartSpec =
       labels?: string[];
       values?: number[];
       colors?: string[];
+      /** Haben die Antworten eine Reihenfolge (Wartezeit, Häufigkeit)? Dann
+       *  zeigt die Seite einen Anteilsbalken statt eines Rings. */
+      ordnung?: boolean;
+      /** Mehrere Fragen mit derselben Skala in einer Karte, untereinander. */
+      reihen?: { source: string; label?: string }[];
       /** Grouped slices — each can merge multiple codes (like bar_h items). */
       items?: { label: string; vals: number[]; color?: string }[];
     }
