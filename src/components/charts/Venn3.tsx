@@ -1,27 +1,9 @@
-import { useMemo, useState } from "react";
-import { layoutVenn3 } from "@/lib/venn";
+import { useId, useMemo } from "react";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { cn } from "@/lib/cn";
-import { Chip } from "@/components/svg/Chip";
-import { SERIE, STROKE } from "@/lib/palette";
+import { INK, INK_MUTED, SERIE, STROKE } from "@/lib/palette";
+import { loeseEllipsen, type Ellipse } from "@/lib/vennEllipsen";
+import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
-
-type SetKey = "A" | "B" | "C";
-type Region = "onlyA" | "onlyB" | "onlyC" | "ab" | "ac" | "bc" | "abc";
-
-type HoverEntry =
-  | { kind: "set"; key: SetKey }
-  | { kind: "region"; region: Region };
-
-const REGION_SETS: Record<Region, SetKey[]> = {
-  onlyA: ["A"],
-  onlyB: ["B"],
-  onlyC: ["C"],
-  ab: ["A", "B"],
-  ac: ["A", "C"],
-  bc: ["B", "C"],
-  abc: ["A", "B", "C"],
-};
 
 type Props = {
   records: Dataset["records"];
@@ -31,406 +13,297 @@ type Props = {
   title?: string;
 };
 
-const PAD = 44;
-const TARGET_W = 520;
+const BREITE = 520;
+const HOEHE = 380;
+const RAND = 54;
 
+/** Die sieben Gebiete als Bitmuster, in der Reihenfolge des Lösers. */
+const SCHLUESSEL = ["100", "010", "001", "110", "101", "011", "111"] as const;
+
+/** Venn-Diagramm mit drei Mengen. Probe Diagramme, vorläufig (18.09.2026):
+ *  flächentreu über drei Ellipsen, Schnittmengen in Schraffur aus den Farben
+ *  ihrer Mengen. Findet der Löser keine Lage, stehen schematische Kreise. */
 export function Venn3({ records, source, values, labels }: Props) {
-  // Farben aus der Palette; die ersten drei bestehen die Prüfung jeder gegen jeden.
-  const colors = [SERIE[0], SERIE[1], SERIE[2]];
-  const [hover, setHover] = useState<HoverEntry | null>(null);
+  const farben = [SERIE[0], SERIE[1], SERIE[2]];
+  const id = useId().replace(/[:]/g, "");
 
-  const counts = useMemo(() => {
-    let onlyA = 0, onlyB = 0, onlyC = 0;
-    let abOnly = 0, acOnly = 0, bcOnly = 0;
-    let abc = 0, neither = 0;
+  const zahlen = useMemo(() => {
+    let onlyA = 0, onlyB = 0, onlyC = 0, ab = 0, ac = 0, bc = 0, abc = 0, keine = 0;
     const [a, b, c] = values;
     for (const r of records) {
       const v = r[source];
       const arr = Array.isArray(v) ? v : v != null ? [v] : [];
-      const hasA = arr.some((x) => x === a);
-      const hasB = arr.some((x) => x === b);
-      const hasC = arr.some((x) => x === c);
-      if (hasA && hasB && hasC) abc++;
-      else if (hasA && hasB) abOnly++;
-      else if (hasA && hasC) acOnly++;
-      else if (hasB && hasC) bcOnly++;
-      else if (hasA) onlyA++;
-      else if (hasB) onlyB++;
-      else if (hasC) onlyC++;
-      else neither++;
+      const hatA = arr.some((x) => x === a);
+      const hatB = arr.some((x) => x === b);
+      const hatC = arr.some((x) => x === c);
+      if (hatA && hatB && hatC) abc++;
+      else if (hatA && hatB) ab++;
+      else if (hatA && hatC) ac++;
+      else if (hatB && hatC) bc++;
+      else if (hatA) onlyA++;
+      else if (hatB) onlyB++;
+      else if (hatC) onlyC++;
+      else keine++;
     }
-    const setA = onlyA + abOnly + acOnly + abc;
-    const setB = onlyB + abOnly + bcOnly + abc;
-    const setC = onlyC + acOnly + bcOnly + abc;
-    const ab = abOnly + abc;
-    const ac = acOnly + abc;
-    const bc = bcOnly + abc;
-    const denom = onlyA + onlyB + onlyC + abOnly + acOnly + bcOnly + abc;
+    const gesamt = onlyA + onlyB + onlyC + ab + ac + bc + abc;
     return {
-      onlyA, onlyB, onlyC, abOnly, acOnly, bcOnly, abc, neither,
-      setA, setB, setC, ab, ac, bc, denom,
+      gebiete: { "100": onlyA, "010": onlyB, "001": onlyC, "110": ab, "101": ac, "011": bc, "111": abc },
+      summen: [onlyA + ab + ac + abc, onlyB + ab + bc + abc, onlyC + ac + bc + abc],
+      gesamt,
+      keine,
     };
   }, [records, source, values]);
 
-  const layout = useMemo(
-    () => layoutVenn3({
-      setA: counts.setA, setB: counts.setB, setC: counts.setC,
-      ab: counts.ab, ac: counts.ac, bc: counts.bc,
-    }),
-    [counts],
+  // Die Suche läuft nur, wenn sich die Zahlen ändern — also beim Filtern.
+  const loesung = useMemo(
+    () => (zahlen.gesamt > 0 ? loeseEllipsen(zahlen.gebiete, 180) : null),
+    [zahlen],
   );
 
-  const share = (n: number) => (counts.denom === 0 ? 0 : n / counts.denom);
-
-  if (!layout) {
-    return (
-      <p className="text-ink-muted text-sm py-8 text-center">
-        Nicht genug Daten für ein Venn-Diagramm.
-      </p>
-    );
-  }
-
-  // Scale layout to viewBox
-  const innerW = TARGET_W - PAD * 2;
-  const scale = innerW / layout.width;
-  const innerH = layout.height * scale;
-  const VIEW_H = innerH + PAD * 2;
-  const cxA = PAD + layout.cxA * scale;
-  const cyA = PAD + layout.cyA * scale;
-  const cxB = PAD + layout.cxB * scale;
-  const cyB = PAD + layout.cyB * scale;
-  const cxC = PAD + layout.cxC * scale;
-  const cyC = PAD + layout.cyC * scale;
-  const rA = layout.rA * scale;
-  const rB = layout.rB * scale;
-  const rC = layout.rC * scale;
-
-  // Triangle centroid (used for outside-label direction + abc hit target)
-  const tcx = (cxA + cxB + cxC) / 3;
-  const tcy = (cyA + cyB + cyC) / 3;
-  const minR = Math.min(rA, rB, rC);
-
-  function namePos(cx: number, cy: number, r: number) {
-    const dx = cx - tcx;
-    const dy = cy - tcy;
-    const len = Math.hypot(dx, dy) || 1;
-    return { x: cx + (dx / len) * (r + 18), y: cy + (dy / len) * (r + 18) };
-  }
-  const nameA = namePos(cxA, cyA, rA);
-  const nameB = namePos(cxB, cyB, rB);
-  const nameC = namePos(cxC, cyC, rC);
-
-  // Region centroids (heuristic) for hit targets and on-hover chips
-  function pairCentroid(c1x: number, c1y: number, c2x: number, c2y: number, oX: number, oY: number) {
-    const mx = (c1x + c2x) / 2;
-    const my = (c1y + c2y) / 2;
-    // Bias toward triangle centroid so the hit target sits in the lens, not on its outer edge
-    const dx = tcx - mx;
-    const dy = tcy - my;
-    const len = Math.hypot(dx, dy) || 1;
-    return { x: mx + (dx / len) * minR * 0.15, y: my + (dy / len) * minR * 0.15 };
-    void oX; void oY;
-  }
-  const regionCentroid: Record<Region, { x: number; y: number }> = {
-    onlyA: { x: cxA + ((cxA - tcx) / (Math.hypot(cxA - tcx, cyA - tcy) || 1)) * rA * 0.55,
-             y: cyA + ((cyA - tcy) / (Math.hypot(cxA - tcx, cyA - tcy) || 1)) * rA * 0.55 },
-    onlyB: { x: cxB + ((cxB - tcx) / (Math.hypot(cxB - tcx, cyB - tcy) || 1)) * rB * 0.55,
-             y: cyB + ((cyB - tcy) / (Math.hypot(cxB - tcx, cyB - tcy) || 1)) * rB * 0.55 },
-    onlyC: { x: cxC + ((cxC - tcx) / (Math.hypot(cxC - tcx, cyC - tcy) || 1)) * rC * 0.55,
-             y: cyC + ((cyC - tcy) / (Math.hypot(cxC - tcx, cyC - tcy) || 1)) * rC * 0.55 },
-    ab: pairCentroid(cxA, cyA, cxB, cyB, cxC, cyC),
-    ac: pairCentroid(cxA, cyA, cxC, cyC, cxB, cyB),
-    bc: pairCentroid(cxB, cyB, cxC, cyC, cxA, cyA),
-    abc: { x: tcx, y: tcy },
-  };
-
-  const regionCount: Record<Region, number> = {
-    onlyA: counts.onlyA, onlyB: counts.onlyB, onlyC: counts.onlyC,
-    ab: counts.abOnly, ac: counts.acOnly, bc: counts.bcOnly, abc: counts.abc,
-  };
-
-  // Which sets does the current hover touch? (for circle dimming)
-  const activeSets: Set<SetKey> | null = (() => {
-    if (!hover) return null;
-    if (hover.kind === "set") return new Set([hover.key]);
-    return new Set(REGION_SETS[hover.region]);
-  })();
-
-  const isCircleEmphasized = (key: SetKey) =>
-    hover?.kind === "set" && hover.key === key;
-  const isCircleDimmed = (key: SetKey) =>
-    activeSets !== null && !activeSets.has(key);
-
-  const renderCircle = (key: SetKey, cx: number, cy: number, r: number, color: string) => (
-    <circle
-      key={key}
-      cx={cx}
-      cy={cy}
-      r={r}
-      fill={color}
-      fillOpacity={isCircleEmphasized(key) ? 0.55 : 0.4}
-      stroke={color}
-      strokeOpacity={isCircleDimmed(key) ? 0.4 : 0.9}
-      strokeWidth={STROKE.outline}
-      style={{ transition: "fill-opacity 120ms, stroke-opacity 120ms", cursor: "pointer" }}
-      onMouseEnter={() => setHover({ kind: "set", key })}
+  const tabelle = (
+    <ChartTable
+      headers={["Gebiet", "Antworten", "Anteil"]}
+      rows={[
+        ...SCHLUESSEL.map((s) => [
+          gebietName(s, labels),
+          fmtInt(zahlen.gebiete[s]),
+          fmtPct(zahlen.gesamt > 0 ? zahlen.gebiete[s] / zahlen.gesamt : 0),
+        ]),
+        ...labels.map((l, i) => [`${l} insgesamt`, fmtInt(zahlen.summen[i]), fmtPct(zahlen.gesamt > 0 ? zahlen.summen[i] / zahlen.gesamt : 0)]),
+      ]}
     />
   );
 
-  // Hit-target sizing: small ellipses in pixel units of the viewBox.
-  // Lens overlap → smallish; abc center → slightly larger.
-  const lensRX = Math.max(14, minR * 0.22);
-  const lensRY = Math.max(11, minR * 0.18);
-  const abcR = Math.max(12, minR * 0.20);
+  if (zahlen.gesamt === 0) {
+    return <p className="py-8 text-center text-sm text-ink-muted">Keine Antworten mit Angabe.</p>;
+  }
 
-  const setEntries: { key: SetKey; label: string; color: string; size: number }[] = [
-    { key: "A", label: labels[0], color: colors[0], size: counts.setA },
-    { key: "B", label: labels[1], color: colors[1], size: counts.setB },
-    { key: "C", label: labels[2], color: colors[2], size: counts.setC },
-  ];
+  if (!loesung) {
+    // Rückfall: gleich große Kreise, die Zahl trägt die Aussage.
+    return (
+      <figure>
+        <SchematischeKreise labels={labels} farben={farben} gebiete={zahlen.gebiete} summen={zahlen.summen} id={id} />
+        <p className="mt-2 text-xs text-ink-muted">Größen nicht maßstäblich</p>
+        {tabelle}
+      </figure>
+    );
+  }
 
-  // Show a chip with the region's count over the centroid while hovered.
-  const hoveredChip = (() => {
-    if (hover?.kind !== "region") return null;
-    const region = hover.region;
-    const n = regionCount[region];
-    if (n === 0) return null;
-    const { x, y } = regionCentroid[region];
-    const sets = REGION_SETS[region];
-    const borderColor =
-      sets.length === 1 ? colors[sets[0] === "A" ? 0 : sets[0] === "B" ? 1 : 2] : "#333";
-    return { x, y, n, share: share(n), borderColor };
-  })();
+  const { box, ellipsen, zentren } = loesung;
+  const bw = box.x1 - box.x0;
+  const bh = box.y1 - box.y0;
+  const k = Math.min((BREITE - 2 * RAND) / bw, (HOEHE - 2 * RAND) / bh);
+  const ox = (BREITE - bw * k) / 2 - box.x0 * k;
+  const oy = (HOEHE - bh * k) / 2 - box.y0 * k;
+  const X = (x: number) => ox + x * k;
+  const Y = (y: number) => oy + y * k;
+
+  const ellipseAttr = (e: Ellipse) => ({
+    cx: X(e.cx),
+    cy: Y(e.cy),
+    rx: e.a * k,
+    ry: e.b * k,
+    transform: `rotate(${(e.winkel * 180) / Math.PI} ${X(e.cx)} ${Y(e.cy)})`,
+  });
+
+  const paare: [number, number][] = [[0, 1], [0, 2], [1, 2]];
 
   return (
     <figure>
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-center">
-        <svg
-          viewBox={`0 0 ${TARGET_W} ${VIEW_H}`}
-          width="100%"
-          height={VIEW_H}
-          role="img"
-          aria-label={`Venn-Diagramm ${labels.join(", ")}`}
-          onMouseLeave={() => setHover(null)}
-          className="block"
-        >
-          {/* Circles */}
-          {renderCircle("A", cxA, cyA, rA, colors[0])}
-          {renderCircle("B", cxB, cyB, rB, colors[1])}
-          {renderCircle("C", cxC, cyC, rC, colors[2])}
+      <svg
+        viewBox={`0 0 ${BREITE} ${HOEHE}`}
+        width="100%"
+        className="max-w-[520px]"
+        role="img"
+        aria-label={`${labels.join(", ")}: die Zahlen stehen in der Tabelle darunter`}
+      >
+        <defs>
+          {paare.map(([i, j]) => (
+            <Schraffur key={`${i}${j}`} id={`${id}-m${i}${j}`} farben={[farben[i], farben[j]]} />
+          ))}
+          <Schraffur id={`${id}-m012`} farben={farben} />
+          {ellipsen.map((e, i) => (
+            <clipPath key={i} id={`${id}-e${i}`}>
+              <ellipse {...ellipseAttr(e)} />
+            </clipPath>
+          ))}
+        </defs>
 
-          {/* Hit targets for overlap regions — rendered above the circles so
-              they capture pointer events. Transparent fills, only catch hover. */}
-          <ellipse
-            cx={regionCentroid.ab.x} cy={regionCentroid.ab.y}
-            rx={lensRX} ry={lensRY}
-            fill="transparent"
-            style={{ cursor: "pointer" }}
-            onMouseEnter={() => setHover({ kind: "region", region: "ab" })}
-          />
-          <ellipse
-            cx={regionCentroid.ac.x} cy={regionCentroid.ac.y}
-            rx={lensRX} ry={lensRY}
-            fill="transparent"
-            style={{ cursor: "pointer" }}
-            onMouseEnter={() => setHover({ kind: "region", region: "ac" })}
-          />
-          <ellipse
-            cx={regionCentroid.bc.x} cy={regionCentroid.bc.y}
-            rx={lensRX} ry={lensRY}
-            fill="transparent"
-            style={{ cursor: "pointer" }}
-            onMouseEnter={() => setHover({ kind: "region", region: "bc" })}
-          />
-          <circle
-            cx={regionCentroid.abc.x} cy={regionCentroid.abc.y}
-            r={abcR}
-            fill="transparent"
-            style={{ cursor: "pointer" }}
-            onMouseEnter={() => setHover({ kind: "region", region: "abc" })}
-          />
+        {ellipsen.map((e, i) => (
+          <ellipse key={`f${i}`} {...ellipseAttr(e)} fill={farben[i]} fillOpacity={0.07} />
+        ))}
 
-          {/* Set-name chips (outside each circle) */}
-          <Chip x={nameA.x} y={nameA.y} text={labels[0]} borderColor={colors[0]} />
-          <Chip x={nameB.x} y={nameB.y} text={labels[1]} borderColor={colors[1]} />
-          <Chip x={nameC.x} y={nameC.y} text={labels[2]} borderColor={colors[2]} />
+        {/* Schnittmengen: geschachtelte Clip-Gruppen schneiden die Flächen. */}
+        {paare.map(([i, j]) => (
+          <g key={`s${i}${j}`} clipPath={`url(#${id}-e${i})`}>
+            <g clipPath={`url(#${id}-e${j})`}>
+              <rect x={0} y={0} width={BREITE} height={HOEHE} fill={`url(#${id}-m${i}${j})`} />
+            </g>
+          </g>
+        ))}
+        <g clipPath={`url(#${id}-e0)`}>
+          <g clipPath={`url(#${id}-e1)`}>
+            <g clipPath={`url(#${id}-e2)`}>
+              <rect x={0} y={0} width={BREITE} height={HOEHE} fill={`url(#${id}-m012)`} />
+            </g>
+          </g>
+        </g>
 
-          {/* On-hover region chip */}
-          {hoveredChip && (
-            <Chip
-              x={hoveredChip.x}
-              y={hoveredChip.y}
-              text={fmtInt(hoveredChip.n)}
-              sub={fmtPct(hoveredChip.share)}
-              borderColor={hoveredChip.borderColor}
-              fontSize={12}
-              emphasized
-            />
-          )}
-        </svg>
+        {ellipsen.map((e, i) => (
+          <ellipse key={`r${i}`} {...ellipseAttr(e)} fill="none" stroke={farben[i]} strokeWidth={STROKE.outline} />
+        ))}
 
-        {/* Legend */}
-        <ul className="grid gap-1.5 text-sm">
-          {/* Sets */}
-          {setEntries.map((s) => {
-            const isHover = hover?.kind === "set" && hover.key === s.key;
-            const dim = activeSets !== null && !activeSets.has(s.key);
-            return (
-              <li key={s.key}>
-                <button
-                  type="button"
-                  onMouseEnter={() => setHover({ kind: "set", key: s.key })}
-                  onMouseLeave={() => setHover(null)}
-                  onFocus={() => setHover({ kind: "set", key: s.key })}
-                  onBlur={() => setHover(null)}
-                  className={cn(
-                    "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md text-left transition-colors",
-                    isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
-                  )}
-                  style={{ opacity: dim ? 0.5 : 1 }}
-                >
-                  <Swatch fill={s.color} />
-                  <span className="truncate text-ink">{s.label}</span>
-                  <LegendCount n={s.size} share={share(s.size)} />
-                </button>
-              </li>
-            );
-          })}
-          <li className="border-t border-ink-line pt-1.5 mt-0.5">
-            <p className="text-xs font-semibold text-ink-muted mb-1 px-2">Schnittmengen</p>
-          </li>
-          {/* Pairwise — split squares (interactive) */}
-          <RegionRow
-            region="ab"
-            half={[colors[0], colors[1]]}
-            label={`Nur ${labels[0]} & ${labels[1]}`}
-            n={counts.abOnly}
-            share={share(counts.abOnly)}
-            hover={hover}
-            setHover={setHover}
-          />
-          <RegionRow
-            region="ac"
-            half={[colors[0], colors[2]]}
-            label={`Nur ${labels[0]} & ${labels[2]}`}
-            n={counts.acOnly}
-            share={share(counts.acOnly)}
-            hover={hover}
-            setHover={setHover}
-          />
-          <RegionRow
-            region="bc"
-            half={[colors[1], colors[2]]}
-            label={`Nur ${labels[1]} & ${labels[2]}`}
-            n={counts.bcOnly}
-            share={share(counts.bcOnly)}
-            hover={hover}
-            setHover={setHover}
-          />
-          {/* Triple */}
-          <RegionRow
-            region="abc"
-            thirds={[colors[0], colors[1], colors[2]]}
-            label="Alle drei"
-            n={counts.abc}
-            share={share(counts.abc)}
-            hover={hover}
-            setHover={setHover}
-          />
-        </ul>
-      </div>
-      <table className="sr-only">
-        <tbody>
-          <tr><td>Nur {labels[0]}</td><td>{fmtInt(counts.onlyA)}</td></tr>
-          <tr><td>Nur {labels[1]}</td><td>{fmtInt(counts.onlyB)}</td></tr>
-          <tr><td>Nur {labels[2]}</td><td>{fmtInt(counts.onlyC)}</td></tr>
-          <tr><td>{labels[0]} & {labels[1]}</td><td>{fmtInt(counts.abOnly)}</td></tr>
-          <tr><td>{labels[0]} & {labels[2]}</td><td>{fmtInt(counts.acOnly)}</td></tr>
-          <tr><td>{labels[1]} & {labels[2]}</td><td>{fmtInt(counts.bcOnly)}</td></tr>
-          <tr><td>Alle drei</td><td>{fmtInt(counts.abc)}</td></tr>
-          <tr><td>Keine Angabe</td><td>{fmtInt(counts.neither)}</td></tr>
-        </tbody>
-      </table>
+        {SCHLUESSEL.map((s) => {
+          const z = zentren[s];
+          const wert = zahlen.gebiete[s];
+          if (!z || wert === 0) return null;
+          return (
+            <text
+              key={s}
+              x={X(z.x)}
+              y={Y(z.y)}
+              textAnchor="middle"
+              dominantBaseline="middle"
+              fill={INK}
+              style={{
+                fontFamily: "var(--font-display)",
+                fontWeight: 600,
+                fontSize: wert / zahlen.gesamt > 0.2 ? 18 : 14,
+                fontVariantNumeric: "lining-nums tabular-nums",
+              }}
+            >
+              {fmtInt(wert)}
+            </text>
+          );
+        })}
+
+        {/* Legende wie im Venn mit zwei Mengen: Name in der Mengenfarbe, darunter
+            die Summe — außen an der eigenen Form, nicht in einer festen Ecke. */}
+        {labels.map((l, i) => {
+          const stellen = beschriftungsOrt(ellipsen, i, X, Y, k);
+          return (
+            <g key={l}>
+              <text x={stellen.x} y={stellen.y} textAnchor={stellen.anchor} fill={farben[i]} style={{ fontSize: 13, fontWeight: 700 }}>
+                {l}
+              </text>
+              <text x={stellen.x} y={stellen.y + 15} textAnchor={stellen.anchor} fill={INK_MUTED} style={{ fontSize: 11 }}>
+                {fmtInt(zahlen.summen[i])} Antworten
+              </text>
+            </g>
+          );
+        })}
+      </svg>
+      {zahlen.keine > 0 && (
+        <p className="mt-1 text-xs text-ink-muted">
+          {fmtInt(zahlen.keine)} ohne Angabe, nicht abgebildet
+        </p>
+      )}
+      {tabelle}
     </figure>
   );
 }
 
-// ────────────────────────────────────────────────────────────────────────
-// Legend helpers — local to Venn3.
+/** Ort für den Namen einer Menge: außen an ihrer Ellipse, vom Mittelpunkt aller
+ *  Formen weg, innerhalb der Zeichenfläche. */
+function beschriftungsOrt(
+  ellipsen: Ellipse[],
+  i: number,
+  X: (x: number) => number,
+  Y: (y: number) => number,
+  k: number,
+): { x: number; y: number; anchor: "start" | "middle" | "end" } {
+  const mx = ellipsen.reduce((a, e) => a + X(e.cx), 0) / ellipsen.length;
+  const my = ellipsen.reduce((a, e) => a + Y(e.cy), 0) / ellipsen.length;
+  const ex = X(ellipsen[i].cx);
+  const ey = Y(ellipsen[i].cy);
+  let dx = ex - mx;
+  let dy = ey - my;
+  const laenge = Math.hypot(dx, dy) || 1;
+  dx /= laenge;
+  dy /= laenge;
+  const weite = Math.max(ellipsen[i].a, ellipsen[i].b) * k + 26;
+  const x = Math.min(BREITE - 10, Math.max(10, ex + dx * weite));
+  const y = Math.min(HOEHE - 18, Math.max(16, ey + dy * weite));
+  return { x, y, anchor: Math.abs(dx) < 0.35 ? "middle" : dx > 0 ? "end" : "start" };
+}
 
-function Swatch({ fill }: { fill: string }) {
+function gebietName(s: string, labels: string[]): string {
+  const dabei = labels.filter((_, i) => s[i] === "1");
+  if (dabei.length === 1) return `nur ${dabei[0]}`;
+  if (dabei.length === labels.length) return "alle drei";
+  return dabei.join(" und ");
+}
+
+function Schraffur({ id, farben }: { id: string; farben: string[] }) {
+  const breite = farben.length * 4;
   return (
-    <span
-      aria-hidden
-      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
-      style={{ background: fill }}
-    />
+    <pattern id={id} width={breite} height={8} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width={breite} height={8} fill="#fbf9f6" />
+      {farben.map((f, i) => (
+        <rect key={i} x={i * 4} width={1.7} height={8} fill={f} opacity={0.55} />
+      ))}
+    </pattern>
   );
 }
 
-function HalfSwatch({ left, right }: { left: string; right: string }) {
-  return (
-    <span
-      aria-hidden
-      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
-      style={{ background: `linear-gradient(90deg, ${left} 50%, ${right} 50%)` }}
-    />
-  );
-}
-
-function ThirdsSwatch({ a, b, c }: { a: string; b: string; c: string }) {
-  return (
-    <span
-      aria-hidden
-      className="inline-block w-3.5 h-3.5 rounded-sm shrink-0 self-center"
-      style={{
-        background: `linear-gradient(90deg, ${a} 0 33.33%, ${b} 33.33% 66.66%, ${c} 66.66% 100%)`,
-      }}
-    />
-  );
-}
-
-function LegendCount({ n, share }: { n: number; share: number }) {
-  return (
-    <span className="tabular-nums shrink-0 text-ink-soft">
-      <span className="font-semibold text-ink">{fmtInt(n)}</span>
-      <span className="text-ink-muted text-xs"> ({fmtPct(share)})</span>
-    </span>
-  );
-}
-
-function RegionRow(props: {
-  region: Region;
-  label: string;
-  n: number;
-  share: number;
-  half?: [string, string];
-  thirds?: [string, string, string];
-  hover: HoverEntry | null;
-  setHover: (h: HoverEntry | null) => void;
+/** Rückfall, wenn keine flächentreue Lage gefunden wurde. */
+function SchematischeKreise({
+  labels, farben, gebiete, summen, id,
+}: {
+  labels: string[];
+  farben: string[];
+  gebiete: Record<string, number>;
+  summen: number[];
+  id: string;
 }) {
-  const { region, label, n, share, half, thirds, hover, setHover } = props;
-  const isHover = hover?.kind === "region" && hover.region === region;
+  const r = 96;
+  const cx = BREITE / 2;
+  const cy = HOEHE / 2 + 6;
+  const versatz = 56;
+  const mitten = [
+    [cx, cy - versatz],
+    [cx - versatz * 0.95, cy + versatz * 0.6],
+    [cx + versatz * 0.95, cy + versatz * 0.6],
+  ];
+  const orte: Record<string, [number, number]> = {
+    "100": [cx, cy - versatz - 46],
+    "010": [cx - versatz - 40, cy + versatz + 26],
+    "001": [cx + versatz + 40, cy + versatz + 26],
+    "110": [cx - 46, cy - 16],
+    "101": [cx + 46, cy - 16],
+    "011": [cx, cy + versatz + 12],
+    "111": [cx, cy + 6],
+  };
   return (
-    <li>
-      <button
-        type="button"
-        onMouseEnter={() => setHover({ kind: "region", region })}
-        onMouseLeave={() => setHover(null)}
-        onFocus={() => setHover({ kind: "region", region })}
-        onBlur={() => setHover(null)}
-        className={cn(
-          "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1 rounded-md text-left transition-colors",
-          isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
-        )}
-      >
-        {half && <HalfSwatch left={half[0]} right={half[1]} />}
-        {thirds && <ThirdsSwatch a={thirds[0]} b={thirds[1]} c={thirds[2]} />}
-        <span className={cn("truncate", isHover ? "text-ink font-semibold" : "text-ink-soft")}>
-          {label}
-        </span>
-        <LegendCount n={n} share={share} />
-      </button>
-    </li>
+    <svg viewBox={`0 0 ${BREITE} ${HOEHE}`} width="100%" className="max-w-[520px]" role="img" aria-label={labels.join(", ")}>
+      {mitten.map(([x, y], i) => (
+        <circle key={`k${id}${i}`} cx={x} cy={y} r={r} fill={farben[i]} fillOpacity={0.06} stroke={farben[i]} strokeWidth={STROKE.outline} />
+      ))}
+      {SCHLUESSEL.map((s) => (
+        <text
+          key={s}
+          x={orte[s][0]}
+          y={orte[s][1]}
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={INK}
+          style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 16 }}
+        >
+          {fmtInt(gebiete[s])}
+        </text>
+      ))}
+      {labels.map((l, i) => (
+        <text
+          key={l}
+          x={mitten[i][0]}
+          y={i === 0 ? mitten[i][1] - r - 10 : mitten[i][1] + r + 16}
+          textAnchor="middle"
+          fill={farben[i]}
+          style={{ fontSize: 13, fontWeight: 700 }}
+        >
+          {`${l} · ${fmtInt(summen[i])}`}
+        </text>
+      ))}
+    </svg>
   );
 }
