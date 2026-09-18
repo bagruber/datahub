@@ -112,9 +112,8 @@ export function Correlation({ records, sources }: Props) {
         type: "linear",
         domain: [-1, 0, 1],
         range: KORRELATION_RAMPE,
-        legend: true,
-        label: "Pearson r (−1 = gegenläufig, 0 = kein Zusammenhang, +1 = gleichgerichtet)",
-        ticks: [-1, -0.5, 0, 0.5, 1],
+        // Eigene Leiste statt der Plot-Legende: die schnitt am Handy ab.
+        legend: false,
       },
       style: {
         fontFamily: "var(--font-sans)",
@@ -177,6 +176,17 @@ export function Correlation({ records, sources }: Props) {
         />
       }
     >
+      <div className="mb-3 flex items-center justify-center gap-2 text-xs text-ink-muted">
+        <span>gegenläufig</span>
+        <span
+          aria-hidden
+          className="block h-[5px] w-28 rounded-sm"
+          style={{
+            background: `linear-gradient(90deg, ${KORRELATION_RAMPE[0]}, ${KORRELATION_RAMPE[1]}, ${KORRELATION_RAMPE[2]})`,
+          }}
+        />
+        <span>gleichgerichtet</span>
+      </div>
       <PlotFigure options={options} />
     </ChartFrame>
   );
