@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { GITTER, INK, INK_MUTED, NULLLINIE, RADIUS, SERIE } from "@/lib/palette";
+import { GITTER, INK, INK_MUTED, NULLLINIE, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -32,6 +32,7 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
     [series],
   );
   const colorDomain = useMemo(() => series.map((s) => s.label), [series]);
+  const letztesX = useMemo(() => Math.max(...data.map((d) => d.x)), [data]);
   const colorRange = useMemo(
     // Farben aus der Palette, nicht aus dem Datensatz.
     () => series.map((_, i) => SERIE[i % SERIE.length]),
@@ -49,12 +50,14 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
     () => ({
       height: 300,
       marginLeft: 60,
-      marginRight: 16,
+      marginRight: 190,
       marginTop: 24,
       marginBottom: 44,
       x: {
         label: null,
         tickFormat: (v: number) => String(v),
+        // Schmalere Säulen mit Luft dazwischen.
+        padding: 0.55,
       },
       // Achsentitel ohne Pfeil; die Einheit steht in der Basiszeile der Karte.
       y: {
@@ -82,11 +85,9 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
           y: "y",
           fill: "series",
           // 2 px Luft zwischen den Stapeln und zwischen den Segmenten.
-          insetLeft: 6,
-          insetRight: 6,
+          // 2 px Fuge zwischen den Segmenten, keine runden Ecken im Stapel.
           insetTop: 1,
           insetBottom: 1,
-          rx: RADIUS.bar,
           tip: true,
           title: (d: { x: number; series: string; y: number }) => {
             const total = totals.get(d.x) ?? 0;
@@ -94,10 +95,27 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
             return `${d.x}\n${d.series}: ${fmtInt(d.y)}\n${fmtPct(share)} (Gesamt ${fmtInt(total)})`;
           },
         }),
+        // Namen direkt an der letzten Säule statt nur in der Legende.
+        Plot.text(
+          data,
+          Plot.stackY({
+            x: "x",
+            y: "y",
+            text: "series",
+            // Nur große Segmente direkt beschriften, sonst stoßen die Namen
+            // aneinander; die übrigen trägt die Legende.
+            filter: (d: { x: number; y: number }) =>
+              d.x === letztesX && d.y / (totals.get(letztesX) ?? 1) >= 0.09,
+            textAnchor: "start",
+            dx: 26,
+            fontSize: fontPx - 1,
+            fill: INK_MUTED,
+          } as never),
+        ),
         Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
-    [data, colorDomain, colorRange, fontPx, totals],
+    [data, colorDomain, colorRange, fontPx, totals, letztesX],
   );
 
   const xValues = useMemo(() => {

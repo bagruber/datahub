@@ -37,8 +37,15 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
   );
   const colorDomain = useMemo(() => series.map((s) => s.label), [series]);
   const colorRange = useMemo(
-    // Farben aus der Palette; eine einzelne Reihe trägt Isar-Blau.
-    () => (series.length === 1 ? [EINZEL] : series.map((_, i) => SERIE[i % SERIE.length])),
+    // Farben aus der Palette; eine einzelne Reihe trägt Isar-Blau. Bei genau
+    // zwei Reihen Blau und Gold: Rot gegen Grün oder Rot gegen Blau liest sich
+    // wie gut gegen schlecht, und das sagen die Daten hier nicht.
+    () =>
+      series.length === 1
+        ? [EINZEL]
+        : series.length === 2
+          ? [SERIE[1], SERIE[2]]
+          : series.map((_, i) => SERIE[i % SERIE.length]),
     [series],
   );
 
@@ -46,7 +53,7 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
     () => ({
       height: 300,
       marginLeft: 60,
-      marginRight: 16,
+      marginRight: series.length > 1 ? 150 : 70,
       marginTop: 24,
       marginBottom: 44,
       x: {
@@ -107,10 +114,25 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
                 }),
               ),
             ]),
+        // Name und letzter Wert am Ende der Linie statt nur in der Legende.
+        Plot.text(
+          series.map((se) => ({ ...se.data[se.data.length - 1], series: se.label })),
+          {
+            x: "x",
+            y: "y",
+            text: (d: { series: string; y: number }) =>
+              series.length > 1 ? `${d.series} ${fmtInt(d.y)}` : fmtInt(d.y),
+            textAnchor: "start",
+            dx: 8,
+            fontWeight: 600,
+            fontSize: fontPx,
+            fill: INK,
+          } as never,
+        ),
         Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
-    [data, colorDomain, colorRange, series.length, markers, fontPx, axisPx],
+    [data, series, colorDomain, colorRange, markers, fontPx, axisPx],
   );
   void axisPx;
 
