@@ -30,7 +30,11 @@ export function basiszeile(spec: ChartSpec, records: Records): string | null {
       : typ === "price" ? `Skala von 1 bis ${"scale" in spec && spec.scale === 6 ? 6 : 5}`
       : null;
 
-  if ("items" in spec && Array.isArray(spec.items) && spec.items.length > 0 && "source" in spec.items[0]) {
+  if ("reihen" in spec && Array.isArray(spec.reihen) && spec.reihen.length > 0) {
+    const s = spanne(records, spec.reihen.map((r) => r.source));
+    if (!s) return null;
+    teile.push(`${s} mit Angabe`);
+  } else if ("items" in spec && Array.isArray(spec.items) && spec.items.length > 0 && "source" in spec.items[0]) {
     const quellen = (spec.items as { source: string }[]).map((i) => i.source);
     const s = spanne(records, quellen);
     if (!s) return null;

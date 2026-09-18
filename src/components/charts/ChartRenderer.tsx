@@ -14,6 +14,7 @@ const BarV        = lazy(() => import("./BarV").then((m)        => ({ default: m
 const DivergingLikert = lazy(() => import("./DivergingLikert").then((m) => ({ default: m.DivergingLikert })));
 const Diverging3  = lazy(() => import("./Diverging3").then((m)  => ({ default: m.Diverging3 })));
 const Pie         = lazy(() => import("./Pie").then((m)         => ({ default: m.Pie })));
+const Anteilsbalken = lazy(() => import("./Anteilsbalken").then((m) => ({ default: m.Anteilsbalken })));
 const Likert5Group = lazy(() => import("./Likert5Group").then((m) => ({ default: m.Likert5Group })));
 const Radar       = lazy(() => import("./Radar").then((m)       => ({ default: m.Radar })));
 const Correlation = lazy(() => import("./Correlation").then((m) => ({ default: m.Correlation })));
@@ -122,7 +123,26 @@ function render(spec: ChartSpec, records: Dataset["records"], codebook: Codebook
           title={spec.title}
         />
       );
-    case "pie": {
+    case "pie":
+      // Geordnete Antworten bekommen einen Anteilsbalken, ungeordnete den Ring.
+      if (spec.ordnung) {
+        // Beide Schreibweisen: gruppierte items oder labels mit values.
+        const kategorien =
+          spec.items?.map((i) => ({ label: i.label, codes: i.vals })) ??
+          spec.labels?.map((l, i) => ({ label: l, codes: [spec.values?.[i] ?? i + 1] })) ??
+          [];
+        if (kategorien.length > 0) {
+          return (
+            <Anteilsbalken
+              records={records}
+              reihen={spec.reihen ?? [{ source: spec.source }]}
+              kategorien={kategorien}
+              title={spec.title}
+            />
+          );
+        }
+      }
+ {
       // If `items` provided, Pie handles grouped slices itself. Otherwise
       // derive labels/values from the codebook so authors can ship just
       // `{type:'pie', source}`.

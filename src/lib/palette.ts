@@ -49,6 +49,8 @@ export const SKALA5 = ["#a21a20", "#ca5650", "#d9d4ca", "#1b8cb3", "#00617f"];
 
 /** Ordnen mit Mitte: fünf Stufen, die mittlere neutral („angemessen“). */
 export const GOLD_STUFEN = ["#cfac64", "#b58f3c", "#d9d4ca", "#7b5b01", "#5c4304"];
+/** Ordnen ohne Mitte: durchgehend von hell nach dunkel, für Anteilsbalken. */
+export const GOLD_REIHE = ["#cfac64", "#b58f3c", "#99741b", "#7b5b01", "#5c4304"];
 /** Sechs Stufen desselben Tons, für Skalen mit sechs Antworten. */
 export const GOLD_STUFEN6 = ["#ddc08a", "#c8a457", "#b08a33", "#94711a", "#7a5c0d", "#5c4304"];
 /** Die Mitte einer ungeraden Ordnungsskala bleibt neutral. */
