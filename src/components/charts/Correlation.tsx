@@ -40,10 +40,12 @@ function pearson(records: Dataset["records"], a: string, b: string): { r: number
 }
 
 export function Correlation({ records, sources }: Props) {
+  // Probe Diagramme, vorläufig (18.09.2026): nur die untere Dreieckshälfte.
+  // Die Matrix ist spiegelgleich, die Diagonale ist immer 1.
   const cells: Cell[] = useMemo(() => {
     const out: Cell[] = [];
-    for (let i = 0; i < sources.length; i++) {
-      for (let j = 0; j < sources.length; j++) {
+    for (let i = 1; i < sources.length; i++) {
+      for (let j = 0; j < i; j++) {
         const { r, n } = pearson(records, sources[i].source, sources[j].source);
         out.push({
           x: sources[j].label,
@@ -60,8 +62,15 @@ export function Correlation({ records, sources }: Props) {
 
   const isMobile = useIsMobile();
   const labels = useMemo(() => sources.map((s) => s.label), [sources]);
-  // y-axis top-to-bottom = first to last
-  const yDomain = useMemo(() => [...labels].reverse(), [labels]);
+  // Ohne Diagonale: die erste Spalte und die letzte Zeile bleiben leer und
+  // fallen deshalb aus den Achsen. Am Handy stehen die Namen stattdessen auf
+  // der Diagonale, das spart die Hälfte der Breite.
+  const xDomain = useMemo(() => (isMobile ? labels : labels.slice(0, -1)), [labels, isMobile]);
+  const yDomain = useMemo(() => (isMobile ? labels : labels.slice(1)), [labels, isMobile]);
+  const diagonale = useMemo(
+    () => labels.map((l) => ({ label: l })),
+    [labels],
+  );
   const longestLabel = useMemo(() => labels.reduce((m, l) => Math.max(m, l.length), 0), [labels]);
   const marginLeft = isMobile
     ? Math.min(140, Math.max(80, longestLabel * 6))
@@ -74,11 +83,11 @@ export function Correlation({ records, sources }: Props) {
 
   // Format r-value for the cell. On mobile, fewer digits to keep it readable
   // inside small cells. Diagonal cells (r === 1, where x === y) collapse to "1".
+  // Zahl erst ab ,30, bei gegenläufigen ab −,20; darunter trägt die Farbe allein.
+  const zeigt = (r: number) => !Number.isNaN(r) && (r >= 0.3 || r <= -0.2);
   const formatR = (d: Cell): string => {
-    if (Number.isNaN(d.r)) return "–";
-    if (d.xi === d.yi) return "1";
-    const digits = isMobile ? 1 : 2;
-    const rounded = d.r.toFixed(digits);
+    if (!zeigt(d.r)) return "";
+    const rounded = d.r.toFixed(2);
     // Drop leading zero for compactness: 0.42 → ,42; -0.42 → −,42
     const noLead = rounded.replace(/^(-?)0\./, "$1.");
     return noLead.replace(".", ",").replace("-", "−");
@@ -86,19 +95,19 @@ export function Correlation({ records, sources }: Props) {
 
   const options: Plot.PlotOptions = useMemo(
     () => ({
-      height: labels.length * (isMobile ? 30 : 38) + marginTop + 24,
-      marginLeft,
-      marginRight: isMobile ? 12 : 24,
-      marginTop,
+      height: yDomain.length * (isMobile ? 21 : 36) + (isMobile ? 16 : marginTop + 24),
+      marginLeft: isMobile ? 6 : marginLeft,
+      marginRight: isMobile ? 84 : 24,
+      marginTop: isMobile ? 8 : marginTop,
       marginBottom: 24,
       x: {
-        domain: labels,
-        axis: "top",
+        domain: xDomain,
+        axis: isMobile ? null : "top",
         label: null,
         tickRotate: -35,
         tickSize: 0,
       },
-      y: { domain: yDomain, label: null, tickSize: 0 },
+      y: { domain: yDomain, axis: isMobile ? null : "left", label: null, tickSize: 0 },
       color: {
         type: "linear",
         domain: [-1, 0, 1],
@@ -133,9 +142,23 @@ export function Correlation({ records, sources }: Props) {
           fontWeight: 600,
           fontSize: cellPx,
         } as never),
+        // Am Handy stehen die Namen in der leeren Diagonale.
+        ...(isMobile
+          ? [
+              Plot.text(diagonale, {
+                x: "label",
+                y: "label",
+                text: "label",
+                textAnchor: "start",
+                dx: -10,
+                fontSize: 9,
+                fill: INK,
+              } as never),
+            ]
+          : []),
       ],
     }),
-    [cells, labels, yDomain, marginLeft, marginTop, isMobile, fontPx, cellPx],
+    [cells, xDomain, yDomain, diagonale, marginLeft, marginTop, isMobile, fontPx, cellPx],
   );
 
   return (
