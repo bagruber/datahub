@@ -23,6 +23,7 @@ Bilder aller Diagramme in 1440 und 390 px liegen lokal unter `bilder/`
 | 7 | **Korrelation**: untere Dreieckshälfte ohne Diagonale, Zahl ab ,30 und bei gegenläufigen ab −,20. Am Handy stehen die Namen auf der Diagonale. Eigene Legende statt der von Plot. |
 | 8 | **Spinnennetz zum Ausklappen**: eingeklappt ein Netz mit Linien ohne Flächen, ausgeklappt ein kleines Netz je Idee mit dem Durchschnitt aller grau dahinter. |
 | 9 | **Venn flächentreu mit Schraffur**: zwei Mengen als Kreise, drei Mengen als Ellipsen aus einem Löser (`src/lib/vennEllipsen.ts`). Schnittmengen tragen die Streifen ihrer Mengen, die Mitte alle drei. |
+| 12 | **Anteilsbalken** für geordnete Antworten: Kreisdiagramme tragen das Feld `ordnung: true` und werden dann als Balken gezeichnet; ungeordnete bleiben Ring. Fragen mit derselben Skala stehen als `reihen` in einer Karte (Wartezeit Hin- und Rückfahrt). Gesetzt über `scripts/apply-chart-shapes.mjs`, idempotent wie `apply-section-texts.mjs`. |
 | 10 | **Linien** mit Name und letztem Wert am Ende; bei zwei Reihen Blau und Gold. **Gestapelte Säulen** schmaler, mit Fuge und Direktbeschriftung der großen Segmente. |
 
 ## Der Ellipsen-Löser
@@ -58,10 +59,10 @@ aber nicht störend; wenn es stört, gehört die Suche in einen Web Worker.
   geglättet und erfänden Zwischenwerte. Tatsächlich nutzt `LineSeries` seit jeher
   `curve: "monotone-x"`, und die schwingt nicht über. Geändert wurden nur Farben,
   Endbeschriftung und Achsen.
-- **Der Ring bleibt für alle Kreisdiagramme.** Die Entscheidung, geordnete Antworten
-  (Wartezeit) stattdessen als Anteilsbalken zu zeigen, braucht ein Feld im Datensatz,
-  das sagt, ob die Antworten geordnet sind. Die JSON-Dateien erzeugen die Skripte;
-  das gehört in die ETL-Runde, nicht hierher.
+- **Einstufung der Kreisdiagramme** (18.09.2026 von Benedict bestätigt): geordnet sind
+  Wartezeit Hin- und Rückfahrt sowie Besuchshäufigkeit, ungeordnet Wohnort und
+  Geschlecht. Die Heuristik prüft, ob mindestens die Hälfte der Antworten eine Größe,
+  Zeit oder Häufigkeit nennt; entschieden wird beim Schreiben der Kapiteltexte.
 - **Handschriftliche Notizen sind noch nicht gebaut.** Variante C (von Hand im
   Datensatz, dazu die Einstiegsnotiz an der Filterleiste) verlangt ebenfalls ein neues
   Feld in den JSON-Dateien. Vorschlag: zusammen mit der ETL-Runde.
