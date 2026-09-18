@@ -1,12 +1,9 @@
-import { useMemo, useState } from "react";
+import { useId, useMemo } from "react";
 import { layoutVenn2 } from "@/lib/venn";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { cn } from "@/lib/cn";
-import { Chip } from "@/components/svg/Chip";
-import { SERIE, STROKE } from "@/lib/palette";
+import { INK, INK_MUTED, SERIE, STROKE } from "@/lib/palette";
+import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
-
-type Region = "onlyA" | "onlyB" | "both";
 
 type Props = {
   records: Dataset["records"];
@@ -20,7 +17,7 @@ const PAD = 40;
 const TARGET_W = 480;
 
 export function Venn2({ records, source, values, labels }: Props) {
-  const [hover, setHover] = useState<Region | null>(null);
+  const id = useId().replace(/[:]/g, "");
 
   const counts = useMemo(() => {
     const [a, b] = values;
@@ -80,145 +77,84 @@ export function Venn2({ records, source, values, labels }: Props) {
 
   return (
     <figure>
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1fr)] items-center">
-        <svg
-          viewBox={`0 0 ${TARGET_W} ${VIEW_H}`}
-          width="100%"
-          height={VIEW_H}
-          role="img"
-          aria-label={`Venn-Diagramm ${labels[0]} und ${labels[1]}`}
-          onMouseLeave={() => setHover(null)}
-          className="block"
-        >
-          <circle
-            cx={cxA}
-            cy={cy}
-            r={rA}
-            fill={colorA}
-            fillOpacity={hover === "onlyA" || hover === "both" ? 0.7 : 0.55}
-            stroke={colorA}
-            strokeOpacity={0.9}
-            strokeWidth={STROKE.outline}
-            style={{ transition: "fill-opacity 120ms", cursor: "pointer" }}
-            onMouseEnter={() => setHover("onlyA")}
-          />
-          <circle
-            cx={cxB}
-            cy={cy}
-            r={rB}
-            fill={colorB}
-            fillOpacity={hover === "onlyB" || hover === "both" ? 0.7 : 0.55}
-            stroke={colorB}
-            strokeOpacity={0.9}
-            strokeWidth={STROKE.outline}
-            style={{ transition: "fill-opacity 120ms", cursor: "pointer" }}
-            onMouseEnter={() => setHover("onlyB")}
-          />
-          {/* Lens hit-target (lets users hover the intersection cleanly) */}
-          {layout.d < layout.rA + layout.rB && layout.d > Math.abs(layout.rA - layout.rB) && (
-            <ellipse
-              cx={(cxA + cxB) / 2}
-              cy={cy}
-              rx={Math.max(8, (rA + rB - (cxB - cxA)) / 2)}
-              ry={Math.min(rA, rB) * 0.55}
-              fill="transparent"
-              style={{ cursor: "pointer" }}
-              onMouseEnter={() => setHover("both")}
-            />
-          )}
+      <svg
+        viewBox={`0 0 ${TARGET_W} ${VIEW_H}`}
+        width="100%"
+        height={VIEW_H}
+        role="img"
+        aria-label={`${labels[0]} und ${labels[1]}: die Zahlen stehen in der Tabelle darunter`}
+        className="mx-auto block max-w-[520px]"
+      >
+        <defs>
+          {/* Schnittmenge als Schraffur aus beiden Farben statt als Mischfarbe. */}
+          <pattern id={`${id}-sch`} width={8} height={8} patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <rect width={8} height={8} fill="#fbf9f6" />
+            <rect width={1.7} height={8} fill={colorA} opacity={0.55} />
+            <rect x={4} width={1.7} height={8} fill={colorB} opacity={0.55} />
+          </pattern>
+          <clipPath id={`${id}-a`}>
+            <circle cx={cxA} cy={cy} r={rA} />
+          </clipPath>
+        </defs>
 
-          {/* Set-name chips above each circle */}
-          <Chip x={cxA} y={cy - rA - 14} text={labels[0]} borderColor={colorA} />
-          <Chip x={cxB} y={cy - rB - 14} text={labels[1]} borderColor={colorB} />
+        <circle cx={cxA} cy={cy} r={rA} fill={colorA} fillOpacity={0.07} />
+        <circle cx={cxB} cy={cy} r={rB} fill={colorB} fillOpacity={0.07} />
+        <g clipPath={`url(#${id}-a)`}>
+          <circle cx={cxB} cy={cy} r={rB} fill={`url(#${id}-sch)`} />
+        </g>
+        <circle cx={cxA} cy={cy} r={rA} fill="none" stroke={colorA} strokeWidth={STROKE.outline} />
+        <circle cx={cxB} cy={cy} r={rB} fill="none" stroke={colorB} strokeWidth={STROKE.outline} />
 
-          {/* Region count chips */}
-          <Chip
-            x={onlyACenter.x}
-            y={onlyACenter.y}
-            text={fmtInt(counts.onlyA)}
-            sub={fmtPct(share(counts.onlyA))}
-            borderColor={colorA}
-            fontSize={13}
-            emphasized={hover === "onlyA"}
-          />
-          <Chip
-            x={bothCenter.x}
-            y={bothCenter.y}
-            text={fmtInt(counts.both)}
-            sub={fmtPct(share(counts.both))}
-            borderColor="#888"
-            fontSize={13}
-            emphasized={hover === "both"}
-          />
-          <Chip
-            x={onlyBCenter.x}
-            y={onlyBCenter.y}
-            text={fmtInt(counts.onlyB)}
-            sub={fmtPct(share(counts.onlyB))}
-            borderColor={colorB}
-            fontSize={13}
-            emphasized={hover === "onlyB"}
-          />
-        </svg>
+        {([
+          { x: onlyACenter.x, wert: counts.onlyA },
+          { x: bothCenter.x, wert: counts.both },
+          { x: onlyBCenter.x, wert: counts.onlyB },
+        ] as const).map(({ x, wert }, i) =>
+          wert === 0 ? null : (
+            <g key={i}>
+              <text
+                x={x}
+                y={cy - 2}
+                textAnchor="middle"
+                dominantBaseline="middle"
+                fill={INK}
+                style={{ fontFamily: "var(--font-display)", fontWeight: 600, fontSize: 19, fontVariantNumeric: "lining-nums tabular-nums" }}
+              >
+                {fmtInt(wert)}
+              </text>
+              <text x={x} y={cy + 16} textAnchor="middle" fill={INK_MUTED} style={{ fontSize: 11 }}>
+                {fmtPct(share(wert))}
+              </text>
+            </g>
+          ),
+        )}
 
-        {/* Legend with counts — also acts as hover target */}
-        <ul className="grid gap-2 text-sm">
-          {(["onlyA", "both", "onlyB"] as const).map((region) => {
-            const isHover = hover === region;
-            const dim = hover !== null && !isHover;
-            const regionLabel =
-              region === "onlyA"
-                ? `Nur ${labels[0]}`
-                : region === "onlyB"
-                ? `Nur ${labels[1]}`
-                : `${labels[0]} & ${labels[1]}`;
-            const count =
-              region === "onlyA" ? counts.onlyA : region === "onlyB" ? counts.onlyB : counts.both;
-            return (
-              <li key={region}>
-                <button
-                  type="button"
-                  onMouseEnter={() => setHover(region)}
-                  onMouseLeave={() => setHover(null)}
-                  onFocus={() => setHover(region)}
-                  onBlur={() => setHover(null)}
-                  className={cn(
-                    "w-full grid grid-cols-[auto_minmax(0,1fr)_auto] items-baseline gap-2 px-2 py-1.5 rounded-md text-left transition-colors",
-                    isHover ? "bg-cream-dark" : "hover:bg-cream-dark",
-                  )}
-                  style={{ opacity: dim ? 0.5 : 1 }}
-                >
-                  <span
-                    aria-hidden
-                    className="inline-block w-3 h-3 rounded-sm shrink-0 self-center"
-                    style={{
-                      background:
-                        region === "both"
-                          ? `linear-gradient(90deg, ${colorA} 50%, ${colorB} 50%)`
-                          : region === "onlyA"
-                          ? colorA
-                          : colorB,
-                    }}
-                  />
-                  <span className="truncate text-ink">{regionLabel}</span>
-                  <span className="tabular-nums text-ink-soft shrink-0">
-                    <span className="font-semibold text-ink">{fmtInt(count)}</span>
-                    <span className="text-ink-muted text-xs"> ({fmtPct(share(count))})</span>
-                  </span>
-                </button>
-              </li>
-            );
-          })}
-        </ul>
-      </div>
-      <table className="sr-only">
-        <tbody>
-          <tr><td>Nur {labels[0]}</td><td>{fmtInt(counts.onlyA)}</td></tr>
-          <tr><td>Nur {labels[1]}</td><td>{fmtInt(counts.onlyB)}</td></tr>
-          <tr><td>Beide</td><td>{fmtInt(counts.both)}</td></tr>
-          <tr><td>Keine Angabe</td><td>{fmtInt(counts.neither)}</td></tr>
-        </tbody>
-      </table>
+        {/* Namen außen an der eigenen Menge, darunter ihre Summe. */}
+        <text x={cxA - rA + 2} y={cy - rA - 22} fill={colorA} style={{ fontSize: 13, fontWeight: 700 }}>
+          {labels[0]}
+        </text>
+        <text x={cxA - rA + 2} y={cy - rA - 7} fill={INK_MUTED} style={{ fontSize: 11 }}>
+          {fmtInt(counts.onlyA + counts.both)} Antworten
+        </text>
+        <text x={cxB + rB - 2} y={cy + Math.max(rA, rB) + 18} textAnchor="end" fill={colorB} style={{ fontSize: 13, fontWeight: 700 }}>
+          {labels[1]}
+        </text>
+        <text x={cxB + rB - 2} y={cy + Math.max(rA, rB) + 33} textAnchor="end" fill={INK_MUTED} style={{ fontSize: 11 }}>
+          {fmtInt(counts.onlyB + counts.both)} Antworten
+        </text>
+      </svg>
+
+      {counts.neither > 0 && (
+        <p className="mt-1 text-xs text-ink-muted">{fmtInt(counts.neither)} ohne Angabe, nicht abgebildet</p>
+      )}
+      <ChartTable
+        headers={["Gebiet", "Antworten", "Anteil"]}
+        rows={[
+          [`nur ${labels[0]}`, fmtInt(counts.onlyA), fmtPct(share(counts.onlyA))],
+          ["beides", fmtInt(counts.both), fmtPct(share(counts.both))],
+          [`nur ${labels[1]}`, fmtInt(counts.onlyB), fmtPct(share(counts.both === 0 ? 0 : counts.onlyB))],
+        ]}
+      />
     </figure>
   );
 }
