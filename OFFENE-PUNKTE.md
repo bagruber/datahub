@@ -4,6 +4,25 @@
 nicht abhaken — die Datei soll kurz bleiben.*
 
 
+## Einwohnerreihe gehoert hierher
+
+`datahub` ist nach der Datenhoheit die Quelle fuer amtliche Statistik, fuehrt aber
+bisher nur „Statistik kommunal 2022" mit Stand 31.12.2021 (19.309 Einwohner). Die
+fortgeschriebene Reihe aus GENESIS-Online liegt in `haushaltvis/etl/context.yaml`
+und reicht bis **20.107 zum 31.12.2025**.
+
+Der Stadt-Prototyp zeigt seit dem 26.09.2026 die neuere Zahl mit Quelle
+(Benedicts Entscheidung: die Reihe wandert nach `datahub`, die Zahl gilt sofort).
+Solange sie hier nicht liegt, hat der Prototyp eine Zahl, die die Autoritaet
+nicht kennt — genau der Zustand, den die Datenhoheit verhindern soll.
+
+Zu tun: Reihe als eigenen Datensatz aufnehmen, ETL aus GENESIS-Online statt aus
+`haushaltvis` abgeleitet, und den Prototyp auf diese Quelle verweisen lassen.
+
+**Auffaellig und vor der Veroeffentlichung zu pruefen:** Der Stand 31.12.2022 liegt
+mit 18.681 unter 2021 und unter 2023. Das ist vermutlich die Zensus-Korrektur 2022
+und darf nicht ungeprueft als Bevoelkerungsrueckgang dargestellt werden.
+
 ## Toolchain-Stand
 
 Dieses Repo laeuft seit dem 26.08.2026 auf **pnpm** (nicht npm) und auf der
