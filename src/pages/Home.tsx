@@ -76,7 +76,7 @@ export function Home() {
           />
           <KartenCard
             href={`${import.meta.env.BASE_URL}historisch/`}
-            titel="Moosburg historisch"
+            titel="Historische Karten"
             satz="Acht Kartenausgaben von 1960 bis heute, übereinandergelegt."
             zahl="8"
             einheit="Kartenausgaben"
@@ -85,7 +85,7 @@ export function Home() {
           <KartenCard
             href={`${import.meta.env.BASE_URL}foodhub/`}
             titel="Speisekarten"
-            satz="Aus 17 Speisekarten, jede mit Quelle und Datum."
+            satz="Aus den Karten von 16 Häusern, jede mit Quelle und Datum."
             zahl="1.714"
             einheit="Gerichte"
             variante={2}
