@@ -1,8 +1,11 @@
 // Convert rawdata/volksfestroh.csv → public/data/volksfest_2024.json
 //
 // One-shot script. Run with `node scripts/build-volksfest.mjs`. Re-run any
-// time the CSV changes. Free-text fields are preserved as raw strings on
-// each record so we don't lose information; we just don't render them yet.
+// time the CSV changes. The CSV stays local and is not in Git (.gitignore).
+//
+// The JSON is public, so it carries coded answers only. Free text, date,
+// time and exact age stay out: the free text held contact details, and
+// date, time and exact age together identified single respondents.
 
 import fs from "node:fs";
 import path from "node:path";
@@ -135,12 +138,7 @@ const data = rows.slice(1).filter((r) => r.some((c) => c && c.trim()));
 const records = data.map((r) => {
   const ageRaw = num(r[3]);
   return {
-    // metadata
-    datum: trim(r[0]) || null,
-    uhrzeit: trim(r[1]) || null,
-
     // demographics
-    alter_raw: ageRaw,
     age: ageBin(ageRaw),
     wohnort: yesNo(r[4]),
 
@@ -151,7 +149,6 @@ const records = data.map((r) => {
     // erreichbarkeit
     anreise: mapMulti(r[8], REV_ANREISE),
     erreichbarkeit: likertOrNull(r[9], 6),
-    erreichbarkeit_kommentar: trim(r[10]) || null,
 
     // essen
     essen_nutzung: mapMulti(r[12], REV_NUTZUNG),
@@ -168,14 +165,9 @@ const records = data.map((r) => {
     // programm
     programm: likertOrNull(r[22], 6),
     fahrgeschaefte: likertOrNull(r[23], 6),
-    rahmenprogramm: trim(r[24]) || null,
 
     // sicherheit
     sicherheit: likertOrNull(r[25], 6),
-    sicherheit_kommentar: trim(r[26]) || null,
-
-    // sonstiges
-    sonstiges: trim(r[27]) || null,
   };
 });
 
