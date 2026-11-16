@@ -1,19 +1,16 @@
 import type { PressOutlet } from "@/lib/data";
 
-type RenderMode = "tint" | "plate";
-
+// Logos and colours are copies of moosburg-design/assets/presse. idowa is the
+// Moosburger Zeitung online and wears its badge.
 const OUTLET_CONFIG: Record<
   PressOutlet,
-  { name: string; bg: string; mode: RenderMode }
+  { name: string; bg: string; file: string }
 > = {
-  // `tint` outlets ship a single-colour silhouette logo and look correct
-  // when the shape is masked white onto the brand-coloured square.
-  sz:     { name: "Süddeutsche Zeitung", bg: "#29293a", mode: "tint" },
-  merkur: { name: "Münchner Merkur",     bg: "#008bd0", mode: "tint" },
-  mz:     { name: "Moosburger Zeitung",  bg: "#e30713", mode: "tint" },
-  // `plate` outlets ship a multi-colour illustrative logo where masking
-  // would flatten detail. We render them as-is on a white card.
-  idowa:  { name: "idowa",               bg: "#ffffff", mode: "plate" },
+  sz:     { name: "Süddeutsche Zeitung",  bg: "#29293a", file: "sz" },
+  merkur: { name: "Münchner Merkur",      bg: "#008bd0", file: "merkur" },
+  br:     { name: "Bayerischer Rundfunk", bg: "#0082c6", file: "br" },
+  mz:     { name: "Moosburger Zeitung",   bg: "#e20c15", file: "mz" },
+  idowa:  { name: "idowa",                bg: "#e20c15", file: "mz" },
 };
 
 type Props = {
@@ -22,56 +19,27 @@ type Props = {
   size?: number;
 };
 
-/** Press-outlet badge. Two render modes:
- *
- *  • `tint`  — brand-colour square; the SVG's alpha shape is used as a mask
- *    and the foreground is forced to white. Robust to whatever fill the
- *    source SVG uses (works for both white-on-transparent and brand-colour
- *    silhouette logos).
- *
- *  • `plate` — white card with a subtle border; the logo is embedded as-is
- *    so its own colours render. Used for multi-colour marks where masking
- *    would collapse detail.
- */
+/** Press-outlet badge: brand-colour square; the SVG's alpha shape is used as
+ *  a mask and the foreground is forced to white, at 70 % of the square.
+ *  Robust to whatever fill the source SVG uses. */
 export function PressLogo({ outlet, size = 36 }: Props) {
-  const { name, bg, mode } = OUTLET_CONFIG[outlet];
-  const url = `${import.meta.env.BASE_URL}press/${outlet}.svg`;
-
-  const baseClasses = "inline-grid place-items-center rounded-md shrink-0";
-
-  if (mode === "plate") {
-    return (
-      <span
-        role="img"
-        aria-label={name}
-        title={name}
-        className={`${baseClasses} border border-ink-line`}
-        style={{ width: size, height: size, background: bg }}
-      >
-        <img
-          src={url}
-          alt=""
-          className="block"
-          style={{ width: size * 0.78, height: size * 0.78, objectFit: "contain" }}
-        />
-      </span>
-    );
-  }
+  const { name, bg, file } = OUTLET_CONFIG[outlet];
+  const url = `${import.meta.env.BASE_URL}press/${file}.svg`;
 
   return (
     <span
       role="img"
       aria-label={name}
       title={name}
-      className={baseClasses}
+      className="inline-grid place-items-center rounded-md shrink-0"
       style={{ width: size, height: size, background: bg }}
     >
       <span
         aria-hidden
         className="block"
         style={{
-          width: size * 0.78,
-          height: size * 0.78,
+          width: size * 0.7,
+          height: size * 0.7,
           backgroundColor: "#fff",
           WebkitMaskImage: `url(${url})`,
           maskImage: `url(${url})`,

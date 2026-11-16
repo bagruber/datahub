@@ -73,7 +73,7 @@ export type DatasetMeta = {
   source?: string;
 };
 
-export type PressOutlet = "sz" | "merkur" | "mz" | "idowa";
+export type PressOutlet = "sz" | "merkur" | "br" | "mz" | "idowa";
 
 export type PressLink = {
   outlet: PressOutlet;
