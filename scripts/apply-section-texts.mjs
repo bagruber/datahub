@@ -18,7 +18,7 @@ const save = (id, d) => fs.writeFileSync(file(id), JSON.stringify(d));
   };
   set(
     "besuchsverhalten",
-    "Der Christkindlmarkt ist für die meisten ein **Wiederholungstermin**: über die Hälfte besucht ihn mehrmals im Jahr. **Samstag** ist mit Abstand der beliebteste Tag, **Freitag** der schwächste. Drei von zehn Besucherinnen und Besuchern kommen an allen drei Markttagen. Beim Tageszeitpunkt überwiegt der **Abend** nach 18 Uhr deutlich. Viele bleiben länger als eine Stunde. Angereist wird vor allem **zu Fuß** (73 %), ÖPNV spielt mit 1 % praktisch keine Rolle.",
+    "Der Christkindlmarkt ist für die meisten ein **Wiederholungstermin**: über die Hälfte besucht ihn mehrmals im Jahr. **Samstag** ist mit Abstand der beliebteste Tag, **Freitag** der schwächste. Drei von zehn Besucherinnen und Besuchern kommen an allen drei Markttagen. Beim Tageszeitpunkt überwiegt der **Abend** ab 17 Uhr deutlich. Viele bleiben länger als eine Stunde. Angereist wird vor allem **zu Fuß** (73 %), ÖPNV spielt mit 1 % praktisch keine Rolle.",
   );
   set(
     "bewertung",
@@ -30,7 +30,10 @@ const save = (id, d) => fs.writeFileSync(file(id), JSON.stringify(d));
   );
   set(
     "hindernisse",
-    "Wer den Markt eher meidet, nennt am häufigsten ein **unattraktives Angebot** (29 %). Auf Platz zwei und drei stehen **„zu voll“** und **„zu teuer“**, etwa gleichauf bei je rund 17 %. **Schlechte Erreichbarkeit** ist mit 4 % praktisch kein Thema, was zur dominanten Anreise zu Fuß passt.",
+    // Anteile auf die 369 bezogen, die einen Grund nennen, wie im Diagramm.
+    // Bis November 2026 standen hier Anteile an allen 667 Befragten (29 %,
+    // 17 %, 4 %) neben einem Diagramm mit 53 %, 31 %, 8 %.
+    "Gut die Hälfte der Befragten nennt einen Grund, der sie vom Besuch abhält. Am häufigsten ist es ein **unattraktives Angebot** (53 %). Auf Platz zwei und drei stehen **„zu voll“** und **„zu teuer“**, etwa gleichauf bei rund 30 %. **Schlechte Erreichbarkeit** ist mit 8 % kaum ein Thema, was zur Anreise zu Fuß passt.",
   );
   set(
     "standort",
@@ -68,7 +71,10 @@ const save = (id, d) => fs.writeFileSync(file(id), JSON.stringify(d));
   };
   set(
     "nutzung",
-    "Gut ein Drittel besucht die Website **monatlich**, ähnlich viele **seltener**. Wöchentliche oder tägliche Nutzung ist mit etwa jedem Sechsten die Ausnahme. Die Stadt-Website ist also vor allem ein **Anlassmedium**.",
+    // Antwortstufen laut Fragebogen: Nie, Selten, Mehrmals im Jahr, Monatlich,
+    // Sehr oft. Bis November 2026 standen Codes 3 bis 5 hier als monatlich,
+    // wöchentlich und täglich.
+    "Die meisten nutzen die Website **selten** oder **mehrmals im Jahr**. Monatlich schaut nur etwa jede oder jeder Siebte vorbei, sehr oft fast niemand. Die Stadt-Website ist also vor allem ein **Anlassmedium**.",
   );
 
   // Merge "Innovationen im Vergleich" (radar) into "Innovationen im Detail"
