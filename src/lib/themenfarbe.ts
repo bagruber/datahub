@@ -6,6 +6,7 @@ const THEMENFARBE: Record<string, string> = {
   volksfest_2024: "#6d0818", // Tiefrot
   statistik_kommunal_2022: "#6e5a30", // Gold-700
   kommunalwahl_2026: "#26295e", // Nachtblau
+  studie_website_2025: "#3f2248", // Aubergine: Bildung, Begegnung (Hochschule mit Bürgerschaft)
 };
 
 export const themenfarbe = (id: string) => THEMENFARBE[id] ?? "#6d0818";

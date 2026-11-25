@@ -27,6 +27,7 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
+      - run: pnpm test
       - run: pnpm run build:hostinger
 
       # Öffentlich ist vorerst nur eine Auswahl. Der Schritt kürzt das
@@ -39,7 +40,7 @@ jobs:
             const fs = require('fs');
             const p = 'dist/data/manifest.json';
             const m = JSON.parse(fs.readFileSync(p, 'utf8'));
-            const keep = new Set(['kommunalwahl_2026', 'bahnhofumfrage_2023', 'volksfest_2024', 'statistik_kommunal_2022']);
+            const keep = new Set(['kommunalwahl_2026', 'christkindlmarkt_2025', 'studie_website_2025', 'bahnhofumfrage_2023', 'volksfest_2024', 'statistik_kommunal_2022']);
             const missing = [...keep].filter(id => !m.datasets.some(d => d.id === id));
             if (missing.length) {
               console.error('Unbekannte Dataset-ID(s): ' + missing.join(', '));

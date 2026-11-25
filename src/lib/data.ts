@@ -108,8 +108,9 @@ export type ManifestEntry = {
   title: string;
   year: number;
   n: number;
-  /** "survey" (default), "statistik" oder "eigen" — steuert die Card. */
-  kind?: DatasetKind;
+  /** "survey" (default), "statistik", "eigen" oder "studie" — steuert die Card.
+   *  Eine Studie ist ein Bericht ohne Records, siehe @/lib/studie. */
+  kind?: DatasetKind | "studie";
 };
 export type Manifest = { datasets: ManifestEntry[] };
 
@@ -121,7 +122,7 @@ export async function loadManifest(): Promise<Manifest> {
   return res.json();
 }
 
-export async function loadDataset(file: string): Promise<Dataset> {
+export async function loadDataset<T = Dataset>(file: string): Promise<T> {
   const res = await fetch(`${DATA_BASE}${file}`);
   if (!res.ok) throw new Error(`${file}: ${res.status}`);
   return res.json();

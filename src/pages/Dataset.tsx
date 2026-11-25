@@ -23,10 +23,15 @@ import { PressSection } from "@/components/press/PressSection";
 import { HELP, HelpIcon } from "@/components/HelpIcon";
 import { fmtInt } from "@/lib/format";
 import { basiszeile } from "@/lib/basis";
+import type { Studie as StudieDaten } from "@/lib/studie";
+import { Studie } from "./Studie";
 
 export function Dataset() {
   const { id } = useParams<{ id: string }>();
   const [dataset, setDataset] = useState<Ds | null>(null);
+  // Eine Studie hat weder Records noch Filter; eigener State, damit die
+  // Filter-Hooks unten nur echte Datensätze sehen.
+  const [studie, setStudie] = useState<StudieDaten | null>(null);
   const [entry, setEntry] = useState<ManifestEntry | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -34,12 +39,17 @@ export function Dataset() {
   useEffect(() => {
     if (!id) return;
     setDataset(null);
+    setStudie(null);
     setEntry(null);
     setError(null);
     loadManifest()
       .then(async (m) => {
         const e = m.datasets.find((d) => d.id === id);
         if (!e) throw new Error(`Datensatz "${id}" nicht gefunden.`);
+        if (e.kind === "studie") {
+          setStudie(await loadDataset<StudieDaten>(e.file));
+          return;
+        }
         setEntry(e);
         const ds = await loadDataset(e.file);
         setDataset(ds);
@@ -56,6 +66,8 @@ export function Dataset() {
     () => (dataset ? applyFilters(dataset.records, dataset.filters, selections) : []),
     [dataset, selections],
   );
+
+  if (studie) return <Studie studie={studie} />;
 
   if (error) {
     return (

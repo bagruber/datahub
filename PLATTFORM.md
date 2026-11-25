@@ -84,12 +84,17 @@ nach dem Build das Manifest und löscht die zurückgehaltenen Rohdaten aus
 `dist/`, damit sie auch nicht über die direkte URL erreichbar sind:
 
 ```
-Öffentlich:     kommunalwahl_2026, bahnhofumfrage_2023, volksfest_2024, statistik_kommunal_2022
-Zurückgehalten: christkindlmarkt_2025, website_innovationen_2025
+Öffentlich:     kommunalwahl_2026, christkindlmarkt_2025, studie_website_2025,
+                bahnhofumfrage_2023, volksfest_2024, statistik_kommunal_2022
+Zurückgehalten: website_innovationen_2025
 ```
 
+`website_innovationen_2025` bleibt mit Absicht zurück: Öffentlich vertritt ihn
+die Studie `studie_website_2025`, die nur Aggregate enthält (Entscheidung
+Benedict, 25.11.2026). Die Studie lädt die Einzelantworten nicht nach.
+
 Die Quelldaten im Repo bleiben unangetastet — lokal und auf GitHub Pages sind
-weiterhin alle fünf da. Wer die Auswahl ändert, ändert das `keep`-Set im
+weiterhin alle da, und das öffentliche Repo enthält sie ohnehin. Wer die Auswahl ändert, ändert das `keep`-Set im
 Workflow. Eine unbekannte ID lässt den Build absichtlich scheitern, statt still
 eine Karte verschwinden zu lassen.
 

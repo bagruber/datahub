@@ -1,0 +1,960 @@
+{
+  "kind": "studie",
+  "meta": {
+    "id": "studie_website_2025",
+    "title": "Stadtwebsite",
+    "year": 2026,
+    "n": 3,
+    "description": "Was drei Gruppen von Studierenden der LMU München über die Nutzung von moosburg.de herausgefunden haben und was sich Moosburgerinnen und Moosburger von einer neuen Stadtwebsite wünschen."
+  },
+  "zeile": "Studie · LMU München · Wintersemester 2025/26",
+  "kennzahlen": [
+    {
+      "wert": "3",
+      "label": "Teilprojekte"
+    },
+    {
+      "wert": "5",
+      "label": "Erhebungen"
+    },
+    {
+      "wert": "{{befragung.n}}",
+      "label": "Bögen zu neuen Funktionen"
+    }
+  ],
+  "werte": {
+    "personas.umfrage.n": {
+      "wert": "112",
+      "quelle": "Abschlussbericht Personas, S. 13"
+    },
+    "personas.interviews.n": {
+      "wert": "18",
+      "quelle": "Abschlussbericht Personas, S. 22"
+    },
+    "personas.erlebnis": {
+      "wert": "2,8",
+      "quelle": "Abschlussbericht Personas, S. 19"
+    },
+    "personas.finden": {
+      "wert": "2,5",
+      "quelle": "Abschlussbericht Personas, S. 19"
+    },
+    "personas.kompetenz": {
+      "wert": "17",
+      "quelle": "Abschlussbericht Personas, S. 32"
+    },
+    "mm.gespraeche": {
+      "wert": "12",
+      "quelle": "Zwischenpräsentation Mentale Modelle, Folie 4"
+    },
+    "mm.moosburg": {
+      "wert": "4",
+      "quelle": "Zwischenpräsentation Mentale Modelle, Folie 4"
+    },
+    "innov.experten": {
+      "wert": "7",
+      "quelle": "Abschlussbericht Innovationen, S. 10"
+    },
+    "bericht.n": {
+      "wert": "74",
+      "quelle": "Abschlussbericht Innovationen, S. 13"
+    },
+    "bericht.konto.umsetzung": {
+      "wert": "76 %",
+      "quelle": "Abschlussbericht Innovationen, S. 28"
+    },
+    "bericht.karte.umsetzung": {
+      "wert": "72 %",
+      "quelle": "Abschlussbericht Innovationen, S. 34"
+    },
+    "befragung.n": {
+      "wert": "98",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.suche.umsetzung": {
+      "wert": "92 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.suche.nutzung": {
+      "wert": "87 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.suche.bedenken": {
+      "wert": "10 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.karte.umsetzung": {
+      "wert": "78 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.karte.nutzung": {
+      "wert": "60 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.karte.bedenken": {
+      "wert": "26 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.konto.umsetzung": {
+      "wert": "69 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.konto.nutzung": {
+      "wert": "68 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.konto.bedenken": {
+      "wert": "54 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.chatbot.umsetzung": {
+      "wert": "48 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.chatbot.nutzung": {
+      "wert": "32 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.chatbot.bedenken": {
+      "wert": "35 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.community.umsetzung": {
+      "wert": "40 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.community.nutzung": {
+      "wert": "32 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.community.bedenken": {
+      "wert": "43 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.wohnort.moosburg": {
+      "wert": "95",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.haeufigkeit.monatlich": {
+      "wert": "15 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    },
+    "befragung.sicherheit.sicher": {
+      "wert": "86 %",
+      "quelle": "nachgerechnet aus website_innovationen_2025"
+    }
+  },
+  "daten": {
+    "befragung": {
+      "n": 98,
+      "funktionen": [
+        {
+          "id": "suche",
+          "label": "Moderne Suche",
+          "items": {
+            "verstaendnis": [
+              0,
+              4,
+              4,
+              13,
+              77
+            ],
+            "nuetzlichkeit": [
+              1,
+              3,
+              8,
+              28,
+              58
+            ],
+            "nutzungsabsicht": [
+              1,
+              5,
+              7,
+              29,
+              56
+            ],
+            "bedenken": [
+              57,
+              25,
+              6,
+              8,
+              2
+            ],
+            "sinnhaftigkeit": [
+              1,
+              3,
+              10,
+              18,
+              66
+            ]
+          },
+          "umsetzung": {
+            "ja": 90,
+            "nein": 8
+          }
+        },
+        {
+          "id": "konto",
+          "label": "Persönliches Konto",
+          "items": {
+            "verstaendnis": [
+              4,
+              8,
+              5,
+              18,
+              63
+            ],
+            "nuetzlichkeit": [
+              10,
+              9,
+              8,
+              21,
+              50
+            ],
+            "nutzungsabsicht": [
+              10,
+              11,
+              10,
+              20,
+              47
+            ],
+            "bedenken": [
+              13,
+              17,
+              15,
+              33,
+              20
+            ],
+            "sinnhaftigkeit": [
+              8,
+              8,
+              15,
+              18,
+              49
+            ]
+          },
+          "umsetzung": {
+            "ja": 68,
+            "nein": 30
+          }
+        },
+        {
+          "id": "karte",
+          "label": "Karte mit Meldefunktion",
+          "items": {
+            "verstaendnis": [
+              2,
+              7,
+              1,
+              28,
+              60
+            ],
+            "nuetzlichkeit": [
+              7,
+              15,
+              12,
+              27,
+              37
+            ],
+            "nutzungsabsicht": [
+              3,
+              19,
+              17,
+              33,
+              26
+            ],
+            "bedenken": [
+              26,
+              22,
+              25,
+              19,
+              6
+            ],
+            "sinnhaftigkeit": [
+              1,
+              12,
+              17,
+              29,
+              39
+            ]
+          },
+          "umsetzung": {
+            "ja": 76,
+            "nein": 22
+          }
+        },
+        {
+          "id": "chatbot",
+          "label": "Chatbot",
+          "items": {
+            "verstaendnis": [
+              3,
+              11,
+              3,
+              25,
+              56
+            ],
+            "nuetzlichkeit": [
+              15,
+              27,
+              13,
+              33,
+              10
+            ],
+            "nutzungsabsicht": [
+              22,
+              24,
+              21,
+              24,
+              7
+            ],
+            "bedenken": [
+              26,
+              23,
+              15,
+              15,
+              19
+            ],
+            "sinnhaftigkeit": [
+              20,
+              14,
+              22,
+              25,
+              17
+            ]
+          },
+          "umsetzung": {
+            "ja": 47,
+            "nein": 51
+          }
+        },
+        {
+          "id": "community",
+          "label": "Community-Funktion",
+          "items": {
+            "verstaendnis": [
+              10,
+              10,
+              9,
+              22,
+              47
+            ],
+            "nuetzlichkeit": [
+              19,
+              30,
+              11,
+              25,
+              13
+            ],
+            "nutzungsabsicht": [
+              22,
+              33,
+              12,
+              18,
+              13
+            ],
+            "bedenken": [
+              21,
+              13,
+              22,
+              26,
+              16
+            ],
+            "sinnhaftigkeit": [
+              15,
+              24,
+              19,
+              22,
+              18
+            ]
+          },
+          "umsetzung": {
+            "ja": 39,
+            "nein": 59
+          }
+        }
+      ]
+    }
+  },
+  "kapitel": [
+    {
+      "id": "kurz",
+      "titel": "Auf einen Blick",
+      "bloecke": [
+        {
+          "typ": "text",
+          "text": "Im Wintersemester 2025/26 haben drei Gruppen von Masterstudierenden der LMU München im Auftrag der Stadt untersucht, wie die Moosburger Stadtwebsite genutzt wird und was eine neue leisten soll. Sie haben Bürgerinnen und Bürger befragt, ausführliche Gespräche geführt, Fachleute interviewt und Entwürfe bewerten lassen. Sechs Ergebnisse ziehen sich durch alle drei Arbeiten."
+        },
+        {
+          "typ": "befunde",
+          "eintraege": [
+            {
+              "kern": "Finden kommt zuerst.",
+              "text": "Wer die Stadtwebsite öffnet, will etwas finden und erledigen. In den Interviews nannten {{personas.kompetenz}} von {{personas.interviews.n}} Befragten das Gefühl, ein Anliegen selbst lösen zu können, als wichtigstes Bedürfnis. Eine bessere Suche wünschen sich {{befragung.suche.umsetzung}} der Befragten, mehr als jede andere neue Funktion."
+            },
+            {
+              "kern": "Nach Anlass, nicht nach Amt.",
+              "text": "Die meisten kommen selten und mit einem bestimmten Anliegen, nach fünf bis zehn Minuten sind sie wieder weg. Menüs, die nach Zuständigkeiten der Verwaltung sortiert sind, und Begriffe wie „Versorgung Nahwärme“ halten sie auf. Wer nicht fündig wird, sucht bei Google weiter oder ruft im Rathaus an."
+            },
+            {
+              "kern": "Zwei Websites verwirren.",
+              "text": "Dass neben moosburg.de auch meinmoosburg.de besteht, kam in Umfrage und Interviews immer wieder als Kritik. Viele wissen nicht, wo sie was finden, ein Teil kennt die zweite Seite gar nicht."
+            },
+            {
+              "kern": "Was fehlt, ist das Aktuelle.",
+              "text": "Am häufigsten vermisst werden Veranstaltungen und Neues aus dem Stadtleben, danach Tagesordnungen und Protokolle des Stadtrats. Die Website soll zeigen, was in Moosburg los ist, gern mit aktuellen Bildern aus der Stadt."
+            },
+            {
+              "kern": "Mitreden ja, Forum nein.",
+              "text": "Beteiligung ist gewünscht, vor allem von politisch Interessierten. Eine eigene Community-Funktion wollen aber nur {{befragung.community.umsetzung}}: Zu groß erscheinen Aufwand und Moderation, und viele fürchten, dass nur wenige laut mitreden. Eine Karte, auf der man Schäden meldet, wünschen sich dagegen {{befragung.karte.umsetzung}}."
+            },
+            {
+              "kern": "Ein Konto braucht Vertrauen.",
+              "text": "Ein persönliches Konto, etwa um den Stand eines Antrags zu sehen, wünschen sich {{befragung.konto.umsetzung}}. Zugleich haben {{befragung.konto.bedenken}} Bedenken, vor allem beim Datenschutz. Mehrere fragen, warum Moosburg nicht die vorhandene BayernID nutzt."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "auftrag",
+      "titel": "Worum es ging",
+      "bloecke": [
+        {
+          "typ": "text",
+          "text": "Moosburg betreibt zwei Websites: moosburg.de für die Stadtverwaltung und meinmoosburg.de, die Seite der Moosburg Marketing eG. Der Aufbau von moosburg.de ist über Jahre gewachsen. Wer dort nicht findet, was er sucht, ruft an oder kommt ins Rathaus, und Anfragen landen oft bei der falschen Stelle.\n\nDie Stadt will ihre Website deshalb neu aufbauen, ausgehend von den Menschen, die sie nutzen. Im Wintersemester 2025/26 hat sie dafür mit der LMU München zusammengearbeitet, im Lehrpraxisprojekt „Markt-, Konsumenten- und Ökonomische Psychologie“ für Masterstudierende. Die beiden Leitfragen: Wie wird die Website heute genutzt? Und wie könnte eine Struktur aussehen, die von den Nutzerinnen und Nutzern her gedacht ist? Drei Gruppen haben je einen Teil davon bearbeitet."
+        },
+        {
+          "typ": "teilprojekte",
+          "eintraege": [
+            {
+              "titel": "Personas",
+              "frage": "Worin unterscheidet sich die Nutzung zwischen verschiedenen Menschen?",
+              "kapitel": "personas"
+            },
+            {
+              "titel": "Mentale Modelle",
+              "frage": "Wo erwarten Menschen welche Inhalte, und welche Begriffe verstehen sie?",
+              "kapitel": "mentale-modelle"
+            },
+            {
+              "titel": "Innovationen",
+              "frage": "Mit welchen neuen Werkzeugen ließe sich die Website verbessern?",
+              "kapitel": "innovationen"
+            }
+          ]
+        },
+        {
+          "typ": "hinweis",
+          "titel": "Über diese Seite",
+          "text": "Diese Zusammenfassung stützt sich auf die Abschlussberichte der Gruppen vom Februar 2026, für die Mentalen Modelle auf die Zwischenpräsentation vom Dezember 2025. Sie ist keine Veröffentlichung der LMU oder der Stadt. Die Zahlen der Befragung zu neuen Funktionen sind mit allen {{befragung.n}} Fragebögen nachgerechnet, mehr dazu im Kapitel Innovationen."
+        }
+      ]
+    },
+    {
+      "id": "ablauf",
+      "titel": "So lief das Projekt",
+      "bloecke": [
+        {
+          "typ": "zeitleiste",
+          "eintraege": [
+            {
+              "wann": "17.07.2025",
+              "was": "Die LMU stellt das Thema im Seminarprogramm für das Wintersemester vor."
+            },
+            {
+              "wann": "Oktober 2025",
+              "was": "Auftakt und Klärung des Auftrags mit den drei Gruppen."
+            },
+            {
+              "wann": "13.11.2025",
+              "was": "Auf der Bürgerversammlung werben die Studierenden um Teilnehmende. Am selben Tag startet die Online-Umfrage zur Nutzung, sie läuft bis 12.12."
+            },
+            {
+              "wann": "November 2025",
+              "was": "Die Stadt sucht Freiwillige, die bei Interviews und Tests mitmachen."
+            },
+            {
+              "wann": "24.–27.11.2025",
+              "was": "Interviews im Rathaus und in der Volkshochschule."
+            },
+            {
+              "wann": "Dezember 2025",
+              "was": "Zwischenpräsentationen der drei Gruppen."
+            },
+            {
+              "wann": "bis 25.01.2026",
+              "was": "Befragung zu fünf neuen Funktionen, erste Welle mit {{bericht.n}} vollständigen Fragebögen."
+            },
+            {
+              "wann": "ab 27.01.2026",
+              "was": "Auf Wunsch der Stadt wird die Befragung ein zweites Mal geöffnet."
+            },
+            {
+              "wann": "25.02.2026",
+              "was": "Abgabe der Abschlussberichte."
+            }
+          ]
+        },
+        {
+          "typ": "methoden",
+          "zeilen": [
+            {
+              "teil": "Personas",
+              "methode": "Online-Umfrage zur Nutzung",
+              "wer": "{{personas.umfrage.n}} Teilnehmende"
+            },
+            {
+              "teil": "Personas",
+              "methode": "Interviews mit Bedürfniskarten, je etwa 30 Minuten",
+              "wer": "{{personas.interviews.n}} Moosburgerinnen und Moosburger"
+            },
+            {
+              "teil": "Mentale Modelle",
+              "methode": "Einzel- und Gruppeninterviews, Card Sorting, lautes Denken",
+              "wer": "{{mm.gespraeche}} Personen, {{mm.moosburg}} davon aus Moosburg"
+            },
+            {
+              "teil": "Innovationen",
+              "methode": "Gespräche mit Fachleuten",
+              "wer": "{{innov.experten}} aus Design, Informatik und User Experience"
+            },
+            {
+              "teil": "Innovationen",
+              "methode": "Online-Befragung mit Bildschirmentwürfen",
+              "wer": "{{befragung.n}} Fragebögen"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "personas",
+      "titel": "Wer die Website wie nutzt",
+      "zeile": "Teilprojekt Personas",
+      "bloecke": [
+        {
+          "typ": "text",
+          "text": "Die größte Gruppe wollte wissen, wer die Website nutzt und wofür. Sie verband eine Online-Umfrage mit {{personas.umfrage.n}} Teilnehmenden mit {{personas.interviews.n}} ausführlichen Interviews und verdichtete beides zu vier Personas: erfundenen, aber aus den Daten abgeleiteten Nutzertypen."
+        },
+        {
+          "typ": "kennzahlen",
+          "eintraege": [
+            {
+              "wert": "{{personas.erlebnis}}",
+              "label": "von 5 Punkten für das Nutzungserlebnis"
+            },
+            {
+              "wert": "{{personas.finden}}",
+              "label": "von 5 Punkten dafür, wie leicht man etwas findet"
+            },
+            {
+              "wert": "5–10",
+              "label": "Minuten dauert ein typischer Besuch"
+            }
+          ]
+        },
+        {
+          "typ": "text",
+          "text": "Die meisten rufen moosburg.de höchstens einmal im Monat auf, meist auf dem Smartphone, und kommen mit einem bestimmten Anliegen. In den Freitexten der Umfrage nennen sie vor allem Öffnungszeiten, Behördengänge, Ansprechpartner und den Stadtrat."
+        },
+        {
+          "typ": "ranglisten",
+          "eintraege": [
+            {
+              "titel": "Wofür die Website genutzt wird",
+              "basis": "Nennungen in den Freitexten der Umfrage. Wer mehreres nennt, zählt mehrfach.",
+              "quelle": "Abschlussbericht Personas, Tabelle 2",
+              "zeilen": [
+                {
+                  "label": "Öffnungszeiten",
+                  "wert": 35
+                },
+                {
+                  "label": "Bürgerservice und Behördengänge",
+                  "wert": 26
+                },
+                {
+                  "label": "Kontakte und Ansprechpartner",
+                  "wert": 26
+                },
+                {
+                  "label": "Politik und Stadtrat",
+                  "wert": 25
+                },
+                {
+                  "label": "Veranstaltungen und Freizeit",
+                  "wert": 17
+                },
+                {
+                  "label": "Bauen, Planen und Umwelt",
+                  "wert": 15
+                }
+              ]
+            },
+            {
+              "titel": "Was auf der Website fehlt",
+              "basis": "Nennungen in den Freitexten der Umfrage. Wer mehreres nennt, zählt mehrfach.",
+              "quelle": "Abschlussbericht Personas, Tabelle 3",
+              "zeilen": [
+                {
+                  "label": "Veranstaltungen, Kultur und Freizeit",
+                  "wert": 20
+                },
+                {
+                  "label": "Politik und Stadtrat",
+                  "wert": 16
+                },
+                {
+                  "label": "Aktuelles aus dem Stadtleben",
+                  "wert": 11
+                },
+                {
+                  "label": "Digitale Vorgänge, etwa Online-Termine",
+                  "wert": 10
+                },
+                {
+                  "label": "Übersicht und klare Struktur",
+                  "wert": 7
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "typ": "text",
+          "text": "In den Interviews ging es um mehr als Funktionen. Entlang von acht psychologischen Bedürfnissen, darunter Kompetenz, Sicherheit und Verbundenheit, sprachen die Befragten darüber, was eine Stadtwebsite leisten muss, damit man sie gern nutzt. {{personas.kompetenz}} der {{personas.interviews.n}} nannten Kompetenz als das wichtigste: das Gefühl, ein Anliegen selbst und ohne Umweg zu erledigen. Weit vorn stand der Wunsch nach einer klaren Struktur, danach ein ansprechendes Design mit Bildern aus Moosburg und eine verständliche, verlässliche Darstellung."
+        },
+        {
+          "typ": "ranglisten",
+          "eintraege": [
+            {
+              "titel": "Was die Website leisten soll",
+              "basis": "Nennungen im Interviewteil zu den Bedürfnissen.",
+              "quelle": "Abschlussbericht Personas, Tabelle 7",
+              "zeilen": [
+                {
+                  "label": "Klare Struktur",
+                  "wert": 72
+                },
+                {
+                  "label": "Überzeugendes Design",
+                  "wert": 32
+                },
+                {
+                  "label": "Verständlich und transparent",
+                  "wert": 32
+                },
+                {
+                  "label": "Veranstaltungen und Freizeit",
+                  "wert": 31
+                },
+                {
+                  "label": "Teilhabe am Stadtgeschehen",
+                  "wert": 29
+                },
+                {
+                  "label": "Aktuelle Inhalte",
+                  "wert": 26
+                },
+                {
+                  "label": "Selbst steuern, etwa durch Personalisierung",
+                  "wert": 15
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "typ": "zitate",
+          "herkunft": "Aus den Interviews des Teilprojekts Personas",
+          "eintraege": [
+            "Eine Grundvoraussetzung für mich sollte sein, dass eine Homepage intuitiv zu erfahren ist und die Anliegen auch intuitiv dann klar, relativ zügig zuzuordnen sind und aufzufinden sind.",
+            "Also ich habe [ein] Führungszeugnis gebraucht, habe ich geschaut, wann und wo kann ich das beantragen.",
+            "Ich würde mir wünschen, dass die Infos, die drauf sind, aktuell sind.",
+            "Seite einfach optisch ansprechender gestalten, mit aktualisierten Bildern von der Stadt."
+          ]
+        },
+        {
+          "typ": "personas",
+          "eintraege": [
+            {
+              "name": "Peter Praktisch",
+              "steckbrief": "45 Jahre, verheiratet, Kinder im Haushalt",
+              "beduerfnis": "Kompetenz",
+              "zitat": "Ich will schnell finden, was ich brauche, und mein Anliegen direkt erledigen können.",
+              "nutzung": "Nur mit konkretem Anliegen, abends am PC, selten länger als zehn Minuten.",
+              "sucht": [
+                "Öffnungszeiten der Ämter",
+                "Müll und Baustellen",
+                "Ansprechpartner",
+                "Formulare und Anträge"
+              ],
+              "wuenscht": [
+                "klare, logische Struktur",
+                "Suche, die Tippfehler verzeiht",
+                "Formulare an einem Ort",
+                "Anliegen digital erledigen"
+              ]
+            },
+            {
+              "name": "Mia Miteinander",
+              "steckbrief": "34 Jahre, junge Familie",
+              "beduerfnis": "Verbundenheit",
+              "zitat": "Die Website soll zeigen, was Moosburg lebendig macht und Lust machen, Teil des Stadtlebens zu sein.",
+              "nutzung": "Mehrmals pro Woche für ein paar Minuten, am Smartphone oder Laptop.",
+              "sucht": [
+                "Veranstaltungen",
+                "Angebote für Familien und Kinder",
+                "Kitas und Schulen",
+                "lokale Initiativen"
+              ],
+              "wuenscht": [
+                "aktuelle Bilder aus Moosburg",
+                "übersichtlicher Veranstaltungskalender",
+                "Newsletter",
+                "die Vielfalt der Stadt sichtbar"
+              ]
+            },
+            {
+              "name": "Ina Innovativ",
+              "steckbrief": "28 Jahre, ledig, keine Kinder",
+              "beduerfnis": "Stimulation",
+              "zitat": "Die Website soll sich so modern anfühlen wie mein Alltag – schnell, smart und mobil.",
+              "nutzung": "Drei- bis viermal im Jahr, fast nur am Smartphone, so schnell wie möglich.",
+              "sucht": [
+                "Bürgerservices",
+                "intuitive Navigation",
+                "zeitgemäße digitale Angebote"
+              ],
+              "wuenscht": [
+                "für das Smartphone gebaut",
+                "Chatbot-Hilfe",
+                "Anschluss an Dienste wie Handyparken",
+                "stabile, sichere Technik"
+              ]
+            },
+            {
+              "name": "Armin Aktiv",
+              "steckbrief": "58 Jahre, die Kinder sind aus dem Haus",
+              "beduerfnis": "Kompetenz und Beteiligung",
+              "zitat": "Transparente Informationen und echte Beteiligung sind für mich die Grundlage einer lebendigen Stadtpolitik.",
+              "nutzung": "Etwa einmal pro Woche und ausführlich, zu Hause am PC.",
+              "sucht": [
+                "Termine, Protokolle und Beschlüsse des Stadtrats",
+                "Bauen und Planen",
+                "Umweltthemen",
+                "Zuständigkeiten"
+              ],
+              "wuenscht": [
+                "aktuelle, transparente Informationen",
+                "Livestreams oder Aufzeichnungen",
+                "Abstimmungen und Feedback",
+                "klare Verantwortlichkeiten"
+              ]
+            }
+          ]
+        },
+        {
+          "typ": "text",
+          "text": "Die vier schließen sich nicht aus: Je nach Anlass ist dieselbe Person einmal Peter, einmal Mia. Über alle Befragten hinweg zog die Gruppe deshalb ein knappes Fazit: **„Wir alle sind ein Peter Praktisch.“**"
+        }
+      ]
+    },
+    {
+      "id": "mentale-modelle",
+      "titel": "Wo Menschen suchen",
+      "zeile": "Teilprojekt Mentale Modelle",
+      "bloecke": [
+        {
+          "typ": "hinweis",
+          "titel": "Stand Dezember 2025",
+          "text": "Dieses Kapitel beruht auf der Zwischenpräsentation der Gruppe. Ein Abschlussbericht liegt hier noch nicht vor, deshalb fehlen die ausgewerteten Ergebnisse aus Card Sorting und lautem Denken."
+        },
+        {
+          "typ": "text",
+          "text": "Mentale Modelle sind die Vorstellungen, die Menschen davon haben, wie etwas aufgebaut ist: wo eine Information stehen müsste, was zusammengehört, was ein Menüpunkt bedeutet. Passt eine Website nicht dazu, verirrt man sich, auch wenn alles irgendwo vorhanden ist.\n\nDie Gruppe sprach mit {{mm.gespraeche}} Personen, einzeln und in Gruppen, {{mm.moosburg}} davon aus Moosburg, die übrigen aus anderen Städten. Ein Leitfaden mit 18 Fragen zielte auf Erwartungen und Begriffe. Beim Card Sorting legten die Teilnehmenden Themen der heutigen Website auf Zetteln zu Gruppen zusammen, beim lauten Denken lösten sie Aufgaben wie eine Terminbuchung oder einen Bauantrag und sprachen dabei aus, was sie suchen."
+        },
+        {
+          "typ": "befunde",
+          "eintraege": [
+            {
+              "kern": "Die Startseite ist überladen.",
+              "text": "Zu viele Informationen auf einmal, kein klarer Einstieg."
+            },
+            {
+              "kern": "Menüs passen nicht zu den Erwartungen.",
+              "text": "Ebenen und Bezeichnungen sind uneinheitlich. Unter „Rathaus & Service“ steht vieles, das dort niemand sucht."
+            },
+            {
+              "kern": "Die Suche führt nicht weiter.",
+              "text": "Die Treffer passen nicht zur Frage, also weichen viele auf Google aus."
+            },
+            {
+              "kern": "Unklar, für wen etwas gedacht ist.",
+              "text": "Für Bürger, für Fachleute, für Gäste? Gerade Besucherinnen und Besucher finden kaum etwas für sich."
+            },
+            {
+              "kern": "Behördensprache.",
+              "text": "Fachbegriffe und Namen wie „BayernPortal“ oder „Mein Moosburg“ bleiben unerklärt."
+            }
+          ]
+        },
+        {
+          "typ": "zitate",
+          "herkunft": "Aus Interviews und Fokusgruppe des Teilprojekts Mentale Modelle",
+          "eintraege": [
+            "Alles ist in „Rathaus & Service“ reingeworfen. Wieso ist da die Unterkategorie „Bankdaten“ oder „Einwohnerzahlen“ und Information über „Baustellen“. Die gehören gar nicht zusammen […]",
+            "Suchfunktion liefert unpassende Ergebnisse, deswegen suche ich lieber konkrete Sachen auf Google.",
+            "Ich kann nicht erkennen, für wen die Informationen gedacht sind. Ist es für Juristen oder für mich?",
+            "Es ist viel Behördendeutsch. Wie ein Amt es formuliert, aber nicht wie ein nutzerfreundlicher Dienst."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "innovationen",
+      "titel": "Welche neuen Funktionen gewünscht sind",
+      "zeile": "Teilprojekt Innovationen",
+      "bloecke": [
+        {
+          "typ": "text",
+          "text": "Die dritte Gruppe suchte nach neuen Werkzeugen für die Website. Am Anfang standen Gespräche mit {{innov.experten}} Fachleuten aus Design, Medieninformatik und User Experience. Als Anstoß dienten zwei Vorbilder: Helsinki mit seinem digitalen Zwilling, einer 3D-Karte der Stadt mit Daten zu Energie und Gebäuden, und Estland, wo fast alle Behördengänge online laufen.\n\nDie Ideen aus den Gesprächen ordnete die Gruppe nach dem Kano-Modell. Es trennt, was stillschweigend erwartet wird und erst auffällt, wenn es fehlt, von dem, was mit seiner Qualität zufriedener macht, und von dem, was niemand erwartet, das aber begeistern kann."
+        },
+        {
+          "typ": "spalten",
+          "titel": "Einordnung der Ideen aus den Fachgesprächen",
+          "eintraege": [
+            {
+              "kopf": "Wird erwartet",
+              "punkte": [
+                "Moderne Suche",
+                "Zeitgemäßes, ruhiges Design",
+                "Klare Struktur",
+                "Startseite mit klaren Einstiegen",
+                "Barrierefreiheit",
+                "Abläufe, die funktionieren"
+              ]
+            },
+            {
+              "kopf": "Macht zufriedener",
+              "punkte": [
+                "Chatbot",
+                "Nachrichten"
+              ]
+            },
+            {
+              "kopf": "Kann begeistern",
+              "punkte": [
+                "Persönliches Konto",
+                "Community-Funktion",
+                "Interaktive Karte",
+                "Interaktive Grafiken",
+                "Livestreams",
+                "Virtuelle Realität"
+              ]
+            }
+          ]
+        },
+        {
+          "typ": "text",
+          "text": "Fünf Ideen gingen mit Bildschirmentwürfen in eine Online-Befragung. Zu jeder Funktion gaben die Teilnehmenden an, ob sie verstehen, wofür sie gedacht ist, ob sie ihnen nützt, ob sie sie nutzen würden, ob sie Bedenken haben und ob sie sie sinnvoll finden. Am Ende stand die Frage, ob die Stadt sie umsetzen soll.\n\nUnter den Befragten wohnen {{befragung.wohnort.moosburg}} von {{befragung.n}} in Moosburg. Die meisten nutzen die Stadtwebsite selten oder mehrmals im Jahr, monatlich nur {{befragung.haeufigkeit.monatlich}}. Bei digitalen Angeboten fühlen sich {{befragung.sicherheit.sicher}} sicher oder sehr sicher. Gewonnen wurden sie über Facebook-Gruppen, die Stadtwebsite, die Lokalzeitung und den Pool der Freiwilligen."
+        },
+        {
+          "typ": "diagramm",
+          "art": "umsetzung",
+          "titel": "Soll die Stadt das umsetzen?",
+          "basis": "{{befragung.n}} Fragebögen, Anteil „Ja“"
+        },
+        {
+          "typ": "text",
+          "text": "Die Suche wollen fast alle ({{befragung.suche.umsetzung}}). Es folgen die Karte mit Meldefunktion ({{befragung.karte.umsetzung}}) und das persönliche Konto ({{befragung.konto.umsetzung}}). Beim Chatbot ist die Befragung gespalten ({{befragung.chatbot.umsetzung}}), die Community-Funktion lehnt eine Mehrheit ab ({{befragung.community.umsetzung}} dafür)."
+        },
+        {
+          "typ": "diagramm",
+          "art": "likert",
+          "item": "nutzungsabsicht",
+          "titel": "„Ich würde diese Funktion wahrscheinlich nutzen.“",
+          "basis": "{{befragung.n}} Fragebögen",
+          "links": "stimme gar nicht zu",
+          "rechts": "stimme voll zu"
+        },
+        {
+          "typ": "diagramm",
+          "art": "likert",
+          "item": "bedenken",
+          "umkehren": true,
+          "titel": "„Ich habe Bedenken bei dieser Funktion.“",
+          "basis": "{{befragung.n}} Fragebögen, rechts der Anteil ohne Bedenken",
+          "links": "starke Bedenken",
+          "rechts": "keine Bedenken"
+        },
+        {
+          "typ": "text",
+          "text": "Die Kommentare erklären die Unterschiede. Beim Konto geht es um Datenschutz und um die Frage, ob die Stadt so etwas technisch stemmt. Mehrere verweisen auf BayernID und BundID und halten ein eigenes Konto nur für Moosburg für überflüssig. Beim Chatbot berichten viele von schlechten Erfahrungen mit anderen Bots, eine gute Suche sei wichtiger. Bei Community und Karte sorgen sich die Befragten um Missbrauch, Moderation und den Aufwand für die Verwaltung. Wer einen Schaden meldet, will außerdem erfahren, was daraus wird."
+        },
+        {
+          "typ": "spalten",
+          "titel": "Empfehlung der Gruppe",
+          "eintraege": [
+            {
+              "kopf": "Hohes Potenzial",
+              "punkte": [
+                "Moderne Suche",
+                "Persönliches Konto"
+              ]
+            },
+            {
+              "kopf": "Mittleres Potenzial",
+              "punkte": [
+                "Interaktive Karte",
+                "Chatbot"
+              ]
+            },
+            {
+              "kopf": "Niedriges Potenzial",
+              "punkte": [
+                "Community-Funktion"
+              ]
+            },
+            {
+              "kopf": "Noch zu prüfen",
+              "punkte": [
+                "Interaktive Grafiken",
+                "Nachrichten",
+                "Livestreams",
+                "Virtuelle Realität"
+              ]
+            }
+          ]
+        },
+        {
+          "typ": "hinweis",
+          "titel": "Nachgerechnet mit allen Fragebögen",
+          "text": "Der Abschlussbericht wertet {{bericht.n}} vollständige Fragebögen bis zum 25.01.2026 aus. Danach blieb die Befragung auf Wunsch der Stadt offen. Alle Zahlen dieses Kapitels beruhen auf den {{befragung.n}} Bögen vom 25.02.2026. Die Rangfolge der Gruppe hält. Das Konto schneidet knapper ab als im Bericht: Eine Umsetzung wünschen {{befragung.konto.umsetzung}} statt {{bericht.konto.umsetzung}}, bei der Karte sind es {{befragung.karte.umsetzung}} statt {{bericht.karte.umsetzung}}. Die Einstufung des Kontos als hohes Potenzial stützt sich zusätzlich auf die Fachgespräche."
+        }
+      ]
+    },
+    {
+      "id": "grenzen",
+      "titel": "Was die Ergebnisse tragen",
+      "bloecke": [
+        {
+          "typ": "text",
+          "text": "Alle drei Gruppen haben Freiwillige befragt. Repräsentativ für Moosburg ist das nicht: Wer mitmacht, interessiert sich für die Stadt und kommt mit digitalen Angeboten meist gut zurecht. Personas sind verdichtete und teils gedeutete Typen, keine Durchschnittswerte. Kosten, Datenschutzrecht und der Aufwand für die Verwaltung waren nicht Teil der Arbeiten und müssen vor jeder Umsetzung eigens geprüft werden.\n\nDie Gruppen empfehlen, so weiterzuarbeiten, wie sie begonnen haben: Entwürfe anhand der Personas bauen, mit echten Nutzerinnen und Nutzern testen und nach dem Start erneut fragen, ob die neue Website im Rathaus Anrufe und Nachfragen spart. Ein Prototyp, der die Ergebnisse aufgreift, ist unter [moosburg.eu/stadt](https://moosburg.eu/stadt/) zu sehen."
+        },
+        {
+          "typ": "liste",
+          "titel": "Grundlage dieser Seite",
+          "eintraege": [
+            "Abschlussbericht Teilprojekt Personas, 25.02.2026",
+            "Abschlussbericht Teilprojekt Innovationen, 25.02.2026",
+            "Zwischenpräsentation Teilprojekt Mentale Modelle, Dezember 2025",
+            "Rohdaten der Befragung zu neuen Funktionen, Stand 25.02.2026, {{befragung.n}} Fragebögen",
+            "Die Berichte selbst sind derzeit nicht veröffentlicht."
+          ]
+        }
+      ]
+    }
+  ]
+}

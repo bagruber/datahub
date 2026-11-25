@@ -16,6 +16,14 @@
       "n": 667
     },
     {
+      "id": "studie_website_2025",
+      "file": "studie_website_2025.json",
+      "title": "Stadtwebsite",
+      "year": 2026,
+      "n": 3,
+      "kind": "studie"
+    },
+    {
       "id": "website_innovationen_2025",
       "file": "website_innovationen_2025.json",
       "title": "Website Innovationen",

@@ -18,9 +18,11 @@
  *  Probe Formsprache, vorläufig (17.09.2026): Klecks plus Kategoriezeile. Die
  *  Gründe gelten erst ab sm; darunter stehen die Einträge als Register ohne
  *  Rahmen, und die Kategoriezeile allein trägt die Art. */
-import { Bank, ChartLineUp, ClipboardText, type Icon } from "@phosphor-icons/react";
+import { Bank, BookOpenText, ChartLineUp, ClipboardText, type Icon } from "@phosphor-icons/react";
 
-export type CardKind = "umfrage" | "statistik" | "eigen";
+/** "studie" fasst Befragungen anderer zusammen (etwa der LMU) und trägt
+ *  deshalb den Grundton der Umfrage; nur Icon und Kategoriezeile weichen ab. */
+export type CardKind = "umfrage" | "statistik" | "eigen" | "studie";
 
 export const CARD_KIND: Record<
   CardKind,
@@ -57,5 +59,13 @@ export const CARD_KIND: Record<
     surface: "sm:card-hatch sm:border-ink-line",
     meta: "text-ink-soft",
     einheit: "Werte",
+  },
+  studie: {
+    label: "Studie",
+    icon: BookOpenText,
+    farbe: { text: "var(--color-red-700)", flaeche: "var(--color-red-100)" },
+    surface: "sm:bg-white sm:border-ink-line",
+    meta: "text-ink-muted",
+    einheit: "Teilprojekte",
   },
 };

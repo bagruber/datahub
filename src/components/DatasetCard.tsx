@@ -10,14 +10,14 @@ import { KategorieZeile, Klecks } from "@/components/ui";
  *  Grundton — welche Art das ist, steht in @/lib/cardKind. */
 export function DatasetCard({ entry, variante }: { entry: ManifestEntry; variante: number }) {
   const kind: CardKind =
-    entry.kind === "statistik" ? "statistik" : entry.kind === "eigen" ? "eigen" : "umfrage";
+    entry.kind === "statistik" || entry.kind === "eigen" || entry.kind === "studie" ? entry.kind : "umfrage";
   const style = CARD_KIND[kind];
 
   return (
     <Kachel
       kind={kind}
       variante={variante}
-      zeile={kind === "umfrage" ? `${style.label} ${entry.year}` : style.label}
+      zeile={kind === "umfrage" || kind === "studie" ? `${style.label} ${entry.year}` : style.label}
       titel={entry.title}
       zahl={fmtInt(entry.n)}
       einheit={style.einheit}
