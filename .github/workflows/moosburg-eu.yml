@@ -64,6 +64,10 @@ jobs:
           cat > dist/.htaccess <<'HTACCESS'
           RewriteEngine On
           RewriteBase /data/
+          # Eine eigene RewriteEngine schaltet die Regeln der Domain für diesen
+          # Ordner ab. Deren Sperre für Pfade mit führendem Punkt (etwa der
+          # Sync-Stand des FTP-Deploys) steht deshalb hier noch einmal.
+          RewriteRule (^|/)\.(?!well-known/) - [F,L]
           RewriteCond %{REQUEST_FILENAME} !-f
           RewriteCond %{REQUEST_FILENAME} !-d
           # Anfragen mit Dateiendung nicht umschreiben. Sonst beantwortet der
