@@ -116,14 +116,20 @@ export type Manifest = { datasets: ManifestEntry[] };
 
 const DATA_BASE = `${import.meta.env.BASE_URL}data/`;
 
+// Immer beim Server nachfragen (ETag, im Normalfall nur ein 304). Hostinger
+// schickt kein Cache-Control; Browser hielten ein wochenalt unverändertes
+// Manifest dann tagelang für frisch, und ein neuer Datensatz war „nicht
+// gefunden“ (25.11.2026, Studie Stadtwebsite).
+const FRISCH: RequestInit = { cache: "no-cache" };
+
 export async function loadManifest(): Promise<Manifest> {
-  const res = await fetch(`${DATA_BASE}manifest.json`);
+  const res = await fetch(`${DATA_BASE}manifest.json`, FRISCH);
   if (!res.ok) throw new Error(`manifest.json: ${res.status}`);
   return res.json();
 }
 
 export async function loadDataset<T = Dataset>(file: string): Promise<T> {
-  const res = await fetch(`${DATA_BASE}${file}`);
+  const res = await fetch(`${DATA_BASE}${file}`, FRISCH);
   if (!res.ok) throw new Error(`${file}: ${res.status}`);
   return res.json();
 }

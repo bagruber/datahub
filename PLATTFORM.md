@@ -27,7 +27,7 @@ aus einem eigenen Script-Eintrag:
 Grund: Pages braucht den Repo-Namen als Pfad, moosburg.eu nicht. Eine Änderung
 an `base` in der Config würde immer eine der beiden Varianten brechen.
 
-## Drei Fallen, alle schon einmal zugeschnappt
+## Vier Fallen, alle schon einmal zugeschnappt
 
 ### 1. Der `basename` des Routers
 
@@ -76,6 +76,19 @@ Bildunterschrift und Tabelle bleiben bewusst außerhalb. Wer ein Diagramm
 **ohne** `ChartFrame` baut, muss selbst dafür sorgen — das tun derzeit
 `Likert5Group`, `Pie`, `Radar`, `Venn2` und `Venn3`, die alle responsiv sind
 oder eine feste, kleine Breite haben.
+
+### 4. Ohne Cache-Control bleibt das alte Manifest stehen
+
+Hostinger schickt für `manifest.json` und die Datensätze kein `Cache-Control`.
+Browser schätzen die Haltbarkeit dann selbst, als Bruchteil der Zeit seit der
+letzten Änderung. Ein Manifest, das wochenlang gleich war, gilt so tagelang
+als frisch. Am 25.11.2026 meldete deshalb die gerade veröffentlichte Studie
+„Datensatz nicht gefunden“, obwohl der Server das neue Manifest auslieferte.
+
+Seitdem fragt `src/lib/data.ts` mit `cache: "no-cache"` (im Normalfall ein
+304), und die erzeugte `.htaccess` setzt `Cache-Control: no-cache` für HTML
+und JSON. Die Bundles unter `assets/` tragen einen Hash im Namen und bleiben
+cachebar.
 
 ## Öffentlich ist nur eine Auswahl
 

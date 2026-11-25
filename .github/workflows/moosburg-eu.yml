@@ -77,6 +77,15 @@ jobs:
           # kaputtem JSON.
           RewriteCond %{REQUEST_URI} !\.[a-zA-Z0-9]{2,5}$
           RewriteRule . /data/index.html [L]
+          # Ohne Cache-Control schätzen Browser die Haltbarkeit selbst und
+          # halten eine wochenalt unveränderte Datei tagelang für frisch. Seite
+          # und Daten deshalb immer nachfragen lassen; die Bundles unter
+          # assets/ tragen einen Hash im Namen und dürfen bleiben.
+          <IfModule mod_headers.c>
+            <FilesMatch "\.(html|json)$">
+              Header set Cache-Control "no-cache"
+            </FilesMatch>
+          </IfModule>
           HTACCESS
           cat dist/.htaccess
 
