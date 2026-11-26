@@ -415,7 +415,7 @@
         {
           "typ": "hinweis",
           "titel": "Über diese Seite",
-          "text": "Grundlage sind die Abschlussberichte vom Februar 2026, für die Mentalen Modelle die Zwischenpräsentation vom Dezember 2025. Keine Veröffentlichung der LMU oder der Stadt. Die Befragung zu neuen Funktionen ist mit allen {{befragung.n}} Fragebögen nachgerechnet."
+          "text": "Grundlage sind die Abschlussberichte vom Februar 2026, für die Mentalen Modelle die Präsentation vom Dezember 2025. Keine Veröffentlichung der LMU oder der Stadt. Die Befragung zu neuen Funktionen ist mit allen {{befragung.n}} Fragebögen nachgerechnet."
         }
       ]
     },
@@ -743,11 +743,6 @@
       "zeile": "Teilprojekt Mentale Modelle",
       "bloecke": [
         {
-          "typ": "hinweis",
-          "titel": "Stand Dezember 2025",
-          "text": "Grundlage ist die Zwischenpräsentation. Die Auswertung von Card Sorting und lautem Denken fehlt noch."
-        },
-        {
           "typ": "text",
           "text": "Mentale Modelle sind Vorstellungen davon, wo eine Information stehen müsste und was zusammengehört. Passt die Website nicht dazu, verirrt man sich. Die Gruppe sprach mit {{mm.gespraeche}} Personen, ließ Themen der heutigen Website auf Zetteln sortieren (Card Sorting) und Aufgaben wie eine Terminbuchung laut denkend lösen."
         },
@@ -924,7 +919,7 @@
           "titel": "Grundlage dieser Seite",
           "eintraege": [
             "Abschlussberichte der Teilprojekte Personas und Innovationen, 25.02.2026",
-            "Zwischenpräsentation Teilprojekt Mentale Modelle, Dezember 2025",
+            "Präsentation Teilprojekt Mentale Modelle, Dezember 2025",
             "Rohdaten der Befragung zu neuen Funktionen, Stand 25.02.2026",
             "Die Berichte selbst sind derzeit nicht veröffentlicht."
           ]
