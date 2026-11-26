@@ -6,7 +6,9 @@
       "title": "Kommunalwahl",
       "year": 2026,
       "n": 440,
-      "kind": "statistik"
+      "kind": "statistik",
+      "satz": "Gemeinde- und Stadtratswahlen vom 8. März 2026 im Landkreis Freising als Kartogramm.",
+      "quelle": "Landesamt für Statistik und Wahlleitungen"
     },
     {
       "id": "christkindlmarkt_2025",
@@ -21,7 +23,9 @@
       "title": "Stadtwebsite",
       "year": 2026,
       "n": 3,
-      "kind": "studie"
+      "kind": "studie",
+      "satz": "Drei studentische Teilprojekte zur Nutzung von moosburg.de und zu den Wünschen an eine neue Website.",
+      "quelle": "LMU München, Wintersemester 2025/26"
     },
     {
       "id": "website_innovationen_2025",
@@ -50,7 +54,9 @@
       "title": "Statistik kommunal",
       "year": 2022,
       "n": 145,
-      "kind": "statistik"
+      "kind": "statistik",
+      "satz": "Bevölkerung und Arbeitsmarkt in Moosburg, eine Auswahl aus der Reihe Statistik kommunal 2022.",
+      "quelle": "Bayer. Landesamt für Statistik"
     }
   ]
 }

@@ -12,6 +12,8 @@ export function DatasetCard({ entry, variante }: { entry: ManifestEntry; variant
   const kind: CardKind =
     entry.kind === "statistik" || entry.kind === "eigen" || entry.kind === "studie" ? entry.kind : "umfrage";
   const style = CARD_KIND[kind];
+  // Fremde Erhebungen tragen Satz und Quelle; „440 Datenpunkte“ sagt dort nichts.
+  const extern = kind === "statistik" || kind === "studie";
 
   return (
     <Kachel
@@ -19,8 +21,10 @@ export function DatasetCard({ entry, variante }: { entry: ManifestEntry; variant
       variante={variante}
       zeile={kind === "umfrage" || kind === "studie" ? `${style.label} ${entry.year}` : style.label}
       titel={entry.title}
-      zahl={fmtInt(entry.n)}
+      satz={extern ? entry.satz : undefined}
+      zahl={extern ? undefined : fmtInt(entry.n)}
       einheit={style.einheit}
+      fuss={extern ? entry.quelle : undefined}
       link={(className, children) => (
         <Link to={`/d/${entry.id}`} className={className}>
           {children}
@@ -32,15 +36,16 @@ export function DatasetCard({ entry, variante }: { entry: ManifestEntry; variant
 
 /** Ab sm eine Kachel mit Grund je Herkunftsart, darunter ein Registereintrag
  *  ohne Rahmen. Die Anzahl steht unten über einer Haarlinie, damit sie in
- *  gleich hohen Kacheln auf einer Linie liegt. */
-export function Kachel({ kind, variante, zeile, titel, satz, zahl, einheit, extern, link }: {
+ *  gleich hohen Kacheln auf einer Linie liegt; ohne Anzahl steht dort `fuss`. */
+export function Kachel({ kind, variante, zeile, titel, satz, zahl, einheit, fuss, extern, link }: {
   kind: CardKind;
   variante: number;
   zeile: string;
   titel: string;
   satz?: string;
-  zahl: string;
-  einheit: string;
+  zahl?: string;
+  einheit?: string;
+  fuss?: string;
   extern?: boolean;
   link: (className: string, children: ReactNode) => ReactNode;
 }) {
@@ -68,14 +73,20 @@ export function Kachel({ kind, variante, zeile, titel, satz, zahl, einheit, exte
         </span>
         {satz && <span className={`mt-1 hidden text-sm sm:block ${style.meta}`}>{satz}</span>}
         <span className={`block text-sm sm:hidden ${style.meta}`}>
-          {zahl} {einheit}
+          {zahl ? `${zahl} ${einheit}` : fuss}
         </span>
         <span className="mt-auto hidden items-baseline gap-1.5 pt-4 sm:flex">
           <span className="w-full border-t border-ink-line pt-3">
-            <span className="font-display text-3xl font-semibold leading-none lining-nums tabular-nums">
-              {zahl}
-            </span>{" "}
-            <span className={`text-sm ${style.meta}`}>{einheit}</span>
+            {zahl ? (
+              <>
+                <span className="font-display text-3xl font-semibold leading-none lining-nums tabular-nums">
+                  {zahl}
+                </span>{" "}
+                <span className={`text-sm ${style.meta}`}>{einheit}</span>
+              </>
+            ) : (
+              <span className={`text-sm ${style.meta}`}>{fuss}</span>
+            )}
           </span>
         </span>
       </span>

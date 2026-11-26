@@ -111,6 +111,10 @@ export type ManifestEntry = {
   /** "survey" (default), "statistik", "eigen" oder "studie" — steuert die Card.
    *  Eine Studie ist ein Bericht ohne Records, siehe @/lib/studie. */
   kind?: DatasetKind | "studie";
+  /** Für Statistik, Wahlen und Studien: ein Satz und die Quelle auf der
+   *  Kachel statt der Zahl der Datenpunkte. */
+  satz?: string;
+  quelle?: string;
 };
 export type Manifest = { datasets: ManifestEntry[] };
 

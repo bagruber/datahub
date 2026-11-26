@@ -41,6 +41,17 @@ describe("studie_website_2025", () => {
     expect(ohne).toEqual([]);
   });
 
+  it("abgelesene Verteilungen ergeben die Mittelwerte des Berichts", () => {
+    const zeilen = studie.kapitel.flatMap((k) => k.bloecke).filter((b) => b.typ === "verteilung").flatMap((b) => b.zeilen);
+    expect(zeilen.length).toBeGreaterThan(0);
+    for (const z of zeilen) {
+      const n = z.zaehlung.reduce((a, c) => a + c, 0);
+      const mittel = z.zaehlung.reduce((a, c, i) => a + c * (i + 1), 0) / n;
+      expect(mittel.toFixed(1).replace(".", ","), z.label).toBe(studie.werte[z.mittel].wert);
+      expect(String(n), z.label).toBe(studie.werte["personas.verteilung.n"].wert);
+    }
+  });
+
   it("enthält keine Einzelantworten", () => {
     expect(studie.records).toBeUndefined();
   });

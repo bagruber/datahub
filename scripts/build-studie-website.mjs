@@ -43,14 +43,10 @@ export function rechne(records) {
   const werte = { "befragung.n": String(n) };
   for (const f of funktionen) {
     const { ja, nein } = f.umsetzung;
-    const zustimmung = (it) => prozent(f.items[it][3] + f.items[it][4], summe(f.items[it]));
+    const b = f.items.bedenken;
     werte[`befragung.${f.id}.umsetzung`] = prozent(ja, ja + nein);
-    werte[`befragung.${f.id}.nutzung`] = zustimmung("nutzungsabsicht");
-    werte[`befragung.${f.id}.bedenken`] = zustimmung("bedenken");
+    werte[`befragung.${f.id}.bedenken`] = prozent(b[3] + b[4], summe(b));
   }
-  werte["befragung.wohnort.moosburg"] = String(zaehle("wohnort", 1));
-  werte["befragung.haeufigkeit.monatlich"] = prozent(zaehle("frequency", 4), n);
-  werte["befragung.sicherheit.sicher"] = prozent(zaehle("digital_security", 4) + zaehle("digital_security", 5), n);
 
   return { daten: { n, funktionen }, werte };
 }

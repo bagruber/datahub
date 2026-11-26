@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { loadManifest, type Manifest } from "@/lib/data";
+import { loadManifest, type Manifest, type ManifestEntry } from "@/lib/data";
 import { DatasetCard, Kachel } from "@/components/DatasetCard";
 import { CARD_KIND } from "@/lib/cardKind";
 import { SeitenKopf } from "@/components/ui";
@@ -33,31 +33,37 @@ export function Home() {
         </SeitenKopf>
       </div>
 
-      <section className="pb-16">
-        <h2 className="headline text-2xl sm:text-3xl mb-5">Datensätze</h2>
-        {error && (
-          <p className="text-red-700 bg-red-50 rounded-md px-4 py-3 border border-red-100">
-            Fehler beim Laden: {error}
-          </p>
-        )}
-        {!manifest && !error && (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {[0, 1, 2].map((i) => (
-              <div
-                key={i}
-                className="h-44 rounded-xl bg-white/60 border border-ink-line animate-pulse"
-              />
-            ))}
-          </div>
-        )}
-        {manifest && (
-          <div className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
-            {manifest.datasets.map((d, i) => (
-              <DatasetCard key={d.id} entry={d} variante={i} />
-            ))}
-          </div>
-        )}
-      </section>
+      {error && (
+        <p className="mb-16 text-red-700 bg-red-50 rounded-md px-4 py-3 border border-red-100">
+          Fehler beim Laden: {error}
+        </p>
+      )}
+      {!manifest && !error && (
+        <div className="grid gap-4 pb-16 sm:grid-cols-2 lg:grid-cols-3">
+          {[0, 1, 2].map((i) => (
+            <div
+              key={i}
+              className="h-44 rounded-xl bg-white/60 border border-ink-line animate-pulse"
+            />
+          ))}
+        </div>
+      )}
+      {/* Einzelne Befragungen mit allen Antworten, getrennt von dem, was
+          andere erhoben haben: amtliche Statistik, Wahlen, Studien. */}
+      {manifest && (
+        <>
+          <Gruppe
+            titel="Umfragen"
+            satz="Einzelne Befragungen, jede mit allen Antworten und Filtern."
+            eintraege={manifest.datasets.filter((d) => !d.kind || d.kind === "survey")}
+          />
+          <Gruppe
+            titel="Statistik, Wahlen und Studien"
+            satz="Von anderen erhoben, hier aufbereitet."
+            eintraege={manifest.datasets.filter((d) => d.kind === "statistik" || d.kind === "studie")}
+          />
+        </>
+      )}
 
       {/* Eigenständige Anwendungen, keine Datensätze aus dem Manifest.
           Grundton wie die anderen „Eigene Auswertung", Aufbau in KartenCard. */}
@@ -93,6 +99,21 @@ export function Home() {
         </div>
       </section>
     </div>
+  );
+}
+
+function Gruppe({ titel, satz, eintraege }: { titel: string; satz: string; eintraege: ManifestEntry[] }) {
+  if (eintraege.length === 0) return null;
+  return (
+    <section className="pb-16">
+      <h2 className="headline text-2xl sm:text-3xl">{titel}</h2>
+      <p className="mt-1 mb-5 text-ink-muted">{satz}</p>
+      <div className="grid sm:grid-cols-2 sm:gap-4 lg:grid-cols-3">
+        {eintraege.map((d, i) => (
+          <DatasetCard key={d.id} entry={d} variante={i} />
+        ))}
+      </div>
+    </section>
   );
 }
 

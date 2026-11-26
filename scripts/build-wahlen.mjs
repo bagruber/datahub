@@ -221,6 +221,8 @@ const eintrag = {
   year: 2026,
   n: sitzeGesamt,
   kind: "statistik",
+  satz: "Gemeinde- und Stadtratswahlen vom 8. März 2026 im Landkreis Freising als Kartogramm.",
+  quelle: "Landesamt für Statistik und Wahlleitungen",
 };
 manifest.datasets = [eintrag, ...manifest.datasets.filter((d) => d.id !== ID)];
 fs.writeFileSync(MANIFEST, JSON.stringify(manifest, null, 2) + "\n", "utf8");

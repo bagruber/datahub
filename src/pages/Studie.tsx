@@ -170,12 +170,15 @@ function BlockAnsicht({ block: b, studie }: { block: Block; studie: StudieDaten 
         </div>
       );
 
-    case "kennzahlen":
+    case "verteilung":
       return (
-        <div className="grid gap-5 sm:grid-cols-3">
-          {b.eintraege.map((k) => (
-            <Kennzahl key={k.label} wert={fuelle(k.wert, w)} label={k.label} />
-          ))}
+        <div className={KARTE}>
+          <h3 className="font-display text-lg font-semibold leading-snug">{b.titel}</h3>
+          <p className="mt-0.5 mb-4 text-sm tabular-nums text-ink-muted">{fuelle(b.basis, w)}</p>
+          <Verteilung zeilen={b.zeilen} links={b.links} rechts={b.rechts} />
+          <p className="mt-2 text-xs text-ink-muted">
+            {b.zeilen.map((z) => `${z.label}: ${z.pole}`).join(" · ")}. {b.quelle}.
+          </p>
         </div>
       );
 
@@ -254,7 +257,7 @@ function BlockAnsicht({ block: b, studie }: { block: Block; studie: StudieDaten 
           {b.art === "umsetzung" ? (
             <Umsetzung funktionen={studie.daten.befragung.funktionen} n={studie.daten.befragung.n} />
           ) : (
-            <LikertAusZaehlung
+            <Funktionen
               funktionen={studie.daten.befragung.funktionen}
               item={b.item!}
               umkehren={b.umkehren}
@@ -326,32 +329,54 @@ function Umsetzung({ funktionen, n }: { funktionen: Funktion[]; n: number }) {
   return <BarH records={[]} codebook={{}} source="" daten={daten} />;
 }
 
-/** Die Likert-Komponente zählt aus Records. Aus den Zählungen der Studie
- *  entstehen hier im Speicher Zeilen mit je einem Feld, die nur die Verteilung
- *  wiedergeben, keine Personen. */
-function LikertAusZaehlung({ funktionen, item, umkehren, links, rechts }: {
-  funktionen: Funktion[];
-  item: string;
+/** Die Likert-Komponente zählt aus Records. Aus Zählungen entstehen hier im
+ *  Speicher Zeilen mit je einem Feld, die nur die Verteilung wiedergeben,
+ *  keine Personen. Der erste Eintrag steht oben. */
+function LikertAusZaehlung({ zeilen, umkehren, links, rechts }: {
+  zeilen: { id: string; label: string; zaehlung: number[] }[];
   umkehren?: boolean;
   links: string;
   rechts: string;
 }) {
   const records = useMemo(
     () =>
-      funktionen.flatMap((f) =>
-        f.items[item].flatMap((anzahl, stufe) => Array.from({ length: anzahl }, () => ({ [f.id]: stufe + 1 }))),
+      zeilen.flatMap((z) =>
+        z.zaehlung.flatMap((anzahl, stufe) => Array.from({ length: anzahl }, () => ({ [z.id]: stufe + 1 }))),
       ),
-    [funktionen, item],
+    [zeilen],
   );
   return (
     <DivergingLikert
       records={records}
       codebook={{}}
-      // DivergingLikert setzt den letzten Eintrag nach oben; die Rangfolge soll oben beginnen.
-      items={funktionen.map((f) => ({ source: f.id, label: f.label })).reverse()}
+      // DivergingLikert setzt den letzten Eintrag nach oben.
+      items={zeilen.map((z) => ({ source: z.id, label: z.label })).reverse()}
       scale={5}
       endpoints={{ left: links, right: rechts }}
       invertItem={umkehren ? () => true : undefined}
     />
   );
+}
+
+function Verteilung({ zeilen, links, rechts }: {
+  zeilen: { label: string; zaehlung: number[] }[];
+  links: string;
+  rechts: string;
+}) {
+  const mitId = useMemo(() => zeilen.map((z, i) => ({ ...z, id: `z${i}` })), [zeilen]);
+  return <LikertAusZaehlung zeilen={mitId} links={links} rechts={rechts} />;
+}
+
+function Funktionen({ funktionen, item, umkehren, links, rechts }: {
+  funktionen: Funktion[];
+  item: string;
+  umkehren?: boolean;
+  links: string;
+  rechts: string;
+}) {
+  const zeilen = useMemo(
+    () => funktionen.map((f) => ({ id: f.id, label: f.label, zaehlung: f.items[item] })),
+    [funktionen, item],
+  );
+  return <LikertAusZaehlung zeilen={zeilen} umkehren={umkehren} links={links} rechts={rechts} />;
 }

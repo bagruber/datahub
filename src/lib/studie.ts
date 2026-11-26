@@ -19,7 +19,16 @@ export type Block =
   | { typ: "hinweis"; titel: string; text: string }
   | { typ: "zeitleiste"; eintraege: { wann: string; was: string }[] }
   | { typ: "methoden"; zeilen: { teil: string; methode: string; wer: string }[] }
-  | { typ: "kennzahlen"; eintraege: { wert: string; label: string }[] }
+  | {
+      typ: "verteilung";
+      titel: string;
+      basis: string;
+      quelle: string;
+      links: string;
+      rechts: string;
+      /** Zählungen je Stufe 1 bis 5, aus einer Abbildung abgelesen; `mittel` nennt den Wert-Schlüssel zur Gegenprobe. */
+      zeilen: { label: string; pole: string; zaehlung: number[]; mittel: string }[];
+    }
   | {
       typ: "ranglisten";
       eintraege: {
