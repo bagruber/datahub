@@ -4,7 +4,7 @@ import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { asScalar } from "@/lib/record";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { GITTER, INK, INK_MUTED, KERBE } from "@/lib/palette";
+import { BALKEN, GITTER, INK, INK_MUTED, KERBE, NAME_OBEN } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
@@ -178,14 +178,30 @@ export function DivergingLikert({
   }, [items, rows, scale]);
 
   const compact = density === "compact";
+  // Am Handy steht das Merkmal über dem Balken statt links davon: Der Balken
+  // bekommt die ganze Breite statt eines Drittels.
+  const nameOben = !compact && isMobile;
   // Platz für die Summen links und rechts außerhalb der Zeichenfläche.
-  const marginLeft = compact ? (isMobile ? 100 : 160) : (isMobile ? 138 : 216);
+  const marginLeft = compact ? (isMobile ? 100 : 160) : nameOben ? 36 : 216;
   const marginRight = compact ? 46 : 56;
   const fontPx = compact ? (isMobile ? 10 : 12) : (isMobile ? 11 : 13);
   const axisPx = isMobile ? 10 : 12;
   // Höhere Zeile: Balken oben, darunter die feine Skala mit dem Mittelwert.
-  const rowHeight = compact ? 40 : 44;
-  const bandPadding = compact ? 60 : tone === "neutral" ? 70 : 60;
+  const rowHeight = (compact ? 40 : 44) + (nameOben ? NAME_OBEN : 0);
+  const bandPadding = nameOben || compact ? 60 : tone === "neutral" ? 70 : 60;
+  // Mit dem Merkmal oben ohne Band-Padding: Das Band ist genau eine Zeile, der
+  // Balken genau BALKEN. Sonst wie bisher.
+  const insetTop = nameOben ? rowHeight - 24 - BALKEN : 8;
+  const balkenUnten = rowHeight - 24;
+  // Mitte des Balkens relativ zur Mitte des Bands; daran hängen Summen und Skala.
+  const balkenMitte = (insetTop - 24) / 2;
+  const kerben = useMemo(
+    () =>
+      nameOben
+        ? { oben: [insetTop - 5, rowHeight - insetTop + 1], unten: [balkenUnten + 1, rowHeight - balkenUnten - 5] }
+        : { oben: [3, rowHeight - 7], unten: [21, rowHeight - 25] },
+    [nameOben, insetTop, rowHeight, balkenUnten],
+  );
 
   const extent = useMemo(() => {
     const m = rows.reduce((a, r) => Math.max(a, Math.abs(r.x1), Math.abs(r.x2)), 0);
@@ -201,7 +217,7 @@ export function DivergingLikert({
       marginBottom: compact ? 24 : 28,
       // Keine Prozentachse: die Summen stehen an den Enden der Balken.
       x: { domain: [-extent, extent], axis: null, label: null },
-      y: { domain: itemOrder, label: null, tickSize: 0 },
+      y: { domain: itemOrder, label: null, tickSize: 0, ...(nameOben ? { axis: null, padding: 0 } : {}) },
       color: {
         type: "ordinal",
         domain: ratings,
@@ -219,22 +235,36 @@ export function DivergingLikert({
         // labels visually; row count is small enough that wrap doesn't help).
         ...(compact
           ? []
-          : [
-              // dx hält die Merkmale links von der Spalte mit den Summen.
-              Plot.axisY({
-                lineWidth: isMobile ? 8 : 11,
-                fontSize: axisPx,
-                tickSize: 0,
-                color: INK_MUTED,
-                dx: -38,
-              }),
-            ]),
+          : nameOben
+            ? [
+                // Merkmal über dem Balken, bündig mit der Spalte der Summen.
+                Plot.text(kennzahlen, {
+                  x: -extent,
+                  y: "label",
+                  text: "label",
+                  textAnchor: "start",
+                  dx: -marginLeft,
+                  dy: balkenMitte - 16,
+                  fontSize: fontPx,
+                  fill: INK_MUTED,
+                }),
+              ]
+            : [
+                // dx hält die Merkmale links von der Spalte mit den Summen.
+                Plot.axisY({
+                  lineWidth: isMobile ? 8 : 11,
+                  fontSize: axisPx,
+                  tickSize: 0,
+                  color: INK_MUTED,
+                  dx: -38,
+                }),
+              ]),
         Plot.barX(rows, {
           x1: "x1",
           x2: "x2",
           y: "item",
           fill: "rating",
-          insetTop: 8,
+          insetTop,
           insetBottom: 24,
           // 1 px Fuge zwischen den Stufen, keine runden Ecken im Stapel.
           insetLeft: 0.5,
@@ -244,8 +274,8 @@ export function DivergingLikert({
             `${d.item}\nBewertung ${d.rating}\n${fmtInt(d.count)} von ${fmtInt(d.n)}\n${fmtPct(d.share)}`,
         }),
         // Kerben über und unter jedem Balken statt einer Linie mitten hindurch.
-        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: 3, insetBottom: rowHeight - 7, stroke: KERBE }),
-        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: 21, insetBottom: rowHeight - 25, stroke: KERBE }),
+        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: kerben.oben[0], insetBottom: kerben.oben[1], stroke: KERBE }),
+        Plot.tickX(kennzahlen, { x: 0, y: "label", insetTop: kerben.unten[0], insetBottom: kerben.unten[1], stroke: KERBE }),
         // Summen beider Seiten.
         Plot.text(kennzahlen, {
           x: -extent,
@@ -253,7 +283,7 @@ export function DivergingLikert({
           text: (d: Kennzahl) => fmtPct(d.links),
           textAnchor: "end",
           dx: -6,
-          dy: -8,
+          dy: balkenMitte,
           fontSize: fontPx - 1,
           fill: INK_MUTED,
         }),
@@ -263,17 +293,17 @@ export function DivergingLikert({
           text: (d: Kennzahl) => fmtPct(d.rechts),
           textAnchor: "start",
           dx: 6,
-          dy: -8,
+          dy: balkenMitte,
           fontWeight: 600,
           fontSize: fontPx,
           fill: INK,
         }),
         // Feine Skala von 1 bis n mit dem Mittelwert als Punkt.
-        Plot.ruleY(kennzahlen, { y: "label", x1: -extent, x2: extent, dy: 12, stroke: GITTER }),
+        Plot.ruleY(kennzahlen, { y: "label", x1: -extent, x2: extent, dy: balkenMitte + 20, stroke: GITTER }),
         Plot.dot(kennzahlen.filter((k) => k.mittel !== null), {
           x: (d: Kennzahl) => mittelAufAchse(d.mittel!, scale, extent),
           y: "label",
-          dy: 12,
+          dy: balkenMitte + 20,
           r: 3.5,
           fill: INK,
           stroke: "white",
@@ -285,7 +315,7 @@ export function DivergingLikert({
           text: (d: Kennzahl) => `Ø ${d.mittel!.toLocaleString("de-DE", { minimumFractionDigits: 1, maximumFractionDigits: 1 })}`,
           textAnchor: "end",
           dx: -8,
-          dy: 12,
+          dy: balkenMitte + 20,
           fontSize: fontPx - 1,
           fontWeight: 600,
           fill: INK,
@@ -295,6 +325,7 @@ export function DivergingLikert({
     [
       rows, itemOrder, ratings, ramp, compact, fontPx, marginLeft, marginRight,
       isMobile, axisPx, extent, legendLabel, tone, scale, rowHeight, bandPadding, kennzahlen,
+      nameOben, insetTop, balkenMitte, kerben,
     ],
   );
 
