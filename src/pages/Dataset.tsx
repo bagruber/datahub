@@ -107,6 +107,36 @@ export function Dataset() {
       preventScrollReset: true,
     });
 
+  // Dieselben Filterkarten stehen bis lg in der Leiste, ab lg in der Seitenspalte.
+  const hatFilter = dataset.filters.length > 0;
+  const filterKarten = dataset.filters.map((f) => {
+    // Each filter sees the records that satisfy ALL other filters
+    // — so age bars react when "Moosburger" is selected, etc.
+    const otherSelections = { ...selections, [f.key]: [] };
+    const recordsForThisFilter = applyFilters(dataset.records, dataset.filters, otherSelections);
+    return (
+      <FilterChart
+        key={f.key}
+        spec={f}
+        records={recordsForThisFilter}
+        selected={selections[f.key] ?? []}
+        onToggle={(idx) => updateSelections(toggleOption(selections, f.key, idx))}
+      />
+    );
+  });
+  const filterHinweis =
+    active > 0 ? (
+      <button
+        type="button"
+        onClick={() => updateSelections(clearAll())}
+        className="font-semibold text-ink underline decoration-dotted hover:text-gold-700"
+      >
+        alle Filter zurücksetzen
+      </button>
+    ) : (
+      <span>Balken antippen oder klicken zum Filtern</span>
+    );
+
   return (
     <div className="mx-auto max-w-screen-2xl px-4 sm:px-6">
       {/* Kopfband über die volle Breite in der Themenfarbe. 50vw zählt eine
@@ -182,8 +212,8 @@ export function Dataset() {
         </nav>
       )}
 
-      <Leiste kapitel={sortedSections}>
-        {dataset.filters.length > 0 && (
+      <Leiste kapitel={sortedSections} inhaltKlasse="lg:hidden">
+        {hatFilter && (
           <>
             <div className="py-2.5 sm:hidden">
               <FilterKnoepfe
@@ -196,49 +226,21 @@ export function Dataset() {
               />
             </div>
             <div className="hidden py-2.5 sm:block">
-              <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(110px,1fr))] lg:grid-cols-[repeat(auto-fit,minmax(170px,1fr))]">
-                {dataset.filters.map((f) => {
-                  // Each filter sees the records that satisfy ALL other filters
-                  // — so age bars react when "Moosburger" is selected, etc.
-                  const otherSelections = { ...selections, [f.key]: [] };
-                  const recordsForThisFilter = applyFilters(
-                    dataset.records,
-                    dataset.filters,
-                    otherSelections,
-                  );
-                  return (
-                    <FilterChart
-                      key={f.key}
-                      spec={f}
-                      records={recordsForThisFilter}
-                      selected={selections[f.key] ?? []}
-                      onToggle={(idx) =>
-                        updateSelections(toggleOption(selections, f.key, idx))
-                      }
-                    />
-                  );
-                })}
+              <div className="grid gap-2 grid-cols-[repeat(auto-fit,minmax(110px,1fr))]">
+                {filterKarten}
               </div>
               <div className="mt-1.5 flex items-baseline justify-between gap-3 text-[11px] text-ink-muted">
                 <span>Wer hat geantwortet?</span>
-                {active > 0 ? (
-                  <button
-                    type="button"
-                    onClick={() => updateSelections(clearAll())}
-                    className="font-semibold text-ink underline decoration-dotted hover:text-gold-700"
-                  >
-                    alle Filter zurücksetzen
-                  </button>
-                ) : (
-                  <span>Balken antippen oder klicken zum Filtern</span>
-                )}
+                {filterHinweis}
               </div>
             </div>
           </>
         )}
       </Leiste>
 
-      {/* Sections */}
+      {/* Am Desktop ist mehr Breite als Höhe da: Die Filter stehen dort in
+          einer klebenden Spalte rechts statt als Block über den Diagrammen. */}
+      <div className={hatFilter ? "lg:grid lg:grid-cols-[minmax(0,1fr)_17rem] lg:gap-10" : undefined}>
       <div className="divide-y divide-ink-line">
         {sortedSections.map((s) => (
           <Section key={s.id} id={kapitelAnker(s.id)} title={s.title} text={s.text}>
@@ -290,6 +292,22 @@ export function Dataset() {
             ))}
           </Section>
         ))}
+      </div>
+      {hatFilter && (
+        <aside aria-label="Filter" className="hidden lg:block">
+          <div
+            className="sticky overflow-y-auto py-8 sm:py-10"
+            style={{
+              top: "var(--leiste-unten, var(--kopf-hoehe))",
+              maxHeight: "calc(100vh - var(--leiste-unten, var(--kopf-hoehe)))",
+            }}
+          >
+            <p className="mb-2 text-sm font-semibold text-ink">Wer hat geantwortet?</p>
+            <div className="space-y-2">{filterKarten}</div>
+            <p className="mt-2 text-[11px] text-ink-muted">{filterHinweis}</p>
+          </div>
+        </aside>
+      )}
       </div>
 
       {dataset.press && dataset.press.length > 0 && (

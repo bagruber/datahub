@@ -9,8 +9,9 @@ const pixel = (name: string) =>
   parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
 
 /** Die klebende Leiste der Datensatzseiten: oben der Stepper, darunter die
- *  Filter. Nicht zwei klebende Ebenen, sondern eine. */
-export function Leiste({ kapitel, children }: { kapitel: Kapitel[]; children?: ReactNode }) {
+ *  Filter. Nicht zwei klebende Ebenen, sondern eine. `inhaltKlasse` blendet
+ *  den Filterteil aus, wo die Filter woanders stehen (am Desktop seitlich). */
+export function Leiste({ kapitel, children, inhaltKlasse = "" }: { kapitel: Kapitel[]; children?: ReactNode; inhaltKlasse?: string }) {
   const [aktuell, setAktuell] = useState(0);
   const [klebt, setKlebt] = useState(false);
   const marke = useRef<HTMLDivElement>(null);
@@ -92,7 +93,7 @@ export function Leiste({ kapitel, children }: { kapitel: Kapitel[]; children?: R
           </div>
         )}
         {children && (
-          <div ref={inhalt} className="-mx-[calc(50vw-50%)] border-b border-ink-line px-[calc(50vw-50%)]">
+          <div ref={inhalt} className={`-mx-[calc(50vw-50%)] border-b border-ink-line px-[calc(50vw-50%)] ${inhaltKlasse}`}>
             {children}
           </div>
         )}
