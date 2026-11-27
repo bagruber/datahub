@@ -21,6 +21,15 @@ type Props = {
   title?: string;
 };
 
+/** Ganze Jahre in runder Schrittweite. Ohne Vorgabe setzt Plot bei kurzen
+ *  Reihen halbe Jahre an die Achse („2015.5“). */
+function jahresTicks(min: number, max: number, hoechstens: number): number[] {
+  const schritt = [1, 2, 5, 10, 20, 25, 50, 100].find((s) => (max - min) / s <= hoechstens) ?? 100;
+  const ticks: number[] = [];
+  for (let jahr = Math.ceil(min / schritt) * schritt; jahr <= max; jahr += schritt) ticks.push(jahr);
+  return ticks;
+}
+
 /** Multi-line time-series chart. Used by Statistik kommunal for population
  *  history, migration in/out, unemployment-by-group etc. Each series carries
  *  its own colour; legend is auto-generated from labels. */
@@ -35,6 +44,10 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
     () => series.flatMap((s) => s.data.map((d) => ({ ...d, series: s.label }))),
     [series],
   );
+  const xTicks = useMemo(() => {
+    const jahre = data.map((d) => d.x);
+    return jahresTicks(Math.min(...jahre), Math.max(...jahre), isMobile ? 5 : 10);
+  }, [data, isMobile]);
   const colorDomain = useMemo(() => series.map((s) => s.label), [series]);
   const colorRange = useMemo(
     // Farben aus der Palette; eine einzelne Reihe trägt Isar-Blau. Bei genau
@@ -80,7 +93,7 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
       },
       marks: [
         Plot.gridY({ stroke: GITTER, strokeOpacity: 1 }),
-        Plot.axisX({ fontSize: axisPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => String(v) }),
+        Plot.axisX({ ticks: xTicks, fontSize: axisPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => String(v) }),
         Plot.axisY({ fontSize: axisPx, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(v) }),
         Plot.line(data, {
           x: "x",
@@ -132,7 +145,7 @@ export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
         Plot.ruleY([0], { stroke: NULLLINIE }),
       ],
     }),
-    [data, series, colorDomain, colorRange, markers, fontPx, axisPx],
+    [data, series, colorDomain, colorRange, markers, fontPx, axisPx, xTicks],
   );
   void axisPx;
 
