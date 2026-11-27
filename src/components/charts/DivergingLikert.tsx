@@ -184,8 +184,8 @@ export function DivergingLikert({
   // Platz für die Summen links und rechts außerhalb der Zeichenfläche.
   const marginLeft = compact ? (isMobile ? 100 : 160) : nameOben ? 36 : 216;
   const marginRight = compact ? 46 : 56;
-  const fontPx = compact ? (isMobile ? 10 : 12) : (isMobile ? 11 : 13);
-  const axisPx = isMobile ? 10 : 12;
+  const fontPx = compact ? (isMobile ? 11 : 12) : (isMobile ? 11 : 13);
+  const axisPx = isMobile ? 11 : 12;
   // Höhere Zeile: Balken oben, darunter die feine Skala mit dem Mittelwert.
   const rowHeight = (compact ? 40 : 44) + (nameOben ? NAME_OBEN : 0);
   const bandPadding = nameOben || compact ? 60 : tone === "neutral" ? 70 : 60;
@@ -284,7 +284,7 @@ export function DivergingLikert({
           textAnchor: "end",
           dx: -6,
           dy: balkenMitte,
-          fontSize: fontPx - 1,
+          fontSize: Math.max(11, fontPx - 1),
           fill: INK_MUTED,
         }),
         Plot.text(kennzahlen, {
@@ -316,7 +316,7 @@ export function DivergingLikert({
           textAnchor: "end",
           dx: -8,
           dy: balkenMitte + 20,
-          fontSize: fontPx - 1,
+          fontSize: Math.max(11, fontPx - 1),
           fontWeight: 600,
           fill: INK,
         }),

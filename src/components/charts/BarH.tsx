@@ -59,7 +59,8 @@ export function BarH({ records, codebook, source, items, slots, preserveOrder, d
   const marginLeft = nameOben ? 1 : MARGIN_LEFT_DESKTOP;
   const marginBottom = isMobile ? MARGIN_BOTTOM_MOBILE : MARGIN_BOTTOM_DESKTOP;
   const fontPx = isMobile ? 11 : 13;
-  const axisPx = isMobile ? 10 : 12;
+  // Nur am Desktop: am Handy steht die Kategorie als Text über dem Balken.
+  const axisPx = 12;
 
   const options: Plot.PlotOptions = useMemo(
     () => ({

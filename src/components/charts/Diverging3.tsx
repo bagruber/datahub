@@ -125,7 +125,7 @@ export function Diverging3({ records, source, options }: Props) {
           y: () => "alle",
           text: (d: Segment) => `${fmtPct(d.anteil)} ${d.label}`,
           dy: balkenMitte + 20,
-          fontSize: fontPx - 1,
+          fontSize: Math.max(11, fontPx - 1),
           fill: INK_MUTED,
         }),
       ],

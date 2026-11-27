@@ -48,8 +48,8 @@ export function BarV({ records, codebook, source, items, slots, preserveOrder }:
   const accent = EINZEL;
   const marginTop = isMobile ? MARGIN_TOP_MOBILE : MARGIN_TOP_DESKTOP;
   const marginBottom = isMobile ? MARGIN_BOTTOM_MOBILE : MARGIN_BOTTOM_DESKTOP;
-  const fontPx = isMobile ? 10 : 12;
-  const axisPx = isMobile ? 9 : 11;
+  const fontPx = isMobile ? 11 : 12;
+  const axisPx = 11;
 
   // Probe Diagramme, vorläufig (18.09.2026): Am Handy werden aus den Säulen
   // Balken in derselben Reihenfolge — statt gedrehter Beschriftung und

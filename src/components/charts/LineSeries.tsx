@@ -36,7 +36,7 @@ function jahresTicks(min: number, max: number, hoechstens: number): number[] {
 export function LineSeries({ series, xLabel, yLabel, markers = true }: Props) {
   const isMobile = useIsMobile();
   const fontPx = isMobile ? 11 : 13;
-  const axisPx = isMobile ? 10 : 12;
+  const axisPx = isMobile ? 11 : 12;
 
   // Flatten + tag each row with its series label so Plot's colour scale
   // operates on a single channel.

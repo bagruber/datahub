@@ -78,8 +78,11 @@ export function Correlation({ records, sources }: Props) {
   const marginTop = isMobile
     ? Math.min(110, Math.max(60, longestLabel * 5))
     : Math.min(160, Math.max(80, longestLabel * 7));
-  const fontPx = isMobile ? 9 : 12;
-  const cellPx = isMobile ? 9 : 11;
+  const fontPx = isMobile ? 11 : 12;
+  const cellPx = 11;
+  // Zahlen in 11 px passen am Handy bis etwa zehn Spalten. Bei mehr tragen
+  // Farbe, Tooltip und die Tabelle darunter die Werte.
+  const mitZahlen = !isMobile || xDomain.length <= 10;
 
   // Format r-value for the cell. On mobile, fewer digits to keep it readable
   // inside small cells. Diagonal cells (r === 1, where x === y) collapse to "1".
@@ -133,14 +136,18 @@ export function Correlation({ records, sources }: Props) {
               Number.isNaN(d.r) ? "–" : d.r.toFixed(3).replace(".", ",")
             }\n${fmtInt(d.n)} Antworten`,
         }),
-        Plot.text(cells, {
-          x: "x",
-          y: "y",
-          text: formatR,
-          fill: (d: Cell) => (Math.abs(d.r) > 0.55 ? "white" : INK),
-          fontWeight: 600,
-          fontSize: cellPx,
-        } as never),
+        ...(mitZahlen
+          ? [
+              Plot.text(cells, {
+                x: "x",
+                y: "y",
+                text: formatR,
+                fill: (d: Cell) => (Math.abs(d.r) > 0.55 ? "white" : INK),
+                fontWeight: 600,
+                fontSize: cellPx,
+              } as never),
+            ]
+          : []),
         // Am Handy stehen die Namen in der leeren Diagonale.
         ...(isMobile
           ? [
@@ -150,14 +157,14 @@ export function Correlation({ records, sources }: Props) {
                 text: "label",
                 textAnchor: "start",
                 dx: -10,
-                fontSize: 9,
+                fontSize: 11,
                 fill: INK,
               } as never),
             ]
           : []),
       ],
     }),
-    [cells, xDomain, yDomain, diagonale, marginLeft, marginTop, isMobile, fontPx, cellPx],
+    [cells, xDomain, yDomain, diagonale, marginLeft, marginTop, isMobile, fontPx, cellPx, mitZahlen],
   );
 
   return (

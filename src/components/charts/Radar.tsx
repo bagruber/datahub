@@ -225,7 +225,7 @@ export function Radar({ records, dimLabels, invertedDims, innovations }: Props) 
         >
           <Netz n={n} cx={cx} cy={c} r={r} />
           {[2, 3, 4, 5].map((v) => (
-            <text key={v} x={cx + 4} y={punkt(v, 0, n, cx, c, r)[1]} style={{ fontSize: 9 }} fill={INK_MUTED}>
+            <text key={v} x={cx + 4} y={punkt(v, 0, n, cx, c, r)[1]} style={{ fontSize: 11 }} fill={INK_MUTED}>
               {v}
             </text>
           ))}

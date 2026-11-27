@@ -79,8 +79,8 @@ export function Pyramid({
       },
       marks: [
         Plot.gridX({ stroke: GITTER, strokeOpacity: 1 }),
-        Plot.axisX({ fontSize: fontPx - 1, tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(Math.abs(v)) }),
-        Plot.axisY({ fontSize: fontPx - 1, tickSize: 0, color: INK_MUTED }),
+        Plot.axisX({ fontSize: Math.max(11, fontPx - 1), tickSize: 0, color: INK_MUTED, tickFormat: (v: number) => fmtInt(Math.abs(v)) }),
+        Plot.axisY({ fontSize: Math.max(11, fontPx - 1), tickSize: 0, color: INK_MUTED }),
         Plot.barX(data, {
           x: "x",
           y: "label",

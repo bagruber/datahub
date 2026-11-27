@@ -152,6 +152,12 @@ svg [tabindex]:focus-visible {
   outline-offset: 1px;
 }
 
+/* Farblegenden von Plot setzen 10 px und system-ui; wie die übrige Diagrammschrift. */
+.plot-figure [class*="-swatches"] {
+  font-size: 11px;
+  font-family: var(--font-sans);
+}
+
 /* Visually hidden — for chart data tables exposed to AT */
 .sr-only {
   position: absolute;

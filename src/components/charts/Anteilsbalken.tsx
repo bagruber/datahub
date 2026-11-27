@@ -156,7 +156,7 @@ export function Anteilsbalken({ records, reihen, kategorien }: Props) {
           y: "zeile",
           text: (d: Segment) => fmtPct(d.anteil),
           dy: balkenMitte + 20,
-          fontSize: fontPx - 1,
+          fontSize: Math.max(11, fontPx - 1),
           fontWeight: 600,
           fill: INK,
         }),

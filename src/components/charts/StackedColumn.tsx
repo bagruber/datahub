@@ -108,7 +108,7 @@ export function StackedColumn({ series, xLabel, yLabel }: Props) {
               d.x === letztesX && d.y / (totals.get(letztesX) ?? 1) >= 0.09,
             textAnchor: "start",
             dx: 26,
-            fontSize: fontPx - 1,
+            fontSize: Math.max(11, fontPx - 1),
             fill: INK_MUTED,
           } as never),
         ),

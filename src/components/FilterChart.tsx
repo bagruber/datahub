@@ -77,7 +77,7 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
             type="button"
             onClick={() => selected.forEach((i) => onToggle(i))}
             aria-label={`${spec.label} zurücksetzen`}
-            className="text-[10px] text-ink-muted hover:text-ink underline decoration-dotted shrink-0 self-start"
+            className="text-[11px] text-ink-muted hover:text-ink underline decoration-dotted shrink-0 self-start"
           >
             ×
           </button>
@@ -198,7 +198,7 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                     />
                   </span>
                 </span>
-                <span className="tabular-nums text-[10px] text-ink-muted leading-tight text-right shrink-0">
+                <span className="tabular-nums text-[11px] text-ink-muted leading-tight text-right shrink-0">
                   <span className="block font-semibold text-ink">{fmtInt(b.count)}</span>
                   <span>{fmtPct(b.share)}</span>
                 </span>
