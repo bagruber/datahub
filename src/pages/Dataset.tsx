@@ -69,16 +69,18 @@ export function Dataset() {
     [dataset, selections],
   );
 
-  useTitel(error ? "Datensatz nicht gefunden" : (studie?.meta.title ?? entry?.title));
+  // Unbekannte ID oder ein Ladefehler: beides bekommt eine Überschrift wie die
+  // Seite für unbekannte Adressen, die Meldung steht darunter.
+  const fehlerTitel = error?.startsWith("Datensatz ") ? "Datensatz nicht gefunden" : "Datensatz konnte nicht geladen werden";
+  useTitel(error ? fehlerTitel : (studie?.meta.title ?? entry?.title));
 
   if (studie) return <Studie studie={studie} />;
 
   if (error) {
     return (
       <div className="mx-auto max-w-screen-md px-4 sm:px-6 py-16">
-        <p className="text-red-700 bg-red-50 rounded-md px-4 py-3 border border-red-100">
-          {error}
-        </p>
+        <h1 className="headline text-display-2">{fehlerTitel}</h1>
+        <p className="mt-4 text-ink-soft">{error}</p>
         <Link to="/" className="inline-flex items-center gap-1.5 mt-6 text-red-700 underline decoration-dotted">
           <ArrowLeft aria-hidden className="shrink-0" />
           Zurück zur Übersicht
