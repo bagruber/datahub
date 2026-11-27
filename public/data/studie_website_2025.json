@@ -927,12 +927,29 @@
       ]
     },
     {
-      "id": "grenzen",
-      "titel": "Was die Ergebnisse tragen",
+      "id": "ausblick",
+      "titel": "Wie es weitergeht",
       "bloecke": [
         {
+          "typ": "befunde",
+          "eintraege": [
+            {
+              "kern": "Erst die Grundlagen.",
+              "text": "Suche und Struktur zuerst, Neuerungen wie Konto oder Karte danach. Vor Konto und Chatbot stehen eine rechtliche Prüfung und eine Abwägung der Kosten."
+            },
+            {
+              "kern": "Mit Prototypen testen.",
+              "text": "Aus den Personas Entwürfe bauen und mindestens einen funktionsfähigen Prototyp mit echten Nutzerinnen und Nutzern ausprobieren."
+            },
+            {
+              "kern": "Nach dem Start nachfragen.",
+              "text": "Wie zufrieden sind die Nutzerinnen und Nutzer, kommen im Rathaus weniger Anrufe und doppelte Termine an? Danach alle paar Jahre wieder."
+            }
+          ]
+        },
+        {
           "typ": "text",
-          "text": "Befragt wurden Freiwillige, meist an der Stadt interessiert und digital sicher. Repräsentativ ist das nicht. Personas sind gedeutete Typen, keine Durchschnitte. Kosten, Datenschutzrecht und Verwaltungsaufwand waren nicht Teil der Arbeiten.\n\nDie Gruppen empfehlen, mit Entwürfen nach den Personas weiterzuarbeiten, sie mit Nutzerinnen und Nutzern zu testen und nach dem Start erneut zu fragen. Ein Prototyp, der die Ergebnisse aufgreift: [moosburg.eu/stadt](https://moosburg.eu/stadt/)."
+          "text": "Ein Prototyp, der die Ergebnisse aufgreift: [moosburg.eu/stadt](https://moosburg.eu/stadt/)."
         },
         {
           "typ": "liste",
