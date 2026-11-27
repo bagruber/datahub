@@ -110,11 +110,11 @@ export function HelpIcon({ explanation, label = "Erklärung" }: Props) {
 
 export const HELP: Record<string, string> = {
   likert6:
-    "Divergierender Stapelbalken: jede Zeile ist ein Merkmal. Schlechte Bewertungen (1–3, rot) wachsen nach links, gute (4–6, grün) nach rechts. Je weiter ein Balken vom Mittel weg liegt, desto eindeutiger die Tendenz.",
+    "Jede Zeile ist ein Merkmal. Schlechte Bewertungen (1–3, rot) wachsen nach links, gute (4–6, blau) nach rechts. Außen stehen die Anteile beider Seiten, darunter der Mittelwert.",
   likert5:
-    "Divergierender Stapelbalken auf einer 1–5-Skala. Negative Bewertungen (1–2, rot) wachsen nach links, positive (4–5, grün) nach rechts; die neutrale Mitte (3) überlagert die Null-Linie hälftig.",
+    "Jede Zeile ist ein Merkmal. Ablehnung (1–2, rot) wächst nach links, Zustimmung (4–5, blau) nach rechts, die neutrale 3 liegt grau in der Mitte. Außen stehen die Anteile beider Seiten, darunter der Mittelwert.",
   price:
-    "Divergierender Stapelbalken für Preisempfinden: günstige Bewertungen wachsen nach links, teure nach rechts. Anders als bei Qualitäts-Likerts gibt es hier kein gut/schlecht — deshalb ein neutraler Blau-Verlauf (hell = günstig, dunkel = teuer) statt Rot/Grün.",
+    "Günstig wächst nach links, teuer nach rechts. Das ist keine Wertung, deshalb Gold statt Rot und Blau: hell für günstig, dunkel für teuer.",
   bar_v:
     "Senkrechte Balken — bewährt für zeitliche oder geordnete Reihen wie Wochentage oder Uhrzeiten. Die Reihenfolge entspricht dem Sachzusammenhang, nicht der Häufigkeit.",
   line_series:
@@ -124,11 +124,11 @@ export const HELP: Record<string, string> = {
   pyramid:
     "Bevölkerungspyramide. Links und rechts vom Mittelpunkt stehen die zwei Gruppen (etwa männlich und weiblich), nach oben hin steigt das Alter. Symmetrische Pyramiden sind ausgeglichen, einseitige zeigen Schieflagen.",
   diverging3:
-    "Divergierender Balken: die linke und rechte Option streben nach außen, die unentschlossene Mitte überlagert die Null-Linie hälftig. Hängt der Balken stark nach einer Seite, dominiert diese Option.",
+    "Links die eine Wahl, rechts die andere, grau in der Mitte die Unentschiedenen. Je weiter der Balken zu einer Seite reicht, desto mehr haben sie gewählt.",
   radar:
     "Spinnendiagramm. Jede Achse ist eine Dimension; die farbige Fläche zeigt, wie eine Innovation auf allen Dimensionen abschneidet. Größer und weiter außen = besser.",
   correlation:
-    "Korrelations-Heatmap. Jede Zelle zeigt, wie stark zwei Bewertungen zusammenhängen — von −1 (gegensätzlich, dunkelrot) über 0 (kein Zusammenhang, hell) bis +1 (gleichgerichtet, dunkelgrün). Die Diagonale ist immer 1.",
+    "Jede Zelle zeigt, wie stark zwei Bewertungen zusammenhängen: −1 gegenläufig (rot), 0 kein Zusammenhang (hell), +1 gleichgerichtet (blau).",
   venn2:
     "Flächentreues Venn-Diagramm: jede Kreisfläche ist proportional zur Gruppengröße, die Schnittfläche zur Anzahl gemeinsamer Antworten. Hover über Kreis, Schnittmenge oder Legende zeigt Detailwerte.",
   venn3:
@@ -138,5 +138,5 @@ export const HELP: Record<string, string> = {
   gremium:
     "Ein Rat als Wabe: ein Sechseck je Sitz, gefärbt nach Fraktion. Jedes Feld steht für eine Person — beim Zeigen erscheint ihr Name. Die Fraktionen liegen als zusammenhängende Klumpen, damit sich ihre Größe abzählen lässt.",
   likert5_group:
-    "Pro Innovation ein eigener divergierender Stapelbalken. Negative Bewertungen wachsen nach links, positive nach rechts; die neutrale Mitte überlagert die Null-Linie. So lassen sich Innovationen direkt vergleichen.",
+    "Je Funktion ein eigener Block mit denselben Fragen. Ablehnung wächst nach links, Zustimmung nach rechts, neutral liegt in der Mitte.",
 };
