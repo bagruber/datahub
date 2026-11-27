@@ -52,11 +52,11 @@ const save = (id, d) => fs.writeFileSync(file(id), JSON.stringify(d));
   };
   set(
     "nutzung",
-    "**Zu Fuß** und mit dem **Fahrrad** kommen je rund **45 %** zum Bahnhof, ein nahezu gleichstarkes Duo. Genutzt wird der Bahnhof vor allem an **Werktagen**, gut die Hälfte der Werktagspendler ist allerdings auch am Wochenende dort. Die Stoßzeiten liegen erwartbar im **Berufsverkehr**: morgens 7 bis 9 Uhr und nachmittags 17 bis 19 Uhr. Fast die Hälfte wartet **länger als 10 Minuten**, nur wenige länger als 30 Minuten.",
+    "**Zu Fuß** und mit dem **Fahrrad** kommt je gut die Hälfte zum Bahnhof (**52 %**). Genutzt wird der Bahnhof vor allem an **Werktagen**, die Hälfte der Werktagspendler ist auch am Wochenende dort. Die Stoßzeiten liegen im **Berufsverkehr**: morgens 7 bis 9 Uhr und nachmittags 17 bis 19 Uhr. Fast die Hälfte wartet **länger als 10 Minuten**, nur wenige länger als 30 Minuten.",
   );
   set(
     "anforderungen",
-    "Drei Wünsche dominieren klar: **Live-Abfahrtsanzeige** (94 % bewerten sie als wichtig oder sehr wichtig), **Toiletten** (89 %) und **Sitzmöglichkeiten** (86 %). Der Bahnhof als kurzer Aufenthaltsort prägt die Erwartungen: alles, was Wartezeit angenehm und planbar macht. Am unteren Ende stehen **Reisebüro** (4,2) und **Wickeltisch** (4,0), die aber selbst dort noch von gut der Hälfte als wichtig eingestuft werden. Kein einziges der 16 Ausstattungsmerkmale fällt unter 4,0. Generell unwichtig erscheint nichts.",
+    "Drei Wünsche dominieren klar: **Live-Abfahrtsanzeige** (94 % bewerten sie als wichtig oder sehr wichtig), **Toiletten** (89 %) und **Sitzmöglichkeiten** (86 %). Der Bahnhof als kurzer Aufenthaltsort prägt die Erwartungen: alles, was Wartezeit angenehm und planbar macht. Am unteren Ende stehen **Kiosk** (3,3), **Lesematerial** (3,2) und **Tabakwaren** (2,0); Tabakwaren hält nur jede oder jeder Sechste für wichtig. Die übrigen 13 Merkmale liegen im Schnitt bei 4,0 oder darüber.",
   );
   save("fahrgastumfrage_2023", d);
   console.log("✓ fahrgastumfrage_2023");
