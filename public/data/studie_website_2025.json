@@ -59,14 +59,6 @@
       "wert": "74",
       "quelle": "Abschlussbericht Innovationen, S. 13"
     },
-    "bericht.konto.umsetzung": {
-      "wert": "76 %",
-      "quelle": "Abschlussbericht Innovationen, S. 28"
-    },
-    "bericht.karte.umsetzung": {
-      "wert": "72 %",
-      "quelle": "Abschlussbericht Innovationen, S. 34"
-    },
     "befragung.n": {
       "wert": "98",
       "quelle": "nachgerechnet aus website_innovationen_2025"
@@ -861,6 +853,39 @@
           "rechts": "keine Bedenken"
         },
         {
+          "typ": "aufklappbar",
+          "titel": "Die drei übrigen Fragen: Verständlichkeit, Nutzen, Sinn",
+          "bloecke": [
+            {
+              "typ": "diagramm",
+              "art": "likert",
+              "item": "verstaendnis",
+              "titel": "„Ich verstehe, wofür diese Funktion gedacht ist.“",
+              "basis": "{{befragung.n}} Fragebögen",
+              "links": "stimme gar nicht zu",
+              "rechts": "stimme voll zu"
+            },
+            {
+              "typ": "diagramm",
+              "art": "likert",
+              "item": "nuetzlichkeit",
+              "titel": "„Diese Funktion wäre für mich persönlich nützlich.“",
+              "basis": "{{befragung.n}} Fragebögen",
+              "links": "stimme gar nicht zu",
+              "rechts": "stimme voll zu"
+            },
+            {
+              "typ": "diagramm",
+              "art": "likert",
+              "item": "sinnhaftigkeit",
+              "titel": "„Ich finde diese Funktion sinnvoll.“",
+              "basis": "{{befragung.n}} Fragebögen",
+              "links": "stimme gar nicht zu",
+              "rechts": "stimme voll zu"
+            }
+          ]
+        },
+        {
           "typ": "text",
           "text": "Die Kommentare erklären die Unterschiede. Beim Konto: Datenschutz und Zweifel an der Technik, mehrere verweisen auf BayernID und BundID. Beim Chatbot: schlechte Erfahrungen mit anderen Bots. Bei Karte und Community: Missbrauch und Moderationsaufwand. Wer etwas meldet, will erfahren, was daraus wird."
         },
@@ -898,11 +923,6 @@
               ]
             }
           ]
-        },
-        {
-          "typ": "hinweis",
-          "titel": "Nachgerechnet mit allen Fragebögen",
-          "text": "Der Bericht wertet {{bericht.n}} Bögen bis 25.01.2026 aus, hier sind es alle {{befragung.n}}. Die Rangfolge hält. Das Konto liegt knapper ({{befragung.konto.umsetzung}} statt {{bericht.konto.umsetzung}}), die Karte höher ({{befragung.karte.umsetzung}} statt {{bericht.karte.umsetzung}})."
         }
       ]
     },

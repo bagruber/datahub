@@ -62,7 +62,8 @@ export type Block =
       links?: string;
       rechts?: string;
     }
-  | { typ: "liste"; titel: string; eintraege: string[] };
+  | { typ: "liste"; titel: string; eintraege: string[] }
+  | { typ: "aufklappbar"; titel: string; bloecke: Block[] };
 
 export type Kapitel = { id: string; titel: string; zeile?: string; bloecke: Block[] };
 

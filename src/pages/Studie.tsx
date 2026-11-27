@@ -279,6 +279,18 @@ function BlockAnsicht({ block: b, studie }: { block: Block; studie: StudieDaten 
           </ul>
         </div>
       );
+
+    case "aufklappbar":
+      return (
+        <details>
+          <summary className="w-fit cursor-pointer font-semibold text-red-700 hover:text-ink">{b.titel}</summary>
+          <div className="mt-6 space-y-8">
+            {b.bloecke.map((k, i) => (
+              <BlockAnsicht key={i} block={k} studie={studie} />
+            ))}
+          </div>
+        </details>
+      );
   }
 }
 
