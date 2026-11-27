@@ -30,6 +30,25 @@ jobs:
       - run: pnpm test
       - run: pnpm run build
 
+      # Die Einzelantworten der Innovationen-Befragung bleiben im Repo, weil die
+      # Studienseite daraus rechnet. Ausgeliefert werden sie hier so wenig wie
+      # auf moosburg.eu. Fehlt der Eintrag, bricht der Schritt ab, statt eine
+      # umbenannte Datei still durchzulassen.
+      - name: Einzelantworten der Innovationen-Befragung zurückhalten
+        run: |
+          node -e "
+            const fs = require('fs');
+            const p = 'dist/data/manifest.json';
+            const m = JSON.parse(fs.readFileSync(p, 'utf8'));
+            const id = 'website_innovationen_2025';
+            const e = m.datasets.find(d => d.id === id);
+            if (!e) { console.error('Nicht im Manifest: ' + id); process.exit(1); }
+            m.datasets = m.datasets.filter(d => d.id !== id);
+            fs.writeFileSync(p, JSON.stringify(m, null, 1));
+            fs.rmSync('dist/data/' + e.file);
+            console.log('Zurückgehalten: ' + id);
+          "
+
       - name: Sanity-check dist/
         run: |
           echo "── dist root ─────────────────────"

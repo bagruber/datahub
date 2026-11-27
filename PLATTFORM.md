@@ -106,8 +106,10 @@ Zurückgehalten: website_innovationen_2025
 die Studie `studie_website_2025`, die nur Aggregate enthält (Entscheidung
 Benedict, 25.11.2026). Die Studie lädt die Einzelantworten nicht nach.
 
-Die Quelldaten im Repo bleiben unangetastet — lokal und auf GitHub Pages sind
-weiterhin alle da, und das öffentliche Repo enthält sie ohnehin. Wer die Auswahl ändert, ändert das `keep`-Set im
+Die Quelldaten im Repo bleiben unangetastet — lokal sind weiterhin alle da, und
+das öffentliche Repo enthält sie ohnehin. GitHub Pages hält seit 27.11.2026
+`website_innovationen_2025` ebenfalls zurück (eigener Schritt in `pages.yml`),
+die übrigen Datensätze zeigt es vollständig. Wer die Auswahl ändert, ändert das `keep`-Set im
 Workflow. Eine unbekannte ID lässt den Build absichtlich scheitern, statt still
 eine Karte verschwinden zu lassen.
 
