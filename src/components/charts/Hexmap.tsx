@@ -143,7 +143,7 @@ export function Hexmap({ geometrie, ebenen, hinweise = [] }: Props) {
       />
 
       {sichtbareHinweise.length > 0 && (
-        <div className="space-y-2 border-l-2 border-red-500 bg-gold-100 px-3 py-2 text-sm text-ink-soft">
+        <div className="space-y-2 rounded-lg border border-ink-line bg-cream-dark/70 px-3 py-2 text-sm text-ink-soft">
           {sichtbareHinweise.map((h, i) => (
             <p key={i}>{h.text}</p>
           ))}
@@ -518,8 +518,7 @@ function Legende({
   return (
     <div>
       <h4 className="text-sm font-semibold text-ink-muted">Legende</h4>
-      {/* Versalien bleiben bis zur Wahl-Runde */}
-      <p className="mt-1 text-xs uppercase tracking-wide text-ink-muted">{mass}</p>
+      <p className="mt-1 text-xs text-ink-muted">{mass}</p>
       <ul className="mt-2 grid gap-1 text-sm">
         {zeilen.map((z, i) => (
           <li
