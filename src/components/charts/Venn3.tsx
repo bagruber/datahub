@@ -1,7 +1,7 @@
-import { useId, useMemo } from "react";
+import { useEffect, useId, useMemo, useState } from "react";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, INK_MUTED, SERIE, STROKE } from "@/lib/palette";
-import { loeseEllipsen, type Ellipse } from "@/lib/vennEllipsen";
+import { loeseEllipsen, type Ellipse, type Loesung } from "@/lib/vennEllipsen";
 import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
 
@@ -55,10 +55,26 @@ export function Venn3({ records, source, values, labels }: Props) {
   }, [records, source, values]);
 
   // Die Suche läuft nur, wenn sich die Zahlen ändern — also beim Filtern.
-  const loesung = useMemo(
+  // Die schnelle Suche reicht fast immer. Ist ein Gebiet leer (etwa niemand nur
+  // am Freitag), müssen sich Ellipsen genau berühren, und die Lage findet sich
+  // im Browser erst nach bis zu vier Sekunden. Die sucht dann ein Worker weiter.
+  const sofort = useMemo(
     () => (zahlen.gesamt > 0 ? loeseEllipsen(zahlen.gebiete, 180) : null),
     [zahlen],
   );
+  const [nachgesucht, setNachgesucht] = useState<{ fuer: typeof zahlen; loesung: Loesung | null } | null>(null);
+  useEffect(() => {
+    if (sofort || zahlen.gesamt === 0) return;
+    const worker = new Worker(new URL("../../lib/vennWorker.ts", import.meta.url), { type: "module" });
+    worker.onmessage = (e: MessageEvent<Loesung | null>) => {
+      setNachgesucht({ fuer: zahlen, loesung: e.data });
+      worker.terminate();
+    };
+    worker.postMessage({ gebiete: zahlen.gebiete, budgetMs: 5000 });
+    return () => worker.terminate();
+  }, [sofort, zahlen]);
+  const sucht = !sofort && zahlen.gesamt > 0 && nachgesucht?.fuer !== zahlen;
+  const loesung = sofort ?? (nachgesucht?.fuer === zahlen ? nachgesucht.loesung : null);
 
   const tabelle = (
     <ChartTable
@@ -76,6 +92,21 @@ export function Venn3({ records, source, values, labels }: Props) {
 
   if (zahlen.gesamt === 0) {
     return <p className="py-8 text-center text-sm text-ink-muted">Keine Antworten mit Angabe.</p>;
+  }
+
+  if (sucht) {
+    // Platzhalter in der Größe des Diagramms, damit die Seite nicht springt.
+    return (
+      <figure>
+        <div
+          className="flex w-full max-w-[520px] items-center justify-center text-sm text-ink-muted"
+          style={{ aspectRatio: `${BREITE} / ${HOEHE}` }}
+        >
+          Flächentreue Lage wird berechnet …
+        </div>
+        {tabelle}
+      </figure>
+    );
   }
 
   if (!loesung) {
