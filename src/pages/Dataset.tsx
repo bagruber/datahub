@@ -3,6 +3,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { ArrowLeft } from "@phosphor-icons/react";
 import { loadDataset, loadManifest, type Dataset as Ds, type ManifestEntry } from "@/lib/data";
 import {
+  MIN_N,
   activeCount,
   applyFilters,
   clearAll,
@@ -281,9 +282,11 @@ export function Dataset() {
                 {/* Survey charts read from records and need the "no matches"
                     guard. Statistik charts carry their data inline, so an
                     empty records[] is the normal case and not an error. */}
-                {!ohneAntworten && filteredRecords.length === 0 ? (
+                {!ohneAntworten && filteredRecords.length < MIN_N ? (
                   <p className="text-ink-muted text-sm py-8 text-center">
-                    Keine Antworten passen zum aktuellen Filter.
+                    {filteredRecords.length === 0
+                      ? "Keine Antworten passen zum aktuellen Filter."
+                      : `Weniger als ${MIN_N} Antworten: zu wenige für eine Auswertung.`}
                   </p>
                 ) : (
                   <ChartRenderer

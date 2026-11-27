@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { codeMatches, filterCodes, type Dataset, type FilterSpec } from "@/lib/data";
 import { cn } from "@/lib/cn";
 import { fmtInt, fmtPct } from "@/lib/format";
+import { MIN_N, waehlbar } from "@/lib/filters";
 
 type Props = {
   spec: FilterSpec;
@@ -62,7 +63,11 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
 
   const focused = hover !== null ? bars[hover] : null;
 
-  const handleToggle = (idx: number) => onToggle(idx);
+  const frei = (b: Bar) => waehlbar(b.count, selected.includes(b.idx));
+  const handleToggle = (idx: number) => {
+    if (bars[idx] && frei(bars[idx])) onToggle(idx);
+  };
+  const gesperrt = `Unter ${MIN_N} Antworten, nicht einzeln auswertbar`;
 
   return (
     <div className="rounded-lg bg-white border border-ink-line min-w-0 flex flex-col">
@@ -116,10 +121,12 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                 height={h}
                 rx={2}
                 fill={fill}
-                style={{ cursor: "pointer", transition: "fill 100ms" }}
+                opacity={frei(b) ? 1 : 0.35}
+                style={{ cursor: frei(b) ? "pointer" : "not-allowed", transition: "fill 100ms" }}
                 onClick={() => handleToggle(b.idx)}
                 onMouseEnter={() => setHover(b.idx)}
-                tabIndex={0}
+                tabIndex={frei(b) ? 0 : -1}
+                aria-disabled={!frei(b)}
                 onFocus={() => setHover(b.idx)}
                 onBlur={() => setHover(null)}
                 onKeyDown={(e) => {
@@ -129,7 +136,7 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                   }
                 }}
                 aria-pressed={on}
-                aria-label={`${b.label}: ${fmtInt(b.count)} (${fmtPct(b.share)})`}
+                aria-label={`${b.label}: ${fmtInt(b.count)} (${fmtPct(b.share)})${frei(b) ? "" : `. ${gesperrt}`}`}
               />
               </g>
             );
@@ -167,9 +174,11 @@ export function FilterChart({ spec, records, selected, onToggle }: Props) {
                 onFocus={() => setHover(b.idx)}
                 onBlur={() => setHover(null)}
                 aria-pressed={on}
+                disabled={!frei(b)}
+                title={frei(b) ? undefined : gesperrt}
                 className={cn(
-                  "group w-full grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-1.5 py-1 rounded-md text-left transition-colors",
-                  on ? "bg-gold-100" : "hover:bg-cream-dark",
+                  "group w-full grid grid-cols-[minmax(0,1fr)_auto] items-center gap-2 px-1.5 py-1 rounded-md text-left transition-colors disabled:cursor-not-allowed disabled:opacity-40",
+                  on ? "bg-gold-100" : "enabled:hover:bg-cream-dark",
                 )}
               >
                 <span className="min-w-0">

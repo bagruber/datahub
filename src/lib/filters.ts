@@ -6,6 +6,17 @@ import { codeMatches, filterCodes, type Dataset, type FilterSpec } from "./data"
 
 export type FilterSelections = Record<string, number[]>;
 
+/** Weniger Antworten werden nicht ausgewertet: Eine Filteroption darunter ist
+ *  nicht wählbar, und eine Auswahl darunter zeigt keine Diagramme. Sonst ließe
+ *  sich ablesen, wie einzelne Personen geantwortet haben. */
+export const MIN_N = 5;
+
+/** Wählbar ist eine Option ab MIN_N Antworten; eine gewählte bleibt es, damit
+ *  man sie wieder abwählen kann. */
+export function waehlbar(anzahl: number, gewaehlt: boolean): boolean {
+  return gewaehlt || anzahl >= MIN_N;
+}
+
 const SEP = ",";
 
 /** Parse selections from URLSearchParams. Unknown keys ignored. */

@@ -1,7 +1,7 @@
 import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { CaretDown, Check } from "@phosphor-icons/react";
 import type { Dataset, FilterSpec } from "@/lib/data";
-import { applyFilters, istOhneAngabe, ohneAngabeIndex, type FilterSelections } from "@/lib/filters";
+import { MIN_N, applyFilters, istOhneAngabe, ohneAngabeIndex, waehlbar, type FilterSelections } from "@/lib/filters";
 import { cn } from "@/lib/cn";
 import { fmtInt } from "@/lib/format";
 import { buildBars, type Bar } from "./FilterChart";
@@ -137,13 +137,16 @@ function AuswahlListe({ id, spec, records, selected, onToggle, onClear }: {
       <ul>
         {zeilen.map((z) => {
           const an = selected.includes(z.idx);
+          const frei = waehlbar(z.count, an);
           return (
             <li key={z.idx}>
               <button
                 type="button"
                 aria-pressed={an}
+                disabled={!frei}
+                aria-label={frei ? undefined : `${z.label}: ${fmtInt(z.count)}, unter ${MIN_N} Antworten, nicht einzeln auswertbar`}
                 onClick={() => onToggle(z.idx)}
-                className="relative grid min-h-11 w-full grid-cols-[1fr_auto] items-center gap-3 px-3 py-2 text-left text-sm"
+                className="relative grid min-h-11 w-full grid-cols-[1fr_auto] items-center gap-3 px-3 py-2 text-left text-sm disabled:opacity-40"
               >
                 <span
                   aria-hidden
