@@ -25,6 +25,7 @@ import { fmtInt } from "@/lib/format";
 import { basiszeile } from "@/lib/basis";
 import type { Studie as StudieDaten } from "@/lib/studie";
 import { Studie } from "./Studie";
+import { useTitel } from "@/lib/useTitel";
 
 export function Dataset() {
   const { id } = useParams<{ id: string }>();
@@ -66,6 +67,8 @@ export function Dataset() {
     () => (dataset ? applyFilters(dataset.records, dataset.filters, selections) : []),
     [dataset, selections],
   );
+
+  useTitel(error ? "Datensatz nicht gefunden" : (studie?.meta.title ?? entry?.title));
 
   if (studie) return <Studie studie={studie} />;
 

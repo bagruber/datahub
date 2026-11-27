@@ -1,4 +1,7 @@
+import { useTitel } from "@/lib/useTitel";
+
 export function About() {
+  useTitel("Über die Daten");
   return (
     <div className="mx-auto max-w-screen-md px-4 sm:px-6 py-10 sm:py-16">
       <h1 className="headline text-display-2 mb-6">Data Hub Moosburg</h1>

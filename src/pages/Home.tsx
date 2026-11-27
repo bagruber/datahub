@@ -4,8 +4,10 @@ import { loadManifest, type Manifest, type ManifestEntry } from "@/lib/data";
 import { DatasetCard, Kachel } from "@/components/DatasetCard";
 import { CARD_KIND } from "@/lib/cardKind";
 import { SeitenKopf } from "@/components/ui";
+import { useTitel } from "@/lib/useTitel";
 
 export function Home() {
+  useTitel();
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [error, setError] = useState<string | null>(null);
 
