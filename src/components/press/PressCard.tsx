@@ -28,32 +28,24 @@ export function PressCard({ link }: { link: PressLink }) {
       rel="noopener noreferrer"
       className="group block rounded-xl bg-white border border-ink-line shadow-soft hover:shadow-lift transition-all hover:-translate-y-0.5 overflow-hidden"
     >
-      {/* Thumbnail / fallback gradient — replaces with a soft brand-tinted
-          panel when no image is provided so the grid stays even-height. */}
-      <div className="aspect-[16/9] relative bg-cream-dark overflow-hidden">
-        {thumb ? (
+      {/* Ohne Bild kein leerer Bildbereich, der ein fehlendes Foto vortäuscht;
+          das Logo steht dann vor der Quelle. */}
+      {thumb && (
+        <div className="aspect-[16/9] relative bg-cream-dark overflow-hidden">
           <img
             src={thumb}
             alt=""
             loading="lazy"
             className="absolute inset-0 w-full h-full object-cover"
           />
-        ) : (
-          <div
-            aria-hidden
-            className="absolute inset-0"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--color-cream-dark), var(--color-gold-200))",
-            }}
-          />
-        )}
-        <span className="absolute top-2 right-2">
-          <PressLogo outlet={link.outlet} size={32} />
-        </span>
-      </div>
+          <span className="absolute top-2 right-2">
+            <PressLogo outlet={link.outlet} size={32} />
+          </span>
+        </div>
+      )}
       <div className="p-4">
-        <p className="text-sm text-ink-muted">
+        <p className="flex items-center gap-2 text-sm text-ink-muted">
+          {!thumb && <PressLogo outlet={link.outlet} size={24} />}
           {PRESS_OUTLET_NAMES[link.outlet]} · {formatDate(link.date)}
         </p>
         <h3 className="mt-1 font-semibold text-ink leading-snug group-hover:text-red-700 transition-colors">
