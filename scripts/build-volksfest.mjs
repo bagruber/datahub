@@ -178,8 +178,10 @@ const filters = [
     source: "age",
     type: "histogram",
     label: "Alter",
-    labels: Object.values(cb.age),
-    categories: Object.keys(cb.age).map(Number),
+    // Unter 18 (6 Antworten) und 70+ (eine) sind zu klein, um sie einzeln zu
+    // filtern. Im Filter zusammengelegt, in den Daten bleiben sie getrennt.
+    labels: ["Bis 30", "31-50", "Über 50"],
+    categories: [[0, 1], 2, [3, 4]],
   },
   {
     key: "wohnort",

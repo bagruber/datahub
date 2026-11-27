@@ -11,6 +11,9 @@ export type Codebook = Record<string, Record<string, string>>;
 // ── Filters ────────────────────────────────────────────────────────────
 export type FilterRangeGroup = { label: string; min: number; max: number };
 export type FilterCode = string | number;
+/** Eine Filteroption trifft einen Code oder mehrere: So lassen sich sehr kleine
+ *  Gruppen in der Darstellung zusammenlegen, ohne die Daten zu ändern. */
+export type FilterOption = FilterCode | FilterCode[];
 
 export type FilterSpec =
   | {
@@ -20,8 +23,8 @@ export type FilterSpec =
       label: string;
       labels: string[];
       /** Code per option. Some legacy datasets use `values` instead. */
-      categories?: FilterCode[];
-      values?: FilterCode[];
+      categories?: FilterOption[];
+      values?: FilterOption[];
     }
   | {
       key: string;
@@ -32,14 +35,15 @@ export type FilterSpec =
     };
 
 /** Resolve the code list for a categorical filter (handles `values` alias). */
-export function filterCodes(spec: FilterSpec): FilterCode[] {
+export function filterCodes(spec: FilterSpec): FilterOption[] {
   if (spec.type === "histogram_range") return [];
   return spec.categories ?? spec.values ?? [];
 }
 
-/** Compare a record value against a filter code, tolerant of "3" vs 3. */
-export function codeMatches(recordValue: unknown, code: FilterCode): boolean {
+/** Compare a record value against a filter option, tolerant of "3" vs 3. */
+export function codeMatches(recordValue: unknown, code: FilterOption): boolean {
   if (recordValue === null || recordValue === undefined) return false;
+  if (Array.isArray(code)) return code.some((c) => String(recordValue) === String(c));
   return String(recordValue) === String(code);
 }
 
