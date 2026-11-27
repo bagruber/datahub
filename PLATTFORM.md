@@ -141,21 +141,14 @@ fällt damit unter die WCAG-AA-Grenze. Auf der getönten Karte übernimmt deshal
 Wer weitere getönte Flächen einführt, rechnet den Kontrast nach, statt die
 Textfarbe von der weißen Karte zu übernehmen.
 
-## Offen: Zählung einbinden
+## Zählung
 
-Die Zeile fehlt noch vor `</body>` in `index.html`, mit absolutem Pfad:
-
-```html
-<script src="/assets/zaehler.js" defer></script>
-```
-
-Dazu der Routenwechsel, denn diese App nutzt `createBrowserRouter`. In einer
-Layout-Komponente:
-
-```tsx
-const { pathname } = useLocation();
-useEffect(() => { window.zaehl?.(window.location.pathname); }, [pathname]);
-```
+Seit 27.11.2026 eingebunden: `index.html` lädt vor `</body>`
+`/assets/zaehler.js` mit absolutem Pfad (Vite warnt beim Build, dass es die
+Datei nicht bündelt; das ist gewollt). `Layout.tsx` meldet die Routenwechsel
+über `window.zaehl`. Den Einstieg zählt `zaehler.js` beim Laden selbst, deshalb
+meldet das Layout nur Pfade, die sich vom zuletzt gemeldeten unterscheiden;
+ein einfacher „erster Lauf“-Merker zählte unter StrictMode den Einstieg doppelt.
 
 Bewusst `window.location.pathname` und nicht das `pathname` aus
 `useLocation`: letzteres liefert den Pfad **ohne** den Basispfad, und der ist
