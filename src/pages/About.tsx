@@ -7,9 +7,11 @@ export function About() {
       <h1 className="headline text-display-2 mb-6">Data Hub Moosburg</h1>
       <div className="prose prose-stone max-w-none text-ink-soft space-y-4">
         <p>
-          Diese Seite bündelt Bürgerbefragungen und offene Daten der Stadt Moosburg
-          an der Isar. Ziel ist Transparenz: was wurde gefragt, wer hat geantwortet,
-          und was sagen die Zahlen.
+          Diese Seite bündelt Umfragen, Statistik und Wahlen zu Moosburg an der Isar.
+          Sie ist ein bürgerschaftliches Projekt, kein Auftritt der Stadt; amtlich ist{" "}
+          <a href="https://www.moosburg.de" className="text-red-700 underline decoration-dotted">moosburg.de</a>.
+          Ziel ist Transparenz: was wurde gefragt, wer hat geantwortet, und was sagen
+          die Zahlen.
         </p>
         <p>
           Die Auswertungen sind bewusst zurückhaltend gestaltet — eine Frage, eine

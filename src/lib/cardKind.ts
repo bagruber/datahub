@@ -4,7 +4,7 @@
  *  Zahlen? Deshalb wandert jeweils der ganze Grundton mit, statt einen
  *  Farbstreifen an eine Kante zu heften.
  *
- *  - umfrage:   Die Stadt hat gefragt, Menschen haben geantwortet.
+ *  - umfrage:   Jemand hat gefragt, Menschen haben geantwortet.
  *               Weißer Grund, roter Akzent — die Hausfarbe.
  *  - statistik: Amtlich erhoben, von uns nur aufbereitet.
  *               Pergamentener Grund, goldener Akzent.

@@ -135,7 +135,7 @@ function UeberDasProjekt() {
               Umfragen, amtliche Statistik und Karten aus Moosburg, interaktiv aufbereitet.
             </p>
             <p className="mt-3 rounded-md bg-cream-dark px-3 py-2 text-sm text-ink-soft">
-              Privates Projekt, kein Auftritt der Stadt. Verbindlich sind die jeweiligen Quellen.
+              Bürgerschaftliches Projekt, kein Auftritt der Stadt. Verbindlich sind die jeweiligen Quellen.
             </p>
             <ul className="mt-3 text-[15px]">
               <li>
