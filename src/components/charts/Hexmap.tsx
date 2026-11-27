@@ -650,6 +650,15 @@ function Herkunft({ ebene }: { ebene: WahlEbene }) {
             </dd>
           </div>
         ))}
+        {/* Lizenzpflicht: Die Angabe gehört zu jeder Darstellung dieser Geometrien. */}
+        <dt className="font-semibold">Gemeindegrenzen und Einwohner</dt>
+        <dd className="text-ink-soft">
+          <span className="text-ink">Verwaltungsgebiete 1:250 000 (VG250-EW)</span>, © GeoBasis-DE / BKG 2026,{" "}
+          <a href="https://www.govdata.de/dl-de/by-2-0" className="underline decoration-dotted hover:text-ink">
+            dl-de/by-2-0
+          </a>
+          .
+        </dd>
       </dl>
     </div>
   );
