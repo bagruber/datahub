@@ -103,6 +103,8 @@ export function Dataset() {
   const sortedSections = [...dataset.sections].sort((a, b) => a.order - b.order);
   const active = activeCount(selections);
   const style = CARD_KIND[dataset.kind === "statistik" ? "statistik" : dataset.kind === "eigen" ? "eigen" : "umfrage"];
+  // Statistik und eigene Auswertungen tragen ihre Zahlen im Diagramm, nicht als Einzelantworten.
+  const ohneAntworten = dataset.kind === "statistik" || dataset.kind === "eigen";
 
   const updateSelections = (next: typeof selections) =>
     setSearchParams(writeSelections(searchParams, next, dataset.filters), {
@@ -165,7 +167,7 @@ export function Dataset() {
           Data Hub
         </Link>
         <KategorieZeile icon={style.icon} className="relative mt-6 flex text-gold-200">
-          {dataset.kind === "statistik"
+          {ohneAntworten
             ? [style.label, dataset.meta.source].filter(Boolean).join(" · ")
             : `${style.label} ${dataset.meta.year}`}
         </KategorieZeile>
@@ -174,7 +176,7 @@ export function Dataset() {
           <p className="relative mt-4 max-w-prose text-lg">{dataset.meta.description}</p>
         )}
         <div className="relative mt-8 flex flex-wrap gap-x-8 gap-y-5 sm:gap-x-12">
-          {dataset.kind === "statistik" ? (
+          {ohneAntworten ? (
             <>
               <Kennzahl wert={dataset.meta.year} label="Stand" className="text-gold-200" labelClassName="text-cream" />
               <Kennzahl wert={fmtInt(entry.n)} label="Datenpunkte" className="text-gold-200" labelClassName="text-cream" />
@@ -279,7 +281,7 @@ export function Dataset() {
                 {/* Survey charts read from records and need the "no matches"
                     guard. Statistik charts carry their data inline, so an
                     empty records[] is the normal case and not an error. */}
-                {dataset.kind !== "statistik" && filteredRecords.length === 0 ? (
+                {!ohneAntworten && filteredRecords.length === 0 ? (
                   <p className="text-ink-muted text-sm py-8 text-center">
                     Keine Antworten passen zum aktuellen Filter.
                   </p>

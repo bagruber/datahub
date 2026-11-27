@@ -62,7 +62,7 @@ export function Home() {
           <Gruppe
             titel="Statistik, Wahlen und Studien"
             satz="Von anderen erhoben, hier aufbereitet."
-            eintraege={manifest.datasets.filter((d) => d.kind === "statistik" || d.kind === "studie")}
+            eintraege={manifest.datasets.filter((d) => d.kind === "statistik" || d.kind === "eigen" || d.kind === "studie")}
           />
         </>
       )}

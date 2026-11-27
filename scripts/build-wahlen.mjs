@@ -173,7 +173,8 @@ const datensatz = {
       "wahlweise die Größe ihres Rats oder ihre Einwohnerzahl. Zwischen beidem liegt Faktor neun.",
     source: "Landesamt für Statistik und Wahlleitungen",
   },
-  kind: "statistik",
+  // Eigene Auswertung amtlicher Ergebnisse, keine amtliche Statistik.
+  kind: "eigen",
   codebook: {},
   filters: [],
   sections: [
@@ -220,7 +221,7 @@ const eintrag = {
   title: "Kommunalwahl",
   year: 2026,
   n: sitzeGesamt,
-  kind: "statistik",
+  kind: "eigen",
   satz: "Gemeinde- und Stadtratswahlen vom 8. März 2026 im Landkreis Freising als Kartogramm.",
   quelle: "Landesamt für Statistik und Wahlleitungen",
 };

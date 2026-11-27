@@ -13,7 +13,7 @@ export function DatasetCard({ entry, variante }: { entry: ManifestEntry; variant
     entry.kind === "statistik" || entry.kind === "eigen" || entry.kind === "studie" ? entry.kind : "umfrage";
   const style = CARD_KIND[kind];
   // Fremde Erhebungen tragen Satz und Quelle; „440 Datenpunkte“ sagt dort nichts.
-  const extern = kind === "statistik" || kind === "studie";
+  const extern = kind === "statistik" || kind === "eigen" || kind === "studie";
 
   return (
     <Kachel
