@@ -3,10 +3,11 @@ import * as Plot from "@observablehq/plot";
 import { PlotFigure } from "@/lib/Plot";
 import { divergingStack } from "@/lib/diverging";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { CREAM, INK, RADIUS, STROKE } from "@/lib/palette";
+import { BALKEN, EINZEL, INK, INK_MUTED, KERBE, NEUTRAL, SERIE } from "@/lib/palette";
 import { useIsMobile } from "@/lib/useIsMobile";
 import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
+import { Skalenleiste } from "./Skalenleiste";
 import type { Dataset } from "@/lib/data";
 
 type Option = { value: number; label: string; color: string };
@@ -19,152 +20,131 @@ type Props = {
   title?: string;
 };
 
-type Row = {
-  label: string;
-  color: string;
-  share: number;
-  count: number;
-  n: number;
-  x1: number;
-  x2: number;
-  row: string;
-};
+/** Zwei Seiten einer Wahl, keine Wertung: Isar-Blau gegen Gold statt Rot gegen
+ *  Blau, das wie schlecht gegen gut gelesen würde. Die Mitte bleibt neutral.
+ *  Die Farben im Datensatz werden wie überall ignoriert. */
+const FARBEN = [EINZEL, NEUTRAL, SERIE[2]] as const;
 
-/** Diverging 3-option bar: option 0 extends left of centre, option 1 (the
- *  "neutral" / undecided) straddles 0, option 2 extends right of centre.
- *  Percentages live OUTSIDE the bar (left edge for the left option, right
- *  edge for the right option), matching the BarH end-of-bar convention.
- *  Centre option's percentage is omitted from the chart and read from the
- *  legend, since it has no "side" of its own. */
+// Zeilenmaße wie bei den Likert-Diagrammen. Ohne Band-Padding ist das Band
+// genau eine Zeile hoch, der Balken genau BALKEN.
+const ZEILE = 44;
+const INSET_UNTEN = 24;
+const INSET_OBEN = ZEILE - INSET_UNTEN - BALKEN;
+const BALKEN_UNTEN = ZEILE - INSET_UNTEN;
+
+type Segment = { idx: number; label: string; anzahl: number; anteil: number; n: number; x1: number; x2: number };
+
+/** Eine Wahl zwischen zwei Optionen mit unentschiedener Mitte, gebaut wie eine
+ *  Likert-Zeile: Die Mitte des neutralen Balkens liegt auf der Mittellinie,
+ *  die Anteile beider Seiten stehen außen, der neutrale darunter. */
 export function Diverging3({ records, source, options }: Props) {
   const isMobile = useIsMobile();
 
-  const data: Row[] = useMemo(() => {
-    let answered = 0;
-    const counts = new Map<number, number>();
-    options.forEach((o) => counts.set(o.value, 0));
+  const segmente: Segment[] = useMemo(() => {
+    let n = 0;
+    const counts = options.map(() => 0);
     for (const r of records) {
-      const v = r[source];
-      if (typeof v !== "number" || !counts.has(v)) continue;
-      answered++;
-      counts.set(v, counts.get(v)! + 1);
+      const i = options.findIndex((o) => o.value === r[source]);
+      if (i < 0) continue;
+      n++;
+      counts[i]++;
     }
-    const shares = options.map((o) => (answered === 0 ? 0 : counts.get(o.value)! / answered));
-    const segs = divergingStack(shares, { negative: [0], center: 1, positive: [2] });
-    return segs.map((seg) => {
-      const o = options[seg.idx];
-      return {
-        label: o.label,
-        color: o.color,
-        count: counts.get(o.value)!,
-        share: shares[seg.idx],
-        n: answered,
-        x1: seg.x1,
-        x2: seg.x2,
-        row: "all",
-      };
-    });
+    const anteile = counts.map((c) => (n === 0 ? 0 : c / n));
+    return divergingStack(anteile, { negative: [0], center: 1, positive: [2] }).map((seg) => ({
+      idx: seg.idx,
+      label: options[seg.idx].label,
+      anzahl: counts[seg.idx],
+      anteil: anteile[seg.idx],
+      n,
+      x1: seg.x1,
+      x2: seg.x2,
+    }));
   }, [records, source, options]);
 
+  const extent = useMemo(() => {
+    const m = segmente.reduce((a, s) => Math.max(a, Math.abs(s.x1), Math.abs(s.x2)), 0);
+    return Math.max(0.5, Math.ceil(m * 10) / 10);
+  }, [segmente]);
+
   const fontPx = isMobile ? 11 : 13;
+  const balkenMitte = (INSET_OBEN - INSET_UNTEN) / 2;
 
-  // Plot's `dx` and `textAnchor` accept constants only — funcs/channels can
-  // silently no-op. So we render the left and right outside-percent labels
-  // with two separate marks, each with constant offsets.
-  const leftAnnot = useMemo(() => {
-    const left = data.find((d) => d.label === options[0].label);
-    return left ? [{ x: left.x1, share: left.share }] : [];
-  }, [data, options]);
-  const rightAnnot = useMemo(() => {
-    const right = data.find((d) => d.label === options[2].label);
-    return right ? [{ x: right.x2, share: right.share }] : [];
-  }, [data, options]);
-
-  const plotOptions: Plot.PlotOptions = useMemo(
-    () => ({
-      height: 120,
-      marginLeft: 76,
-      marginRight: 76,
-      marginTop: 36,
-      marginBottom: 28,
-      x: {
-        domain: [-1, 1],
-        label: null,
-        grid: false,
-        ticks: [-1, -0.5, 0, 0.5, 1],
-        tickFormat: (v: number) => `${Math.abs(Math.round(v * 100))}%`,
-      },
-      y: { domain: ["all"], axis: null },
-      color: {
-        type: "ordinal",
-        domain: options.map((o) => o.label),
-        range: options.map((o) => o.color),
-        legend: true,
-      },
-      style: {
-        fontFamily: "var(--font-sans)",
-        fontSize: `${fontPx}px`,
-        color: INK,
-      },
+  const plotOptions: Plot.PlotOptions = useMemo(() => {
+    const seite = (idx: number) => segmente.filter((s) => s.idx === idx);
+    return {
+      height: ZEILE,
+      marginTop: 0,
+      marginBottom: 0,
+      marginLeft: 56,
+      marginRight: 56,
+      x: { domain: [-extent, extent], axis: null, label: null },
+      y: { domain: ["alle"], axis: null, padding: 0 },
+      color: { type: "ordinal", domain: options.map((o) => o.label), range: [...FARBEN] },
+      style: { fontFamily: "var(--font-sans)", fontSize: `${fontPx}px`, color: INK },
       marks: [
-        Plot.barX(data, {
+        Plot.barX(segmente, {
           x1: "x1",
           x2: "x2",
-          y: "row",
+          y: () => "alle",
           fill: "label",
-          insetTop: 0,
-          insetBottom: 0,
-          rx: RADIUS.bar,
+          insetTop: INSET_OBEN,
+          insetBottom: INSET_UNTEN,
+          insetLeft: 0.5,
+          insetRight: 0.5,
           tip: true,
-          title: (d: Row) =>
-            `${d.label}\n${fmtInt(d.count)} von ${fmtInt(d.n)} Antworten\n${fmtPct(d.share)}`,
+          title: (d: Segment) => `${d.label}\n${fmtInt(d.anzahl)} von ${fmtInt(d.n)}\n${fmtPct(d.anteil)}`,
         }),
-        // Outside percentage labels — split into two marks because Plot only
-        // accepts constants for `dx`/`textAnchor`.
-        Plot.text(leftAnnot, {
-          x: "x",
-          y: () => "all",
-          text: (d: { share: number }) => fmtPct(d.share),
-          dx: -10,
+        // Kerben über und unter dem Balken, wie bei Likert.
+        Plot.tickX([0], { x: 0, y: () => "alle", insetTop: INSET_OBEN - 5, insetBottom: ZEILE - INSET_OBEN + 1, stroke: KERBE }),
+        Plot.tickX([0], { x: 0, y: () => "alle", insetTop: BALKEN_UNTEN + 1, insetBottom: ZEILE - BALKEN_UNTEN - 5, stroke: KERBE }),
+        // Beide Seiten gleich gewichtet: keine ist die „gute“.
+        Plot.text(seite(0), {
+          x: -extent,
+          y: () => "alle",
+          text: (d: Segment) => fmtPct(d.anteil),
           textAnchor: "end",
-          lineAnchor: "middle",
-          fontWeight: 700,
+          dx: -6,
+          dy: balkenMitte,
+          fontWeight: 600,
           fontSize: fontPx,
           fill: INK,
-          stroke: CREAM,
-          strokeWidth: 3,
-          paintOrder: "stroke",
-        } as never),
-        Plot.text(rightAnnot, {
-          x: "x",
-          y: () => "all",
-          text: (d: { share: number }) => fmtPct(d.share),
-          dx: 10,
+        }),
+        Plot.text(seite(2), {
+          x: extent,
+          y: () => "alle",
+          text: (d: Segment) => fmtPct(d.anteil),
           textAnchor: "start",
-          lineAnchor: "middle",
-          fontWeight: 700,
+          dx: 6,
+          dy: balkenMitte,
+          fontWeight: 600,
           fontSize: fontPx,
           fill: INK,
-          stroke: CREAM,
-          strokeWidth: 3,
-          paintOrder: "stroke",
-        } as never),
-        Plot.ruleX([0], { stroke: INK, strokeWidth: STROKE.centerRule }),
+        }),
+        Plot.text(seite(1), {
+          x: 0,
+          y: () => "alle",
+          text: (d: Segment) => `${fmtPct(d.anteil)} ${d.label}`,
+          dy: balkenMitte + 20,
+          fontSize: fontPx - 1,
+          fill: INK_MUTED,
+        }),
       ],
-    }),
-    [data, leftAnnot, rightAnnot, options, fontPx],
-  );
+    };
+  }, [segmente, extent, options, fontPx, balkenMitte]);
 
   return (
     <ChartFrame
-      width="wide"
       table={
         <ChartTable
           headers={["Option", "Anzahl", "Anteil"]}
-          rows={data.map((d) => [d.label, fmtInt(d.count), fmtPct(d.share)])}
+          rows={options.map((o, i) => {
+            const s = segmente.find((x) => x.idx === i);
+            return [o.label, fmtInt(s?.anzahl ?? 0), fmtPct(s?.anteil ?? 0)];
+          })}
         />
       }
     >
+      <Skalenleiste ramp={FARBEN} links={options[0].label} rechts={options[2].label} kerbe />
       <PlotFigure options={plotOptions} />
     </ChartFrame>
   );

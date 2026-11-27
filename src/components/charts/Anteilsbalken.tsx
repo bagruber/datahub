@@ -1,7 +1,11 @@
 import { useMemo } from "react";
+import * as Plot from "@observablehq/plot";
+import { PlotFigure } from "@/lib/Plot";
 import { fmtInt, fmtPct } from "@/lib/format";
-import { GOLD_REIHE, INK, INK_MUTED } from "@/lib/palette";
+import { BALKEN, GOLD_REIHE, INK, INK_MUTED, NAME_OBEN } from "@/lib/palette";
 import { asArray, asScalar, isAnswered } from "@/lib/record";
+import { useIsMobile } from "@/lib/useIsMobile";
+import { ChartFrame } from "./ChartFrame";
 import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
 
@@ -18,9 +22,12 @@ type Props = {
   title?: string;
 };
 
-const HOEHE = 30;
-const ZEILE = 64;
-const LABEL_BREITE = 96;
+// Zeilenmaße wie bei den Likert-Diagrammen: Balken oben, darunter die Werte.
+const ZEILE = 44;
+const INSET_UNTEN = 24;
+/** Ein Wert unter dem Balken braucht diesen Abstand (Anteil der Breite) zum
+ *  vorigen, sonst entfällt er; er steht dann noch im Tooltip und in der Tabelle. */
+const MIN_ABSTAND = 0.09;
 
 /** Stufe einer geordneten Skala: hell für die erste, dunkel für die letzte. */
 function tonFuer(i: number, n: number): string {
@@ -29,14 +36,19 @@ function tonFuer(i: number, n: number): string {
   return GOLD_REIHE[Math.round(pos)];
 }
 
-/** Anteilsbalken für geordnete Antworten: ein Balken über die volle Breite,
- *  die Stufen von hell nach dunkel. Probe Diagramme, vorläufig (18.09.2026):
- *  ersetzt den Ring, wo die Antworten eine Reihenfolge haben. */
+type Segment = { zeile: string; stufe: string; x1: number; x2: number; anteil: number; anzahl: number; n: number };
+
+/** Anteilsbalken für geordnete Antworten: ein schmaler Balken über die volle
+ *  Breite, die Stufen von hell nach dunkel, die Anteile darunter. Gleiche
+ *  Zeilenhöhe und Balkenstärke wie die Likert-Diagramme. */
 export function Anteilsbalken({ records, reihen, kategorien }: Props) {
-  const labels = kategorien.map((k) => k.label);
+  const isMobile = useIsMobile();
+  const labels = useMemo(() => kategorien.map((k) => k.label), [kategorien]);
+  const toene = useMemo(() => labels.map((_, i) => tonFuer(i, labels.length)), [labels]);
+
   const zeilen = useMemo(
     () =>
-      reihen.map((reihe) => {
+      reihen.map((reihe, ri) => {
         const counts = kategorien.map(() => 0);
         let n = 0;
         for (const r of records) {
@@ -48,92 +60,134 @@ export function Anteilsbalken({ records, reihen, kategorien }: Props) {
           counts[treffer]++;
           n++;
         }
-        return { label: reihe.label, n, counts, anteile: counts.map((c) => (n === 0 ? 0 : c / n)) };
+        return {
+          schluessel: reihe.label ?? String(ri),
+          label: reihe.label,
+          n,
+          counts,
+          anteile: counts.map((c) => (n === 0 ? 0 : c / n)),
+        };
       }),
     [records, reihen, kategorien],
   );
 
+  const segmente = useMemo(
+    () =>
+      zeilen.flatMap((z) => {
+        let x = 0;
+        return z.anteile.map((anteil, i): Segment => {
+          const s = { zeile: z.schluessel, stufe: labels[i], x1: x, x2: x + anteil, anteil, anzahl: z.counts[i], n: z.n };
+          x += anteil;
+          return s;
+        });
+      }),
+    [zeilen, labels],
+  );
+
+  // Je Zeile von links nach rechts: ein Wert, der dem vorigen zu nahe käme, entfällt.
+  const werte = useMemo(() => {
+    const out: (Segment & { mitte: number })[] = [];
+    for (const z of zeilen) {
+      let zuletzt = -Infinity;
+      for (const s of segmente.filter((s) => s.zeile === z.schluessel && s.anteil > 0)) {
+        const mitte = (s.x1 + s.x2) / 2;
+        if (mitte - zuletzt < MIN_ABSTAND) continue;
+        out.push({ ...s, mitte });
+        zuletzt = mitte;
+      }
+    }
+    return out;
+  }, [zeilen, segmente]);
+
   const mitZeilenName = zeilen.some((z) => z.label);
-  const links = mitZeilenName ? LABEL_BREITE : 0;
-  const breite = 640;
-  const plot = breite - links;
-  const hoehe = zeilen.length * ZEILE;
+  const nameOben = isMobile && mitZeilenName;
+  // Am Handy steht der Zeilenname über dem Balken statt links davon.
+  const zeile = ZEILE + (nameOben ? NAME_OBEN : 0);
+  // Ohne Band-Padding ist das Band genau eine Zeile hoch, der Balken genau BALKEN.
+  const insetTop = zeile - INSET_UNTEN - BALKEN;
+  // Mitte des Balkens relativ zur Mitte des Bands.
+  const balkenMitte = (insetTop - INSET_UNTEN) / 2;
+  const fontPx = isMobile ? 11 : 13;
+
+  const options: Plot.PlotOptions = useMemo(
+    () => ({
+      height: zeilen.length * zeile + 8,
+      marginTop: 4,
+      marginBottom: 4,
+      // Etwas Rand, damit ein Wert unter einer schmalen Endstufe nicht abgeschnitten wird.
+      marginLeft: mitZeilenName && !nameOben ? 96 : 12,
+      marginRight: 12,
+      x: { domain: [0, 1], axis: null, label: null },
+      y: { domain: zeilen.map((z) => z.schluessel), axis: null, label: null, padding: 0 },
+      color: { type: "ordinal", domain: labels, range: toene },
+      style: { fontFamily: "var(--font-sans)", fontSize: `${fontPx}px`, color: INK },
+      marks: [
+        ...(mitZeilenName && !nameOben
+          ? [Plot.axisY({ tickSize: 0, fontSize: 12, color: INK_MUTED, lineWidth: 8, dy: balkenMitte })]
+          : []),
+        ...(nameOben
+          ? [
+              Plot.text(zeilen, {
+                x: 0,
+                y: "schluessel",
+                text: "label",
+                textAnchor: "start",
+                dy: balkenMitte - 16,
+                fontSize: fontPx,
+                fill: INK_MUTED,
+              }),
+            ]
+          : []),
+        Plot.barX(segmente, {
+          x1: "x1",
+          x2: "x2",
+          y: "zeile",
+          fill: "stufe",
+          insetTop,
+          insetBottom: INSET_UNTEN,
+          // 1 px Fuge zwischen den Stufen, wie bei Likert.
+          insetLeft: 0.5,
+          insetRight: 0.5,
+          tip: true,
+          title: (d: Segment) => `${d.stufe}\n${fmtInt(d.anzahl)} von ${fmtInt(d.n)}\n${fmtPct(d.anteil)}`,
+        }),
+        Plot.text(werte, {
+          x: "mitte",
+          y: "zeile",
+          text: (d: Segment) => fmtPct(d.anteil),
+          dy: balkenMitte + 20,
+          fontSize: fontPx - 1,
+          fontWeight: 600,
+          fill: INK,
+        }),
+      ],
+    }),
+    [zeilen, zeile, mitZeilenName, nameOben, labels, toene, fontPx, segmente, insetTop, balkenMitte, werte],
+  );
 
   return (
-    <figure>
-      <div className="mb-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-soft">
+    <ChartFrame
+      table={
+        <ChartTable
+          headers={[mitZeilenName ? "Frage" : "Antwort", ...(mitZeilenName ? labels : ["Antworten", "Anteil"])]}
+          rows={
+            mitZeilenName
+              ? zeilen.map((z) => [z.label ?? "", ...z.anteile.map((a) => fmtPct(a))])
+              : labels.map((l, i) => [l, fmtInt(zeilen[0]?.counts[i] ?? 0), fmtPct(zeilen[0]?.anteile[i] ?? 0)])
+          }
+        />
+      }
+    >
+      {/* Legende wie die Skalenleiste der Likert-Diagramme, mit allen Stufen. */}
+      <div className="mb-3 flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-xs text-ink-muted">
         {labels.map((l, i) => (
           <span key={l} className="inline-flex items-center gap-1.5">
-            <span aria-hidden className="inline-block h-2.5 w-2.5 rounded-sm" style={{ background: tonFuer(i, labels.length) }} />
+            <span aria-hidden className="block h-[5px] w-[22px] rounded-sm" style={{ background: toene[i] }} />
             {l}
           </span>
         ))}
       </div>
-
-      <svg
-        viewBox={`0 0 ${breite} ${hoehe}`}
-        width="100%"
-        role="img"
-        aria-label={`${labels.join(", ")}: die Zahlen stehen in der Tabelle darunter`}
-      >
-        {zeilen.map((zeile, zi) => {
-          const y = zi * ZEILE + 8;
-          let x = links;
-          return (
-            <g key={zeile.label ?? zi}>
-              {zeile.label && (
-                <text x={links - 10} y={y + HOEHE / 2} textAnchor="end" dominantBaseline="middle" fill={INK} style={{ fontSize: 13 }}>
-                  {zeile.label}
-                </text>
-              )}
-              {zeile.anteile.map((anteil, i) => {
-                const w = plot * anteil;
-                const links_x = x;
-                x += w;
-                if (w <= 0) return null;
-                const ton = tonFuer(i, labels.length);
-                const dunkel = i >= labels.length / 2;
-                return (
-                  <g key={i}>
-                    <rect x={links_x + 0.5} y={y} width={Math.max(0, w - 1)} height={HOEHE} fill={ton} />
-                    {w > 40 ? (
-                      <text
-                        x={links_x + w / 2}
-                        y={y + HOEHE / 2}
-                        textAnchor="middle"
-                        dominantBaseline="middle"
-                        fill={dunkel ? "#fff" : INK}
-                        style={{ fontSize: 12, fontWeight: 600, fontVariantNumeric: "lining-nums tabular-nums" }}
-                      >
-                        {fmtPct(anteil)}
-                      </text>
-                    ) : (
-                      <text
-                        x={links_x + w / 2}
-                        y={y + HOEHE + 13}
-                        textAnchor="middle"
-                        fill={INK_MUTED}
-                        style={{ fontSize: 11, fontVariantNumeric: "lining-nums tabular-nums" }}
-                      >
-                        {fmtPct(anteil)}
-                      </text>
-                    )}
-                  </g>
-                );
-              })}
-            </g>
-          );
-        })}
-      </svg>
-
-      <ChartTable
-        headers={[mitZeilenName ? "Frage" : "Antwort", ...(mitZeilenName ? labels : ["Antworten", "Anteil"])]}
-        rows={
-          mitZeilenName
-            ? zeilen.map((z) => [z.label ?? "", ...z.anteile.map((a) => fmtPct(a))])
-            : labels.map((l, i) => [l, fmtInt(zeilen[0]?.counts[i] ?? 0), fmtPct(zeilen[0]?.anteile[i] ?? 0)])
-        }
-      />
-    </figure>
+      <PlotFigure options={options} ariaLabel={`${labels.join(", ")}: die Zahlen stehen in der Tabelle darunter`} />
+    </ChartFrame>
   );
 }

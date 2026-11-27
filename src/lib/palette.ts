@@ -68,6 +68,12 @@ export const RADIUS = {
   hero: 8,       // Datensatz-Kacheln, Popover
 } as const;
 
+/** Balkenstärke, wo ein Diagramm sie fest setzt statt über das Band-Padding:
+ *  so dick, wie Likert und BarH ihre Balken tatsächlich zeichnen (7 bis 9 px). */
+export const BALKEN = 8;
+/** Am Handy steht die Bezeichnung über dem Balken; so viel Höhe kommt je Zeile dazu. */
+export const NAME_OBEN = 18;
+
 // Strichstärken. Gefüllte Datenmarken tragen keinen Rand; Umrisse (Venn,
 // Spinnennetz) nutzen die eigene Farbe der Marke.
 export const STROKE = {
