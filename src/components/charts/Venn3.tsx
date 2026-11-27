@@ -1,7 +1,8 @@
-import { useEffect, useId, useMemo, useState } from "react";
+import { useId, useMemo } from "react";
 import { fmtInt, fmtPct } from "@/lib/format";
 import { INK, INK_MUTED, SERIE, STROKE } from "@/lib/palette";
-import { loeseEllipsen, type Ellipse, type Loesung } from "@/lib/vennEllipsen";
+import { loeseEllipsen, SCHLUESSEL, type Ellipse } from "@/lib/vennEllipsen";
+import { platziere } from "@/lib/vennBeschriftung";
 import { ChartTable } from "./ChartTable";
 import type { Dataset } from "@/lib/data";
 
@@ -17,12 +18,10 @@ const BREITE = 520;
 const HOEHE = 380;
 const RAND = 54;
 
-/** Die sieben Gebiete als Bitmuster, in der Reihenfolge des Lösers. */
-const SCHLUESSEL = ["100", "010", "001", "110", "101", "011", "111"] as const;
-
-/** Venn-Diagramm mit drei Mengen. Probe Diagramme, vorläufig (18.09.2026):
+/** Diagramm mit drei Mengen. Probe Diagramme, vorläufig (18.09.2026):
  *  flächentreu über drei Ellipsen, Schnittmengen in Schraffur aus den Farben
- *  ihrer Mengen. Findet der Löser keine Lage, stehen schematische Kreise. */
+ *  ihrer Mengen. Gebiete ohne Antworten fehlen (Euler, nicht Venn). Findet der
+ *  Löser keine Lage, stehen schematische Kreise. */
 export function Venn3({ records, source, values, labels }: Props) {
   const farben = [SERIE[0], SERIE[1], SERIE[2]];
   const id = useId().replace(/[:]/g, "");
@@ -47,7 +46,7 @@ export function Venn3({ records, source, values, labels }: Props) {
     }
     const gesamt = onlyA + onlyB + onlyC + ab + ac + bc + abc;
     return {
-      gebiete: { "100": onlyA, "010": onlyB, "001": onlyC, "110": ab, "101": ac, "011": bc, "111": abc },
+      gebiete: { "100": onlyA, "010": onlyB, "001": onlyC, "110": ab, "101": ac, "011": bc, "111": abc } as Record<string, number>,
       summen: [onlyA + ab + ac + abc, onlyB + ab + bc + abc, onlyC + ac + bc + abc],
       gesamt,
       keine,
@@ -55,26 +54,7 @@ export function Venn3({ records, source, values, labels }: Props) {
   }, [records, source, values]);
 
   // Die Suche läuft nur, wenn sich die Zahlen ändern — also beim Filtern.
-  // Die schnelle Suche reicht fast immer. Ist ein Gebiet leer (etwa niemand nur
-  // am Freitag), müssen sich Ellipsen genau berühren, und die Lage findet sich
-  // im Browser erst nach bis zu vier Sekunden. Die sucht dann ein Worker weiter.
-  const sofort = useMemo(
-    () => (zahlen.gesamt > 0 ? loeseEllipsen(zahlen.gebiete, 180) : null),
-    [zahlen],
-  );
-  const [nachgesucht, setNachgesucht] = useState<{ fuer: typeof zahlen; loesung: Loesung | null } | null>(null);
-  useEffect(() => {
-    if (sofort || zahlen.gesamt === 0) return;
-    const worker = new Worker(new URL("../../lib/vennWorker.ts", import.meta.url), { type: "module" });
-    worker.onmessage = (e: MessageEvent<Loesung | null>) => {
-      setNachgesucht({ fuer: zahlen, loesung: e.data });
-      worker.terminate();
-    };
-    worker.postMessage({ gebiete: zahlen.gebiete, budgetMs: 5000 });
-    return () => worker.terminate();
-  }, [sofort, zahlen]);
-  const sucht = !sofort && zahlen.gesamt > 0 && nachgesucht?.fuer !== zahlen;
-  const loesung = sofort ?? (nachgesucht?.fuer === zahlen ? nachgesucht.loesung : null);
+  const loesung = useMemo(() => (zahlen.gesamt > 0 ? loeseEllipsen(zahlen.gebiete) : null), [zahlen]);
 
   const tabelle = (
     <ChartTable
@@ -92,21 +72,6 @@ export function Venn3({ records, source, values, labels }: Props) {
 
   if (zahlen.gesamt === 0) {
     return <p className="py-8 text-center text-sm text-ink-muted">Keine Antworten mit Angabe.</p>;
-  }
-
-  if (sucht) {
-    // Platzhalter in der Größe des Diagramms, damit die Seite nicht springt.
-    return (
-      <figure>
-        <div
-          className="flex w-full max-w-[520px] items-center justify-center text-sm text-ink-muted"
-          style={{ aspectRatio: `${BREITE} / ${HOEHE}` }}
-        >
-          Flächentreue Lage wird berechnet …
-        </div>
-        {tabelle}
-      </figure>
-    );
   }
 
   if (!loesung) {
@@ -138,6 +103,17 @@ export function Venn3({ records, source, values, labels }: Props) {
   });
 
   const paare: [number, number][] = [[0, 1], [0, 2], [1, 2]];
+  const zahlPx = (s: string) => (zahlen.gebiete[s] / zahlen.gesamt > 0.2 ? 18 : 14);
+  const orte = platziere({
+    ellipsen,
+    zentren,
+    abbildung: { X, Y, k },
+    breite: BREITE,
+    hoehe: HOEHE,
+    // Gebiete ohne Antworten gibt es in der Zeichnung nicht, also auch keine Zahl.
+    zahlen: SCHLUESSEL.filter((s) => zahlen.gebiete[s] > 0).map((s) => ({ s, text: fmtInt(zahlen.gebiete[s]), px: zahlPx(s) })),
+    namen: labels.map((l, i) => ({ zeile1: l, zeile2: `${fmtInt(zahlen.summen[i])} Antworten` })),
+  });
 
   return (
     <figure>
@@ -184,40 +160,45 @@ export function Venn3({ records, source, values, labels }: Props) {
           <ellipse key={`r${i}`} {...ellipseAttr(e)} fill="none" stroke={farben[i]} strokeWidth={STROKE.outline} />
         ))}
 
-        {SCHLUESSEL.map((s) => {
-          const z = zentren[s];
-          const wert = zahlen.gebiete[s];
-          if (!z || wert === 0) return null;
-          return (
+        {orte.zahlen.map(({ s, x, y, linie }) => (
+          <g key={s}>
+            {/* Zu schmales Gebiet: die Zahl steht daneben und zeigt hinein. */}
+            {linie && (
+              <>
+                <line x1={linie.x} y1={linie.y} x2={x} y2={y} stroke={INK_MUTED} strokeWidth={0.75} />
+                <circle cx={linie.x} cy={linie.y} r={1.75} fill={INK} />
+                <rect x={x - 12} y={y - 9} width={24} height={18} fill="white" opacity={0.85} rx={3} />
+              </>
+            )}
             <text
-              key={s}
-              x={X(z.x)}
-              y={Y(z.y)}
+              x={x}
+              y={y}
               textAnchor="middle"
               dominantBaseline="middle"
               fill={INK}
               style={{
                 fontFamily: "var(--font-display)",
                 fontWeight: 600,
-                fontSize: wert / zahlen.gesamt > 0.2 ? 18 : 14,
+                fontSize: zahlPx(s),
                 fontVariantNumeric: "lining-nums tabular-nums",
               }}
             >
-              {fmtInt(wert)}
+              {fmtInt(zahlen.gebiete[s])}
             </text>
-          );
-        })}
+          </g>
+        ))}
 
-        {/* Legende wie im Venn mit zwei Mengen: Name in der Mengenfarbe, darunter
-            die Summe — außen an der eigenen Form, nicht in einer festen Ecke. */}
+        {/* Name in der Mengenfarbe, darunter die Summe — außen an der eigenen
+            Form, wo am wenigsten anderes im Weg ist. */}
         {labels.map((l, i) => {
-          const stellen = beschriftungsOrt(ellipsen, i, X, Y, k);
+          const kasten = orte.namen[i];
+          const x = kasten.x + kasten.w / 2;
           return (
             <g key={l}>
-              <text x={stellen.x} y={stellen.y} textAnchor={stellen.anchor} fill={farben[i]} style={{ fontSize: 13, fontWeight: 700 }}>
+              <text x={x} y={kasten.y + 12} textAnchor="middle" fill={farben[i]} style={{ fontSize: 13, fontWeight: 700 }}>
                 {l}
               </text>
-              <text x={stellen.x} y={stellen.y + 15} textAnchor={stellen.anchor} fill={INK_MUTED} style={{ fontSize: 11 }}>
+              <text x={x} y={kasten.y + 27} textAnchor="middle" fill={INK_MUTED} style={{ fontSize: 11 }}>
                 {fmtInt(zahlen.summen[i])} Antworten
               </text>
             </g>
@@ -232,30 +213,6 @@ export function Venn3({ records, source, values, labels }: Props) {
       {tabelle}
     </figure>
   );
-}
-
-/** Ort für den Namen einer Menge: außen an ihrer Ellipse, vom Mittelpunkt aller
- *  Formen weg, innerhalb der Zeichenfläche. */
-function beschriftungsOrt(
-  ellipsen: Ellipse[],
-  i: number,
-  X: (x: number) => number,
-  Y: (y: number) => number,
-  k: number,
-): { x: number; y: number; anchor: "start" | "middle" | "end" } {
-  const mx = ellipsen.reduce((a, e) => a + X(e.cx), 0) / ellipsen.length;
-  const my = ellipsen.reduce((a, e) => a + Y(e.cy), 0) / ellipsen.length;
-  const ex = X(ellipsen[i].cx);
-  const ey = Y(ellipsen[i].cy);
-  let dx = ex - mx;
-  let dy = ey - my;
-  const laenge = Math.hypot(dx, dy) || 1;
-  dx /= laenge;
-  dy /= laenge;
-  const weite = Math.max(ellipsen[i].a, ellipsen[i].b) * k + 26;
-  const x = Math.min(BREITE - 10, Math.max(10, ex + dx * weite));
-  const y = Math.min(HOEHE - 18, Math.max(16, ey + dy * weite));
-  return { x, y, anchor: Math.abs(dx) < 0.35 ? "middle" : dx > 0 ? "end" : "start" };
 }
 
 function gebietName(s: string, labels: string[]): string {
